@@ -48,3 +48,7 @@ in the real `pages/index.tsx` 1:1.
   `/account/signin` uses the logo-only header with no footer — as the live screenshots show.
 - **Snapshot size:** each department has ~15 products, so category grids are padded with other departments'
   products while the count and "Page 1 of N" use the real Magento totals.
+- **Brands:** product brand and manufacturer come from Magento's `brand` / `manufacturer` attributes
+  (`custom_attributesV2`, as the live PDP reads them), stored as `brand_label` / `manufacturer_label` by
+  `node scripts/seed.mjs --enrich-brands`. Products without a brand hide the brand label, the "Explore more from"
+  box and the Brand row, like the live site. Labels are shown as Magento stores them (e.g. "Nastle").

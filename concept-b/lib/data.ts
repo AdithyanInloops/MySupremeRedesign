@@ -35,6 +35,9 @@ export type Product = {
   description?: { html: string } | null
   categories: { name: string; url_key: string }[]
   department: string
+  /** Magento `brand` / `manufacturer` option labels (custom_attributesV2), null when the product has none. */
+  brand_label: string | null
+  manufacturer_label: string | null
 }
 
 export type Aggregation = { label: string; attribute_code: string; count: number; options: { label: string; value: string; count: number }[] }

@@ -46,7 +46,9 @@
         "url_key": "cutlery-kit"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Value+",
+    "manufacturer_label": "Value+"
   },
   {
     "__typename": "SimpleProduct",
@@ -95,7 +97,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -144,7 +148,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -193,7 +199,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -242,12 +250,14 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
     "sku": "TC00906",
-    "name": "Eco-Craze \u2013 MFPP Clamshell Vented Cont. \u2013 9\"x5.5\"x2.6\" \u2013 Extra Heavy Duty Microwavable Black Base with Clear Anti-Fog Lid \u2013 A905",
+    "name": "Eco-Craze – MFPP Clamshell Vented Cont. – 9\"x5.5\"x2.6\" – Extra Heavy Duty Microwavable Black Base with Clear Anti-Fog Lid – A905",
     "url_key": "rb-cake-board-8x2mm",
     "uom": "pcs",
     "small_image": {
@@ -292,7 +302,9 @@
       }
     ],
     "department": "packaging",
-    "_test": "long-name"
+    "_test": "long-name",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -341,7 +353,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -390,7 +404,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -439,7 +455,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -488,7 +506,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -537,7 +557,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -586,7 +608,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -635,7 +659,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -684,7 +710,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -733,7 +761,9 @@
         "url_key": "plastic-takeout-containers"
       }
     ],
-    "department": "packaging"
+    "department": "packaging",
+    "brand_label": "Roots Baker",
+    "manufacturer_label": "Roots Baker"
   },
   {
     "__typename": "SimpleProduct",
@@ -782,7 +812,9 @@
         "url_key": "spices-seasonings"
       }
     ],
-    "department": "grocery"
+    "department": "grocery",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -831,7 +863,9 @@
         "url_key": "spices-seasonings"
       }
     ],
-    "department": "grocery"
+    "department": "grocery",
+    "brand_label": "Spices Gourmet",
+    "manufacturer_label": "Spices Gourmet"
   },
   {
     "__typename": "SimpleProduct",
@@ -880,7 +914,9 @@
         "url_key": "nuts-dry-food"
       }
     ],
-    "department": "grocery"
+    "department": "grocery",
+    "brand_label": "Nikita",
+    "manufacturer_label": "Nikita"
   },
   {
     "__typename": "SimpleProduct",
@@ -929,7 +965,9 @@
         "url_key": "bulk-rice"
       }
     ],
-    "department": "grocery"
+    "department": "grocery",
+    "brand_label": "Rani Mahal",
+    "manufacturer_label": "Pitma Food Inc"
   },
   {
     "__typename": "SimpleProduct",
@@ -978,7 +1016,9 @@
         "url_key": "beans-peas"
       }
     ],
-    "department": "grocery"
+    "department": "grocery",
+    "brand_label": "APNA",
+    "manufacturer_label": "APNA"
   },
   {
     "__typename": "SimpleProduct",
@@ -1028,7 +1068,9 @@
       }
     ],
     "department": "grocery",
-    "_test": "no-image"
+    "_test": "no-image",
+    "brand_label": "Dole",
+    "manufacturer_label": "Maoli"
   },
   {
     "__typename": "SimpleProduct",
@@ -1078,7 +1120,9 @@
       }
     ],
     "department": "grocery",
-    "_test": "no-image"
+    "_test": "no-image",
+    "brand_label": "Roltios",
+    "manufacturer_label": "Horizon"
   },
   {
     "__typename": "SimpleProduct",
@@ -1128,7 +1172,9 @@
       }
     ],
     "department": "grocery",
-    "_test": "no-image"
+    "_test": "no-image",
+    "brand_label": "Roltios",
+    "manufacturer_label": "Horizon"
   },
   {
     "__typename": "SimpleProduct",
@@ -1183,7 +1229,9 @@
       }
     ],
     "department": "grocery",
-    "_test": "sale"
+    "_test": "sale",
+    "brand_label": "Roltios",
+    "manufacturer_label": "Horizon"
   },
   {
     "__typename": "SimpleProduct",
@@ -1232,7 +1280,9 @@
         "url_key": "pickles"
       }
     ],
-    "department": "grocery"
+    "department": "grocery",
+    "brand_label": "National",
+    "manufacturer_label": "National Food"
   },
   {
     "__typename": "SimpleProduct",
@@ -1281,7 +1331,9 @@
         "url_key": "pickles"
       }
     ],
-    "department": "grocery"
+    "department": "grocery",
+    "brand_label": "National",
+    "manufacturer_label": "National Food"
   },
   {
     "__typename": "SimpleProduct",
@@ -1336,7 +1388,9 @@
       }
     ],
     "department": "grocery",
-    "_test": "sale"
+    "_test": "sale",
+    "brand_label": "APNA",
+    "manufacturer_label": "A1 Cash & Carry"
   },
   {
     "__typename": "SimpleProduct",
@@ -1385,7 +1439,9 @@
         "url_key": "spices-seasonings"
       }
     ],
-    "department": "grocery"
+    "department": "grocery",
+    "brand_label": "SHAN",
+    "manufacturer_label": "Dairy Max"
   },
   {
     "__typename": "SimpleProduct",
@@ -1439,7 +1495,9 @@
         "url_key": "spices-seasonings"
       }
     ],
-    "department": "grocery"
+    "department": "grocery",
+    "brand_label": "SHAN",
+    "manufacturer_label": "Dairy Max"
   },
   {
     "__typename": "SimpleProduct",
@@ -1488,7 +1546,9 @@
         "url_key": "spices-seasonings"
       }
     ],
-    "department": "grocery"
+    "department": "grocery",
+    "brand_label": "MDH",
+    "manufacturer_label": "MDH"
   },
   {
     "__typename": "SimpleProduct",
@@ -1537,7 +1597,9 @@
         "url_key": "ice-cream"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "Chapman's",
+    "manufacturer_label": "Chapman's"
   },
   {
     "__typename": "SimpleProduct",
@@ -1591,7 +1653,9 @@
         "url_key": "frozen-appetizers"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "Brar's",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -1645,7 +1709,9 @@
         "url_key": "frozen-appetizers"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "Sai Krishna",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -1694,7 +1760,9 @@
         "url_key": "seafood"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "Red Dragon",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -1743,7 +1811,9 @@
         "url_key": "seafood"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "Red Dragon",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -1792,7 +1862,9 @@
         "url_key": "frozen-appetizers"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "Nanak",
+    "manufacturer_label": "Nanak"
   },
   {
     "__typename": "SimpleProduct",
@@ -1841,7 +1913,9 @@
         "url_key": "baking-sheets"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": null,
+    "manufacturer_label": "United Bakery"
   },
   {
     "__typename": "SimpleProduct",
@@ -1890,7 +1964,9 @@
         "url_key": "seafood"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "Red Dragon",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -1948,7 +2024,9 @@
         "url_key": "frozen-french-fries"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "Cavendish",
+    "manufacturer_label": "Cavendish"
   },
   {
     "__typename": "SimpleProduct",
@@ -1997,7 +2075,9 @@
         "url_key": "seafood"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -2046,7 +2126,9 @@
         "url_key": "frozen-vegetables"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "Ashoka",
+    "manufacturer_label": "Ashoka"
   },
   {
     "__typename": "SimpleProduct",
@@ -2095,7 +2177,9 @@
         "url_key": "frozen-vegetables"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "XC - Below Zero",
+    "manufacturer_label": "VEGGIE MAX"
   },
   {
     "__typename": "SimpleProduct",
@@ -2153,7 +2237,9 @@
         "url_key": "frozen-vegetables"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "APNA",
+    "manufacturer_label": "APNA"
   },
   {
     "__typename": "SimpleProduct",
@@ -2207,7 +2293,9 @@
         "url_key": "frozen-vegetables"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "VEGGIE MAX",
+    "manufacturer_label": "Dairy Max"
   },
   {
     "__typename": "SimpleProduct",
@@ -2261,7 +2349,9 @@
         "url_key": "frozen-vegetables"
       }
     ],
-    "department": "frozen"
+    "department": "frozen",
+    "brand_label": "Cedar",
+    "manufacturer_label": "Dairy Max"
   },
   {
     "__typename": "SimpleProduct",
@@ -2315,7 +2405,9 @@
         "url_key": "peppers"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": "Fresh",
+    "manufacturer_label": "Fresh"
   },
   {
     "__typename": "SimpleProduct",
@@ -2364,7 +2456,9 @@
         "url_key": "tomatoes"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": "Fresh",
+    "manufacturer_label": "Fresh"
   },
   {
     "__typename": "SimpleProduct",
@@ -2413,7 +2507,9 @@
         "url_key": "bulk-vegetables"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": "Fresh",
+    "manufacturer_label": "Fresh"
   },
   {
     "__typename": "SimpleProduct",
@@ -2467,7 +2563,9 @@
         "url_key": "mushroom"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": "Fresh",
+    "manufacturer_label": "Fresh"
   },
   {
     "__typename": "SimpleProduct",
@@ -2516,7 +2614,9 @@
         "url_key": "bulk-vegetables"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -2565,7 +2665,9 @@
         "url_key": "bulk-vegetables"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": "Fresh",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -2619,7 +2721,9 @@
         "url_key": "greens-salad-mixes"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -2673,7 +2777,9 @@
         "url_key": "melons"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": "Fresh",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -2727,7 +2833,9 @@
         "url_key": "mushroom"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": "Fresh",
+    "manufacturer_label": "Fresh"
   },
   {
     "__typename": "SimpleProduct",
@@ -2781,7 +2889,9 @@
         "url_key": "bulk-vegetables"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -2835,7 +2945,9 @@
         "url_key": "bulk-vegetables"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": "Fresh",
+    "manufacturer_label": "Fresh"
   },
   {
     "__typename": "SimpleProduct",
@@ -2889,7 +3001,9 @@
         "url_key": "frozen-fruits"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -2938,7 +3052,9 @@
         "url_key": "cucumber-zucchini"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": "Fresh",
+    "manufacturer_label": "Fresh"
   },
   {
     "__typename": "SimpleProduct",
@@ -2992,7 +3108,9 @@
         "url_key": "tomatoes"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": "Fresh",
+    "manufacturer_label": "Fresh"
   },
   {
     "__typename": "SimpleProduct",
@@ -3041,7 +3159,9 @@
         "url_key": "peppers"
       }
     ],
-    "department": "produce"
+    "department": "produce",
+    "brand_label": "Fresh",
+    "manufacturer_label": "Fresh"
   },
   {
     "__typename": "SimpleProduct",
@@ -3099,7 +3219,9 @@
         "url_key": "flavored-syrups"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Monin",
+    "manufacturer_label": "Monin"
   },
   {
     "__typename": "SimpleProduct",
@@ -3148,7 +3270,9 @@
         "url_key": "bar-mixes"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Pina Colada",
+    "manufacturer_label": "Finest Call"
   },
   {
     "__typename": "SimpleProduct",
@@ -3197,7 +3321,9 @@
         "url_key": "sodas"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -3246,7 +3372,9 @@
         "url_key": "flavored-syrups"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Monin",
+    "manufacturer_label": "Monin"
   },
   {
     "__typename": "SimpleProduct",
@@ -3300,7 +3428,9 @@
         "url_key": "hot-drinks"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Nastle",
+    "manufacturer_label": "Nastle"
   },
   {
     "__typename": "SimpleProduct",
@@ -3354,7 +3484,9 @@
         "url_key": "hot-drinks"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Nastle",
+    "manufacturer_label": "Nastle"
   },
   {
     "__typename": "SimpleProduct",
@@ -3403,7 +3535,9 @@
         "url_key": "hot-drinks"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Nastle",
+    "manufacturer_label": "Nastle"
   },
   {
     "__typename": "SimpleProduct",
@@ -3452,7 +3586,9 @@
         "url_key": "hot-drinks"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Nastle",
+    "manufacturer_label": "Nastle"
   },
   {
     "__typename": "SimpleProduct",
@@ -3506,7 +3642,9 @@
         "url_key": "hot-drinks"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Nastle",
+    "manufacturer_label": "Nastle"
   },
   {
     "__typename": "SimpleProduct",
@@ -3555,7 +3693,9 @@
         "url_key": "hot-drinks"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Nastle",
+    "manufacturer_label": "Nastle"
   },
   {
     "__typename": "SimpleProduct",
@@ -3604,7 +3744,9 @@
         "url_key": "hot-drinks"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Nastle",
+    "manufacturer_label": "Nastle"
   },
   {
     "__typename": "SimpleProduct",
@@ -3653,7 +3795,9 @@
         "url_key": "energy-drinks"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Monster",
+    "manufacturer_label": "Monster"
   },
   {
     "__typename": "SimpleProduct",
@@ -3702,7 +3846,9 @@
         "url_key": "juices"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "San Pellegrino",
+    "manufacturer_label": "San Pellegrino"
   },
   {
     "__typename": "SimpleProduct",
@@ -3751,7 +3897,9 @@
         "url_key": "juices"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Canpetek",
+    "manufacturer_label": "Atlas"
   },
   {
     "__typename": "SimpleProduct",
@@ -3800,7 +3948,9 @@
         "url_key": "flavored-syrups"
       }
     ],
-    "department": "beverage"
+    "department": "beverage",
+    "brand_label": "Monin",
+    "manufacturer_label": "Monin"
   },
   {
     "__typename": "SimpleProduct",
@@ -3858,7 +4008,9 @@
         "url_key": "hard-cheese"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Santa Lucia",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -3907,7 +4059,9 @@
         "url_key": "shredded-cheese"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Krinos",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -3961,7 +4115,9 @@
         "url_key": "yogurt"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Modhani",
+    "manufacturer_label": "Modhani"
   },
   {
     "__typename": "SimpleProduct",
@@ -4015,7 +4171,9 @@
         "url_key": "hard-cheese"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Triple A",
+    "manufacturer_label": "Triple A"
   },
   {
     "__typename": "SimpleProduct",
@@ -4069,7 +4227,9 @@
         "url_key": "yogurt"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Modhani",
+    "manufacturer_label": "Modhani"
   },
   {
     "__typename": "SimpleProduct",
@@ -4118,7 +4278,9 @@
         "url_key": "sauce-dip"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Olympia",
+    "manufacturer_label": "Olympia"
   },
   {
     "__typename": "SimpleProduct",
@@ -4167,7 +4329,9 @@
         "url_key": "yogurt"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Elegant",
+    "manufacturer_label": "Elegant"
   },
   {
     "__typename": "SimpleProduct",
@@ -4216,7 +4380,9 @@
         "url_key": "yogurt"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Elegant",
+    "manufacturer_label": "Elegant"
   },
   {
     "__typename": "SimpleProduct",
@@ -4270,7 +4436,9 @@
         "url_key": "yogurt"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Astro",
+    "manufacturer_label": "Dairy Max"
   },
   {
     "__typename": "SimpleProduct",
@@ -4324,7 +4492,9 @@
         "url_key": "yogurt"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Astro",
+    "manufacturer_label": "Dairy Max"
   },
   {
     "__typename": "SimpleProduct",
@@ -4382,7 +4552,9 @@
         "url_key": "cream"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Neilson",
+    "manufacturer_label": "Neilson"
   },
   {
     "__typename": "SimpleProduct",
@@ -4436,7 +4608,9 @@
         "url_key": "cream"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Neilson",
+    "manufacturer_label": "Neilson"
   },
   {
     "__typename": "SimpleProduct",
@@ -4490,7 +4664,9 @@
         "url_key": "cream"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Neilson",
+    "manufacturer_label": "Neilson"
   },
   {
     "__typename": "SimpleProduct",
@@ -4548,7 +4724,9 @@
         "url_key": "cream"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Neilson",
+    "manufacturer_label": "Neilson"
   },
   {
     "__typename": "SimpleProduct",
@@ -4602,7 +4780,9 @@
         "url_key": "cream"
       }
     ],
-    "department": "dairy-eggs"
+    "department": "dairy-eggs",
+    "brand_label": "Neilson",
+    "manufacturer_label": "Neilson"
   },
   {
     "__typename": "SimpleProduct",
@@ -4651,7 +4831,9 @@
         "url_key": "chicken"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -4700,7 +4882,9 @@
         "url_key": "seafood"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Red Dragon",
+    "manufacturer_label": "Red Dragon"
   },
   {
     "__typename": "SimpleProduct",
@@ -4749,7 +4933,9 @@
         "url_key": "seafood"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Red Dragon",
+    "manufacturer_label": "Red Dragon"
   },
   {
     "__typename": "SimpleProduct",
@@ -4803,7 +4989,9 @@
         "url_key": "chicken"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Poultry",
+    "manufacturer_label": "Poultry"
   },
   {
     "__typename": "SimpleProduct",
@@ -4852,7 +5040,9 @@
         "url_key": "chicken"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Poultry",
+    "manufacturer_label": "Poultry"
   },
   {
     "__typename": "SimpleProduct",
@@ -4901,7 +5091,9 @@
         "url_key": "chicken"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Poultry",
+    "manufacturer_label": "Poultry"
   },
   {
     "__typename": "SimpleProduct",
@@ -4950,7 +5142,9 @@
         "url_key": "chicken"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Poultry",
+    "manufacturer_label": "Poultry"
   },
   {
     "__typename": "SimpleProduct",
@@ -4999,7 +5193,9 @@
         "url_key": "chicken"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Poultry",
+    "manufacturer_label": "Poultry"
   },
   {
     "__typename": "SimpleProduct",
@@ -5048,7 +5244,9 @@
         "url_key": "chicken"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Poultry",
+    "manufacturer_label": "Poultry"
   },
   {
     "__typename": "SimpleProduct",
@@ -5102,7 +5300,9 @@
         "url_key": "chicken"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Poultry",
+    "manufacturer_label": "Poultry"
   },
   {
     "__typename": "SimpleProduct",
@@ -5156,7 +5356,9 @@
         "url_key": "meat"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Meat",
+    "manufacturer_label": "Meat"
   },
   {
     "__typename": "SimpleProduct",
@@ -5210,7 +5412,9 @@
         "url_key": "meat"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Meat",
+    "manufacturer_label": "Meat"
   },
   {
     "__typename": "SimpleProduct",
@@ -5264,7 +5468,9 @@
         "url_key": "meat"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Meat",
+    "manufacturer_label": "Meat"
   },
   {
     "__typename": "SimpleProduct",
@@ -5318,7 +5524,9 @@
         "url_key": "chicken"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Fresh",
+    "manufacturer_label": "Fresh"
   },
   {
     "__typename": "SimpleProduct",
@@ -5351,7 +5559,7 @@
       "html": "2 Lb"
     },
     "description": {
-      "html": "Ocean Treasure 21/25- P&D Tail-On Shrimp are premium-quality peeled and deveined shrimp with the tails left on for an attractive presentation. Ideal for grilling, saut\u00e9ing, frying, seafood platters, pasta dishes, and appetizers, they offer a firm texture and mild, sweet flavour. Suitable for restaurants, catering services, and foodservice operations."
+      "html": "Ocean Treasure 21/25- P&D Tail-On Shrimp are premium-quality peeled and deveined shrimp with the tails left on for an attractive presentation. Ideal for grilling, sautéing, frying, seafood platters, pasta dishes, and appetizers, they offer a firm texture and mild, sweet flavour. Suitable for restaurants, catering services, and foodservice operations."
     },
     "categories": [
       {
@@ -5367,7 +5575,9 @@
         "url_key": "seafood"
       }
     ],
-    "department": "meat-poultry"
+    "department": "meat-poultry",
+    "brand_label": "Ocean Treasure",
+    "manufacturer_label": "Ocean Treasure"
   },
   {
     "__typename": "SimpleProduct",
@@ -5416,7 +5626,9 @@
         "url_key": "cleaning-tools"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "Scotch Brite",
+    "manufacturer_label": "Scotch Brite"
   },
   {
     "__typename": "SimpleProduct",
@@ -5470,7 +5682,9 @@
         "url_key": "equipment-cleaner"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "Spartano",
+    "manufacturer_label": "A1 Cash & Carry"
   },
   {
     "__typename": "SimpleProduct",
@@ -5519,7 +5733,9 @@
         "url_key": "equipment-cleaner"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "Spartano",
+    "manufacturer_label": "A1 Cash & Carry"
   },
   {
     "__typename": "SimpleProduct",
@@ -5573,7 +5789,9 @@
         "url_key": "all-purpose-chemicals"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "Knock Down",
+    "manufacturer_label": "Knock Down"
   },
   {
     "__typename": "SimpleProduct",
@@ -5622,7 +5840,9 @@
         "url_key": "mops-accessories"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "GENERIC",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -5671,7 +5891,9 @@
         "url_key": "glass-cleaner"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "Windex",
+    "manufacturer_label": "Windex"
   },
   {
     "__typename": "SimpleProduct",
@@ -5720,7 +5942,9 @@
         "url_key": "bleach"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "Chimisol",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -5774,7 +5998,9 @@
         "url_key": "mops-accessories"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "Spartano",
+    "manufacturer_label": "Spartano"
   },
   {
     "__typename": "SimpleProduct",
@@ -5828,7 +6054,9 @@
         "url_key": "all-purpose-chemicals"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "M2",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -5886,7 +6114,9 @@
         "url_key": "dishwash"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "Palmolive",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -5940,7 +6170,9 @@
         "url_key": "equipment-cleaner"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "GK",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -5994,7 +6226,9 @@
         "url_key": "glass-cleaner"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "Windex",
+    "manufacturer_label": "Windex"
   },
   {
     "__typename": "SimpleProduct",
@@ -6048,7 +6282,9 @@
         "url_key": "mops-accessories"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "Spartano",
+    "manufacturer_label": "Spartano"
   },
   {
     "__typename": "SimpleProduct",
@@ -6102,7 +6338,9 @@
         "url_key": "mops-accessories"
       }
     ],
-    "department": "janitorial"
+    "department": "janitorial",
+    "brand_label": "Spartano",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -6156,7 +6394,9 @@
         "url_key": "restaurant-equipment"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": "Pro-Kitchen",
+    "manufacturer_label": "Pro-Kitchen"
   },
   {
     "__typename": "SimpleProduct",
@@ -6210,7 +6450,9 @@
         "url_key": "restaurant-retail-supplies"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -6264,7 +6506,9 @@
         "url_key": "industrial-retail-supplies-in-packaging"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -6313,7 +6557,9 @@
         "url_key": "chicken"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -6367,7 +6613,9 @@
         "url_key": "wholesale-smallware"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": null,
+    "manufacturer_label": "KING CHARCOAL"
   },
   {
     "__typename": "SimpleProduct",
@@ -6425,7 +6673,9 @@
         "url_key": "wholesale-smallware"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": null,
+    "manufacturer_label": "KING CHARCOAL"
   },
   {
     "__typename": "SimpleProduct",
@@ -6483,7 +6733,9 @@
         "url_key": "wholesale-smallware"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -6537,7 +6789,9 @@
         "url_key": "restaurant-cookware"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -6595,7 +6849,9 @@
         "url_key": "wholesale-smallware"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": null,
+    "manufacturer_label": "KING CHARCOAL"
   },
   {
     "__typename": "SimpleProduct",
@@ -6649,7 +6905,9 @@
         "url_key": "pizza-supplies"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": "GENERIC",
+    "manufacturer_label": "GENERIC"
   },
   {
     "__typename": "SimpleProduct",
@@ -6711,7 +6969,9 @@
         "url_key": "wholesale-smallware"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -6773,7 +7033,9 @@
         "url_key": "wholesale-smallware"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": "GENERIC",
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -6831,7 +7093,9 @@
         "url_key": "restaurant-cookware"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -6889,7 +7153,9 @@
         "url_key": "restaurant-cookware"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": null,
+    "manufacturer_label": null
   },
   {
     "__typename": "SimpleProduct",
@@ -6947,6 +7213,8 @@
         "url_key": "restaurant-retail-supplies"
       }
     ],
-    "department": "ware-equipment"
+    "department": "ware-equipment",
+    "brand_label": "GENERIC",
+    "manufacturer_label": null
   }
 ]

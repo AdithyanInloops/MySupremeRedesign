@@ -3,12 +3,11 @@ import { useRouter } from 'next/router'
 import ProductListLayout, { type FilterGroup } from '../../components/ProductListLayout/ProductListLayout'
 import { packSize, products, searchProducts, type Product } from '../../lib/data'
 
-/** Brand = text before " - " in the product name (the snapshot has no brand attribute). */
-const brandOf = (p: Product) => p.name.split(/\s+-\s+|-\s/)[0].trim()
 
 function brandFilter(products: Product[]): FilterGroup {
   const counts = new Map<string, number>()
-  products.forEach((p) => counts.set(brandOf(p), (counts.get(brandOf(p)) ?? 0) + 1))
+  // Magento brand labels; products without a brand aren't counted, like the live Brand facet.
+  products.forEach((p) => p.brand_label && counts.set(p.brand_label, (counts.get(p.brand_label) ?? 0) + 1))
   return {
     code: 'brand',
     label: 'Brand',

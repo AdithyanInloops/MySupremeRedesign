@@ -147,7 +147,7 @@ export default function ProductListLayout(cfg: ListingConfig) {
   const toggleOpt = (code: string, v: string) =>
     setSelected((s) => ({ ...s, [code]: (s[code] ?? []).includes(v) ? s[code].filter((x) => x !== v) : [...(s[code] ?? []), v] }))
 
-  // Prototype filtering: attribute options match against the product name (the snapshot has no brand attribute).
+  // Brand / Manufacturer filter on the Magento labels; other attributes (not in the snapshot) match the product name.
   const shown = useMemo(() => {
     let list = cfg.products.filter((p) => {
       const pr = finalPrice(p)
@@ -156,6 +156,8 @@ export default function ProductListLayout(cfg: ListingConfig) {
         if (!vals.length) return true
         const group = cfg.filters.find((g) => g.code === code)
         const labels = vals.map((v) => group?.options.find((o) => o.value === v)?.label.toLowerCase() ?? '')
+        const own = code === 'brand' ? p.brand_label : code === 'manufacturer' ? p.manufacturer_label : undefined
+        if (own !== undefined) return labels.includes((own ?? '').toLowerCase())
         return labels.some((l) => p.name.toLowerCase().includes(l))
       })
     })

@@ -22,6 +22,63 @@ const save = (name, data) => {
   console.log('wrote', name)
 }
 
+/** Brand / manufacturer labels, read the same way as the live PDP (custom_attributesV2 → selected_options[0].label). */
+const optionLabel = (item, code) =>
+  item.custom_attributesV2?.items?.find((a) => a.code === code)?.selected_options?.[0]?.label?.trim() || null
+const flatten = ({ custom_attributesV2, ...item }) => ({
+  ...item,
+  brand_label: optionLabel({ custom_attributesV2 }, 'brand'),
+  manufacturer_label: optionLabel({ custom_attributesV2 }, 'manufacturer'),
+})
+
+/**
+ * `node scripts/seed.mjs --enrich-brands` only adds brand_label / manufacturer_label to the existing
+ * data/products.json (keeps the hand-edited test cases) instead of re-snapshotting everything.
+ */
+if (process.argv.includes('--enrich-brands')) {
+  const { readFileSync } = await import('node:fs')
+  const file = new URL('../data/products.json', import.meta.url)
+  const existing = JSON.parse(readFileSync(file, 'utf8'))
+  const skus = existing.map((p) => p.sku)
+  const labels = {}
+  for (let i = 0; i < skus.length; i += 50) {
+    const q = `query ($skus: [String]) { products(filter: { sku: { in: $skus } }, pageSize: 50) { items { sku custom_attributesV2(filters: { is_filterable: true }) { items { code ... on AttributeSelectedOptions { selected_options { label } } } } } } }`
+    const batch = skus.slice(i, i + 50)
+    try {
+      const { products } = await gql(q, { skus: batch })
+      for (const it of products.items) labels[it.sku] = flatten(it)
+    } catch {
+      // A few catalog items make Magento error on custom_attributesV2 — retry one by one and skip those.
+      for (const sku of batch) {
+        try {
+          const { products } = await gql(q, { skus: [sku] })
+          for (const it of products.items) labels[it.sku] = flatten(it)
+        } catch { console.warn('no attributes for', sku) }
+      }
+    }
+  }
+  // Some Magento option labels are just the id of another option ("10" → "Value+"); resolve them through the
+  // brand / manufacturer filter options already saved in listings.json, and drop any that stay numeric.
+  const listings = JSON.parse(readFileSync(new URL('../data/listings.json', import.meta.url), 'utf8'))
+  const optionNames = { brand: new Map(), manufacturer: new Map() }
+  for (const dept of Object.values(listings))
+    for (const agg of dept.aggregations)
+      if (agg.attribute_code in optionNames) for (const o of agg.options) optionNames[agg.attribute_code].set(o.value, o.label.trim())
+  const resolve = (label, code) => {
+    if (!label || !/^\d+$/.test(label)) return label ?? null
+    const name = optionNames[code].get(label)
+    return name && !/^\d+$/.test(name) ? name : null
+  }
+  const out = existing.map((p) => ({
+    ...p,
+    brand_label: resolve(labels[p.sku]?.brand_label, 'brand'),
+    manufacturer_label: resolve(labels[p.sku]?.manufacturer_label, 'manufacturer'),
+  }))
+  save('products.json', out)
+  console.log('brands found for', out.filter((p) => p.brand_label).length, 'of', out.length)
+  process.exit(0)
+}
+
 const { categoryList } = await gql(`{
   categoryList(filters: { parent_id: { eq: "2" } }) {
     uid name url_key image product_count position
@@ -38,7 +95,10 @@ const PRODUCT_FIELDS = `
   short_description { html }
   description { html }
   categories { name url_key }
+  custom_attributesV2(filters: { is_filterable: true }) { items { code ... on AttributeSelectedOptions { selected_options { label } } } }
 `
+
+
 
 const products = []
 const listings = {}
@@ -55,7 +115,7 @@ for (const dept of categoryList) {
   )
   listings[dept.url_key] = { total_count: data.products.total_count, aggregations: data.products.aggregations }
   for (const item of data.products.items) {
-    if (!products.some((p) => p.sku === item.sku)) products.push({ ...item, department: dept.url_key })
+    if (!products.some((p) => p.sku === item.sku)) products.push({ ...flatten(item), department: dept.url_key })
   }
   console.log(dept.name, data.products.items.length)
 }

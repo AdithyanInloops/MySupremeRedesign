@@ -11,8 +11,8 @@ import { finalPrice, hasImage, money, packSize, percentOff, regularPrice, type P
 import { useCart } from '../../lib/cart'
 import { SupremePlaceholder, WishlistStar } from '../Product/ProductCard'
 
-/** Brand = text before " - " (or "- ") in the product name, as the live PDP shows it. */
-export const brandOf = (p: Product) => p.name.split(/\s+-\s+|-\s/)[0].trim()
+/** Brand label from Magento's `brand` attribute, as the live PDP reads it; null hides every brand element. */
+export const brandOf = (p: Product) => p.brand_label
 
 function Gallery({ product }: { product: Product }) {
   const imgs = hasImage(product)
@@ -77,7 +77,7 @@ export default function ProductDetailView({ product }: { product: Product }) {
       <Gallery product={product} />
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, pt: { md: 1 }, maxWidth: { md: 520 } }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <Typography sx={{ fontSize: { xs: '13px', md: '16px' }, fontWeight: 500, color: '#FF413D', whiteSpace: 'nowrap' }}>{brand}</Typography>
+          {brand && <Typography sx={{ fontSize: { xs: '13px', md: '16px' }, fontWeight: 500, color: '#FF413D', whiteSpace: 'nowrap' }}>{brand}</Typography>}
           <Typography sx={{ fontSize: { xs: '12px', md: '14px' }, color: '#9E9E9E', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.sku}</Typography>
           <Box sx={{ flex: 1, height: '1px', bgcolor: '#E0E0E0', mx: 1 }} />
           <WishlistStar sku={product.sku} />
@@ -110,21 +110,23 @@ export default function ProductDetailView({ product }: { product: Product }) {
             ADD TO CART
           </Button>
         </Box>
-        <Box
-          component={Link}
-          href={`/search/${encodeURIComponent(brand)}`}
-          sx={{
-            mt: 4, display: 'flex', alignItems: 'center', gap: 1.5, p: '12px 16px', borderRadius: '8px', bgcolor: '#F7F7F7', border: '1px solid #EDEDED',
-            textDecoration: 'none', transition: 'all .2s', '&:hover': { bgcolor: '#FFF0F0', borderColor: '#FF413D', '& .brand-tag': { color: '#FF413D' } },
-          }}
-        >
-          <StorefrontOutlinedIcon sx={{ fontSize: '22px', color: '#9E9E9E' }} />
-          <Box sx={{ flex: 1 }}>
-            <Typography sx={{ fontSize: '14px', color: '#9E9E9E', fontWeight: 400, lineHeight: 1.2 }}>Explore more from</Typography>
-            <Typography className="brand-tag" sx={{ fontSize: '16px', color: '#0C0C0C', fontWeight: 600, lineHeight: 1.4 }}>{brand}</Typography>
+        {brand && (
+          <Box
+            component={Link}
+            href={`/search/${encodeURIComponent(brand)}`}
+            sx={{
+              mt: 4, display: 'flex', alignItems: 'center', gap: 1.5, p: '12px 16px', borderRadius: '8px', bgcolor: '#F7F7F7', border: '1px solid #EDEDED',
+              textDecoration: 'none', transition: 'all .2s', '&:hover': { bgcolor: '#FFF0F0', borderColor: '#FF413D', '& .brand-tag': { color: '#FF413D' } },
+            }}
+          >
+            <StorefrontOutlinedIcon sx={{ fontSize: '22px', color: '#9E9E9E' }} />
+            <Box sx={{ flex: 1 }}>
+              <Typography sx={{ fontSize: '14px', color: '#9E9E9E', fontWeight: 400, lineHeight: 1.2 }}>Explore more from</Typography>
+              <Typography className="brand-tag" sx={{ fontSize: '16px', color: '#0C0C0C', fontWeight: 600, lineHeight: 1.4 }}>{brand}</Typography>
+            </Box>
+            <EastIcon sx={{ color: '#FF413D', fontSize: '18px' }} />
           </Box>
-          <EastIcon sx={{ color: '#FF413D', fontSize: '18px' }} />
-        </Box>
+        )}
       </Box>
     </Box>
   )
@@ -144,7 +146,7 @@ export function ProductDescription({ product }: { product: Product }) {
         </Box>
       </Box>
       <Box sx={{ mt: 1.5, border: '1px solid #EAEAEA', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 2px rgba(0,0,0,.04)' }}>
-        {[['Uom', product.uom || 'pcs'], ['Brand', brand]].map(([k, v], i) => (
+        {([['Uom', product.uom || 'pcs'], ...(brand ? [['Brand', brand]] : [])] as [string, string][]).map(([k, v], i) => (
           <Box key={k} sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', px: { xs: 2.5, md: 3.5 }, py: 1.5, bgcolor: i % 2 ? '#fff' : '#F7F7F7' }}>
             <Typography sx={{ fontSize: 14, fontWeight: 500, color: '#555' }}>{k}</Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>

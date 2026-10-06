@@ -171,7 +171,7 @@ export default function QuickOrderBar({ products, popularSkus }: Props) {
                     }}
                   >
                     <Box component="span" sx={{ fontSize: 12, fontWeight: 700, color: RED_AA, whiteSpace: 'nowrap' }}>{p.sku}</Box>
-                    <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' }, fontSize: 12, color: '#4B5563', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.name.split(' - ')[0]}</Box>
+                    <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' }, fontSize: 12, color: '#4B5563', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{p.brand_label ?? p.name}</Box>
                   </Box>
                 ))}
               </Box>
