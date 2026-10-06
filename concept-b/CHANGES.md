@@ -52,3 +52,5 @@ in the real `pages/index.tsx` 1:1.
   (`custom_attributesV2`, as the live PDP reads them), stored as `brand_label` / `manufacturer_label` by
   `node scripts/seed.mjs --enrich-brands`. Products without a brand hide the brand label, the "Explore more from"
   box and the Brand row, like the live site. Labels are shown as Magento stores them (e.g. "Nastle").
+- **Node version:** `engines.node` is `24.x`, not the 18–21 range in CLAUDE.md §2 — Vercel has retired Node 20 and
+  refuses to build it. Next 15.1 builds cleanly on Node 24.
