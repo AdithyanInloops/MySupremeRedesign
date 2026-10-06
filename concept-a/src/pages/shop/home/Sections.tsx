@@ -77,7 +77,7 @@ export function BuyAgain() {
             From your last {orders.length} online &amp; in-store orders. Last order <b>#{last.number}</b> · {money(last.total)}
           </Typography>
         </Box>
-        <Stack direction="row" spacing={1}>
+        <Stack direction="row" spacing={1} sx={{ flexShrink: 0, "& .MuiButton-root": { whiteSpace: "nowrap" } }}>
           <Button
             variant="contained"
             color="secondary"
