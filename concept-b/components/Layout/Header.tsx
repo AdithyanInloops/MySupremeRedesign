@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {
@@ -16,6 +16,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import { departments, type Category } from '../../lib/data'
+import CategoryMenu, { CategoryCircle, POPULAR, deptIcons, preloadCategoryImages, tilesFor } from './CategoryMenu'
 import { useCart } from '../../lib/cart'
 
 /* ------------------------------------------------------------------ Search box (desktop + mobile) */
@@ -90,68 +91,56 @@ function CartLink({ mobile }: { mobile?: boolean }) {
 
 function CategoryBar() {
   const { pathname } = useRouter()
-  const [hover, setHover] = useState<string | null>(null)
-  const item = {
+  // Which rail row the dropdown shows; null = closed. Hovering a department opens it on that department.
+  const [active, setActive] = useState<string | null>(null)
+  const timer = useRef<number | undefined>(undefined)
+  useEffect(() => () => window.clearTimeout(timer.current), [])
+  useEffect(() => setActive(null), [pathname])
+  // Small open delay so sweeping the mouse across the bar doesn't flash the panel.
+  const openOn = (key: string) => {
+    window.clearTimeout(timer.current)
+    if (active) setActive(key)
+    else timer.current = window.setTimeout(() => setActive(key), 120)
+  }
+  const close = () => {
+    window.clearTimeout(timer.current)
+    setActive(null)
+  }
+  const item = (on = false) => ({
     minHeight: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold', px: { lg: 0.25, xl: 0.5 }, flexShrink: 1, minWidth: 0,
-    '&:hover': { bgcolor: 'black' },
-  } as const
+    bgcolor: on ? 'black' : 'transparent', '&:hover': { bgcolor: 'black' },
+  }) as const
   const btn = {
     color: '#fff', textTransform: 'none', fontWeight: 'bold', lineHeight: 1.2, whiteSpace: 'nowrap', minWidth: 'auto',
     fontSize: { xs: '11px', xl: '14px' }, px: { xs: 0.5, lg: 0.8, xl: 1.5 }, '@media (min-width:1300px)': { fontSize: '13px' },
     '&:hover': { color: '#fff', bgcolor: 'transparent' }, '&.Mui-focusVisible': { outline: '2px solid #fff', outlineOffset: -2 },
   } as const
   return (
-    <Box component="nav" aria-label="Departments" sx={{ display: { xs: 'none', lg: 'flex' }, position: 'relative', justifyContent: 'center', alignItems: 'center', height: 48, bgcolor: 'primary.main', color: 'white', px: { lg: 1, xl: 4 } }}>
-      {pathname !== '/' && (
-        <Box sx={item}><Button component={Link} href="/" sx={btn}>Home</Button></Box>
-      )}
-      {departments.map((d) => (
-        <Box key={d.uid} sx={item} onMouseEnter={() => setHover(d.uid)} onMouseLeave={() => setHover(null)}>
-          <Button component={Link} href={`/${d.url_key}`} sx={btn}>{d.name}</Button>
-          {d.children.length > 0 && <KeyboardArrowDownIcon />}
-          {hover === d.uid && d.children.length > 0 && <MegaMenu dept={d} />}
+    <Box onMouseLeave={close} onMouseEnter={preloadCategoryImages} onFocus={preloadCategoryImages} sx={{ display: { xs: 'none', lg: 'block' }, position: 'relative' }}>
+      <Box component="nav" aria-label="Departments" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 48, bgcolor: 'primary.main', color: 'white', px: { lg: 1, xl: 4 } }}>
+        {/* NEW (Concept B) — opens the full category panel on "Popular categories" */}
+        <Box sx={item(active === POPULAR)} onMouseEnter={() => openOn(POPULAR)}>
+          <Button onClick={() => (active ? close() : setActive(POPULAR))} aria-expanded={!!active} aria-haspopup="true" startIcon={<MenuIcon />} sx={{ ...btn, '& .MuiButton-startIcon': { mr: 0.5 } }}>
+            All Categories
+          </Button>
         </Box>
-      ))}
-      <Box sx={item}>
-        <Button component={Link} href="/flyers-offers" sx={{ ...btn, gap: 0.75 }}>
-          Flyers &amp; Offers
-          <Box component="span" sx={{ bgcolor: '#fff', color: 'primary.main', borderRadius: '40px', px: 0.75, fontSize: '10px', fontWeight: 800, lineHeight: '16px' }}>NEW</Box>
-        </Button>
-      </Box>
-    </Box>
-  )
-}
-
-function MegaMenu({ dept }: { dept: Category }) {
-  return (
-    <Box
-      sx={{
-        position: 'absolute', top: 'calc(100% + 2px)', left: 0, width: '100%', maxHeight: '70vh', overflowY: 'auto', bgcolor: '#fff',
-        boxShadow: '0px 12px 30px rgba(0,0,0,0.15)', zIndex: 1200, borderRadius: '0 0 12px 12px',
-      }}
-    >
-      <Box sx={{ columnWidth: '150px', columnGap: '5px', p: '12px 15px 25px' }}>
-        {dept.children.map((sub) => (
-          <Box key={sub.url_key} sx={{ mb: 1, breakInside: 'avoid' }}>
-            <Box component={Link} href={`/${dept.url_key}?sub=${sub.url_key}`} sx={{ textDecoration: 'none', color: 'inherit' }}>
-              <Typography sx={{ fontSize: '14px', fontWeight: 700, p: '4px 6px', borderRadius: '6px', color: '#0C0C0C', wordBreak: 'break-word', '&:hover': { bgcolor: '#F3F4F6' } }}>
-                {sub.name}
-              </Typography>
-            </Box>
-            {!!sub.children?.length && (
-              <Box sx={{ pl: 1, mt: 0.5 }}>
-                {sub.children.map((child) => (
-                  <Box key={child.url_key} component={Link} href={`/${dept.url_key}?sub=${sub.url_key}`} sx={{ textDecoration: 'none', display: 'block' }}>
-                    <Typography sx={{ color: '#4F4F4F', fontSize: '11.5px', p: '0.5px 4px', borderRadius: '4px', '&:hover': { bgcolor: '#F3F4F6', color: '#0C0C0C' } }}>
-                      {child.name}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-            )}
+        {pathname !== '/' && (
+          <Box sx={item()} onMouseEnter={close}><Button component={Link} href="/" sx={btn}>Home</Button></Box>
+        )}
+        {departments.map((d) => (
+          <Box key={d.uid} sx={item(active === d.url_key)} onMouseEnter={() => openOn(d.url_key)}>
+            <Button component={Link} href={`/${d.url_key}`} onFocus={() => setActive(d.url_key)} sx={btn}>{d.name}</Button>
+            {d.children.length > 0 && <KeyboardArrowDownIcon sx={{ transition: 'transform .15s', transform: active === d.url_key ? 'rotate(180deg)' : 'none' }} />}
           </Box>
         ))}
+        <Box sx={item()} onMouseEnter={close}>
+          <Button component={Link} href="/flyers-offers" sx={{ ...btn, gap: 0.75 }}>
+            Flyers &amp; Offers
+            <Box component="span" sx={{ bgcolor: '#fff', color: 'primary.main', borderRadius: '40px', px: 0.75, fontSize: '10px', fontWeight: 800, lineHeight: '16px' }}>NEW</Box>
+          </Button>
+        </Box>
       </Box>
+      {active && <CategoryMenu active={active} onActive={setActive} onClose={close} />}
     </Box>
   )
 }
@@ -181,7 +170,8 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
         {!dept ? (
           <>
             {departments.map((d) => (
-              <ListItemButton key={d.uid} onClick={() => (d.children.length ? setDept(d) : go(`/${d.url_key}`))} sx={{ minHeight: 48 }}>
+              <ListItemButton key={d.uid} onClick={() => (d.children.length ? setDept(d) : go(`/${d.url_key}`))} sx={{ minHeight: 52, gap: 1.75 }}>
+                {(() => { const Icon = deptIcons[d.url_key]; return Icon ? <Icon sx={{ fontSize: 22, color: '#4B5563' }} /> : null })()}
                 <ListItemText primary={d.name} primaryTypographyProps={{ fontSize: 15, fontWeight: 500 }} />
                 <ChevronRightIcon sx={{ color: '#9CA3AF' }} />
               </ListItemButton>
@@ -196,12 +186,10 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
             <ListItemButton onClick={() => go(`/${dept.url_key}`)} sx={{ minHeight: 48 }}>
               <ListItemText primary={`All ${dept.name}`} primaryTypographyProps={{ fontSize: 15, fontWeight: 700, color: 'primary.main' }} />
             </ListItemButton>
-            {dept.children.map((s) => (
-              <ListItemButton key={s.url_key} onClick={() => go(`/${dept.url_key}?sub=${s.url_key}`)} sx={{ minHeight: 48 }}>
-                <ListItemText primary={s.name} primaryTypographyProps={{ fontSize: 15 }} />
-                <ChevronRightIcon sx={{ color: '#9CA3AF' }} />
-              </ListItemButton>
-            ))}
+            {/* Concept B — same round picture tiles as the desktop dropdown */}
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', gap: 0.5, px: 1, py: 1.5 }}>
+              {tilesFor(dept).map((t) => <CategoryCircle key={t.href} tile={t} size={76} onNavigate={() => { onClose(); setDept(null) }} />)}
+            </Box>
           </>
         )}
       </List>

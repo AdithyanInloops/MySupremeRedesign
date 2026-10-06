@@ -79,6 +79,30 @@ if (process.argv.includes('--enrich-brands')) {
   process.exit(0)
 }
 
+/**
+ * `node scripts/seed.mjs --subcategory-images` saves one real product photo per sub-category to
+ * data/subcategory-images.json (Magento has no sub-category images yet) for the mega-menu circle tiles.
+ */
+if (process.argv.includes('--subcategory-images')) {
+  const { readFileSync } = await import('node:fs')
+  const cats = JSON.parse(readFileSync(new URL('../data/categories.json', import.meta.url), 'utf8'))
+  const out = {}
+  for (const dept of cats) {
+    for (const sub of dept.children) {
+      if (!sub.uid) continue
+      const { products } = await gql(
+        `query ($uid: String!) { products(filter: { category_uid: { eq: $uid } }, pageSize: 20) { items { small_image { url } } } }`,
+        { uid: sub.uid },
+      )
+      const photo = products.items.map((i) => i.small_image?.url).find((u) => u && !u.includes('/placeholder/'))
+      if (photo) out[sub.url_key] = photo
+    }
+  }
+  save('subcategory-images.json', out)
+  console.log('photos for', Object.keys(out).length, 'sub-categories')
+  process.exit(0)
+}
+
 const { categoryList } = await gql(`{
   categoryList(filters: { parent_id: { eq: "2" } }) {
     uid name url_key image product_count position

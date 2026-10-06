@@ -55,6 +55,12 @@ export default function Home() {
         <meta name="description" content="Fast, reliable support for all your wholesale food and restaurant supply needs." />
       </Head>
 
+      {/*
+        Concept B — home order regrouped so the page reads like a shopping trip (every live section is kept):
+        Order fast → Browse → Deals → Discover → Delivery & service → Trust & help.
+      */}
+
+      {/* ── 1. Order fast ──────────────────────────── */}
       {/* 1. Hero banner slider */}
       <Box sx={{ mt: '2px', mx: '12px' }}>
         <Supremebanner imageUrls={imageUrls} mobileImageUrls={mobileImageUrls} />
@@ -63,9 +69,20 @@ export default function Home() {
       {/* NEW (Concept B #1) — Quick Order bar */}
       <QuickOrderBar products={products} popularSkus={popularSkus} />
 
-      {/* 2. Recommended Products */}
-      <Box sx={{ mt: '5px' }}>
-        <RecommentedProducts products={recommendedProducts} />
+      {/* NEW (Concept B #7) — Pick up where you left off (recently viewed) */}
+      <RecentlyViewed fallback={recommendedProducts.slice(4, 10)} />
+
+      {/* ── 2. Browse ──────────────────────────── */}
+      {/* 5. Recommended Categories */}
+      <RecommendedCategories data={departments} />
+
+      {/* NEW (Concept B #5) — Shop by your kitchen */}
+      <ShopByBusiness />
+
+      {/* ── 3. Deals ──────────────────────────── */}
+      {/* 11. Offer cards → CHANGED (Concept B #4) */}
+      <Box sx={{ mx: { xs: '16px', sm: '40px' } }}>
+        <WeeklyDeals offers={offersJson.offers as Offer[]} products={products} />
       </Box>
 
       {/* 3. Two large promo images */}
@@ -76,57 +93,51 @@ export default function Home() {
         <PromoTwoCards items={promoTestData} />
       </Box>
 
-      {/* NEW (Concept B #5) — Shop by your kitchen */}
-      <ShopByBusiness />
-
-      {/* 5. Recommended Categories */}
-      <RecommendedCategories data={departments} />
+      {/* ── 4. Discover ──────────────────────────── */}
+      {/* 2. Recommended Products */}
+      <Box sx={{ mt: '5px' }}>
+        <RecommentedProducts products={recommendedProducts} />
+      </Box>
 
       {/* NEW (Concept B #2) — Trending by Department */}
       <TrendingByDepartment departments={departments} productsByDepartment={productsByDepartment} initialTab="produce" />
 
-      {/* 6. Delivery banner → CHANGED (Concept B #3) */}
-      <DeliveryCheckBanner data={zonesJson as DeliveryZones} />
-
-      {/* 7. Our Brands */}
-      <Homebanner brandList={brands} />
-
-      {/* 8. PromoTwoCards2 */}
-      <Box sx={{ mt: 4, mx: '12px' }}>
-        <PromoTwoCards2 items={promoTestData2} />
-      </Box>
+      {/* NEW (Concept B #6) — Ready-to-order kits */}
+      <StarterKits kits={kitsJson.kits as Kit[]} products={products} />
 
       {/* 9. New Arrivals */}
       <Box sx={{ mt: '5px' }}>
         <NewArrival products={newArrivals} />
       </Box>
 
-      {/* NEW (Concept B #6) — Ready-to-order kits */}
-      <StarterKits kits={kitsJson.kits as Kit[]} products={products} />
+      {/* 8. PromoTwoCards2 */}
+      <Box sx={{ mt: 4, mx: '12px' }}>
+        <PromoTwoCards2 items={promoTestData2} />
+      </Box>
+
+      {/* 7. Our Brands */}
+      <Homebanner brandList={brands} />
+
+      {/* ── 5. Delivery & service ──────────────────────────── */}
+      {/* 6. Delivery banner → CHANGED (Concept B #3) */}
+      <DeliveryCheckBanner data={zonesJson as DeliveryZones} />
 
       {/* 10. Click & Collect banner (desktop only, as live) */}
       <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
         <Banner />
       </Box>
 
-      {/* 11. Offer cards → CHANGED (Concept B #4) */}
-      <Box sx={{ mx: { xs: '16px', sm: '40px' } }}>
-        <WeeklyDeals offers={offersJson.offers as Offer[]} products={products} />
+      {/* 12. Feature cards */}
+      <Box sx={{ mx: '40px' }}>
+        <FeatureCards />
       </Box>
 
-      {/* NEW (Concept B #7) — Pick up where you left off (recently viewed) */}
-      <RecentlyViewed fallback={recommendedProducts.slice(4, 10)} />
-
+      {/* ── 6. Trust & help ──────────────────────────── */}
       {/* NEW (Concept B #8) — Trusted by Ontario kitchens */}
       <TrustStrip />
 
       {/* NEW (Concept B #9) — Open a business account in 3 steps */}
       <BusinessAccountSteps />
-
-      {/* 12. Feature cards */}
-      <Box sx={{ mx: '40px' }}>
-        <FeatureCards />
-      </Box>
 
       {/* NEW (Concept B #10) — Quick answers (FAQ) */}
       <HomeFAQ />
