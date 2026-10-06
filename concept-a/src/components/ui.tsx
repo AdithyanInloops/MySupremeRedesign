@@ -47,7 +47,7 @@ export function SectionHeader({
 }: { eyebrow?: ReactNode; title: ReactNode; action?: string; href?: string; sx?: SxProps<Theme> }) {
   return (
     <Stack direction="row" alignItems="flex-end" justifyContent="space-between" spacing={2} sx={{ mb: { xs: 2, md: 3 }, ...((sx as object) ?? {}) }}>
-      <Box>
+      <Box sx={{ minWidth: 0 }}>
         {eyebrow && (
           <Typography variant="overline" sx={{ color: c.red, display: 'block', mb: 0.5 }}>
             {eyebrow}

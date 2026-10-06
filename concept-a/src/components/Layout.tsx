@@ -19,12 +19,12 @@ export function FloatingSupport() {
   return (
     <>
       <Tooltip title="Voice assistant" placement="right">
-        <Fab aria-label="Open voice assistant" sx={{ position: 'fixed', left: 16, bottom: 16, zIndex: 1250, bgcolor: c.red, color: '#fff', width: 56, height: 56, '&:hover': { bgcolor: c.redDark }, boxShadow: tokens.shadow.pop }}>
+        <Fab aria-label="Open voice assistant" sx={{ position: 'fixed', left: 16, bottom: 16, zIndex: 1150, bgcolor: c.red, color: '#fff', width: 56, height: 56, '&:hover': { bgcolor: c.redDark }, boxShadow: tokens.shadow.pop }}>
           <MicRounded />
         </Fab>
       </Tooltip>
       <Tooltip title="Chat with us" placement="left">
-        <Fab aria-label="Open chat" sx={{ position: 'fixed', right: 16, bottom: 16, zIndex: 1250, bgcolor: c.navy, color: '#fff', width: 56, height: 56, '&:hover': { bgcolor: c.navyDark }, boxShadow: tokens.shadow.pop }}>
+        <Fab aria-label="Open chat" sx={{ position: 'fixed', right: 16, bottom: 16, zIndex: 1150, bgcolor: c.navy, color: '#fff', width: 56, height: 56, '&:hover': { bgcolor: c.navyDark }, boxShadow: tokens.shadow.pop }}>
           <ChatBubbleRounded />
         </Fab>
       </Tooltip>

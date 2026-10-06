@@ -246,7 +246,7 @@ function ResultRow({ sku, q, onPick, price }: { sku: string; q?: string; onPick:
         textDecoration: 'none', color: c.ink, '&:hover, &:focus-visible': { bgcolor: c.bg }, '&:hover .go': { opacity: 1 },
       }}
     >
-      <ProductImage src={p.images[0]} alt={p.name} brand={p.brand} sx={{ '& [role=img] > div > div:last-of-type': { display: 'none' }, '& [role=img] > div > div:first-of-type': { width: 32, height: 32, fontSize: 11 } }} />
+      <ProductImage src={p.images[0]} alt={p.name} brand={p.brand} />
       <Box sx={{ minWidth: 0 }}>
         <Typography sx={{ fontSize: 14, fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{highlight(p.name, q)}</Typography>
         <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 0.25, minWidth: 0 }}>

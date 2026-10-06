@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Alert, Snackbar, type AlertColor } from '@mui/material'
 import { productBySku, type Product } from '../data/catalog'
 
@@ -49,6 +49,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   const [wishlist, setWishlist] = useState<string[]>(['59620000008478349', 'GR2210', 'PK0912', 'HD0031', 'MT0011'])
   const [recentlyViewed, setRecent] = useState<string[]>(['A905', 'GR1001', 'DA0044', 'PK1120', 'BW0028', 'MT0045'])
   const [toasts, setToasts] = useState<Toast[]>([])
+  const batch = useRef<{ items: string[]; timer?: number }>({ items: [] })
 
   const toast = useCallback((msg: string, severity: AlertColor = 'success') => {
     setToasts((t) => [...t, { id: Date.now() + Math.random(), msg, severity }])
@@ -67,7 +68,14 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
         const ex = c.find((l) => l.sku === sku)
         return ex ? c.map((l) => (l.sku === sku ? { ...l, qty: l.qty + qty } : l)) : [...c, { sku, qty }]
       })
-      toast(`Added ${qty} × ${pr?.name ?? sku} to cart`)
+      // Several adds in the same tick (reorder all, add all favorites) collapse into one toast.
+      const b = batch.current
+      b.items.push(`${qty} × ${pr?.name ?? sku}`)
+      window.clearTimeout(b.timer)
+      b.timer = window.setTimeout(() => {
+        toast(b.items.length === 1 ? `Added ${b.items[0]} to cart` : `Added ${b.items.length} products to cart`)
+        b.items = []
+      }, 0)
     },
     [toast],
   )
@@ -101,7 +109,7 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       cart: effectiveCart,
       cartCount: effectiveCart.reduce((a, l) => a + l.qty, 0),
       addToCart, setQty, removeFromCart, clearCart,
-      wishlist: review.empty ? [] : wishlist,
+      wishlist: review.empty || !review.signedIn ? [] : wishlist,
       toggleWishlist, recentlyViewed, markViewed, toast, priceFor,
     }),
     [review, setReview, effectiveCart, addToCart, setQty, removeFromCart, clearCart, wishlist, toggleWishlist, recentlyViewed, markViewed, toast, priceFor],

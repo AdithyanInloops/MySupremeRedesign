@@ -43,7 +43,9 @@ export function ProductPlaceholder({ brand, label, rounded = true }: { brand?: s
       role="img"
       aria-label={label ? `${label} — photo coming soon` : 'Photo coming soon'}
       sx={{
-        position: 'absolute', inset: 0, display: 'grid', placeItems: 'center',
+        position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', containerType: 'size',
+        // Thumbnail sizes (cart rows, search results, list view) drop the caption and shrink the monogram.
+        '@container (max-width: 130px)': { '& .ph-cap': { display: 'none' }, '& .ph-mono': { width: 36, height: 36, fontSize: 12 } },
         borderRadius: rounded ? `${tokens.radius.sm}px` : 0,
         background: `radial-gradient(120% 90% at 50% 0%, #FFFFFF 0%, ${c.surface2} 70%)`,
         overflow: 'hidden',
@@ -54,6 +56,7 @@ export function ProductPlaceholder({ brand, label, rounded = true }: { brand?: s
       </Box>
       <Box sx={{ textAlign: 'center' }}>
         <Box
+          className="ph-mono"
           sx={{
             width: 64, height: 64, mx: 'auto', borderRadius: '50%', display: 'grid', placeItems: 'center',
             bgcolor: '#fff', border: `1px solid ${c.line}`, color: c.navy, fontWeight: 700, fontSize: 20, letterSpacing: '.04em',
@@ -62,7 +65,7 @@ export function ProductPlaceholder({ brand, label, rounded = true }: { brand?: s
         >
           {initials}
         </Box>
-        <Box sx={{ mt: 1, fontSize: 10.5, fontWeight: 600, letterSpacing: '.14em', color: c.text3, textTransform: 'uppercase' }}>
+        <Box className="ph-cap" sx={{ mt: 1, fontSize: 10.5, fontWeight: 600, letterSpacing: '.14em', color: c.text3, textTransform: 'uppercase' }}>
           Photo coming soon
         </Box>
       </Box>

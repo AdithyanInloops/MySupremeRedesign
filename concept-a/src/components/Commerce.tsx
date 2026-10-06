@@ -119,7 +119,8 @@ export function QtyStepper({ value, onChange, size = 'md', disabled, label = 'Qu
 
 type AddState = 'idle' | 'adding' | 'added'
 
-export function AddToCart({ product, size = 'md', fullWidth = true, compact = false }: { product: Product; size?: 'sm' | 'md' | 'lg'; fullWidth?: boolean; compact?: boolean }) {
+/** `stackXs` puts the stepper above the button below 500px so 2-up mobile grids never clip. */
+export function AddToCart({ product, size = 'md', fullWidth = true, compact = false, stackXs = false }: { product: Product; size?: 'sm' | 'md' | 'lg'; fullWidth?: boolean; compact?: boolean; stackXs?: boolean }) {
   const { addToCart } = useApp()
   const navigate = useNavigate()
   const [qty, setQty] = useState(1)
@@ -158,7 +159,11 @@ export function AddToCart({ product, size = 'md', fullWidth = true, compact = fa
   }
 
   return (
-    <Stack direction="row" spacing={1} sx={{ width: fullWidth ? '100%' : 'auto' }}>
+    <Stack
+      direction={stackXs ? { xs: 'column', sm: 'row' } : 'row'}
+      spacing={1}
+      sx={{ width: fullWidth ? '100%' : 'auto', ...(stackXs ? { '& > :first-of-type': { width: { xs: '100%', sm: 'auto' }, justifyContent: 'space-between' } } : {}) }}
+    >
       <QtyStepper value={qty} onChange={setQty} size={size === 'lg' ? 'md' : 'sm'} disabled={oos} label={`Quantity for ${product.name}`} />
       <Button
         variant="contained"
@@ -167,7 +172,7 @@ export function AddToCart({ product, size = 'md', fullWidth = true, compact = fa
         onClick={click}
         aria-live="polite"
         sx={{
-          flex: 1, minWidth: 0, minHeight: size === 'lg' ? 48 : 40, px: compact ? 1 : 2,
+          flex: 1, minWidth: 0, minHeight: size === 'lg' ? 48 : 40, px: compact ? 1 : 2, whiteSpace: 'nowrap',
           '&.Mui-disabled': oos ? { bgcolor: c.surface2, color: c.text3 } : { bgcolor: c.red, color: '#fff', opacity: 0.85 },
         }}
         startIcon={
@@ -176,7 +181,7 @@ export function AddToCart({ product, size = 'md', fullWidth = true, compact = fa
         aria-label={oos ? `${product.name} out of stock` : `Add ${qty} ${product.name} to cart`}
       >
         {compact && state === 'adding' ? <CircularProgress size={16} sx={{ color: '#fff' }} /> : null}
-        {oos ? 'Out of stock' : state === 'adding' ? (compact ? '' : 'Adding…') : state === 'added' ? 'Added' : compact ? <AddShoppingCartRounded /> : 'Add'}
+        {oos ? (compact ? 'Sold out' : 'Out of stock') : state === 'adding' ? (compact ? '' : 'Adding…') : state === 'added' ? 'Added' : compact ? <AddShoppingCartRounded /> : 'Add'}
       </Button>
     </Stack>
   )
@@ -332,7 +337,7 @@ export function ProductCard({ product, variant = 'grid', sx }: { product: Produc
         <Box sx={{ mt: 'auto', pt: 1.25 }}>
           <Price product={product} size={narrow ? 'sm' : 'md'} />
           <Box sx={{ mt: 1.25 }}>
-            <AddToCart product={product} size="sm" compact={narrow} />
+            <AddToCart product={product} size="sm" compact={narrow} stackXs />
           </Box>
         </Box>
       </Box>
