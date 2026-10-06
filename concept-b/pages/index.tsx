@@ -18,6 +18,14 @@ import QuickOrderBar from '../components/HomeComponents/QuickOrderBar'
 import TrendingByDepartment from '../components/HomeComponents/TrendingByDepartment'
 import DeliveryCheckBanner, { type DeliveryZones } from '../components/HomeComponents/DeliveryCheckBanner'
 import WeeklyDeals, { type Offer } from '../components/HomeComponents/WeeklyDeals'
+// Concept B round 2 — new sections (#5–#10, see CHANGES.md)
+import ShopByBusiness from '../components/HomeComponents/ShopByBusiness'
+import StarterKits, { type Kit } from '../components/HomeComponents/StarterKits'
+import RecentlyViewed from '../components/HomeComponents/RecentlyViewed'
+import TrustStrip from '../components/HomeComponents/TrustStrip'
+import BusinessAccountSteps from '../components/HomeComponents/BusinessAccountSteps'
+import HomeFAQ from '../components/HomeComponents/HomeFAQ'
+import kitsJson from '../data/kits.json'
 
 const banner = (f: string) => `/assets/banners/${f}`
 const imageUrls = ['Banner-1.png', '1920_1.jpg', 'Banner2.jpg', 'banner3.jpg', '20260902-111751_1.png', '2_3.png'].map(banner)
@@ -68,6 +76,9 @@ export default function Home() {
         <PromoTwoCards items={promoTestData} />
       </Box>
 
+      {/* NEW (Concept B #5) — Shop by your kitchen */}
+      <ShopByBusiness />
+
       {/* 5. Recommended Categories */}
       <RecommendedCategories data={departments} />
 
@@ -90,6 +101,9 @@ export default function Home() {
         <NewArrival products={newArrivals} />
       </Box>
 
+      {/* NEW (Concept B #6) — Ready-to-order kits */}
+      <StarterKits kits={kitsJson.kits as Kit[]} products={products} />
+
       {/* 10. Click & Collect banner (desktop only, as live) */}
       <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
         <Banner />
@@ -100,10 +114,22 @@ export default function Home() {
         <WeeklyDeals offers={offersJson.offers as Offer[]} products={products} />
       </Box>
 
+      {/* NEW (Concept B #7) — Pick up where you left off (recently viewed) */}
+      <RecentlyViewed fallback={recommendedProducts.slice(4, 10)} />
+
+      {/* NEW (Concept B #8) — Trusted by Ontario kitchens */}
+      <TrustStrip />
+
+      {/* NEW (Concept B #9) — Open a business account in 3 steps */}
+      <BusinessAccountSteps />
+
       {/* 12. Feature cards */}
       <Box sx={{ mx: '40px' }}>
         <FeatureCards />
       </Box>
+
+      {/* NEW (Concept B #10) — Quick answers (FAQ) */}
+      <HomeFAQ />
     </Box>
   )
 }

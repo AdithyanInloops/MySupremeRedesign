@@ -1,12 +1,18 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { Alert, Snackbar } from '@mui/material'
-import { productBySku } from './data'
+import { finalPrice, productBySku } from './data'
 
 type Line = { sku: string; qty: number }
 type Ctx = {
   lines: Line[]
   count: number
   add: (sku: string, qty?: number, opts?: { silent?: boolean }) => void
+  /** Adds several lines with a single snackbar (kits, "add selected", paste-a-list). */
+  addMany: (items: Line[], label?: string) => void
+  subtotal: number
+  recentlyViewed: string[]
+  markViewed: (sku: string) => void
+  clearViewed: () => void
   wishlist: string[]
   toggleWish: (sku: string) => void
   notify: (msg: string, severity?: 'success' | 'info' | 'error') => void
@@ -18,6 +24,7 @@ const CartCtx = createContext<Ctx | null>(null)
 export function CartProvider({ children }: { children: ReactNode }) {
   const [lines, setLines] = useState<Line[]>([])
   const [wishlist, setWishlist] = useState<string[]>([])
+  const [recentlyViewed, setRecent] = useState<string[]>([])
   const [toast, setToast] = useState<{ msg: string; severity: 'success' | 'info' | 'error'; key: number } | null>(null)
 
   // Load once, and only start saving after the load has run (StrictMode double-mount would otherwise save []).
@@ -26,13 +33,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
     try {
       const saved = JSON.parse(localStorage.getItem('ms-b-cart') ?? '[]')
       if (Array.isArray(saved)) setLines(saved)
+      const seen = JSON.parse(localStorage.getItem('ms-b-viewed') ?? '[]')
+      // Merge rather than replace, so a view recorded before the restore isn't lost.
+      if (Array.isArray(seen)) setRecent((r) => [...r, ...seen.filter((x: string) => !r.includes(x))].slice(0, 12))
     } catch { /* storage blocked */ }
     setLoaded(true)
   }, [])
   useEffect(() => {
     if (!loaded) return
-    try { localStorage.setItem('ms-b-cart', JSON.stringify(lines)) } catch { /* storage blocked */ }
-  }, [lines, loaded])
+    try {
+      localStorage.setItem('ms-b-cart', JSON.stringify(lines))
+      localStorage.setItem('ms-b-viewed', JSON.stringify(recentlyViewed))
+    } catch { /* storage blocked */ }
+  }, [lines, recentlyViewed, loaded])
 
   const notify = useCallback((msg: string, severity: 'success' | 'info' | 'error' = 'success') => setToast({ msg, severity, key: Date.now() }), [])
 
@@ -47,6 +60,26 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [notify],
   )
 
+  const addMany = useCallback(
+    (items: Line[], label?: string) => {
+      if (!items.length) return
+      setLines((ls) => {
+        const next = [...ls]
+        for (const it of items) {
+          const ex = next.find((l) => l.sku === it.sku)
+          if (ex) ex.qty += it.qty
+          else next.push({ ...it })
+        }
+        return next.map((l) => ({ ...l }))
+      })
+      notify(label ?? `${items.length} products added to cart`)
+    },
+    [notify],
+  )
+
+  const markViewed = useCallback((sku: string) => setRecent((r) => [sku, ...r.filter((x) => x !== sku)].slice(0, 12)), [])
+  const clearViewed = useCallback(() => setRecent([]), [])
+
   const toggleWish = useCallback(
     (sku: string) =>
       setWishlist((w) => {
@@ -57,7 +90,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     [notify],
   )
 
-  const value = useMemo(() => ({ lines, count: lines.reduce((a, l) => a + l.qty, 0), add, wishlist, toggleWish, notify }), [lines, add, wishlist, toggleWish, notify])
+  const subtotal = lines.reduce((a, l) => {
+    const p = productBySku(l.sku)
+    return a + (p ? finalPrice(p) * l.qty : 0)
+  }, 0)
+  const value = useMemo(
+    () => ({ lines, count: lines.reduce((a, l) => a + l.qty, 0), add, addMany, subtotal, recentlyViewed, markViewed, clearViewed, wishlist, toggleWish, notify }),
+    [lines, add, addMany, subtotal, recentlyViewed, markViewed, clearViewed, wishlist, toggleWish, notify],
+  )
 
   return (
     <CartCtx.Provider value={value}>

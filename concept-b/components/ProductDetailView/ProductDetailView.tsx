@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Box, Button, IconButton, InputBase, Typography } from '@mui/material'
 import ArrowBackIos from '@mui/icons-material/ArrowBackIos'
@@ -60,8 +60,14 @@ function Stepper({ qty, setQty, uom }: { qty: number; setQty: (n: number) => voi
 }
 
 export default function ProductDetailView({ product }: { product: Product }) {
-  const { add } = useCart()
+  const { add, markViewed } = useCart()
   const [qty, setQty] = useState(1)
+  // Concept B #7 — feeds the home "Pick up where you left off" row. Deferred one tick so it lands after the
+  // cart provider restores the saved history on a full page load (otherwise the restore overwrites it).
+  useEffect(() => {
+    const t = window.setTimeout(() => markViewed(product.sku), 0)
+    return () => window.clearTimeout(t)
+  }, [product.sku, markViewed])
   const brand = brandOf(product)
   const off = percentOff(product)
   const uom = product.uom || 'pcs'

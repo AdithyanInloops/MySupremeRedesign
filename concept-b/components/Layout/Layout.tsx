@@ -5,6 +5,7 @@ import MicIcon from '@mui/icons-material/Mic'
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
 import Header from './Header'
 import Footer from './Footer'
+import DeliveryMinimumBar from './DeliveryMinimumBar'
 
 /** Voice assistant (bottom-left) and chat (bottom-right) — static circles in the prototype. */
 function FloatingButtons() {
@@ -27,6 +28,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header minimal={minimal} categoryBar={!noCategoryBar.includes(pathname)} />
+      {!minimal && <DeliveryMinimumBar />}
       <Box component="main" sx={{ flex: 1 }}>{children}</Box>
       {!minimal && <Footer />}
       <FloatingButtons />
