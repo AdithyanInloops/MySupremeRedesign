@@ -20,15 +20,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [wishlist, setWishlist] = useState<string[]>([])
   const [toast, setToast] = useState<{ msg: string; severity: 'success' | 'info' | 'error'; key: number } | null>(null)
 
+  // Load once, and only start saving after the load has run (StrictMode double-mount would otherwise save []).
+  const [loaded, setLoaded] = useState(false)
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem('ms-b-cart') ?? '[]')
       if (Array.isArray(saved)) setLines(saved)
     } catch { /* storage blocked */ }
+    setLoaded(true)
   }, [])
   useEffect(() => {
+    if (!loaded) return
     try { localStorage.setItem('ms-b-cart', JSON.stringify(lines)) } catch { /* storage blocked */ }
-  }, [lines])
+  }, [lines, loaded])
 
   const notify = useCallback((msg: string, severity: 'success' | 'info' | 'error' = 'success') => setToast({ msg, severity, key: Date.now() }), [])
 

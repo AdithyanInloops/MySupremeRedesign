@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { useRouter } from 'next/router'
 import { Box, Fab } from '@mui/material'
 import MicIcon from '@mui/icons-material/Mic'
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
@@ -16,12 +17,18 @@ function FloatingButtons() {
   )
 }
 
+// Live pages rendered without the red category bar (they don't pass menuItems to the header).
+const noCategoryBar = ['/cart', '/brands', '/about-us', '/service/contact-us', '/wishlist']
+const minimalPages = ['/account/signin']
+
 export default function Layout({ children }: { children: ReactNode }) {
+  const { pathname } = useRouter()
+  const minimal = minimalPages.includes(pathname)
   return (
     <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Header />
+      <Header minimal={minimal} categoryBar={!noCategoryBar.includes(pathname)} />
       <Box component="main" sx={{ flex: 1 }}>{children}</Box>
-      <Footer />
+      {!minimal && <Footer />}
       <FloatingButtons />
     </Box>
   )

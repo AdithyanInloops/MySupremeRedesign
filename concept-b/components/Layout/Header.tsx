@@ -92,7 +92,7 @@ function CategoryBar() {
   const { pathname } = useRouter()
   const [hover, setHover] = useState<string | null>(null)
   const item = {
-    minHeight: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold', px: 0.5,
+    minHeight: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold', px: { lg: 0.25, xl: 0.5 }, flexShrink: 1, minWidth: 0,
     '&:hover': { bgcolor: 'black' },
   } as const
   const btn = {
@@ -101,7 +101,7 @@ function CategoryBar() {
     '&:hover': { color: '#fff', bgcolor: 'transparent' }, '&.Mui-focusVisible': { outline: '2px solid #fff', outlineOffset: -2 },
   } as const
   return (
-    <Box component="nav" aria-label="Departments" sx={{ display: { xs: 'none', lg: 'flex' }, position: 'relative', justifyContent: 'center', alignItems: 'center', height: 48, bgcolor: 'primary.main', color: 'white', px: 4 }}>
+    <Box component="nav" aria-label="Departments" sx={{ display: { xs: 'none', lg: 'flex' }, position: 'relative', justifyContent: 'center', alignItems: 'center', height: 48, bgcolor: 'primary.main', color: 'white', px: { lg: 1, xl: 4 } }}>
       {pathname !== '/' && (
         <Box sx={item}><Button component={Link} href="/" sx={btn}>Home</Button></Box>
       )}
@@ -211,8 +211,21 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
 
 /* ------------------------------------------------------------------ Header */
 
-export default function Header() {
+/**
+ * `categoryBar` mirrors the live pages that pass `menuItems` (cart, brands, about, contact don't).
+ * `minimal` is the logo-only header the live sign-in page uses.
+ */
+export default function Header({ categoryBar = true, minimal = false }: { categoryBar?: boolean; minimal?: boolean }) {
   const [drawer, setDrawer] = useState(false)
+  if (minimal) {
+    return (
+      <Box component="header" sx={{ bgcolor: 'white', display: 'flex', alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' }, height: { xs: 72, md: 88 }, px: { md: 3, lg: '40px' } }}>
+        <Link href="/" aria-label="MySupreme home">
+          <Box component="img" src="/assets/header_logo.svg" alt="MySupreme Cash & Carry" sx={{ height: { xs: '50px', md: '65px' }, width: 'auto', display: 'block' }} />
+        </Link>
+      </Box>
+    )
+  }
   return (
     <Box component="header" sx={{ position: 'sticky', top: 0, zIndex: 1100, bgcolor: 'white' }}>
       {/* Desktop row (≥800 like the real site; category bar only ≥1100) */}
@@ -268,7 +281,7 @@ export default function Header() {
         <Box sx={{ mt: 1 }}><SearchBox mobile /></Box>
       </Box>
 
-      <CategoryBar />
+      {categoryBar && <CategoryBar />}
       <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
     </Box>
   )

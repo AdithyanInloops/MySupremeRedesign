@@ -1,12 +1,9 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { CssBaseline, ThemeProvider } from '@mui/material'
+// The live site loads only Poppins 400 (components/theme.ts); heavier weights are browser-synthesised.
+// Loading 500–900 here made every heading visibly heavier than the live screenshots.
 import '@fontsource/poppins/400.css'
-import '@fontsource/poppins/500.css'
-import '@fontsource/poppins/600.css'
-import '@fontsource/poppins/700.css'
-import '@fontsource/poppins/800.css'
-import '@fontsource/poppins/900.css'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'

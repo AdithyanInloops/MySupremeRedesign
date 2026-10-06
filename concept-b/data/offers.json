@@ -1,0 +1,8 @@
+{
+  "_note": "NEW FEATURE — prototype data. Production needs an offer entity in Magento (deal type, sku, offer price, valid from/to, warehouses). Prices are dummy.",
+  "offers": [
+    { "id": "o1", "deal_type": "Weekly Hot Pick", "sku": "RM", "offer_price": 38.99, "valid_from": "2026-10-06", "valid_to": "2026-10-12", "note": "While stock lasts" },
+    { "id": "o2", "deal_type": "Bulk Saver", "sku": "PLT00150", "offer_price": 42.49, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "Buy 5+ bags" },
+    { "id": "o3", "deal_type": "Monthly Flyer", "sku": "CS0156", "offer_price": 16.99, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "October flyer" }
+  ]
+}

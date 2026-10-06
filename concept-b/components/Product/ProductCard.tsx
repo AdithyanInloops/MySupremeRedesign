@@ -9,8 +9,9 @@ import { useCart } from '../../lib/cart'
 /** "SUPREME" text placeholder used when Magento returns its /placeholder/ image. */
 export function SupremePlaceholder({ size = 40 }: { size?: number }) {
   return (
-    <Box role="img" aria-label="No product image" sx={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', bgcolor: '#fff' }}>
-      <Typography sx={{ fontWeight: 800, fontSize: size, color: '#2d297d', letterSpacing: '.02em', lineHeight: 1 }}>SUPREME</Typography>
+    <Box role="img" aria-label="No product image" sx={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', bgcolor: '#fff', containerType: 'inline-size' }}>
+      {/* Scales with the image box so the wordmark never clips in 2-up mobile grids. */}
+      <Typography sx={{ fontWeight: 700, fontSize: `min(${size}px, 15cqw)`, color: '#2d297d', letterSpacing: '.02em', lineHeight: 1 }}>SUPREME</Typography>
     </Box>
   )
 }

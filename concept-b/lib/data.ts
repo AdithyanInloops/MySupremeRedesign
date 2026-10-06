@@ -78,5 +78,13 @@ export const searchProducts = (term: string) => {
 }
 
 /** Home rails — the live site uses Magento "recommended" / "new" flags; the snapshot picks stable slices. */
-export const recommendedProducts = products.filter((_, i) => i % 7 === 0).slice(0, 12)
-export const newArrivals = products.filter((p) => p.department === 'packaging').slice(0, 12)
+// Mostly photographed items with a couple of placeholders mixed in, like the live rails.
+const withPhotoFirst = (list: Product[], n: number) => {
+  const photo = list.filter(hasImage)
+  const none = list.filter((p) => !hasImage(p))
+  const out = [...photo.slice(0, n - 2), ...none.slice(0, 2)]
+  out.splice(5, 0, ...out.splice(out.length - 1, 1))
+  return out.slice(0, n)
+}
+export const recommendedProducts = withPhotoFirst(products.filter((_, i) => i % 3 === 0), 12)
+export const newArrivals = withPhotoFirst(products.filter((p) => ['packaging', 'janitorial', 'ware-equipment'].includes(p.department)), 12)
