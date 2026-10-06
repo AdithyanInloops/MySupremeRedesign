@@ -1,0 +1,2270 @@
+[
+  {
+    "uid": "NDE3",
+    "name": "Packaging",
+    "url_key": "packaging",
+    "image": "https://m2.mysupreme.ca/media/catalog/category/my_supreme_category_images-07.jpg",
+    "product_count": 1684,
+    "position": 1,
+    "children": [
+      {
+        "uid": "MTQwOA==",
+        "name": "Dessert & Bakery",
+        "url_key": "bakery-dessert",
+        "product_count": 108,
+        "image": null,
+        "children": [
+          {
+            "name": "Baker Plastic Containers",
+            "url_key": "baker-plastic-containers",
+            "product_count": 7
+          },
+          {
+            "name": "Bakers Aluminum containers",
+            "url_key": "bakers-aluminum-containers",
+            "product_count": 2
+          },
+          {
+            "name": "Bakery Bags",
+            "url_key": "bakery-bags",
+            "product_count": 5
+          },
+          {
+            "name": "Bakery Boards",
+            "url_key": "bakery-boards",
+            "product_count": 44
+          },
+          {
+            "name": "Bakes Goods",
+            "url_key": "bakes-goods",
+            "product_count": 1
+          },
+          {
+            "name": "Cake Boxes",
+            "url_key": "cake-boxes",
+            "product_count": 36
+          },
+          {
+            "name": "Cupcakes & Inserts",
+            "url_key": "cupcakes-inserts",
+            "product_count": 7
+          },
+          {
+            "name": "Sweet Boxes",
+            "url_key": "sweet-boxes",
+            "product_count": 6
+          }
+        ]
+      },
+      {
+        "uid": "NDI4",
+        "name": "Bags",
+        "url_key": "bulk-bags",
+        "product_count": 151,
+        "image": null,
+        "children": [
+          {
+            "name": "Paper Bags",
+            "url_key": "paper-bags",
+            "product_count": 48
+          },
+          {
+            "name": "Plastic Bags",
+            "url_key": "plastic-bags",
+            "product_count": 50
+          },
+          {
+            "name": "Plastic Rolls",
+            "url_key": "plastic-rolls",
+            "product_count": 3
+          },
+          {
+            "name": "Poly Bags",
+            "url_key": "poly-bags",
+            "product_count": 26
+          },
+          {
+            "name": "Vacuum Bags",
+            "url_key": "vacuum-bags",
+            "product_count": 14
+          },
+          {
+            "name": "Ziplock Bags",
+            "url_key": "ziplock-bags",
+            "product_count": 10
+          },
+          {
+            "name": "Cake Boxes",
+            "url_key": "cake-boxes",
+            "product_count": 0
+          },
+          {
+            "name": "Bakery Boards",
+            "url_key": "bakery-boards",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MTQwMA==",
+        "name": "Bulk Napkins",
+        "url_key": "bulk-napkins",
+        "product_count": 16,
+        "image": null,
+        "children": [
+          {
+            "name": "Napkins",
+            "url_key": "napkins",
+            "product_count": 0
+          },
+          {
+            "name": "Tissue & Hand Towels",
+            "url_key": "tissue-hand-towels",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MTE2MQ==",
+        "name": "Drinkware",
+        "url_key": "drinkware",
+        "product_count": 126,
+        "image": null,
+        "children": [
+          {
+            "name": "Disposable Straws",
+            "url_key": "disposable-straws",
+            "product_count": 48
+          },
+          {
+            "name": "Others",
+            "url_key": "others",
+            "product_count": 2
+          },
+          {
+            "name": "Paper Cups",
+            "url_key": "paper-cups",
+            "product_count": 40
+          },
+          {
+            "name": "Plastic Cups",
+            "url_key": "plastic-cups",
+            "product_count": 36
+          }
+        ]
+      },
+      {
+        "uid": "NDE4",
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers",
+        "product_count": 815,
+        "image": null,
+        "children": [
+          {
+            "name": "Aluminium Takeout Containers",
+            "url_key": "aluminium-takeout-containers",
+            "product_count": 141
+          },
+          {
+            "name": "Bagasse Takeout Containers",
+            "url_key": "bagasse-takeout-containers",
+            "product_count": 52
+          },
+          {
+            "name": "Meat Trays",
+            "url_key": "meat-trays",
+            "product_count": 8
+          },
+          {
+            "name": "Paper Takeout Containers",
+            "url_key": "paper-takeout-containers",
+            "product_count": 207
+          },
+          {
+            "name": "Pizza Box",
+            "url_key": "pizza-box",
+            "product_count": 28
+          },
+          {
+            "name": "Pizza Supplies",
+            "url_key": "pizza-supplies",
+            "product_count": 7
+          },
+          {
+            "name": "Plastic Takeout Containers",
+            "url_key": "plastic-takeout-containers",
+            "product_count": 369
+          },
+          {
+            "name": "Plastic Cups",
+            "url_key": "plastic-cups",
+            "product_count": 0
+          },
+          {
+            "name": "Plastic Lid",
+            "url_key": "plastic-lid",
+            "product_count": 3
+          }
+        ]
+      },
+      {
+        "uid": "NDY1",
+        "name": "Wearables",
+        "url_key": "wearables",
+        "product_count": 6,
+        "image": null,
+        "children": [
+          {
+            "name": "Gloves",
+            "url_key": "gloves",
+            "product_count": 3
+          },
+          {
+            "name": "Hair Nets & Face Masks",
+            "url_key": "hair-nets-face-masks",
+            "product_count": 2
+          },
+          {
+            "name": "Others",
+            "url_key": "others",
+            "product_count": 1
+          },
+          {
+            "name": "Industrial & Retail Supplies in Packaging",
+            "url_key": "industrial-retail-supplies-in-packaging",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MTU1OA==",
+        "name": "Confectionery & Bakery",
+        "url_key": "confectionery-bakery",
+        "product_count": 18,
+        "image": null,
+        "children": [
+          {
+            "name": "Bakery Boards",
+            "url_key": "bakery-boards",
+            "product_count": 0
+          },
+          {
+            "name": "Cake Boxes",
+            "url_key": "cake-boxes",
+            "product_count": 11
+          },
+          {
+            "name": "Sweet Boxes",
+            "url_key": "sweet-boxes",
+            "product_count": 1
+          },
+          {
+            "name": "Baker Plastic Containers",
+            "url_key": "baker-plastic-containers",
+            "product_count": 0
+          },
+          {
+            "name": "Bakery Bags",
+            "url_key": "bakery-bags",
+            "product_count": 6
+          }
+        ]
+      },
+      {
+        "uid": "MTgzNQ==",
+        "name": "Cutleries",
+        "url_key": "cutleries",
+        "product_count": 111,
+        "image": null,
+        "children": [
+          {
+            "name": "Cutlery Kit",
+            "url_key": "cutlery-kit",
+            "product_count": 5
+          },
+          {
+            "name": "Disposable Cutlery",
+            "url_key": "disposable-cutlery",
+            "product_count": 37
+          },
+          {
+            "name": "Picks & Skewers",
+            "url_key": "picks-skewers",
+            "product_count": 26
+          },
+          {
+            "name": "Bulk Cutlery",
+            "url_key": "bulk-cutlery",
+            "product_count": 42
+          },
+          {
+            "name": "Paper Takeout Containers",
+            "url_key": "paper-takeout-containers",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MTg0MA==",
+        "name": "Disposable Tableware",
+        "url_key": "disposable-tableware",
+        "product_count": 76,
+        "image": null,
+        "children": [
+          {
+            "name": "Plastic Plates",
+            "url_key": "plastic-plates",
+            "product_count": 26
+          },
+          {
+            "name": "Bagasse Plates",
+            "url_key": "bagasse-plates",
+            "product_count": 48
+          },
+          {
+            "name": "Paper Plates",
+            "url_key": "paper-plates",
+            "product_count": 1
+          },
+          {
+            "name": "Plastic Cups",
+            "url_key": "plastic-cups",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MTg0NA==",
+        "name": "Wraps",
+        "url_key": "wraps",
+        "product_count": 118,
+        "image": null,
+        "children": [
+          {
+            "name": "Roll",
+            "url_key": "roll",
+            "product_count": 3
+          },
+          {
+            "name": "Shrink Wraps",
+            "url_key": "shrink-wraps",
+            "product_count": 3
+          },
+          {
+            "name": "Sheets",
+            "url_key": "sheets",
+            "product_count": 33
+          },
+          {
+            "name": "Plastic Wraps",
+            "url_key": "plastic-wraps",
+            "product_count": 8
+          },
+          {
+            "name": "Food Wrap",
+            "url_key": "food-wrap",
+            "product_count": 59
+          },
+          {
+            "name": "Aluminum Foil Roll",
+            "url_key": "aluminum-foil-roll",
+            "product_count": 10
+          },
+          {
+            "name": "Plastic Rolls",
+            "url_key": "plastic-rolls",
+            "product_count": 1
+          },
+          {
+            "name": "Napkins",
+            "url_key": "napkins",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjAwNg==",
+        "name": "Supplies",
+        "url_key": "supplies",
+        "product_count": 33,
+        "image": null,
+        "children": [
+          {
+            "name": "Restaurant & Retail Supplies",
+            "url_key": "restaurant-retail-supplies",
+            "product_count": 3
+          },
+          {
+            "name": "Labels & Labelers",
+            "url_key": "labels-labelers",
+            "product_count": 13
+          },
+          {
+            "name": "Printer Paper & Envelopes",
+            "url_key": "printer-paper-envelopes",
+            "product_count": 2
+          },
+          {
+            "name": "Cash Register Paper & Thermal Rolls",
+            "url_key": "cash-register-paper-thermal-rolls",
+            "product_count": 13
+          },
+          {
+            "name": "Delivery Supplies",
+            "url_key": "delivery-supplies",
+            "product_count": 0
+          },
+          {
+            "name": "Others",
+            "url_key": "others",
+            "product_count": 1
+          },
+          {
+            "name": "Industrial & Retail Supplies in Packaging",
+            "url_key": "industrial-retail-supplies-in-packaging",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjAxOA==",
+        "name": "Table Napkins",
+        "url_key": "table-napkins",
+        "product_count": 23,
+        "image": null,
+        "children": [
+          {
+            "name": "Napkins",
+            "url_key": "napkins",
+            "product_count": 23
+          }
+        ]
+      },
+      {
+        "uid": "MjAyMA==",
+        "name": "Disposable Wearables",
+        "url_key": "disposable-wearables",
+        "product_count": 82,
+        "image": null,
+        "children": [
+          {
+            "name": "Gloves",
+            "url_key": "gloves",
+            "product_count": 73
+          },
+          {
+            "name": "Hair Nets & Face Masks",
+            "url_key": "hair-nets-face-masks",
+            "product_count": 7
+          },
+          {
+            "name": "Others",
+            "url_key": "others",
+            "product_count": 2
+          }
+        ]
+      },
+      {
+        "uid": "MjA2Nw==",
+        "name": "Foodservice Equipment",
+        "url_key": "foodservice-equipment",
+        "product_count": 1,
+        "image": null,
+        "children": [
+          {
+            "name": "Packed Foods",
+            "url_key": "packed-foods",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjEwMA==",
+        "name": "Disposable Dinnerware",
+        "url_key": "disposable-dinnerware",
+        "product_count": 0,
+        "image": null,
+        "children": [
+          {
+            "name": "Cash Register Paper & Thermal Rolls",
+            "url_key": "cash-register-paper-thermal-rolls",
+            "product_count": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "NDEy",
+    "name": "Grocery",
+    "url_key": "grocery",
+    "image": "https://m2.mysupreme.ca/media/catalog/category/my_supreme_category_images-04.jpg",
+    "product_count": 1688,
+    "position": 2,
+    "children": [
+      {
+        "uid": "OTA0",
+        "name": "Condiments",
+        "url_key": "condiments",
+        "product_count": 454,
+        "image": null,
+        "children": [
+          {
+            "name": "Bases",
+            "url_key": "bases",
+            "product_count": 39
+          },
+          {
+            "name": "Bulk Ketchup",
+            "url_key": "bulk-ketchup",
+            "product_count": 4
+          },
+          {
+            "name": "Bulk Mayonnaise",
+            "url_key": "bulk-mayonnaise",
+            "product_count": 15
+          },
+          {
+            "name": "Dressings",
+            "url_key": "dressings",
+            "product_count": 76
+          },
+          {
+            "name": "Food Colouring",
+            "url_key": "food-colouring",
+            "product_count": 23
+          },
+          {
+            "name": "Mustard",
+            "url_key": "mustard",
+            "product_count": 1
+          },
+          {
+            "name": "Packed Foods",
+            "url_key": "packed-foods",
+            "product_count": 43
+          },
+          {
+            "name": "Relish",
+            "url_key": "relish",
+            "product_count": 1
+          },
+          {
+            "name": "Sauce & Dip",
+            "url_key": "sauce-dip",
+            "product_count": 24
+          },
+          {
+            "name": "Sauces",
+            "url_key": "sauces",
+            "product_count": 159
+          },
+          {
+            "name": "Spices & Seasonings",
+            "url_key": "spices-seasonings",
+            "product_count": 12
+          },
+          {
+            "name": "Vinegars",
+            "url_key": "vinegars",
+            "product_count": 10
+          },
+          {
+            "name": "Lentils",
+            "url_key": "lentils",
+            "product_count": 3
+          },
+          {
+            "name": "Toppings & Icings",
+            "url_key": "toppings-icings",
+            "product_count": 9
+          },
+          {
+            "name": "Syrups",
+            "url_key": "syrups",
+            "product_count": 2
+          },
+          {
+            "name": "Flavored Syrups",
+            "url_key": "flavored-syrups",
+            "product_count": 1
+          },
+          {
+            "name": "Jams",
+            "url_key": "jams",
+            "product_count": 13
+          },
+          {
+            "name": "Prepared Food",
+            "url_key": "prepared-food",
+            "product_count": 3
+          },
+          {
+            "name": "Pasta",
+            "url_key": "pasta",
+            "product_count": 1
+          },
+          {
+            "name": "Pickles",
+            "url_key": "pickles",
+            "product_count": 13
+          },
+          {
+            "name": "Bulk Sauces",
+            "url_key": "bulk-sauces",
+            "product_count": 2
+          }
+        ]
+      },
+      {
+        "uid": "MTMzNg==",
+        "name": "Grains and Beans",
+        "url_key": "grains-and-beans",
+        "product_count": 41,
+        "image": null,
+        "children": [
+          {
+            "name": "Lentils",
+            "url_key": "lentils",
+            "product_count": 19
+          },
+          {
+            "name": "Pasta",
+            "url_key": "pasta",
+            "product_count": 6
+          },
+          {
+            "name": "Bulk Rice",
+            "url_key": "bulk-rice",
+            "product_count": 15
+          },
+          {
+            "name": "Noodles",
+            "url_key": "noodles",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "OTE5",
+        "name": "Oil & Shortening",
+        "url_key": "oil-shortening",
+        "product_count": 42,
+        "image": null,
+        "children": [
+          {
+            "name": "Bulk Oil",
+            "url_key": "bulk-oil",
+            "product_count": 41
+          },
+          {
+            "name": "Shortening",
+            "url_key": "shortening",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MTc5Ng==",
+        "name": "Baked Foods",
+        "url_key": "baked-foods",
+        "product_count": 5,
+        "image": null,
+        "children": [
+          {
+            "name": "General Groceries",
+            "url_key": "general-groceries",
+            "product_count": 2
+          },
+          {
+            "name": "Bread",
+            "url_key": "bread",
+            "product_count": 3
+          }
+        ]
+      },
+      {
+        "uid": "MTc5OA==",
+        "name": "Bake Essentials",
+        "url_key": "bake-essentials",
+        "product_count": 109,
+        "image": null,
+        "children": [
+          {
+            "name": "Flour",
+            "url_key": "flour",
+            "product_count": 1
+          },
+          {
+            "name": "General Groceries",
+            "url_key": "general-groceries",
+            "product_count": 26
+          },
+          {
+            "name": "Bulk Flour",
+            "url_key": "bulk-flour",
+            "product_count": 46
+          },
+          {
+            "name": "Honey",
+            "url_key": "honey",
+            "product_count": 1
+          },
+          {
+            "name": "Sweeteners",
+            "url_key": "sweeteners",
+            "product_count": 17
+          },
+          {
+            "name": "Bulk Rice",
+            "url_key": "bulk-rice",
+            "product_count": 2
+          },
+          {
+            "name": "Baking Ingredients",
+            "url_key": "baking-ingredients",
+            "product_count": 16
+          }
+        ]
+      },
+      {
+        "uid": "MTg2OQ==",
+        "name": "Spice Blends",
+        "url_key": "spice-blends",
+        "product_count": 549,
+        "image": null,
+        "children": [
+          {
+            "name": "Spices & Seasonings",
+            "url_key": "spices-seasonings",
+            "product_count": 547
+          },
+          {
+            "name": "Dry Foods",
+            "url_key": "dry-foods",
+            "product_count": 1
+          },
+          {
+            "name": "Snacks",
+            "url_key": "snacks",
+            "product_count": 0
+          },
+          {
+            "name": "Bulk Sauces",
+            "url_key": "bulk-sauces",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MTg5Mg==",
+        "name": "Canned & Packed Foods",
+        "url_key": "canned-packed-foods",
+        "product_count": 258,
+        "image": null,
+        "children": [
+          {
+            "name": "Bulk Vegetables",
+            "url_key": "bulk-vegetables",
+            "product_count": 19
+          },
+          {
+            "name": "Canned Tomatoes",
+            "url_key": "canned-tomatoes",
+            "product_count": 34
+          },
+          {
+            "name": "Canned Vegetables",
+            "url_key": "canned-vegetables",
+            "product_count": 13
+          },
+          {
+            "name": "Beans & Peas",
+            "url_key": "beans-peas",
+            "product_count": 38
+          },
+          {
+            "name": "Canned Fruits",
+            "url_key": "canned-fruits",
+            "product_count": 40
+          },
+          {
+            "name": "Canned Soups",
+            "url_key": "canned-soups",
+            "product_count": 2
+          },
+          {
+            "name": "Nuts & Dry Food",
+            "url_key": "nuts-dry-food",
+            "product_count": 28
+          },
+          {
+            "name": "Olives",
+            "url_key": "olives",
+            "product_count": 37
+          },
+          {
+            "name": "Pickles",
+            "url_key": "pickles",
+            "product_count": 22
+          },
+          {
+            "name": "Canned & Packed",
+            "url_key": "canned-packed",
+            "product_count": 10
+          },
+          {
+            "name": "Bulk Rice",
+            "url_key": "bulk-rice",
+            "product_count": 6
+          },
+          {
+            "name": "Bulk Sauces",
+            "url_key": "bulk-sauces",
+            "product_count": 2
+          },
+          {
+            "name": "Packed Foods",
+            "url_key": "packed-foods",
+            "product_count": 1
+          },
+          {
+            "name": "Prepared Food",
+            "url_key": "prepared-food",
+            "product_count": 2
+          },
+          {
+            "name": "Sauces",
+            "url_key": "sauces",
+            "product_count": 4
+          }
+        ]
+      },
+      {
+        "uid": "MTkwOQ==",
+        "name": "Snacks & Sweets",
+        "url_key": "snacks-sweets",
+        "product_count": 43,
+        "image": null,
+        "children": [
+          {
+            "name": "Snacks",
+            "url_key": "snacks",
+            "product_count": 41
+          },
+          {
+            "name": "Cookies",
+            "url_key": "cookies",
+            "product_count": 2
+          },
+          {
+            "name": "General Groceries",
+            "url_key": "general-groceries",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MjAwNw==",
+        "name": "Plant based",
+        "url_key": "plant-based",
+        "product_count": 122,
+        "image": null,
+        "children": [
+          {
+            "name": "Bulk Rice",
+            "url_key": "bulk-rice",
+            "product_count": 11
+          },
+          {
+            "name": "Lentils",
+            "url_key": "lentils",
+            "product_count": 8
+          },
+          {
+            "name": "Bulk Oil",
+            "url_key": "bulk-oil",
+            "product_count": 6
+          },
+          {
+            "name": "Grains & Beans",
+            "url_key": "grains-beans",
+            "product_count": 0
+          },
+          {
+            "name": "Beans & Peas",
+            "url_key": "beans-peas",
+            "product_count": 74
+          },
+          {
+            "name": "Beans & Peas",
+            "url_key": "beans-peas",
+            "product_count": 0
+          },
+          {
+            "name": "Oil and Shortening",
+            "url_key": "oil-and-shortening",
+            "product_count": 1
+          },
+          {
+            "name": "Pasta",
+            "url_key": "pasta",
+            "product_count": 19
+          },
+          {
+            "name": "Noodles",
+            "url_key": "noodles",
+            "product_count": 3
+          }
+        ]
+      },
+      {
+        "uid": "MjAxNQ==",
+        "name": "Dry Fruits",
+        "url_key": "dry-fruits",
+        "product_count": 7,
+        "image": null,
+        "children": [
+          {
+            "name": "Nuts & Dry Food",
+            "url_key": "nuts-dry-food",
+            "product_count": 3
+          },
+          {
+            "name": "Dry Fruits",
+            "url_key": "dry-fruits",
+            "product_count": 4
+          }
+        ]
+      },
+      {
+        "uid": "MjAyNA==",
+        "name": "Spices & Seasoning",
+        "url_key": "spices-seasoning",
+        "product_count": 3,
+        "image": null,
+        "children": [
+          {
+            "name": "Spices & Seasonings",
+            "url_key": "spices-seasonings",
+            "product_count": 3
+          }
+        ]
+      },
+      {
+        "uid": "MjAyOA==",
+        "name": "Snacks & Confectionary",
+        "url_key": "snacks-confectionary",
+        "product_count": 23,
+        "image": null,
+        "children": [
+          {
+            "name": "General Groceries",
+            "url_key": "general-groceries",
+            "product_count": 1
+          },
+          {
+            "name": "Snacks & Confectionary",
+            "url_key": "snacks-confectionary",
+            "product_count": 19
+          },
+          {
+            "name": "Snacks",
+            "url_key": "snacks",
+            "product_count": 3
+          }
+        ]
+      },
+      {
+        "uid": "MjAzMQ==",
+        "name": "Foodservice Equipment",
+        "url_key": "foodservice-equipment",
+        "product_count": 2,
+        "image": null,
+        "children": [
+          {
+            "name": "General Groceries",
+            "url_key": "general-groceries",
+            "product_count": 0
+          },
+          {
+            "name": "Tomatoes",
+            "url_key": "tomatoes",
+            "product_count": 1
+          },
+          {
+            "name": "Oil and Shortening",
+            "url_key": "oil-and-shortening",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjAzMw==",
+        "name": "Ready Meals",
+        "url_key": "ready-meals",
+        "product_count": 1,
+        "image": null,
+        "children": [
+          {
+            "name": "General Groceries",
+            "url_key": "general-groceries",
+            "product_count": 0
+          },
+          {
+            "name": "Sauces",
+            "url_key": "sauces",
+            "product_count": 0
+          },
+          {
+            "name": "Olives",
+            "url_key": "olives",
+            "product_count": 0
+          },
+          {
+            "name": "Eggs",
+            "url_key": "eggs",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjAzNg==",
+        "name": "Vegetables",
+        "url_key": "vegetables",
+        "product_count": 2,
+        "image": null,
+        "children": [
+          {
+            "name": "Bulk Vegetables",
+            "url_key": "bulk-vegetables",
+            "product_count": 0
+          },
+          {
+            "name": "Olives",
+            "url_key": "olives",
+            "product_count": 2
+          }
+        ]
+      },
+      {
+        "uid": "MjAzOA==",
+        "name": "Fruits",
+        "url_key": "fruits",
+        "product_count": 1,
+        "image": null,
+        "children": [
+          {
+            "name": "Olives",
+            "url_key": "olives",
+            "product_count": 0
+          },
+          {
+            "name": "Fresh Fruits",
+            "url_key": "fresh-fruits",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjA1Ng==",
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes",
+        "product_count": 5,
+        "image": null,
+        "children": [
+          {
+            "name": "Flavored Syrups",
+            "url_key": "flavored-syrups",
+            "product_count": 0
+          },
+          {
+            "name": "Hot Drinks",
+            "url_key": "hot-drinks",
+            "product_count": 1
+          },
+          {
+            "name": "Syrups",
+            "url_key": "syrups",
+            "product_count": 3
+          },
+          {
+            "name": "Juices",
+            "url_key": "juices",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjA3Ng==",
+        "name": "Plant-Based Foods",
+        "url_key": "plant-based-foods",
+        "product_count": 2,
+        "image": null,
+        "children": [
+          {
+            "name": "Bulk Rice",
+            "url_key": "bulk-rice",
+            "product_count": 2
+          }
+        ]
+      },
+      {
+        "uid": "MjA4MQ==",
+        "name": "Hot Drink",
+        "url_key": "hot-drink",
+        "product_count": 0,
+        "image": null,
+        "children": [
+          {
+            "name": "Coffee",
+            "url_key": "coffee",
+            "product_count": 0
+          },
+          {
+            "name": "Bulk Tea",
+            "url_key": "bulk-tea",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MjEwMg==",
+        "name": "Baking Ingredients",
+        "url_key": "baking-ingredients",
+        "product_count": 10,
+        "image": null,
+        "children": [
+          {
+            "name": "Bakes Goods",
+            "url_key": "bakes-goods",
+            "product_count": 1
+          },
+          {
+            "name": "Flavored Syrups",
+            "url_key": "flavored-syrups",
+            "product_count": 1
+          },
+          {
+            "name": "Oats",
+            "url_key": "oats",
+            "product_count": 1
+          },
+          {
+            "name": "Noodles",
+            "url_key": "noodles",
+            "product_count": 1
+          },
+          {
+            "name": "Baking Ingredients",
+            "url_key": "baking-ingredients",
+            "product_count": 5
+          },
+          {
+            "name": "Bulk Flour",
+            "url_key": "bulk-flour",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjExMg==",
+        "name": "Cold Drinks",
+        "url_key": "cold-drinks",
+        "product_count": 5,
+        "image": null,
+        "children": [
+          {
+            "name": "Juices",
+            "url_key": "juices",
+            "product_count": 5
+          }
+        ]
+      },
+      {
+        "uid": "MjEyOA==",
+        "name": "Confectionery & Bakery",
+        "url_key": "confectionery-bakery",
+        "product_count": 4,
+        "image": null,
+        "children": [
+          {
+            "name": "Bread",
+            "url_key": "bread",
+            "product_count": 3
+          },
+          {
+            "name": "Snacks & Confectionary",
+            "url_key": "snacks-confectionary",
+            "product_count": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "OTM1",
+    "name": "Frozen",
+    "url_key": "frozen",
+    "image": "https://m2.mysupreme.ca/media/catalog/category/my_supreme_category_images-08_1.jpg",
+    "product_count": 84,
+    "position": 3,
+    "children": [
+      {
+        "uid": "OTU4",
+        "name": "Frozen Appetizers",
+        "url_key": "frozen-appetizers",
+        "product_count": 20,
+        "image": null,
+        "children": [
+          {
+            "name": "Frozen Appetizers",
+            "url_key": "frozen-appetizers",
+            "product_count": 20
+          }
+        ]
+      },
+      {
+        "uid": "OTU0",
+        "name": "Frozen Fruits",
+        "url_key": "frozen-fruits",
+        "product_count": 8,
+        "image": null,
+        "children": [
+          {
+            "name": "Frozen Fruits",
+            "url_key": "frozen-fruits",
+            "product_count": 8
+          }
+        ]
+      },
+      {
+        "uid": "MTgzMQ==",
+        "name": "Frozen Veg",
+        "url_key": "frozen-veg",
+        "product_count": 30,
+        "image": null,
+        "children": [
+          {
+            "name": "Frozen Vegetables",
+            "url_key": "frozen-vegetables",
+            "product_count": 30
+          }
+        ]
+      },
+      {
+        "uid": "MTgzMw==",
+        "name": "Ready Meals",
+        "url_key": "ready-meals",
+        "product_count": 11,
+        "image": null,
+        "children": [
+          {
+            "name": "Frozen French Fries",
+            "url_key": "frozen-french-fries",
+            "product_count": 10
+          },
+          {
+            "name": "Chicken",
+            "url_key": "chicken",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MTkyNg==",
+        "name": "Dessert & Bakery",
+        "url_key": "dessert-bakery",
+        "product_count": 9,
+        "image": null,
+        "children": [
+          {
+            "name": "Ice Cream",
+            "url_key": "ice-cream",
+            "product_count": 4
+          },
+          {
+            "name": "Baking Sheets",
+            "url_key": "baking-sheets",
+            "product_count": 4
+          },
+          {
+            "name": "Frozen Cakes & Pies",
+            "url_key": "frozen-cakes-pies",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjAxMw==",
+        "name": "Frozen Vegetables",
+        "url_key": "frozen-vegetables",
+        "product_count": 0,
+        "image": null,
+        "children": [
+          {
+            "name": "Ice Cream",
+            "url_key": "ice-cream",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MjA0NA==",
+        "name": "Kitchen Essentials",
+        "url_key": "kitchen-essentials",
+        "product_count": 0,
+        "image": null,
+        "children": [
+          {
+            "name": "Chicken",
+            "url_key": "chicken",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MjA0Ng==",
+        "name": "Foodservice Equipment",
+        "url_key": "foodservice-equipment",
+        "product_count": 1,
+        "image": null,
+        "children": [
+          {
+            "name": "Chicken",
+            "url_key": "chicken",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjEzOA==",
+        "name": "Fish",
+        "url_key": "fish",
+        "product_count": 4,
+        "image": null,
+        "children": [
+          {
+            "name": "Seafood",
+            "url_key": "seafood",
+            "product_count": 4
+          }
+        ]
+      },
+      {
+        "uid": "MjE0Mg==",
+        "name": "Snacks & Sweets",
+        "url_key": "snacks-sweets",
+        "product_count": 1,
+        "image": null,
+        "children": [
+          {
+            "name": "Ice Cream",
+            "url_key": "ice-cream",
+            "product_count": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "OTM2",
+    "name": "Produce ",
+    "url_key": "produce",
+    "image": "https://m2.mysupreme.ca/media/catalog/category/my_supreme_category_images-01.jpg",
+    "product_count": 105,
+    "position": 4,
+    "children": [
+      {
+        "uid": "MTg1Mw==",
+        "name": "Vegetables",
+        "url_key": "vegetables",
+        "product_count": 78,
+        "image": null,
+        "children": [
+          {
+            "name": "Fresh Potato's",
+            "url_key": "fresh-potatos",
+            "product_count": 8
+          },
+          {
+            "name": "Fresh Onions",
+            "url_key": "fresh-onions",
+            "product_count": 5
+          },
+          {
+            "name": "Fresh Herbs",
+            "url_key": "fresh-herbs",
+            "product_count": 2
+          },
+          {
+            "name": "Others",
+            "url_key": "others",
+            "product_count": 19
+          },
+          {
+            "name": "Ginger & Garlic",
+            "url_key": "ginger-garlic",
+            "product_count": 7
+          },
+          {
+            "name": "Peppers",
+            "url_key": "peppers",
+            "product_count": 17
+          },
+          {
+            "name": "Citrus",
+            "url_key": "citrus",
+            "product_count": 4
+          },
+          {
+            "name": "Tomatoes",
+            "url_key": "tomatoes",
+            "product_count": 4
+          },
+          {
+            "name": "Cucumber & Zucchini",
+            "url_key": "cucumber-zucchini",
+            "product_count": 5
+          },
+          {
+            "name": "Mushroom",
+            "url_key": "mushroom",
+            "product_count": 3
+          },
+          {
+            "name": "Bulk Vegetables",
+            "url_key": "bulk-vegetables",
+            "product_count": 3
+          },
+          {
+            "name": "Greens & Salad Mixes",
+            "url_key": "greens-salad-mixes",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MTg1Ng==",
+        "name": "Herbs",
+        "url_key": "herbs",
+        "product_count": 8,
+        "image": null,
+        "children": [
+          {
+            "name": "Fresh Herbs",
+            "url_key": "fresh-herbs",
+            "product_count": 8
+          }
+        ]
+      },
+      {
+        "uid": "MTkyMw==",
+        "name": "Fruits",
+        "url_key": "fruits",
+        "product_count": 16,
+        "image": null,
+        "children": [
+          {
+            "name": "Tropical",
+            "url_key": "tropical",
+            "product_count": 4
+          },
+          {
+            "name": "Apples & Pears",
+            "url_key": "apples-pears",
+            "product_count": 3
+          },
+          {
+            "name": "Melons",
+            "url_key": "melons",
+            "product_count": 4
+          },
+          {
+            "name": "Berries",
+            "url_key": "berries",
+            "product_count": 1
+          },
+          {
+            "name": "Fresh Fruits",
+            "url_key": "fresh-fruits",
+            "product_count": 4
+          }
+        ]
+      },
+      {
+        "uid": "MjEzNQ==",
+        "name": "Fresh Fruits",
+        "url_key": "fresh-fruits",
+        "product_count": 1,
+        "image": null,
+        "children": [
+          {
+            "name": "Frozen Fruits",
+            "url_key": "frozen-fruits",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjE1Ng==",
+        "name": "Fresh Vegetables",
+        "url_key": "fresh-vegetables",
+        "product_count": 2,
+        "image": null,
+        "children": [
+          {
+            "name": "Bulk Vegetables",
+            "url_key": "bulk-vegetables",
+            "product_count": 2
+          }
+        ]
+      },
+      {
+        "uid": "MjE1Nw==",
+        "name": "Fresh Vegetables",
+        "url_key": "fresh-vegetables",
+        "product_count": 0,
+        "image": null,
+        "children": [
+          {
+            "name": "Bulk Vegetables",
+            "url_key": "bulk-vegetables",
+            "product_count": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "NDA5",
+    "name": "Beverage",
+    "url_key": "beverage",
+    "image": "https://m2.mysupreme.ca/media/catalog/category/my_supreme_category_images-09.jpg",
+    "product_count": 309,
+    "position": 5,
+    "children": [
+      {
+        "uid": "NDEw",
+        "name": "Cold Drinks",
+        "url_key": "cold-drinks",
+        "product_count": 215,
+        "image": null,
+        "children": [
+          {
+            "name": "Coffee",
+            "url_key": "coffee",
+            "product_count": 0
+          },
+          {
+            "name": "Iced Tea",
+            "url_key": "iced-tea",
+            "product_count": 17
+          },
+          {
+            "name": "Juices",
+            "url_key": "juices",
+            "product_count": 62
+          },
+          {
+            "name": "Sodas",
+            "url_key": "sodas",
+            "product_count": 109
+          },
+          {
+            "name": "Energy Drinks",
+            "url_key": "energy-drinks",
+            "product_count": 10
+          },
+          {
+            "name": "Non-Alcoholic Beverages",
+            "url_key": "non-alcoholic-beverages",
+            "product_count": 13
+          },
+          {
+            "name": "Water",
+            "url_key": "water",
+            "product_count": 3
+          },
+          {
+            "name": "Milk",
+            "url_key": "milk",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MTc4NA==",
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes",
+        "product_count": 43,
+        "image": null,
+        "children": [
+          {
+            "name": "Flavored Syrups",
+            "url_key": "flavored-syrups",
+            "product_count": 26
+          },
+          {
+            "name": "Bar Mixes",
+            "url_key": "bar-mixes",
+            "product_count": 3
+          },
+          {
+            "name": "Non-Alcoholic Beverages",
+            "url_key": "non-alcoholic-beverages",
+            "product_count": 6
+          },
+          {
+            "name": "Hot Drinks",
+            "url_key": "hot-drinks",
+            "product_count": 8
+          }
+        ]
+      },
+      {
+        "uid": "MTc4Ng==",
+        "name": "Hot Drink",
+        "url_key": "hot-drink",
+        "product_count": 20,
+        "image": null,
+        "children": [
+          {
+            "name": "Bulk Tea",
+            "url_key": "bulk-tea",
+            "product_count": 17
+          },
+          {
+            "name": "Bulk Coffee",
+            "url_key": "bulk-coffee",
+            "product_count": 1
+          },
+          {
+            "name": "Coffee",
+            "url_key": "coffee",
+            "product_count": 2
+          }
+        ]
+      },
+      {
+        "uid": "MTgzNw==",
+        "name": "Bottled Water",
+        "url_key": "bottled-water",
+        "product_count": 30,
+        "image": null,
+        "children": [
+          {
+            "name": "Premium Water",
+            "url_key": "premium-water",
+            "product_count": 9
+          },
+          {
+            "name": "Sports Drinks",
+            "url_key": "sports-drinks",
+            "product_count": 11
+          },
+          {
+            "name": "Economy Water",
+            "url_key": "economy-water",
+            "product_count": 10
+          }
+        ]
+      },
+      {
+        "uid": "MjA5NQ==",
+        "name": "Condiments",
+        "url_key": "condiments",
+        "product_count": 1,
+        "image": null,
+        "children": [
+          {
+            "name": "Toppings & Icings",
+            "url_key": "toppings-icings",
+            "product_count": 0
+          },
+          {
+            "name": "Flavored Syrups",
+            "url_key": "flavored-syrups",
+            "product_count": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "MTE2Mw==",
+    "name": "Dairy & Eggs",
+    "url_key": "dairy-eggs",
+    "image": "https://m2.mysupreme.ca/media/catalog/category/my_supreme_category_images-06.jpg",
+    "product_count": 107,
+    "position": 5,
+    "children": [
+      {
+        "uid": "MTE3Mw==",
+        "name": "Cheese",
+        "url_key": "cheese",
+        "product_count": 42,
+        "image": null,
+        "children": [
+          {
+            "name": "Block Cheese",
+            "url_key": "block-cheese",
+            "product_count": 1
+          },
+          {
+            "name": "Chees",
+            "url_key": "chees",
+            "product_count": 19
+          },
+          {
+            "name": "Hard Cheese",
+            "url_key": "hard-cheese",
+            "product_count": 9
+          },
+          {
+            "name": "Shredded Cheese",
+            "url_key": "shredded-cheese",
+            "product_count": 3
+          },
+          {
+            "name": "Sliced Cheese",
+            "url_key": "sliced-cheese",
+            "product_count": 4
+          },
+          {
+            "name": "Soft Cheese",
+            "url_key": "soft-cheese",
+            "product_count": 6
+          }
+        ]
+      },
+      {
+        "uid": "MTE3OQ==",
+        "name": "Margarine",
+        "url_key": "margarine",
+        "product_count": 3,
+        "image": null,
+        "children": [
+          {
+            "name": "Margarine",
+            "url_key": "margarine",
+            "product_count": 3
+          }
+        ]
+      },
+      {
+        "uid": "MTQzMA==",
+        "name": "Milk & Cream",
+        "url_key": "milk-cream",
+        "product_count": 47,
+        "image": null,
+        "children": [
+          {
+            "name": "Bulk Butter",
+            "url_key": "bulk-butter",
+            "product_count": 5
+          },
+          {
+            "name": "Cream",
+            "url_key": "cream",
+            "product_count": 18
+          },
+          {
+            "name": "Milk",
+            "url_key": "milk",
+            "product_count": 8
+          },
+          {
+            "name": "Milk & Cream",
+            "url_key": "milk-cream",
+            "product_count": 1
+          },
+          {
+            "name": "Yogurt",
+            "url_key": "yogurt",
+            "product_count": 15
+          }
+        ]
+      },
+      {
+        "uid": "MTE2Ng==",
+        "name": "Paneer",
+        "url_key": "paneer",
+        "product_count": 5,
+        "image": null,
+        "children": [
+          {
+            "name": "Paneer",
+            "url_key": "paneer",
+            "product_count": 5
+          }
+        ]
+      },
+      {
+        "uid": "MTQ3Mw==",
+        "name": "Refrigerated Condiments",
+        "url_key": "refrigerated-condiments",
+        "product_count": 0,
+        "image": null,
+        "children": [
+          {
+            "name": "Refrigerated Condiments",
+            "url_key": "refrigerated-condiments",
+            "product_count": 0
+          },
+          {
+            "name": "Sauce & Dip",
+            "url_key": "sauce-dip",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MTc5MQ==",
+        "name": "Eggs",
+        "url_key": "eggs",
+        "product_count": 4,
+        "image": null,
+        "children": [
+          {
+            "name": "Bulk Eggs",
+            "url_key": "bulk-eggs",
+            "product_count": 4
+          }
+        ]
+      },
+      {
+        "uid": "MTc5NA==",
+        "name": "Refrigerated Condiment",
+        "url_key": "refrigerated-condiment",
+        "product_count": 6,
+        "image": null,
+        "children": [
+          {
+            "name": "Refrigerated Condiments",
+            "url_key": "refrigerated-condiments",
+            "product_count": 5
+          },
+          {
+            "name": "Sauce & Dip",
+            "url_key": "sauce-dip",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjExNg==",
+        "name": "Dessert & Bakery",
+        "url_key": "dessert-bakery",
+        "product_count": 0,
+        "image": null,
+        "children": [
+          {
+            "name": "Baking Ingredients",
+            "url_key": "baking-ingredients",
+            "product_count": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "MTQxNQ==",
+    "name": "Meat & Poultry",
+    "url_key": "meat-poultry",
+    "image": "https://m2.mysupreme.ca/media/catalog/category/my_supreme_category_images-05.jpg",
+    "product_count": 81,
+    "position": 43,
+    "children": [
+      {
+        "uid": "MTQ2MQ==",
+        "name": "Meat",
+        "url_key": "meat",
+        "product_count": 9,
+        "image": null,
+        "children": [
+          {
+            "name": "Meat",
+            "url_key": "meat",
+            "product_count": 9
+          },
+          {
+            "name": "Poultry",
+            "url_key": "poultry",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MTQyMg==",
+        "name": "Pizza Toppings",
+        "url_key": "pizza-toppings",
+        "product_count": 11,
+        "image": null,
+        "children": [
+          {
+            "name": "Pizza Toppings",
+            "url_key": "pizza-toppings",
+            "product_count": 11
+          }
+        ]
+      },
+      {
+        "uid": "MTQyMA==",
+        "name": "Poultry",
+        "url_key": "poultry",
+        "product_count": 30,
+        "image": null,
+        "children": [
+          {
+            "name": "Chicken",
+            "url_key": "chicken",
+            "product_count": 30
+          },
+          {
+            "name": "Poultry",
+            "url_key": "poultry",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MTUwMA==",
+        "name": "Seafood",
+        "url_key": "seafood",
+        "product_count": 11,
+        "image": null,
+        "children": [
+          {
+            "name": "Seafood",
+            "url_key": "seafood",
+            "product_count": 11
+          }
+        ]
+      },
+      {
+        "uid": "MTgwNw==",
+        "name": "Kebabs, Sausages & Burgers",
+        "url_key": "kebabs-sausages-burgers",
+        "product_count": 20,
+        "image": null,
+        "children": [
+          {
+            "name": "Burger, Hotdogs & Kababs",
+            "url_key": "burger-hotdogs-kababs",
+            "product_count": 20
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "MTQzMw==",
+    "name": "Janitorial",
+    "url_key": "janitorial",
+    "image": "https://m2.mysupreme.ca/media/catalog/category/my_supreme_category_images-03.jpg",
+    "product_count": 261,
+    "position": 44,
+    "children": [
+      {
+        "uid": "MTQ4OQ==",
+        "name": "Garbage Bags",
+        "url_key": "garbage-bags",
+        "product_count": 61,
+        "image": null,
+        "children": [
+          {
+            "name": "Garbage Bags",
+            "url_key": "garbage-bags",
+            "product_count": 56
+          }
+        ]
+      },
+      {
+        "uid": "MTgwOQ==",
+        "name": "Cleaning Essentials",
+        "url_key": "cleaning-essentials",
+        "product_count": 15,
+        "image": null,
+        "children": [
+          {
+            "name": "Restaurant & Retail Supplies",
+            "url_key": "restaurant-retail-supplies",
+            "product_count": 4
+          },
+          {
+            "name": "Restaurant Equipment",
+            "url_key": "restaurant-equipment",
+            "product_count": 1
+          },
+          {
+            "name": "Others",
+            "url_key": "others",
+            "product_count": 2
+          },
+          {
+            "name": "Cleaning Tools",
+            "url_key": "cleaning-tools",
+            "product_count": 5
+          },
+          {
+            "name": "Dishwash",
+            "url_key": "dishwash",
+            "product_count": 1
+          },
+          {
+            "name": "Mops & Accessories",
+            "url_key": "mops-accessories",
+            "product_count": 2
+          }
+        ]
+      },
+      {
+        "uid": "MTgxMQ==",
+        "name": "Cleaning Solutions",
+        "url_key": "cleaning-solutions",
+        "product_count": 154,
+        "image": null,
+        "children": [
+          {
+            "name": "All Purpose Chemicals",
+            "url_key": "all-purpose-chemicals",
+            "product_count": 68
+          },
+          {
+            "name": "Glass Cleaner",
+            "url_key": "glass-cleaner",
+            "product_count": 4
+          },
+          {
+            "name": "Others",
+            "url_key": "others",
+            "product_count": 5
+          },
+          {
+            "name": "Dishwash",
+            "url_key": "dishwash",
+            "product_count": 19
+          },
+          {
+            "name": "Hand Soaps",
+            "url_key": "hand-soaps",
+            "product_count": 8
+          },
+          {
+            "name": "Bleach",
+            "url_key": "bleach",
+            "product_count": 9
+          },
+          {
+            "name": "Cleaning Chemicals",
+            "url_key": "cleaning-chemicals",
+            "product_count": 4
+          },
+          {
+            "name": "Mops & Accessories",
+            "url_key": "mops-accessories",
+            "product_count": 16
+          },
+          {
+            "name": "Floor Cleaner",
+            "url_key": "floor-cleaner",
+            "product_count": 4
+          },
+          {
+            "name": "Air Care",
+            "url_key": "air-care",
+            "product_count": 7
+          },
+          {
+            "name": "Bathroom Cleaners",
+            "url_key": "bathroom-cleaners",
+            "product_count": 1
+          },
+          {
+            "name": "Equipment Cleaner",
+            "url_key": "equipment-cleaner",
+            "product_count": 5
+          },
+          {
+            "name": "Laundry Detergent",
+            "url_key": "laundry-detergent",
+            "product_count": 4
+          }
+        ]
+      },
+      {
+        "uid": "MTgxNg==",
+        "name": "Tissues & Towels",
+        "url_key": "tissues-towels",
+        "product_count": 26,
+        "image": null,
+        "children": [
+          {
+            "name": "Bathroom Tissues",
+            "url_key": "bathroom-tissues",
+            "product_count": 9
+          },
+          {
+            "name": "Facial Tissues",
+            "url_key": "facial-tissues",
+            "product_count": 1
+          },
+          {
+            "name": "Hand Towels",
+            "url_key": "hand-towels",
+            "product_count": 16
+          }
+        ]
+      },
+      {
+        "uid": "MjEyMA==",
+        "name": "Cleaning Supplies",
+        "url_key": "cleaning-supplies",
+        "product_count": 5,
+        "image": null,
+        "children": [
+          {
+            "name": "Bleach",
+            "url_key": "bleach",
+            "product_count": 2
+          },
+          {
+            "name": "Equipment Cleaner",
+            "url_key": "equipment-cleaner",
+            "product_count": 2
+          },
+          {
+            "name": "Equipment Cleaner",
+            "url_key": "equipment-cleaner",
+            "product_count": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "uid": "MTUxNg==",
+    "name": "Ware & Equipment",
+    "url_key": "ware-equipment",
+    "image": "https://m2.mysupreme.ca/media/catalog/category/my_supreme_category_images-02.jpg",
+    "product_count": 38,
+    "position": 45,
+    "children": [
+      {
+        "uid": "MTUyNQ==",
+        "name": "Kitchen Supplies",
+        "url_key": "kitchen-supplies",
+        "product_count": 0,
+        "image": null,
+        "children": [
+          {
+            "name": "Wholesale Smallware",
+            "url_key": "wholesale-smallware",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MTUyNw==",
+        "name": "Restaurant Equipment",
+        "url_key": "restaurant-equipment",
+        "product_count": 0,
+        "image": null,
+        "children": [
+          {
+            "name": "Restaurant Cookware",
+            "url_key": "restaurant-cookware",
+            "product_count": 0
+          }
+        ]
+      },
+      {
+        "uid": "MTgwMg==",
+        "name": "Supplies",
+        "url_key": "supplies",
+        "product_count": 34,
+        "image": null,
+        "children": [
+          {
+            "name": "Restaurant Equipment",
+            "url_key": "restaurant-equipment",
+            "product_count": 1
+          },
+          {
+            "name": "Restaurant & Retail Supplies",
+            "url_key": "restaurant-retail-supplies",
+            "product_count": 6
+          },
+          {
+            "name": "Wholesale Smallware",
+            "url_key": "wholesale-smallware",
+            "product_count": 12
+          },
+          {
+            "name": "Apparel",
+            "url_key": "apparel",
+            "product_count": 2
+          },
+          {
+            "name": "Pizza Supplies",
+            "url_key": "pizza-supplies",
+            "product_count": 10
+          },
+          {
+            "name": "Restaurant Cookware",
+            "url_key": "restaurant-cookware",
+            "product_count": 3
+          }
+        ]
+      },
+      {
+        "uid": "MjA0OQ==",
+        "name": "Kitchen Essentials",
+        "url_key": "kitchen-essentials",
+        "product_count": 2,
+        "image": null,
+        "children": [
+          {
+            "name": "Chicken",
+            "url_key": "chicken",
+            "product_count": 1
+          },
+          {
+            "name": "Restaurant & Retail Supplies",
+            "url_key": "restaurant-retail-supplies",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjE0NA==",
+        "name": "Wraps",
+        "url_key": "wraps",
+        "product_count": 1,
+        "image": null,
+        "children": [
+          {
+            "name": "Industrial & Retail Supplies in Packaging",
+            "url_key": "industrial-retail-supplies-in-packaging",
+            "product_count": 1
+          }
+        ]
+      },
+      {
+        "uid": "MjE1Mg==",
+        "name": "Foodservice Equipment",
+        "url_key": "foodservice-equipment",
+        "product_count": 1,
+        "image": null,
+        "children": [
+          {
+            "name": "Restaurant Equipment",
+            "url_key": "restaurant-equipment",
+            "product_count": 1
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,6952 @@
+[
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CUT00110",
+    "name": "Value+ - Medium-Heavy Weight Meal Kit White (F/K/TS/N/S&P) - MK-611",
+    "url_key": "value-medium-heavy-weight-meal-kit-white-f-k-ts-n-s-p-mk-611",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Value+ - Medium-Heavy Weight Meal Kit White (F/K/TS/N/S&P) - MK-611"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 41.39,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 41.39,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "500 Pcs in a Box"
+    },
+    "description": {
+      "html": "500 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Cutleries",
+        "url_key": "cutleries"
+      },
+      {
+        "name": "Cutlery Kit",
+        "url_key": "cutlery-kit"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "WRP0127",
+    "name": "RB - Wafer Sheets",
+    "url_key": "rb-wafer-sheets",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Wafer Sheets"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 12.6,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 12.6,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "25 Pcs in a Pack"
+    },
+    "description": {
+      "html": "25 Pcs in a Pack"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "WRP0126",
+    "name": "RB - Icing Sheets",
+    "url_key": "rb-icing-sheets",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Icing Sheets"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 42,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 42,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "25 Pcs in a Box"
+    },
+    "description": {
+      "html": "25 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00908",
+    "name": "RB - Cake board 12x2mm",
+    "url_key": "rb-cake-board-12x2mm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Cake board 12x2mm"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 108,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 108,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "200 Pcs in a Box"
+    },
+    "description": {
+      "html": "200 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00907",
+    "name": "RB - Cake board 10x2mm",
+    "url_key": "rb-cake-board-10x2mm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Cake board 10x2mm"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 576,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 576,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1600 Pcs in a Box"
+    },
+    "description": {
+      "html": "1600 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00906",
+    "name": "Eco-Craze \u2013 MFPP Clamshell Vented Cont. \u2013 9\"x5.5\"x2.6\" \u2013 Extra Heavy Duty Microwavable Black Base with Clear Anti-Fog Lid \u2013 A905",
+    "url_key": "rb-cake-board-8x2mm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Cake board 8x2mm"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 91.2,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 91.2,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "400 Pcs in a Box"
+    },
+    "description": {
+      "html": "400 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging",
+    "_test": "long-name"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00905",
+    "name": "RB - Cake board 12x6mm",
+    "url_key": "rb-cake-board-12x6mm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Cake board 12x6mm"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 216,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 216,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "200 Pcs in a Box"
+    },
+    "description": {
+      "html": "200 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00904",
+    "name": "RB - Cake board 10x6mm",
+    "url_key": "rb-cake-board-10x6mm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Cake board 10x6mm"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 672,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 672,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "800 Pcs in a Box"
+    },
+    "description": {
+      "html": "800 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00903",
+    "name": "RB - Cake board 8x6mm",
+    "url_key": "rb-cake-board-8x6mm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Cake board 8x6mm"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 264,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 264,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "400 Pcs in a Box"
+    },
+    "description": {
+      "html": "400 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00902",
+    "name": "RB - Cake board 18x12mm",
+    "url_key": "rb-cake-board-12x18mm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Cake board 18x12mm"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 97.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 97.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "25 Pcs in a Box"
+    },
+    "description": {
+      "html": "25 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00901",
+    "name": "RB - Cake board 16x12mm",
+    "url_key": "rb-cake-board-12x16mm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Cake board 16x12mm"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 72.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 72.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "25 Pcs in a Box"
+    },
+    "description": {
+      "html": "25 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00900",
+    "name": "RB - Cake board 14x12mm",
+    "url_key": "rb-cake-board-12x14mm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Cake board 14x12mm"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 117.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 117.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "50 Pcs in a Box"
+    },
+    "description": {
+      "html": "50 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00899",
+    "name": "RB - Cake board 12x12mm",
+    "url_key": "rb-cake-board-12x12mm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Cake board 12x12mm"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 96.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 96.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "50 Pcs in a Box"
+    },
+    "description": {
+      "html": "50 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00898",
+    "name": "RB - Cake board 10x12mm",
+    "url_key": "rb-cake-board-10x12mm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Cake board 10x12mm"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 147.6,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 147.6,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "100 Pcs in a Box"
+    },
+    "description": {
+      "html": "100 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "TC00897",
+    "name": "RB - Pastry Box Mine Mouse 160ml",
+    "url_key": "rb-pastry-box-mine-mouse-160ml",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "RB - Pastry Box Mine Mouse 160ml"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 468.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 468.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "2000 Pcs in a Box"
+    },
+    "description": {
+      "html": "2000 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Packaging",
+        "url_key": "packaging"
+      },
+      {
+        "name": "Takeout Containers",
+        "url_key": "food-takeout-containers"
+      },
+      {
+        "name": "Plastic Takeout Containers",
+        "url_key": "plastic-takeout-containers"
+      }
+    ],
+    "department": "packaging"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SB00852",
+    "name": "Totole - Soup Base Granulated Chicken Flvr.",
+    "url_key": "totole-soup-base-granulated-chicken-flvr",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Totole - Soup Base Granulated Chicken Flvr."
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 15.49,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 15.49,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1 kg"
+    },
+    "description": {
+      "html": "1 kg"
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Spice Blends",
+        "url_key": "spice-blends"
+      },
+      {
+        "name": "Spices & Seasonings",
+        "url_key": "spices-seasonings"
+      }
+    ],
+    "department": "grocery"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SB002011",
+    "name": "Kasih - Green Zaater - 11 lb",
+    "url_key": "kasih-green-zaater-11-lb",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Kasih - Green Zaater - 11 lb"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 51.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 51.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "11 lb"
+    },
+    "description": {
+      "html": "11 lb"
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Spice Blends",
+        "url_key": "spice-blends"
+      },
+      {
+        "name": "Spices & Seasonings",
+        "url_key": "spices-seasonings"
+      }
+    ],
+    "department": "grocery"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CPF02920",
+    "name": "Nikita - Sliced Coconut",
+    "url_key": "nikita-sliced-coconut",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Nikita - Sliced Coconut"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 3.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 3.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "200 g"
+    },
+    "description": {
+      "html": "200 g"
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Canned & Packed Foods",
+        "url_key": "canned-packed-foods"
+      },
+      {
+        "name": "Nuts & Dry Food",
+        "url_key": "nuts-dry-food"
+      }
+    ],
+    "department": "grocery"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PLT00150",
+    "name": "Rani Mahal - Golden Basmati Rice",
+    "url_key": "rani-mahal-golden-basmati-rice",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Rani Mahal - Golden Basmati Rice"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 46.75,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 46.75,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "40 lb"
+    },
+    "description": {
+      "html": "40 lb"
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Plant based",
+        "url_key": "plant-based"
+      },
+      {
+        "name": "Bulk Rice",
+        "url_key": "bulk-rice"
+      }
+    ],
+    "department": "grocery"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PLT00057",
+    "name": "Apna - Moth Bean - Daal",
+    "url_key": "apna-moth-bean-daal",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Apna - Moth Bean - Daal"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 12.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 12.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "10 lb"
+    },
+    "description": {
+      "html": "10 lb"
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Plant based",
+        "url_key": "plant-based"
+      },
+      {
+        "name": "Beans & Peas",
+        "url_key": "beans-peas"
+      }
+    ],
+    "department": "grocery"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CPF0400",
+    "name": "Dole - Pineapple Slice - in Juice",
+    "url_key": "dole-pineapple-slice-in-juice",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Dole - Pineapple Slice - in Juice"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 62.59,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 62.59,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "24x398 ml"
+    },
+    "description": {
+      "html": "24x398 ml"
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Canned & Packed Foods",
+        "url_key": "canned-packed-foods"
+      },
+      {
+        "name": "Canned Fruits",
+        "url_key": "canned-fruits"
+      }
+    ],
+    "department": "grocery",
+    "_test": "no-image"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SS0083",
+    "name": "Roltios - Chili Lime",
+    "url_key": "roltios-chili-lime",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Roltios - Chili Lime"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 1.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 1.69,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 15,
+          "amount_off": 0.3
+        }
+      }
+    },
+    "short_description": {
+      "html": "90 g "
+    },
+    "description": {
+      "html": "90 g "
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Snacks & Confectionary",
+        "url_key": "snacks-confectionary"
+      },
+      {
+        "name": "Snacks & Confectionary",
+        "url_key": "snacks-confectionary"
+      }
+    ],
+    "department": "grocery",
+    "_test": "no-image"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SS0082",
+    "name": "Roltios - Spicy BBQ",
+    "url_key": "roltios-spicy-bbq",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Roltios - Spicy BBQ"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 1.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 1.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "90 g "
+    },
+    "description": {
+      "html": "90 g "
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Snacks & Confectionary",
+        "url_key": "snacks-confectionary"
+      },
+      {
+        "name": "Snacks & Confectionary",
+        "url_key": "snacks-confectionary"
+      }
+    ],
+    "department": "grocery",
+    "_test": "no-image"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SS0081",
+    "name": "Roltios - Spicy Blue -",
+    "url_key": "roltios-spicy-blue",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/1/T/1TWF79Vy1RPe3nZlZ5k6Bmo9t.jpg",
+      "label": "Roltios - Spicy Blue -"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/1/T/1TWF79Vy1RPe3nZlZ5k6Bmo9t.jpg",
+        "label": "Roltios - Spicy Blue -"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 1.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 1.59,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 20,
+          "amount_off": 0.4
+        }
+      }
+    },
+    "short_description": {
+      "html": "90 g "
+    },
+    "description": {
+      "html": "90 g "
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Snacks & Confectionary",
+        "url_key": "snacks-confectionary"
+      },
+      {
+        "name": "Snacks & Confectionary",
+        "url_key": "snacks-confectionary"
+      }
+    ],
+    "department": "grocery",
+    "_test": "sale"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CON0541",
+    "name": "National - Mixed Pickle - 2.27 kg",
+    "url_key": "national-mixed-pickle-2-27-kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "National - Mixed Pickle - 2.27 kg"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 8.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 8.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "2.27 kg"
+    },
+    "description": {
+      "html": "2.27 kg"
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Condiments",
+        "url_key": "condiments"
+      },
+      {
+        "name": "Pickles",
+        "url_key": "pickles"
+      }
+    ],
+    "department": "grocery"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CON0540",
+    "name": "National - Crushed Pickle - 340 g",
+    "url_key": "national-crushed-pickle-340-g",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "National - Crushed Pickle - 340 g"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 4.75,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 4.75,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "340 g"
+    },
+    "description": {
+      "html": "340 g"
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Condiments",
+        "url_key": "condiments"
+      },
+      {
+        "name": "Pickles",
+        "url_key": "pickles"
+      }
+    ],
+    "department": "grocery"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PLT00098",
+    "name": "Apna - Green Laird Lentil",
+    "url_key": "apna-green-laird-lentil",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/P/7/P7jiLj15DyasDaumf3YI71oXo.jpg",
+      "label": "Apna - Green Laird Lentil"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/P/7/P7jiLj15DyasDaumf3YI71oXo.jpg",
+        "label": "Apna - Green Laird Lentil"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 9.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 8.55,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 10,
+          "amount_off": 0.95
+        }
+      }
+    },
+    "short_description": {
+      "html": "10 lb"
+    },
+    "description": {
+      "html": "Apna - Green Laird Lentil"
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Plant based",
+        "url_key": "plant-based"
+      },
+      {
+        "name": "Beans & Peas",
+        "url_key": "beans-peas"
+      }
+    ],
+    "department": "grocery",
+    "_test": "sale"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SB00851",
+    "name": "Shan - Vegetable Masala 100g",
+    "url_key": "shan-vegetable-masala-100g",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Shan - Vegetable Masala 100g"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 12.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 12.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "6x50 g"
+    },
+    "description": {
+      "html": "6x50 g"
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Spice Blends",
+        "url_key": "spice-blends"
+      },
+      {
+        "name": "Spices & Seasonings",
+        "url_key": "spices-seasonings"
+      }
+    ],
+    "department": "grocery"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SB00850",
+    "name": "Shan - Keema Masala  50 g",
+    "url_key": "shan-keema-masala",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/Y/4/Y4jLYhJwUcVSnUKl3K25BIbLp.jpg",
+      "label": "Shan - Keema Masala  50 g"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/Y/4/Y4jLYhJwUcVSnUKl3K25BIbLp.jpg",
+        "label": "Shan - Keema Masala  50 g"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 12.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 12.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "6x50 g"
+    },
+    "description": {
+      "html": "6x50 g"
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Spice Blends",
+        "url_key": "spice-blends"
+      },
+      {
+        "name": "Spices & Seasonings",
+        "url_key": "spices-seasonings"
+      }
+    ],
+    "department": "grocery"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SB00838",
+    "name": "MDH - Sambar Masala - 500g",
+    "url_key": "mdh-sambar-masala-500g",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "MDH - Sambar Masala - 500g"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 9.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 9.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "500 g"
+    },
+    "description": {
+      "html": "MDH - Jal Jeera Masala - 500 g is a premium-quality food product carefully selected to meet the needs of restaurants, catering businesses, retailers, and institutional kitchens. This item is known for its consistent quality, reliable performance, and excellent value, making it suitable for both high-volume commercial use and everyday household cooking. The product is processed and packed under strict quality control standards to ensure freshness, safety, and long shelf life. \n\nIdeal for a wide range of culinary applications, MDH - Jal Jeera Masala - 500 g can be used in traditional, continental, and modern recipes. Its balanced flavor profile and dependable texture help chefs and home cooks achieve consistent results every time. The packaging is designed for easy handling, storage efficiency, and reduced wastage, supporting smooth kitchen operations. \n\nThis product is a trusted choice for businesses looking to maintain quality while managing costs effectively. Whether used as a core ingredient or a supporting component, MDH - Jal Jeera Masala - 500 g delivers reliability, convenience, and customer satisfaction, making it a valuable addition to any foodservice or retail inventory."
+    },
+    "categories": [
+      {
+        "name": "Grocery",
+        "url_key": "grocery"
+      },
+      {
+        "name": "Spice Blends",
+        "url_key": "spice-blends"
+      },
+      {
+        "name": "Spices & Seasonings",
+        "url_key": "spices-seasonings"
+      }
+    ],
+    "department": "grocery"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "DB0125",
+    "name": "Chapman's - Vanilla Ice Cream",
+    "url_key": "chapman-s-vanilla-ice-cream",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Chapman's - Vanilla Ice Cream"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 29.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 29.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "11.4 Lt"
+    },
+    "description": {
+      "html": "11.4 Lt"
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Snacks & Sweets",
+        "url_key": "snacks-sweets"
+      },
+      {
+        "name": "Ice Cream",
+        "url_key": "ice-cream"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "FP00200",
+    "name": "Brar's - Handmade Samosa - Half-Done - 75g",
+    "url_key": "brar-s-handmade-samosa-half-done-75g",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/U/a/UapYuK5riEJtl7b8SOw8vk5OW.jpeg",
+      "label": "Brar's - Handmade Samosa - Half-Done - 75g"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/U/a/UapYuK5riEJtl7b8SOw8vk5OW.jpeg",
+        "label": "Brar's - Handmade Samosa - Half-Done - 75g"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 51.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 51.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "36 Pcs in a Box"
+    },
+    "description": {
+      "html": "36 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Frozen Appetizers",
+        "url_key": "frozen-appetizers"
+      },
+      {
+        "name": "Frozen Appetizers",
+        "url_key": "frozen-appetizers"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "FP0020",
+    "name": "Sai Krishna - Vegetable Samosa Handmade",
+    "url_key": "sai-krishna-vegetable-samosa-handmade",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/9/s/9swr1jtcEcWvskGPnQ5SOcaMG.jpg",
+      "label": "Sai Krishna - Vegetable Samosa Handmade"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/9/s/9swr1jtcEcWvskGPnQ5SOcaMG.jpg",
+        "label": "Sai Krishna - Vegetable Samosa Handmade"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 51.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 51.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "50 Pcs in a Box"
+    },
+    "description": {
+      "html": "50 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Frozen Appetizers",
+        "url_key": "frozen-appetizers"
+      },
+      {
+        "name": "Frozen Appetizers",
+        "url_key": "frozen-appetizers"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000008920191",
+    "name": "Red Dragon- Basa Fillet 28oz ups (30LBS) 64022",
+    "url_key": "red-dragon-basa-fillet-28oz-ups-30lbs-64022",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Red Dragon- Basa Fillet 28oz ups (30LBS) 64022"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "6x5 lb in a Box"
+    },
+    "description": {
+      "html": "6x5 lb in a Box"
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Fish",
+        "url_key": "fish"
+      },
+      {
+        "name": "Seafood",
+        "url_key": "seafood"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000008920176",
+    "name": "Red Dragon- Basa Fillet 24-28oz(30LBS) 63992",
+    "url_key": "red-dragon-basa-fillet-24-28oz-30lbs-63992",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Red Dragon- Basa Fillet 24-28oz(30LBS) 63992"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "6x5 lb in a Box"
+    },
+    "description": {
+      "html": "6x5 lb in a Box"
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Fish",
+        "url_key": "fish"
+      },
+      {
+        "name": "Seafood",
+        "url_key": "seafood"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "FP00016",
+    "name": "Nanak - Aloo Tikki - Bulk - 50pc",
+    "url_key": "nanak-aloo-tikki-bulk-50pc",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Nanak - Aloo Tikki - Bulk - 50pc"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 21.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 21.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "50 ct in a box "
+    },
+    "description": {
+      "html": "50 ct in a box "
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Frozen Appetizers",
+        "url_key": "frozen-appetizers"
+      },
+      {
+        "name": "Frozen Appetizers",
+        "url_key": "frozen-appetizers"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "DB0200",
+    "name": "Creation - Puff Pastry Sheet 5x5\"",
+    "url_key": "creation-puff-pastry-sheet-5x5",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Creation - Puff Pastry Sheet 5x5\""
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 47,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 47,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "150 Sheets in a Box"
+    },
+    "description": {
+      "html": "Flaky, crispy and rich puff pastry, an ultimate comfort food that lets you delve in the extreme goodness. United Bakery's Puff Pastry is the ultimate calling to the cravings of melt-in-your-mouth, crunchy and golden flaky pastry that goes well for sweet and salty delicacies. Either it is a crust for patties and puffs, or you want to use it for a different assortment of apple, blueberry and strawberry desserts, it is just the perfect complement.\n\nIt comes ready-to-bake with no extra steps or ingredients needed to add.\n\nBoxed carton for better preserve and freshness\n150 sheets of 5x5 each"
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Dessert & Bakery",
+        "url_key": "dessert-bakery"
+      },
+      {
+        "name": "Baking Sheets",
+        "url_key": "baking-sheets"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000008533277",
+    "name": "Red Dragon- Basa Fillet 20-24oz(30LBS)63992",
+    "url_key": "red-dragon-basa-fillet-18oz-30lbs",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Red Dragon- Basa Fillet 20-24oz(30LBS)63992"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "6x5 lb in a Box"
+    },
+    "description": {
+      "html": "6x5 lb in a Box"
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Fish",
+        "url_key": "fish"
+      },
+      {
+        "name": "Seafood",
+        "url_key": "seafood"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "RM",
+    "name": "Cavendish - French Fries - Straight Cut Skin On - RR 7/16 - 01006",
+    "url_key": "cavendish-french-fries-straight-cut-skin-on-rr-7-16-01006",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/j/Y/jYOZrNHhwFqQFeVOJyqOyzljR.png",
+      "label": "Cavendish - French Fries - Straight Cut Skin On - RR 7/16 - 01006"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/j/Y/jYOZrNHhwFqQFeVOJyqOyzljR.png",
+        "label": "Cavendish - French Fries - Straight Cut Skin On - RR 7/16 - 01006"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/H/G/HGS73AUwbwQoq0iub4idEH1Ug.png",
+        "label": "Cavendish - French Fries - Straight Cut Skin On - RR 7/16 - 01006"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 43.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 43.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "6x4.5 lb in a box "
+    },
+    "description": {
+      "html": "6x4.5 lb in a box "
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Ready Meals",
+        "url_key": "ready-meals"
+      },
+      {
+        "name": "Frozen French Fries",
+        "url_key": "frozen-french-fries"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SF0010",
+    "name": "Red Dragon- Basa Fillet 16-18oz(30LBS)",
+    "url_key": "red-dragon-basa-fillet-16-18oz-30lbs",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Red Dragon- Basa Fillet 16-18oz(30LBS)"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "6x5 lb"
+    },
+    "description": {
+      "html": "6x5 lb"
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Fish",
+        "url_key": "fish"
+      },
+      {
+        "name": "Seafood",
+        "url_key": "seafood"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "FV0039",
+    "name": "Ashoka Frozen Farm Fresh Methi (Fenugreek Leaves)",
+    "url_key": "ashoka-methi-fenugreek-leaves",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Ashoka Frozen Farm Fresh Methi (Fenugreek Leaves)"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 2.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 2.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "310 g "
+    },
+    "description": {
+      "html": "310 g "
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Frozen Veg",
+        "url_key": "frozen-veg"
+      },
+      {
+        "name": "Frozen Vegetables",
+        "url_key": "frozen-vegetables"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "FV00190",
+    "name": "Below Zero - IQF Prince Edward Medley - 6789",
+    "url_key": "below-zero-iqf-prince-edward-medley-6789",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Below Zero - IQF Prince Edward Medley - 6789"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 7.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 7.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "2 kg "
+    },
+    "description": {
+      "html": "2 kg "
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Frozen Veg",
+        "url_key": "frozen-veg"
+      },
+      {
+        "name": "Frozen Vegetables",
+        "url_key": "frozen-vegetables"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000007900051",
+    "name": "Apna - IQF Diced Onion",
+    "url_key": "apna-iqf-diced-onion",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/K/b/KbAwJJEtX11ku8xZ1Aco0ncPX.png",
+      "label": "Apna - IQF Diced Onion"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/K/b/KbAwJJEtX11ku8xZ1Aco0ncPX.png",
+        "label": "Apna - IQF Diced Onion"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/5/y/5yJPqe4oy62t6Gtpkcjy0PDTN.png",
+        "label": "Apna - IQF Diced Onion"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 21.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 21.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "6x2 kg in a box "
+    },
+    "description": {
+      "html": "6x2 kg in a box "
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Frozen Veg",
+        "url_key": "frozen-veg"
+      },
+      {
+        "name": "Frozen Vegetables",
+        "url_key": "frozen-vegetables"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "FV0040",
+    "name": "Veggie Max - Frozen Peas & Carrot",
+    "url_key": "veggie-max-frozen-peas-carrots",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/V/b/VbqK5mVtWqUrRNVfAu3iBKsri.png",
+      "label": "Veggie Max - Frozen Peas & Carrot"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/V/b/VbqK5mVtWqUrRNVfAu3iBKsri.png",
+        "label": "Veggie Max - Frozen Peas & Carrot"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 6.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "2 kg"
+    },
+    "description": {
+      "html": "2 kg"
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Frozen Veg",
+        "url_key": "frozen-veg"
+      },
+      {
+        "name": "Frozen Vegetables",
+        "url_key": "frozen-vegetables"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "FV0041",
+    "name": "Cedar Frozen Chopped Spinach",
+    "url_key": "dairy-max-frozen-spinach-chopped",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/V/r/VreXKwABfPcRUV5CkKgp5c5VS.png",
+      "label": "Cedar Frozen Chopped Spinach"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/V/r/VreXKwABfPcRUV5CkKgp5c5VS.png",
+        "label": "Cedar Frozen Chopped Spinach"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 3.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 3.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "750g - 1.65lb"
+    },
+    "description": {
+      "html": "750g - 1.65lb"
+    },
+    "categories": [
+      {
+        "name": "Frozen",
+        "url_key": "frozen"
+      },
+      {
+        "name": "Frozen Veg",
+        "url_key": "frozen-veg"
+      },
+      {
+        "name": "Frozen Vegetables",
+        "url_key": "frozen-vegetables"
+      }
+    ],
+    "department": "frozen"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "VGT0035",
+    "name": "Fresh - Yellow Bell Peppers",
+    "url_key": "fresh-yellow-bell-peppers",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Fresh - Yellow Bell Peppers"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/L/U/LUL55Hbe7dH59rMyzN6KEjqPE.jpeg",
+        "label": "Fresh - Yellow Bell Peppers"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 8.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 8.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "11 lb"
+    },
+    "description": {
+      "html": "11 lb"
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Vegetables",
+        "url_key": "vegetables"
+      },
+      {
+        "name": "Peppers",
+        "url_key": "peppers"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "VGT0116",
+    "name": "Fresh - Cherry Tomatoes",
+    "url_key": "fresh-cherry-tomatoes",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Fresh - Cherry Tomatoes"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 26.75,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 26.75,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "12 Pcs in a Case"
+    },
+    "description": {
+      "html": "12 Pcs in a Case"
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Vegetables",
+        "url_key": "vegetables"
+      },
+      {
+        "name": "Tomatoes",
+        "url_key": "tomatoes"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "VGT0633",
+    "name": "fresh -  Bok Choy",
+    "url_key": "fresh-bok-choy",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "fresh -  Bok Choy"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 0,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 0,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": ""
+    },
+    "description": {
+      "html": ""
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Vegetables",
+        "url_key": "vegetables"
+      },
+      {
+        "name": "Bulk Vegetables",
+        "url_key": "bulk-vegetables"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "VGT00027",
+    "name": "Fresh - Sliced Mushrooms - White",
+    "url_key": "fresh-sliced-mushrooms-whole-white",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/Q/e/QeVZp1JbnvRBJZK4Of6TQfRwx.jpg",
+      "label": "Fresh - Sliced Mushrooms - White"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/Q/e/QeVZp1JbnvRBJZK4Of6TQfRwx.jpg",
+        "label": "Fresh - Sliced Mushrooms - White"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 14.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 14.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "5 lb"
+    },
+    "description": {
+      "html": "5 lb"
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Vegetables",
+        "url_key": "vegetables"
+      },
+      {
+        "name": "Mushroom",
+        "url_key": "mushroom"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000008468536",
+    "name": "fresh red bell 20lb",
+    "url_key": "fresh-red-bell-20lb",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "fresh red bell 20lb"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 18.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 18.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": ""
+    },
+    "description": {
+      "html": ""
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Fresh Vegetables",
+        "url_key": "fresh-vegetables"
+      },
+      {
+        "name": "Bulk Vegetables",
+        "url_key": "bulk-vegetables"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "HRB0010",
+    "name": "Fresh - mint 12 ct",
+    "url_key": "fresh-mint-24-ct",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Fresh - mint 12 ct"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 25.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 25.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": ""
+    },
+    "description": {
+      "html": ""
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Fresh Vegetables",
+        "url_key": "fresh-vegetables"
+      },
+      {
+        "name": "Bulk Vegetables",
+        "url_key": "bulk-vegetables"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PRO0",
+    "name": "Fresh sweet corn",
+    "url_key": "fresh-sweet-corn",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/I/5/I5m7nuoKp1Mp9zpknWWJXnyjl.jpg",
+      "label": "Fresh sweet corn"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/I/5/I5m7nuoKp1Mp9zpknWWJXnyjl.jpg",
+        "label": "Fresh sweet corn"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 29.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 29.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1 bag"
+    },
+    "description": {
+      "html": "1 bag"
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Vegetables",
+        "url_key": "vegetables"
+      },
+      {
+        "name": "Greens & Salad Mixes",
+        "url_key": "greens-salad-mixes"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "FRT0066",
+    "name": "Fresh - Yellow melon",
+    "url_key": "fresh-yellow-melon",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/A/7/A7vWwDHbfDh2GJVybQ3IbVThA.jpg",
+      "label": "Fresh - Yellow melon"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/A/7/A7vWwDHbfDh2GJVybQ3IbVThA.jpg",
+        "label": "Fresh - Yellow melon"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 25.79,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 25.79,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "5 Pcs  in a Box "
+    },
+    "description": {
+      "html": "5 Pcs  in a Box "
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Fruits",
+        "url_key": "fruits"
+      },
+      {
+        "name": "Melons",
+        "url_key": "melons"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "VGT0065",
+    "name": "Fresh - Mushrooms - Whole Brown",
+    "url_key": "fresh-mushrooms-whole-brown",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/e/W/eWNvo1NX6f1ycquYh2umRRaAi.jpeg",
+      "label": "Fresh - Mushrooms - Whole Brown"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/e/W/eWNvo1NX6f1ycquYh2umRRaAi.jpeg",
+        "label": "Fresh - Mushrooms - Whole Brown"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 18.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 18.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "5 lb"
+    },
+    "description": {
+      "html": "5 lb"
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Vegetables",
+        "url_key": "vegetables"
+      },
+      {
+        "name": "Mushroom",
+        "url_key": "mushroom"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "VGT0066",
+    "name": "Fresh - Celery",
+    "url_key": "fresh-celery",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/z/E/zEvReWpnDpzp6CexYiXOETjZt.jpg",
+      "label": "Fresh - Celery"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/z/E/zEvReWpnDpzp6CexYiXOETjZt.jpg",
+        "label": "Fresh - Celery"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 1.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 1.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1 Pcs  "
+    },
+    "description": {
+      "html": "1 Pcs  "
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Vegetables",
+        "url_key": "vegetables"
+      },
+      {
+        "name": "Bulk Vegetables",
+        "url_key": "bulk-vegetables"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "VGT063",
+    "name": "fresh - spinach",
+    "url_key": "fresh-spinach",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/x/y/xyZvP85e4i3A3GhO5ZYzonb27.jpg",
+      "label": "fresh - spinach"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/x/y/xyZvP85e4i3A3GhO5ZYzonb27.jpg",
+        "label": "fresh - spinach"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 19.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 19.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "4 lb"
+    },
+    "description": {
+      "html": "4 lb"
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Vegetables",
+        "url_key": "vegetables"
+      },
+      {
+        "name": "Bulk Vegetables",
+        "url_key": "bulk-vegetables"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "FRT013",
+    "name": "Fresh Grapes Green",
+    "url_key": "fresh-grapes-green",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/S/M/SMXbQiECjLxIfUCErmCuUT4qt.jpg",
+      "label": "Fresh Grapes Green"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/S/M/SMXbQiECjLxIfUCErmCuUT4qt.jpg",
+        "label": "Fresh Grapes Green"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 24.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 24.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "19 lb"
+    },
+    "description": {
+      "html": "19 lb"
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Fresh Fruits",
+        "url_key": "fresh-fruits"
+      },
+      {
+        "name": "Frozen Fruits",
+        "url_key": "frozen-fruits"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "VGT00101",
+    "name": "Fresh - Cucumber - English # I",
+    "url_key": "fresh-cucumber-english-i",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Fresh - Cucumber - English # I"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 15.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 15.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "12 Pcs in a Box"
+    },
+    "description": {
+      "html": "12 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Vegetables",
+        "url_key": "vegetables"
+      },
+      {
+        "name": "Cucumber & Zucchini",
+        "url_key": "cucumber-zucchini"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "VGT0112",
+    "name": "Fresh - Tomato - BeafSteak",
+    "url_key": "fresh-tomato-beafsteam",
+    "uom": "lb",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/U/E/UElDvTCvs3kB4dHy3IYKZJONW.png",
+      "label": "Fresh - Tomato - BeafSteak"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/U/E/UElDvTCvs3kB4dHy3IYKZJONW.png",
+        "label": "Fresh - Tomato - BeafSteak"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "20 lb in a Box"
+    },
+    "description": {
+      "html": "20 lb in a Box"
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Vegetables",
+        "url_key": "vegetables"
+      },
+      {
+        "name": "Tomatoes",
+        "url_key": "tomatoes"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "GTC30KG",
+    "name": "Green Thai Chili's",
+    "url_key": "green-thai-chili-s",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Green Thai Chili's"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 8.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 8.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "2LB"
+    },
+    "description": {
+      "html": "2LB"
+    },
+    "categories": [
+      {
+        "name": "Produce ",
+        "url_key": "produce"
+      },
+      {
+        "name": "Vegetables",
+        "url_key": "vegetables"
+      },
+      {
+        "name": "Peppers",
+        "url_key": "peppers"
+      }
+    ],
+    "department": "produce"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000008478349",
+    "name": "Monin - Lime Syrup 1 Lt",
+    "url_key": "monin-lime-syrup-1-lt",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/B/I/BI01gHQwQu5OimUpxPXwyfFbY_1.png",
+      "label": "Monin - Lime Syrup 1 Lt"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/B/I/BI01gHQwQu5OimUpxPXwyfFbY_1.png",
+        "label": "Monin - Lime Syrup 1 Lt"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/f/d/fdvz7YmK4FLEGf9ZFVgaRpn46.png",
+        "label": "Monin - Lime Syrup 1 Lt"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 8.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 8.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1ltr"
+    },
+    "description": {
+      "html": "1ltr"
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes"
+      },
+      {
+        "name": "Flavored Syrups",
+        "url_key": "flavored-syrups"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000008478332",
+    "name": "Finest Call - Margarita 6X1 Lt",
+    "url_key": "finest-call-margarita-6x1-lt",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Finest Call - Margarita 6X1 Lt"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 48.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 48.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "6X1 Lt in a case "
+    },
+    "description": {
+      "html": "6X1 Lt in a case "
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes"
+      },
+      {
+        "name": "Bar Mixes",
+        "url_key": "bar-mixes"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000008252936",
+    "name": "Coca Cola - Coke - Original - Cans-32-355ml",
+    "url_key": "coca-cola-coke-original-cans-32-355ml",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Coca Cola - Coke - Original - Cans-32-355ml"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 20.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 20.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": ""
+    },
+    "description": {
+      "html": ""
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Cold Drinks",
+        "url_key": "cold-drinks"
+      },
+      {
+        "name": "Sodas",
+        "url_key": "sodas"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "BM0089",
+    "name": "Monin - Salted Caramel syrup",
+    "url_key": "monin-mango-syrup",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Monin - Salted Caramel syrup"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 12.29,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 12.29,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1ltr"
+    },
+    "description": {
+      "html": "Monin -SC Syrup 1ltr is a foodservice and retail product developed to meet everyday kitchen and commercial requirements. It is selected and processed under standard quality controls to ensure consistency, safety, and reliable performance across multiple applications. This product is suitable for use in restaurants, catering operations, institutional kitchens, and grocery environments where dependable results are essential. The packaging is designed to support efficient storage, handling, and inventory management while helping maintain product freshness and shelf stability. Its versatile nature allows it to be used in a variety of culinary preparations, supporting both traditional and modern menu applications. This item provides good value, operational efficiency, and consistent results for professional food operators."
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes"
+      },
+      {
+        "name": "Flavored Syrups",
+        "url_key": "flavored-syrups"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "HD0031",
+    "name": "Nestle - Coffee/Tea Whitener - Everyday 1.8 kg",
+    "url_key": "nestle-coffee-tea-whitener-everyday-1-8-kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/T/3/T3zW93FbVrfoAJoaYGUhTnR1L.png",
+      "label": "Nestle - Coffee/Tea Whitener - Everyday 1.8 kg"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/T/3/T3zW93FbVrfoAJoaYGUhTnR1L.png",
+        "label": "Nestle - Coffee/Tea Whitener - Everyday 1.8 kg"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 35.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 35.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1.8 kg"
+    },
+    "description": {
+      "html": "1.8 kg"
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes"
+      },
+      {
+        "name": "Hot Drinks",
+        "url_key": "hot-drinks"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "HD0025",
+    "name": "Nestle - Coffee/Tea Whitener - Everyday 850 g",
+    "url_key": "nestle-coffee-tea-whitener-everyday-850-g",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/Z/y/Zyhga2wGeAM4Sz5QJJ1vA1ruE.jpg",
+      "label": "Nestle - Coffee/Tea Whitener - Everyday 850 g"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/Z/y/Zyhga2wGeAM4Sz5QJJ1vA1ruE.jpg",
+        "label": "Nestle - Coffee/Tea Whitener - Everyday 850 g"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 19.2,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 19.2,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "850 g"
+    },
+    "description": {
+      "html": "850 g"
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes"
+      },
+      {
+        "name": "Hot Drinks",
+        "url_key": "hot-drinks"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "HD0030",
+    "name": "Nestle -everyday Kashmiri Tea (10 sticks)",
+    "url_key": "nestle-everyday-kashmiri-tea-10-sticks",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Nestle -everyday Kashmiri Tea (10 sticks)"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "10x20g"
+    },
+    "description": {
+      "html": "10x20g"
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes"
+      },
+      {
+        "name": "Hot Drinks",
+        "url_key": "hot-drinks"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "HD0029",
+    "name": "Nestle -everyday Karak Tea (10 sticks)",
+    "url_key": "nestle-everyday-karak-tea-10-sticks",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Nestle -everyday Karak Tea (10 sticks)"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "10x20g"
+    },
+    "description": {
+      "html": "10x20g"
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes"
+      },
+      {
+        "name": "Hot Drinks",
+        "url_key": "hot-drinks"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "HD0028",
+    "name": "Nestle -everyday masala Chai (10 sticks)",
+    "url_key": "nestle-everyday-masala-chai-10-sticks",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/R/Q/RQdfmHXtSdyVCxODHox0oxs7a.jpg",
+      "label": "Nestle -everyday masala Chai (10 sticks)"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/R/Q/RQdfmHXtSdyVCxODHox0oxs7a.jpg",
+        "label": "Nestle -everyday masala Chai (10 sticks)"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "10x20g"
+    },
+    "description": {
+      "html": "10x20g"
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes"
+      },
+      {
+        "name": "Hot Drinks",
+        "url_key": "hot-drinks"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "HD0027",
+    "name": "Nestle -everyday cardamom instant tea mix (10 sticks)",
+    "url_key": "nestle-everyday-cardamom-instant-tea-mix-10-sticks",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Nestle -everyday cardamom instant tea mix (10 sticks)"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "10x20g"
+    },
+    "description": {
+      "html": "10x20g"
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes"
+      },
+      {
+        "name": "Hot Drinks",
+        "url_key": "hot-drinks"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "HD0026",
+    "name": "Nestle - Everyday Vanilla Chai Latte 10x20g",
+    "url_key": "nestle-coffee-tea-whitener-everyday-850",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Nestle - Everyday Vanilla Chai Latte 10x20g"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "10x20g"
+    },
+    "description": {
+      "html": "10x20g"
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes"
+      },
+      {
+        "name": "Hot Drinks",
+        "url_key": "hot-drinks"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CD01112",
+    "name": "Monster Energy, 24x473 ml can",
+    "url_key": "monster-energy-24x473-ml-can",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Monster Energy, 24x473 ml can"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 49.19,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 49.19,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "24x473 ml in a case"
+    },
+    "description": {
+      "html": "24x473 ml in a case"
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Cold Drinks",
+        "url_key": "cold-drinks"
+      },
+      {
+        "name": "Energy Drinks",
+        "url_key": "energy-drinks"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CD017300",
+    "name": "San Pellegrino - Limonata - Cans",
+    "url_key": "san-pellegrino-limonata-cans",
+    "uom": "(Pack)",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "San Pellegrino - Limonata - Cans"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 7.79,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 7.79,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "6x330 ml in a case"
+    },
+    "description": {
+      "html": "6x330 ml in a case"
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Cold Drinks",
+        "url_key": "cold-drinks"
+      },
+      {
+        "name": "Juices",
+        "url_key": "juices"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CD0239",
+    "name": "Uludag Meyvelim - Orange Flav. Mineral Water",
+    "url_key": "uludag-meyvelim-orange-flav-mineral-water",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Uludag Meyvelim - Orange Flav. Mineral Water"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 25.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 25.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "12x1 Lt"
+    },
+    "description": {
+      "html": "12x1 Lt"
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Cold Drinks",
+        "url_key": "cold-drinks"
+      },
+      {
+        "name": "Juices",
+        "url_key": "juices"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "BM00091",
+    "name": "Monin - Cinnamon Syrup 1Lt",
+    "url_key": "monin-cinnamon-syrup-1lt",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Monin - Cinnamon Syrup 1Lt"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 13.19,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 13.19,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1 L"
+    },
+    "description": {
+      "html": "Monin - CinnaMON Syrup 1L is a foodservice and retail product developed to meet everyday kitchen and commercial requirements. It is selected and processed under standard quality controls to ensure consistency, safety, and reliable performance across multiple applications. This product is suitable for use in restaurants, catering operations, institutional kitchens, and grocery environments where dependable results are essential. The packaging is designed to support efficient storage, handling, and inventory management while helping maintain product freshness and shelf stability. Its versatile nature allows it to be used in a variety of culinary preparations, supporting both traditional and modern menu applications. This item provides good value, operational efficiency, and consistent results for professional food operators."
+    },
+    "categories": [
+      {
+        "name": "Beverage",
+        "url_key": "beverage"
+      },
+      {
+        "name": "Beverage Mixes",
+        "url_key": "beverage-mixes"
+      },
+      {
+        "name": "Flavored Syrups",
+        "url_key": "flavored-syrups"
+      }
+    ],
+    "department": "beverage"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CH0022",
+    "name": "Santa Lucia - Cheese - Bocconcini",
+    "url_key": "santa-lucia-cheese-bocconcini-111",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/a/w/aw6nVBqlhmP7hFrSam1Qq2DDH.jpg",
+      "label": "Santa Lucia - Cheese - Bocconcini"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/a/w/aw6nVBqlhmP7hFrSam1Qq2DDH.jpg",
+        "label": "Santa Lucia - Cheese - Bocconcini"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/R/F/RFovexCTK8HQRoPql4IXnD9gn.jpg",
+        "label": "Santa Lucia - Cheese - Bocconcini"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 24.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 24.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "3 kg"
+    },
+    "description": {
+      "html": "3 kg"
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Cheese",
+        "url_key": "cheese"
+      },
+      {
+        "name": "Hard Cheese",
+        "url_key": "hard-cheese"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CH0050",
+    "name": "Krinos - Cheese - Grated Parmesan Blend",
+    "url_key": "krinos-cheese-grated-parmesan-blend",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Krinos - Cheese - Grated Parmesan Blend"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 42.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 42.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "2.5 kg"
+    },
+    "description": {
+      "html": "2.5 kg"
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Cheese",
+        "url_key": "cheese"
+      },
+      {
+        "name": "Shredded Cheese",
+        "url_key": "shredded-cheese"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "MC00039",
+    "name": "Modhani - Yogurt - 3.2% 2kg",
+    "url_key": "modhani-yogurt-3-2-2kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/N/u/NujtilfXHGPK4E3rON2XnBlaU.jpg",
+      "label": "Modhani - Yogurt - 3.2% 2kg"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/N/u/NujtilfXHGPK4E3rON2XnBlaU.jpg",
+        "label": "Modhani - Yogurt - 3.2% 2kg"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.19,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 6.19,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "2 kg"
+    },
+    "description": {
+      "html": "2 kg"
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Milk & Cream",
+        "url_key": "milk-cream"
+      },
+      {
+        "name": "Yogurt",
+        "url_key": "yogurt"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CH0043",
+    "name": "Triple A Cheese - Hard Feta",
+    "url_key": "triple-a-cheese-hard-feta",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/X/r/XrYaJy80lS6g30KmvYAWpqzhY.jpg",
+      "label": "Triple A Cheese - Hard Feta"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/X/r/XrYaJy80lS6g30KmvYAWpqzhY.jpg",
+        "label": "Triple A Cheese - Hard Feta"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 40.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 40.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "3 kg"
+    },
+    "description": {
+      "html": "3 kg"
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Cheese",
+        "url_key": "cheese"
+      },
+      {
+        "name": "Hard Cheese",
+        "url_key": "hard-cheese"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "MC00390",
+    "name": "Modhani - Yogurt - 3.2% 10 kg",
+    "url_key": "modhani-yogurt-3-2-1",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/5/s/5ssnOCJHwp8OEVriVjGODKfmK.jpg",
+      "label": "Modhani - Yogurt - 3.2% 10 kg"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/5/s/5ssnOCJHwp8OEVriVjGODKfmK.jpg",
+        "label": "Modhani - Yogurt - 3.2% 10 kg"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 25.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 25.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "10kg"
+    },
+    "description": {
+      "html": "10kg"
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Milk & Cream",
+        "url_key": "milk-cream"
+      },
+      {
+        "name": "Yogurt",
+        "url_key": "yogurt"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "RC00160",
+    "name": "Olympia - Tzatziki Grecian Dip Sauce",
+    "url_key": "olympia-tzatziki-grecian-dip-sauce",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Olympia - Tzatziki Grecian Dip Sauce"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1.8 kg in a box \n"
+    },
+    "description": {
+      "html": "1.8 kg in a box \n"
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Refrigerated Condiment",
+        "url_key": "refrigerated-condiment"
+      },
+      {
+        "name": "Sauce & Dip",
+        "url_key": "sauce-dip"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "MC0020",
+    "name": "Elegant - Yogurt Dahi 3.25%  -10 kg",
+    "url_key": "elegant-yogurt-dahi-3-25-10-kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Elegant - Yogurt Dahi 3.25%  -10 kg"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 27.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 27.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "10kg "
+    },
+    "description": {
+      "html": "10kg "
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Milk & Cream",
+        "url_key": "milk-cream"
+      },
+      {
+        "name": "Yogurt",
+        "url_key": "yogurt"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "MC0017",
+    "name": "Elegant - Dahi Yogurt 3.25% - 1.8 kg",
+    "url_key": "elegant-dahi-yogurt-3-25-1-8-kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Elegant - Dahi Yogurt 3.25% - 1.8 kg"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 6.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1.8 kg\n"
+    },
+    "description": {
+      "html": "1.8 kg\n"
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Milk & Cream",
+        "url_key": "milk-cream"
+      },
+      {
+        "name": "Yogurt",
+        "url_key": "yogurt"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "MC0047",
+    "name": "Astro - Original Plain 2%",
+    "url_key": "astro-original-plain-2",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/o/n/onKcE0dFxVdXVV6lVHRscAbB1.jpg",
+      "label": "Astro - Original Plain 2%"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/o/n/onKcE0dFxVdXVV6lVHRscAbB1.jpg",
+        "label": "Astro - Original Plain 2%"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 3.19,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 3.19,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "750 g"
+    },
+    "description": {
+      "html": "750 g"
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Milk & Cream",
+        "url_key": "milk-cream"
+      },
+      {
+        "name": "Yogurt",
+        "url_key": "yogurt"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "MC0048",
+    "name": "Astro - Original Balkan Yogurt Plain 6%",
+    "url_key": "astro-original-balkan-yogurt-plain-6",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/T/W/TWnJttyZWZeNhzPO6Y5BPuQ74.png",
+      "label": "Astro - Original Balkan Yogurt Plain 6%"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/T/W/TWnJttyZWZeNhzPO6Y5BPuQ74.png",
+        "label": "Astro - Original Balkan Yogurt Plain 6%"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 3.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 3.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "750 g "
+    },
+    "description": {
+      "html": "750 g "
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Milk & Cream",
+        "url_key": "milk-cream"
+      },
+      {
+        "name": "Yogurt",
+        "url_key": "yogurt"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CD0238",
+    "name": "Nestle - Rolo Milkshake",
+    "url_key": "nestle-rolo-milkshake",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/x/2/x2kSgU6zLFlQ0VaWKuycOSy2o.png",
+      "label": "Nestle - Rolo Milkshake"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/x/2/x2kSgU6zLFlQ0VaWKuycOSy2o.png",
+        "label": "Nestle - Rolo Milkshake"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/3/x/3xxKYk6pzZyziVbgJvem3oJOA.png",
+        "label": "Nestle - Rolo Milkshake"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 3.29,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 3.29,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "473 ml Bottle "
+    },
+    "description": {
+      "html": "473 ml Bottle "
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Milk & Cream",
+        "url_key": "milk-cream"
+      },
+      {
+        "name": "Cream",
+        "url_key": "cream"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CD0237",
+    "name": "Nestle - Nesquik Vanilla Milkshake per bottle",
+    "url_key": "nestle-nesquik-vanilla-milkshake",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/s/n/snGeMq5UHTb5GKB2wsojf9sXS.png",
+      "label": "Nestle - Nesquik Vanilla Milkshake per bottle"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/s/n/snGeMq5UHTb5GKB2wsojf9sXS.png",
+        "label": "Nestle - Nesquik Vanilla Milkshake per bottle"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 3.37,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 3.37,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "473 ml Bottle "
+    },
+    "description": {
+      "html": "473 ml Bottle "
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Milk & Cream",
+        "url_key": "milk-cream"
+      },
+      {
+        "name": "Cream",
+        "url_key": "cream"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CD0236",
+    "name": "Nestle - Nesquik Chocolate Milkshake per bottle",
+    "url_key": "nestle-nesquik-chocolate-milkshake",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/p/z/pzVGKaT8XpTDwxjyXBnklKCUL.png",
+      "label": "Nestle - Nesquik Chocolate Milkshake per bottle"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/p/z/pzVGKaT8XpTDwxjyXBnklKCUL.png",
+        "label": "Nestle - Nesquik Chocolate Milkshake per bottle"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 1.98,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 1.98,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "310 ml Bottle "
+    },
+    "description": {
+      "html": "310 ml Bottle "
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Milk & Cream",
+        "url_key": "milk-cream"
+      },
+      {
+        "name": "Cream",
+        "url_key": "cream"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CD0235",
+    "name": "Neilson - Strawberry Milkshake",
+    "url_key": "neilson-strawberry-milkshake",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/f/N/fNXAKZuohrhTLduCEZer9Dzv5.png",
+      "label": "Neilson - Strawberry Milkshake"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/f/N/fNXAKZuohrhTLduCEZer9Dzv5.png",
+        "label": "Neilson - Strawberry Milkshake"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/5/d/5ddzALZLsFiuVMWXSNEnXDdPb.png",
+        "label": "Neilson - Strawberry Milkshake"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 1.34,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 1.34,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "310 ml Bottle "
+    },
+    "description": {
+      "html": "310 ml Bottle "
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Milk & Cream",
+        "url_key": "milk-cream"
+      },
+      {
+        "name": "Cream",
+        "url_key": "cream"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CD0234",
+    "name": "Neilson - Mr. Big Original Milkshake Chocolate per bottle",
+    "url_key": "neilson-mr-big-original-milkshake",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/f/b/fbNP96poUQuMAjisIHOMs4wY1.png",
+      "label": "Neilson - Mr. Big Original Milkshake Chocolate per bottle"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/f/b/fbNP96poUQuMAjisIHOMs4wY1.png",
+        "label": "Neilson - Mr. Big Original Milkshake Chocolate per bottle"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 1.34,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 1.34,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "300 ml Bottle "
+    },
+    "description": {
+      "html": "300 ml Bottle "
+    },
+    "categories": [
+      {
+        "name": "Dairy & Eggs",
+        "url_key": "dairy-eggs"
+      },
+      {
+        "name": "Milk & Cream",
+        "url_key": "milk-cream"
+      },
+      {
+        "name": "Cream",
+        "url_key": "cream"
+      }
+    ],
+    "department": "dairy-eggs"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "MET55",
+    "name": "Fresh Halal - Chicken Breast Fryer",
+    "url_key": "fresh-halal-chicken-breast-fryer",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Fresh Halal - Chicken Breast Fryer"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 279.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 279.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "25 kg"
+    },
+    "description": {
+      "html": "25 kg"
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Poultry",
+        "url_key": "poultry"
+      },
+      {
+        "name": "Chicken",
+        "url_key": "chicken"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SF00",
+    "name": "Red Dragon - Basa Fillet - 16-18 oz - ( 30 LBS ) 63863",
+    "url_key": "red-dragon-basa-fillet-16-18-oz-30-lbs-63863",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Red Dragon - Basa Fillet - 16-18 oz - ( 30 LBS ) 63863"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "30lb in a box "
+    },
+    "description": {
+      "html": "30lb in a box "
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Seafood",
+        "url_key": "seafood"
+      },
+      {
+        "name": "Seafood",
+        "url_key": "seafood"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SF000",
+    "name": "Red Dragon - Basa Fillet -8-10oz - ( 30 LBS ) 63462",
+    "url_key": "red-dragon-basa-fillet-8-10oz-30-lbs-63462",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Red Dragon - Basa Fillet -8-10oz - ( 30 LBS ) 63462"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 67.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "6x5 lb in a box "
+    },
+    "description": {
+      "html": "6x5 lb in a box "
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Seafood",
+        "url_key": "seafood"
+      },
+      {
+        "name": "Seafood",
+        "url_key": "seafood"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PC00031",
+    "name": "Fresh Halal  Roaster  Chicken Breast T/I - B-Less Skinless -5 Kg",
+    "url_key": "fresh-halal-roaster-chicken-brest-t-i-b-less-skinless-5-kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/9/1/912adstGmJn9bAxmX3u3xuDWx.png",
+      "label": "Fresh Halal  Roaster  Chicken Breast T/I - B-Less Skinless -5 Kg"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/9/1/912adstGmJn9bAxmX3u3xuDWx.png",
+        "label": "Fresh Halal  Roaster  Chicken Breast T/I - B-Less Skinless -5 Kg"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 59.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 59.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "5 KG in a box "
+    },
+    "description": {
+      "html": "5 KG in a box "
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Poultry",
+        "url_key": "poultry"
+      },
+      {
+        "name": "Chicken",
+        "url_key": "chicken"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PC00030",
+    "name": "Fresh Halal  Fryer Chicken Breast T/I - B-Less Skinless -5 Kg",
+    "url_key": "fresh-halal-fryer-chicken-brest-t-i-b-less-skinless-5-kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Fresh Halal  Fryer Chicken Breast T/I - B-Less Skinless -5 Kg"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 64.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 64.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "5 KG in a box "
+    },
+    "description": {
+      "html": "5 KG in a box "
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Poultry",
+        "url_key": "poultry"
+      },
+      {
+        "name": "Chicken",
+        "url_key": "chicken"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PC00020",
+    "name": "Fresh Halal  Chicken Thigh Meat  5 Kg",
+    "url_key": "fresh-halal-chicken-thigh-meat-5-kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Fresh Halal  Chicken Thigh Meat  5 Kg"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 62.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 62.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": ""
+    },
+    "description": {
+      "html": ""
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Poultry",
+        "url_key": "poultry"
+      },
+      {
+        "name": "Chicken",
+        "url_key": "chicken"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PC00019",
+    "name": "Fresh Halal  Fryer Chicken Leg - B-Less Skinless -5 Kg",
+    "url_key": "fresh-halal-fryer-chicken-leg-b-less-skinless-5-kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Fresh Halal  Fryer Chicken Leg - B-Less Skinless -5 Kg"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 54.75,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 54.75,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "5 KG in a box "
+    },
+    "description": {
+      "html": "5 KG in a box "
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Poultry",
+        "url_key": "poultry"
+      },
+      {
+        "name": "Chicken",
+        "url_key": "chicken"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PC00018",
+    "name": "Fresh Halal  Chicken Drumsticks 5 Kg",
+    "url_key": "fresh-halal-chicken-drumsticks-5-kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Fresh Halal  Chicken Drumsticks 5 Kg"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 22.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 22.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": ""
+    },
+    "description": {
+      "html": ""
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Poultry",
+        "url_key": "poultry"
+      },
+      {
+        "name": "Chicken",
+        "url_key": "chicken"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PC00017",
+    "name": "Fresh Halal Fryer Chicken Whole Wings Medium 18Kg",
+    "url_key": "fresh-halal-fryer-chicken-whole-wings-medium-18kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Fresh Halal Fryer Chicken Whole Wings Medium 18Kg"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 117,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 117,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": ""
+    },
+    "description": {
+      "html": ""
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Poultry",
+        "url_key": "poultry"
+      },
+      {
+        "name": "Chicken",
+        "url_key": "chicken"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PC00016",
+    "name": "Fresh Halal Roaster Chicken Leg - B-Less Skinless -5 Kg",
+    "url_key": "fresh-halal-roaster-chicken-leg-b-less-skinless-5-kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/j/X/jXjEFmcDdOd0TDlrAVFV0CvqM.png",
+      "label": "Fresh Halal Roaster Chicken Leg - B-Less Skinless -5 Kg"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/j/X/jXjEFmcDdOd0TDlrAVFV0CvqM.png",
+        "label": "Fresh Halal Roaster Chicken Leg - B-Less Skinless -5 Kg"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 54.75,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 54.75,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "5 KG in a box "
+    },
+    "description": {
+      "html": "5 KG in a box "
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Poultry",
+        "url_key": "poultry"
+      },
+      {
+        "name": "Chicken",
+        "url_key": "chicken"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PC00024",
+    "name": "Frozen -Halal Lamb Shank per Lb",
+    "url_key": "frozen-halal-lamb-shank-per-lb",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/C/X/CX7wMlAf0F24ODyBxUwzvpSst.png",
+      "label": "Frozen -Halal Lamb Shank per Lb"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/C/X/CX7wMlAf0F24ODyBxUwzvpSst.png",
+        "label": "Frozen -Halal Lamb Shank per Lb"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.75,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 6.75,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "Per Lb"
+    },
+    "description": {
+      "html": "Per Lb"
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Meat",
+        "url_key": "meat"
+      },
+      {
+        "name": "Meat",
+        "url_key": "meat"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PC00023",
+    "name": "Frozen -Halal  Boneless Mutton Diced 20 Lb",
+    "url_key": "frozen-halal-boneless-mutton-diced-20-lb",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/u/O/uOkAqs7SXTG0u62m2j8CJlDcx.png",
+      "label": "Frozen -Halal  Boneless Mutton Diced 20 Lb"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/u/O/uOkAqs7SXTG0u62m2j8CJlDcx.png",
+        "label": "Frozen -Halal  Boneless Mutton Diced 20 Lb"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 164.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 164.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "20 Lb"
+    },
+    "description": {
+      "html": "20 Lb"
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Meat",
+        "url_key": "meat"
+      },
+      {
+        "name": "Meat",
+        "url_key": "meat"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PC00022",
+    "name": "Frozen -Halal  Bone IN Mutton  Leg Diced 20 Lb",
+    "url_key": "frozen-halal-bone-in-mutton-leg-diced-20-lb",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/K/W/KWcNbqVCLqIv1qCcCStIbX2Je.png",
+      "label": "Frozen -Halal  Bone IN Mutton  Leg Diced 20 Lb"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/K/W/KWcNbqVCLqIv1qCcCStIbX2Je.png",
+        "label": "Frozen -Halal  Bone IN Mutton  Leg Diced 20 Lb"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 119.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 119.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "20 Lb"
+    },
+    "description": {
+      "html": "20 Lb"
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Meat",
+        "url_key": "meat"
+      },
+      {
+        "name": "Meat",
+        "url_key": "meat"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "PC000311",
+    "name": "Fresh - Chicken Leg back attached ( Leg quarter) Halal 18kg",
+    "url_key": "fresh-chicken-leg-back-attached-leg-quarter-halal-18kg",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/a/f/af3RUfO6cQyYKmcoNJd98PLN2.jpg",
+      "label": "Fresh - Chicken Leg back attached ( Leg quarter) Halal 18kg"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/a/f/af3RUfO6cQyYKmcoNJd98PLN2.jpg",
+        "label": "Fresh - Chicken Leg back attached ( Leg quarter) Halal 18kg"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 81.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 81.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "18 Kg in a Box\n"
+    },
+    "description": {
+      "html": "18 Kg in a Box\n"
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Poultry",
+        "url_key": "poultry"
+      },
+      {
+        "name": "Chicken",
+        "url_key": "chicken"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SF00040",
+    "name": "Ocean Treasure - P & D Shrimp - Tail-On 21/25 2 lb",
+    "url_key": "ocean-treasure-p-d-shrimp-tail-on-21-25-2x5-lb",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Ocean Treasure - P & D Shrimp - Tail-On 21/25 2 lb"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 83.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 83.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "2 Lb"
+    },
+    "description": {
+      "html": "Ocean Treasure 21/25- P&D Tail-On Shrimp are premium-quality peeled and deveined shrimp with the tails left on for an attractive presentation. Ideal for grilling, saut\u00e9ing, frying, seafood platters, pasta dishes, and appetizers, they offer a firm texture and mild, sweet flavour. Suitable for restaurants, catering services, and foodservice operations."
+    },
+    "categories": [
+      {
+        "name": "Meat & Poultry",
+        "url_key": "meat-poultry"
+      },
+      {
+        "name": "Seafood",
+        "url_key": "seafood"
+      },
+      {
+        "name": "Seafood",
+        "url_key": "seafood"
+      }
+    ],
+    "department": "meat-poultry"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CE0020",
+    "name": "Scoring Pad - Green - Strong - SP0610",
+    "url_key": "scoring-pad-green-strong-sp0610",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Scoring Pad - Green - Strong - SP0610"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 7.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 7.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "10 pcs in a pack"
+    },
+    "description": {
+      "html": "Scotch-Brite Heavy Duty Sponge is designed to tackle tough cleaning jobs by effectively removing grease, grime, and stuck-on food from a variety of surfaces. Featuring a durable scrubbing pad and an absorbent sponge, it is ideal for cleaning dishes, cookware, countertops, and other hard surfaces. Suitable for both household and commercial use, it provides reliable, long-lasting cleaning performance."
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Essentials",
+        "url_key": "cleaning-essentials"
+      },
+      {
+        "name": "Cleaning Tools",
+        "url_key": "cleaning-tools"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CS0162",
+    "name": "Spartano - Wet Floor Sign - Yellow - 4942",
+    "url_key": "spartano-wet-floor-sign-yellow-4942",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/q/R/qRvqxo7oFzchqkmVBWEJmvTyi.png",
+      "label": "Spartano - Wet Floor Sign - Yellow - 4942"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/q/R/qRvqxo7oFzchqkmVBWEJmvTyi.png",
+        "label": "Spartano - Wet Floor Sign - Yellow - 4942"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1 Pcs"
+    },
+    "description": {
+      "html": "1 Pcs"
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Supplies",
+        "url_key": "cleaning-supplies"
+      },
+      {
+        "name": "Equipment Cleaner",
+        "url_key": "equipment-cleaner"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000008095113",
+    "name": "Spartano - Wet Floor Sign - Yellow - 4942",
+    "url_key": "spartano-wet-floor-sign-yellow-4942",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Spartano - Wet Floor Sign - Yellow - 4942"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1 Pcs"
+    },
+    "description": {
+      "html": "1 Pcs"
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Supplies",
+        "url_key": "cleaning-supplies"
+      },
+      {
+        "name": "Equipment Cleaner",
+        "url_key": "equipment-cleaner"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CS0161",
+    "name": "Knock Down - Bed Bug Killer 400 gm bottle",
+    "url_key": "knock-down-bed-bug-killer",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/A/P/AP8sHdfj5vb08bWVkyfVVGTDD.png",
+      "label": "Knock Down - Bed Bug Killer 400 gm bottle"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/A/P/AP8sHdfj5vb08bWVkyfVVGTDD.png",
+        "label": "Knock Down - Bed Bug Killer 400 gm bottle"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 12.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 12.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "400 g bottle "
+    },
+    "description": {
+      "html": "400 g bottle "
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Solutions",
+        "url_key": "cleaning-solutions"
+      },
+      {
+        "name": "All Purpose Chemicals",
+        "url_key": "all-purpose-chemicals"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CS0160",
+    "name": "Rubber Toilet Plunger with 20\" Wooden Handle",
+    "url_key": "rubber-toilet-plunger-with-20-wooden-handle",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Rubber Toilet Plunger with 20\" Wooden Handle"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 7.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 7.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": " 1 Pcs"
+    },
+    "description": {
+      "html": " 1 Pcs"
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Solutions",
+        "url_key": "cleaning-solutions"
+      },
+      {
+        "name": "Mops & Accessories",
+        "url_key": "mops-accessories"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000008061133",
+    "name": "Windex - Glass Cleaner Orignal- 950 ML",
+    "url_key": "windex-glass-cleaner-orignal-950-ml",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Windex - Glass Cleaner Orignal- 950 ML"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 4.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 4.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "950 ml"
+    },
+    "description": {
+      "html": "950 ml"
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Solutions",
+        "url_key": "cleaning-solutions"
+      },
+      {
+        "name": "Glass Cleaner",
+        "url_key": "glass-cleaner"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CS0159",
+    "name": "Chimisol - Degreaser Sanitizer",
+    "url_key": "chimisol-degreaser-sanitizer",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Chimisol - Degreaser Sanitizer"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 9.58,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 9.58,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "4L"
+    },
+    "description": {
+      "html": "Chimisol Heavy-Duty Grill Cleaner is a powerful cleaning solution designed to remove tough grease, carbon buildup, and burnt-on food residue from grills, griddles, ovens, and other cooking equipment. Its heavy-duty formula helps restore cooking surfaces while making routine cleaning more efficient. Packaged in a 4 L container, it is suitable for commercial kitchens, restaurants, and other foodservice environments."
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Supplies",
+        "url_key": "cleaning-supplies"
+      },
+      {
+        "name": "Bleach",
+        "url_key": "bleach"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CS",
+    "name": "Spartano - 20oz White Synthetic Cut-End Mop Head - 3087",
+    "url_key": "spartano-20oz-white-synthetic-cut-end-mop-head-3087",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/E/V/EVjsJJDZASCpG2V0Q2F2LuiDN.png",
+      "label": "Spartano - 20oz White Synthetic Cut-End Mop Head - 3087"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/E/V/EVjsJJDZASCpG2V0Q2F2LuiDN.png",
+        "label": "Spartano - 20oz White Synthetic Cut-End Mop Head - 3087"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 46.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 46.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "12 Pcs in a Box"
+    },
+    "description": {
+      "html": "12 Pcs in a Box"
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Solutions",
+        "url_key": "cleaning-solutions"
+      },
+      {
+        "name": "Mops & Accessories",
+        "url_key": "mops-accessories"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "M2SWC",
+    "name": "M2 - 40 L Square Waste Container w/Push Lid",
+    "url_key": "m2-40-l-square-waste-container-w-push-lid",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/q/3/q3kDaFLJ6UilCLqLBysuZLTKg.png",
+      "label": "M2 - 40 L Square Waste Container w/Push Lid"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/q/3/q3kDaFLJ6UilCLqLBysuZLTKg.png",
+        "label": "M2 - 40 L Square Waste Container w/Push Lid"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 31.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 31.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1ct"
+    },
+    "description": {
+      "html": "1ct"
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Solutions",
+        "url_key": "cleaning-solutions"
+      },
+      {
+        "name": "All Purpose Chemicals",
+        "url_key": "all-purpose-chemicals"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CS0158",
+    "name": "Palmolive - Dishwash Liquid - Original 4.27L",
+    "url_key": "palmolive-dishwash-liquid-original-4-27l",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/U/Z/UZdgzZqrYgORLI0TFEVEGWR6q.png",
+      "label": "Palmolive - Dishwash Liquid - Original 4.27L"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/U/Z/UZdgzZqrYgORLI0TFEVEGWR6q.png",
+        "label": "Palmolive - Dishwash Liquid - Original 4.27L"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/8/v/8vhOdTvdzuTgUD0DchcyfVgyC.png",
+        "label": "Palmolive - Dishwash Liquid - Original 4.27L"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 11.65,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 11.65,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "4.27 Lt \n"
+    },
+    "description": {
+      "html": "4.27 Lt \n"
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Solutions",
+        "url_key": "cleaning-solutions"
+      },
+      {
+        "name": "Dishwash",
+        "url_key": "dishwash"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CS0157",
+    "name": "GK - Fryer & Grill Cleaner - Oven Buddy 4L",
+    "url_key": "gk-fryer-grill-cleaner-oven-buddy-4l",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/C/1/C19caumHblDvIOmuNSAfD4HPK.png",
+      "label": "GK - Fryer & Grill Cleaner - Oven Buddy 4L"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/C/1/C19caumHblDvIOmuNSAfD4HPK.png",
+        "label": "GK - Fryer & Grill Cleaner - Oven Buddy 4L"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 11.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 11.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": ""
+    },
+    "description": {
+      "html": ""
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Solutions",
+        "url_key": "cleaning-solutions"
+      },
+      {
+        "name": "Equipment Cleaner",
+        "url_key": "equipment-cleaner"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CS0156",
+    "name": "Windex - Glass Cleaner - Original 5 Lt",
+    "url_key": "windex-glass-cleaner-original-3-78-l",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/I/C/ICGdaZx21RgGFx5S7nOTD3xl7.png",
+      "label": "Windex - Glass Cleaner - Original 5 Lt"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/I/C/ICGdaZx21RgGFx5S7nOTD3xl7.png",
+        "label": "Windex - Glass Cleaner - Original 5 Lt"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 19.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 19.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "5 Lt "
+    },
+    "description": {
+      "html": "5 Lt "
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Solutions",
+        "url_key": "cleaning-solutions"
+      },
+      {
+        "name": "Glass Cleaner",
+        "url_key": "glass-cleaner"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CE0015",
+    "name": "Spartano - 36\" Dust Mop - Metal Frame",
+    "url_key": "spartano-36-dust-mop-metal-frame",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/4/2/423Eh7IsDx7ks1ShshU9CzLDK.jpeg",
+      "label": "Spartano - 36\" Dust Mop - Metal Frame"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/4/2/423Eh7IsDx7ks1ShshU9CzLDK.jpeg",
+        "label": "Spartano - 36\" Dust Mop - Metal Frame"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 6.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1CT"
+    },
+    "description": {
+      "html": "1CT"
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Essentials",
+        "url_key": "cleaning-essentials"
+      },
+      {
+        "name": "Mops & Accessories",
+        "url_key": "mops-accessories"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "CE0013",
+    "name": "Spartano - Dust Mop Handle Clip - Black - 3208",
+    "url_key": "spartano-dust-mop-handle-clip-black-3208",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/t/R/tRi2Dwofo37bJmH3GccAlojWz.png",
+      "label": "Spartano - Dust Mop Handle Clip - Black - 3208"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/t/R/tRi2Dwofo37bJmH3GccAlojWz.png",
+        "label": "Spartano - Dust Mop Handle Clip - Black - 3208"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1CT"
+    },
+    "description": {
+      "html": "1CT"
+    },
+    "categories": [
+      {
+        "name": "Janitorial",
+        "url_key": "janitorial"
+      },
+      {
+        "name": "Cleaning Essentials",
+        "url_key": "cleaning-essentials"
+      },
+      {
+        "name": "Mops & Accessories",
+        "url_key": "mops-accessories"
+      }
+    ],
+    "department": "janitorial"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SUP099",
+    "name": "Pro-Kitchen - Fry Pan SS 30cm",
+    "url_key": "pro-kitchen-fry-pan-ss-30cm",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/7/f/7fgnXiCZLRDjdXEvtrkrxXAAE.jpg",
+      "label": "Pro-Kitchen - Fry Pan SS 30cm"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/7/f/7fgnXiCZLRDjdXEvtrkrxXAAE.jpg",
+        "label": "Pro-Kitchen - Fry Pan SS 30cm"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 36.19,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 36.19,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1 Pcs"
+    },
+    "description": {
+      "html": "1 Pcs"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Foodservice Equipment",
+        "url_key": "foodservice-equipment"
+      },
+      {
+        "name": "Restaurant Equipment",
+        "url_key": "restaurant-equipment"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000008349333",
+    "name": "Scoop- Aluminum- 38oz- NSF",
+    "url_key": "scoop-aluminum-38oz-nsf",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/x/9/x9MokTVU4vX7tHdADVbEBDIFu.jpg",
+      "label": "Scoop- Aluminum- 38oz- NSF"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/x/9/x9MokTVU4vX7tHdADVbEBDIFu.jpg",
+        "label": "Scoop- Aluminum- 38oz- NSF"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 9.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": ""
+    },
+    "description": {
+      "html": "Features & Specifications:\n\nOne piece construction for handle durability\nHand wash only\nCLEANING & MAINTENANCE:\n\nCAUTION: allow product to cool before washing\nWash aluminum products with warm water, mild soap and a soft, non-abrasive sponge\nAfter washing, immediately and completely dry with a cloth/paper towel to prevent limescale from forming\nTo remove cooked-on food residue, boil in water with vinegar for 4 to 5 minutes to loosen, then follow steps 1-3 to wash, rinse & dry."
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Kitchen Essentials",
+        "url_key": "kitchen-essentials"
+      },
+      {
+        "name": "Restaurant & Retail Supplies",
+        "url_key": "restaurant-retail-supplies"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000008252094",
+    "name": "18'' freezer paper - 600 ' 135650",
+    "url_key": "18-freezer-paper-600-135650",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/h/E/hESOLkihlBTeIv6QfWq5q46bu.jpg",
+      "label": "18'' freezer paper - 600 ' 135650"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/h/E/hESOLkihlBTeIv6QfWq5q46bu.jpg",
+        "label": "18'' freezer paper - 600 ' 135650"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 26.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 26.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": ""
+    },
+    "description": {
+      "html": ""
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Wraps",
+        "url_key": "wraps"
+      },
+      {
+        "name": "Industrial & Retail Supplies in Packaging",
+        "url_key": "industrial-retail-supplies-in-packaging"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "59620000006545082",
+    "name": "Fresh Halal Fryer Whole Chicken (Headless & No Giblets. Inactive",
+    "url_key": "fresh-halal-fryer-whole-chicken-headless-no-giblets",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/placeholder/default/Supreme_Logo_Logotype_1.png",
+      "label": "Fresh Halal Fryer Whole Chicken (Headless & No Giblets. Inactive"
+    },
+    "media_gallery": [],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 175.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 175.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": ""
+    },
+    "description": {
+      "html": ""
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Kitchen Essentials",
+        "url_key": "kitchen-essentials"
+      },
+      {
+        "name": "Chicken",
+        "url_key": "chicken"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "king-ch-8kg",
+    "name": "King Charcoal (8kg)",
+    "url_key": "king-charcoal-8kg",
+    "uom": "Bag",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/y/6/y6A581ZWOFDl88WqmnfJA0zzd.jpg",
+      "label": "King Charcoal (8kg)"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/y/6/y6A581ZWOFDl88WqmnfJA0zzd.jpg",
+        "label": "King Charcoal (8kg)"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 21.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 21.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "8Kg in a Bag"
+    },
+    "description": {
+      "html": "8Kg in a Bag"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Supplies",
+        "url_key": "supplies"
+      },
+      {
+        "name": "Wholesale Smallware",
+        "url_key": "wholesale-smallware"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SUP032",
+    "name": "Super Charcoal (10kg)",
+    "url_key": "super-charcoal-10kg",
+    "uom": "Bag",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/t/c/tcp40WysZzd8mTUOuEGbvRgi7.jpg",
+      "label": "Super Charcoal (10kg)"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/9/l/9lSAyxfZCjcWVuOy2p7WNgiaG.jpg",
+        "label": "Super Charcoal (10kg)"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/t/c/tcp40WysZzd8mTUOuEGbvRgi7.jpg",
+        "label": "Super Charcoal (10kg)"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 25.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 25.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "10Kg in a Bag"
+    },
+    "description": {
+      "html": "10Kg in a Bag"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Supplies",
+        "url_key": "supplies"
+      },
+      {
+        "name": "Wholesale Smallware",
+        "url_key": "wholesale-smallware"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SUP030",
+    "name": "Super Charcoal (8kg)",
+    "url_key": "super-charcoal-8kg",
+    "uom": "Bag",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/2/F/2FDwTyCl7wL2x7J4KVVZThzlB.jpg",
+      "label": "Super Charcoal (8kg)"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/7/A/7Akl7AECInxGVw1dmb49Q1ua1.jpg",
+        "label": "Super Charcoal (8kg)"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/2/F/2FDwTyCl7wL2x7J4KVVZThzlB.jpg",
+        "label": "Super Charcoal (8kg)"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 21.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 21.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "8Kg in a Bag"
+    },
+    "description": {
+      "html": "8Kg in a Bag"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Supplies",
+        "url_key": "supplies"
+      },
+      {
+        "name": "Wholesale Smallware",
+        "url_key": "wholesale-smallware"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SUP034",
+    "name": "Butane Gas Canister 8oz/227g",
+    "url_key": "butane-gas-canister-8oz-227g",
+    "uom": "Case",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/x/q/xqB6rdG4ywfsgZrJZk6iTUF4h.png",
+      "label": "Butane Gas Canister 8oz/227g"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/x/q/xqB6rdG4ywfsgZrJZk6iTUF4h.png",
+        "label": "Butane Gas Canister 8oz/227g"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 2.19,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 2.19,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1 Pcs"
+    },
+    "description": {
+      "html": "1 Pcs"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Supplies",
+        "url_key": "supplies"
+      },
+      {
+        "name": "Restaurant Cookware",
+        "url_key": "restaurant-cookware"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SUP031",
+    "name": "Super Charcoal (3.5kg)",
+    "url_key": "super-charcoal-3-5kg",
+    "uom": "Bag",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/M/j/Mj3cWWHdKKX1yGfDUxeWBczMG.jpg",
+      "label": "Super Charcoal (3.5kg)"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/D/w/DwyuCYxyUdDEeFdgnKiGjA9Li.jpg",
+        "label": "Super Charcoal (3.5kg)"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/M/j/Mj3cWWHdKKX1yGfDUxeWBczMG.jpg",
+        "label": "Super Charcoal (3.5kg)"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 7.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 7.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "3.5Kg in a Bag"
+    },
+    "description": {
+      "html": "3.5Kg in a Bag"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Supplies",
+        "url_key": "supplies"
+      },
+      {
+        "name": "Wholesale Smallware",
+        "url_key": "wholesale-smallware"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SUP033",
+    "name": "Pizza Roller Docker - Plastic",
+    "url_key": "pizza-roller-docker-plastic",
+    "uom": "Pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/R/n/Rn1WagIxXjYklBQAOxhMWQw1F.png",
+      "label": "Pizza Roller Docker - Plastic"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/R/n/Rn1WagIxXjYklBQAOxhMWQw1F.png",
+        "label": "Pizza Roller Docker - Plastic"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 6.5,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1 Pcs"
+    },
+    "description": {
+      "html": "1 Pcs"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Supplies",
+        "url_key": "supplies"
+      },
+      {
+        "name": "Pizza Supplies",
+        "url_key": "pizza-supplies"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SUP028",
+    "name": "Super Charcoal - Hardwood",
+    "url_key": "fue014",
+    "uom": "Bag",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/t/o/to2MijSxJ8RdzL9EIpjh8CllF.png",
+      "label": "Super Charcoal - Hardwood"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/8/T/8TopA5oNG9n2TjsAPA9JYKb8j.jpg",
+        "label": "Super Charcoal - Hardwood"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/Q/u/QuUb9cmp10wmgeCG1uuhI6m4x.jpg",
+        "label": "Super Charcoal - Hardwood"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/t/o/to2MijSxJ8RdzL9EIpjh8CllF.png",
+        "label": "Super Charcoal - Hardwood"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 17.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 17.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "8Kg in a Bag"
+    },
+    "description": {
+      "html": "8Kg in a Bag"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Supplies",
+        "url_key": "supplies"
+      },
+      {
+        "name": "Wholesale Smallware",
+        "url_key": "wholesale-smallware"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SUP029",
+    "name": "Pizza Delivery Bag 20X20 - OM28353",
+    "url_key": "sw0194",
+    "uom": "Pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/E/m/Em1F11J5vhdvombVjwlOho1FG.png",
+      "label": "Pizza Delivery Bag 20X20 - OM28353"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/4/E/4EyVbgRX6rBjZU11BFCusPlvO.jpg",
+        "label": "Pizza Delivery Bag 20X20 - OM28353"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/E/m/Em1F11J5vhdvombVjwlOho1FG.png",
+        "label": "Pizza Delivery Bag 20X20 - OM28353"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/Q/Y/QYrPi6n641E93P51Bp2TYqQO3.jpg",
+        "label": "Pizza Delivery Bag 20X20 - OM28353"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 30.99,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 30.99,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "1 Pcs"
+    },
+    "description": {
+      "html": "1 Pcs"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Supplies",
+        "url_key": "supplies"
+      },
+      {
+        "name": "Wholesale Smallware",
+        "url_key": "wholesale-smallware"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SUP027",
+    "name": "Hot Spot - Chafing Fuel - Methanol Gel - 2.5 Hours",
+    "url_key": "hot-spot-chafing-fuel-methanol-gel-2-5-hours",
+    "uom": "Case",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/R/B/RBUNPQJ5sUnG2kZw5McoxOboD.png",
+      "label": "Hot Spot - Chafing Fuel - Methanol Gel - 2.5 Hours"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/1/0/105HwJF8YB8oHS0nj80kQ7bRz.jpg",
+        "label": "Hot Spot - Chafing Fuel - Methanol Gel - 2.5 Hours"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/R/B/RBUNPQJ5sUnG2kZw5McoxOboD.png",
+        "label": "Hot Spot - Chafing Fuel - Methanol Gel - 2.5 Hours"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 49.89,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 49.89,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "72x200 g in a Box"
+    },
+    "description": {
+      "html": "72x200 g in a Box"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Supplies",
+        "url_key": "supplies"
+      },
+      {
+        "name": "Restaurant Cookware",
+        "url_key": "restaurant-cookware"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SUP026",
+    "name": "Hot Spot - Chafing Fuel - 6 Hours",
+    "url_key": "hot-spot-chafing-fuel-6-hours",
+    "uom": "Case",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/I/J/IJIZfUyi7MTYoiEm2FtRkRAso.png",
+      "label": "Hot Spot - Chafing Fuel - 6 Hours"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/x/9/x9B9Fh19rVT1DDn0wogdMeuz1.jpg",
+        "label": "Hot Spot - Chafing Fuel - 6 Hours"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/I/J/IJIZfUyi7MTYoiEm2FtRkRAso.png",
+        "label": "Hot Spot - Chafing Fuel - 6 Hours"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 36.19,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 36.19,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "[24x210 g]"
+    },
+    "description": {
+      "html": "[24x210 g]"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Supplies",
+        "url_key": "supplies"
+      },
+      {
+        "name": "Restaurant Cookware",
+        "url_key": "restaurant-cookware"
+      }
+    ],
+    "department": "ware-equipment"
+  },
+  {
+    "__typename": "SimpleProduct",
+    "sku": "SUP024",
+    "name": "Sparklers 8\" (8 pk)",
+    "url_key": "sparklers-8-8-pk",
+    "uom": "pcs",
+    "small_image": {
+      "url": "https://m2.mysupreme.ca/media/catalog/product/cache/6068fe1b413298535e4df0e4076c1ea4/6/2/62IG7Yx4KSM8ceBjNbc5c7nmd.jpg",
+      "label": "Sparklers 8\" (8 pk)"
+    },
+    "media_gallery": [
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/6/2/62IG7Yx4KSM8ceBjNbc5c7nmd.jpg",
+        "label": "Sparklers 8\" (8 pk)"
+      },
+      {
+        "url": "https://m2.mysupreme.ca/media/catalog/product/cache/73fb458c986244e162af0324b877be06/Z/i/ZiSLF282xR74eRgzLPugc5bSh.jpeg",
+        "label": "Sparklers 8\" (8 pk)"
+      }
+    ],
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 1.49,
+          "currency": "CAD"
+        },
+        "final_price": {
+          "value": 1.49,
+          "currency": "CAD"
+        },
+        "discount": {
+          "percent_off": 0,
+          "amount_off": 0
+        }
+      }
+    },
+    "short_description": {
+      "html": "One Pcs"
+    },
+    "description": {
+      "html": "One Pcs"
+    },
+    "categories": [
+      {
+        "name": "Ware & Equipment",
+        "url_key": "ware-equipment"
+      },
+      {
+        "name": "Supplies",
+        "url_key": "supplies"
+      },
+      {
+        "name": "Restaurant & Retail Supplies",
+        "url_key": "restaurant-retail-supplies"
+      }
+    ],
+    "department": "ware-equipment"
+  }
+]

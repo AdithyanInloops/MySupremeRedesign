@@ -1,0 +1,3257 @@
+[
+  {
+    "brand_id": 4,
+    "brand_name": "Ecogate",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/ecogate_logo_.jpg"
+  },
+  {
+    "brand_id": 6,
+    "brand_name": "Morning Dew",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/morning_dew_logo.jpg"
+  },
+  {
+    "brand_id": 7,
+    "brand_name": "MayFair",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/mayfair_logo.jpg"
+  },
+  {
+    "brand_id": 9,
+    "brand_name": "Golden Maple",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/golden_maple_logo.jpg"
+  },
+  {
+    "brand_id": 10,
+    "brand_name": "Value+",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/value_plus_logo.jpg"
+  },
+  {
+    "brand_id": 16,
+    "brand_name": "Chartland",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/chartland_logo.jpg"
+  },
+  {
+    "brand_id": 19,
+    "brand_name": "Rhino",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/rhino_logo.jpg"
+  },
+  {
+    "brand_id": 20,
+    "brand_name": "Tropical Delight",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/tropical_delight_logo.jpg"
+  },
+  {
+    "brand_id": 21,
+    "brand_name": "Dispose",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/dispose_logo.jpg"
+  },
+  {
+    "brand_id": 26,
+    "brand_name": "Spartano",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/spartano_logo.jpg"
+  },
+  {
+    "brand_id": 30,
+    "brand_name": "Paper Evo",
+    "image_url": null
+  },
+  {
+    "brand_id": 31,
+    "brand_name": "Atlas",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/atlas_logo.jpg"
+  },
+  {
+    "brand_id": 32,
+    "brand_name": "Arrow",
+    "image_url": null
+  },
+  {
+    "brand_id": 33,
+    "brand_name": "Everest Pro",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/everest_pro_logo.jpg"
+  },
+  {
+    "brand_id": 36,
+    "brand_name": "Shark",
+    "image_url": null
+  },
+  {
+    "brand_id": 39,
+    "brand_name": "RAAZ",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/raaz_logo.jpg"
+  },
+  {
+    "brand_id": 40,
+    "brand_name": "Heinz",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/heinz_logo.jpg"
+  },
+  {
+    "brand_id": 41,
+    "brand_name": "Unico",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/unico_logo.jpg"
+  },
+  {
+    "brand_id": 42,
+    "brand_name": "Bunn",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/bunn_logo.jpg"
+  },
+  {
+    "brand_id": 43,
+    "brand_name": "Pepsi",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/pepsi_logo.jpg"
+  },
+  {
+    "brand_id": 44,
+    "brand_name": "7up",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/7up_logo.jpg"
+  },
+  {
+    "brand_id": 45,
+    "brand_name": "Sprite",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/sprite_logo.jpg"
+  },
+  {
+    "brand_id": 47,
+    "brand_name": "Canada Dry",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/canada_dry_logo.jpg"
+  },
+  {
+    "brand_id": 48,
+    "brand_name": "Nestea",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/nestea_logo.jpg"
+  },
+  {
+    "brand_id": 51,
+    "brand_name": "Red Bull",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/red_bull_logo.jpg"
+  },
+  {
+    "brand_id": 52,
+    "brand_name": "Minute Maid",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/minute_maid_logo.jpg"
+  },
+  {
+    "brand_id": 53,
+    "brand_name": "Polykar",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/polykar_logo.jpg"
+  },
+  {
+    "brand_id": 54,
+    "brand_name": "Old Style",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/olde_style_logo.jpg"
+  },
+  {
+    "brand_id": 55,
+    "brand_name": "HY STIX",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/hy_stix_logo.jpg"
+  },
+  {
+    "brand_id": 56,
+    "brand_name": "Joy",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/joy_logo.jpg"
+  },
+  {
+    "brand_id": 58,
+    "brand_name": "Kraft",
+    "image_url": "https://m2.mysupreme.ca/media/wysiwyg/brand/kraft_logo.jpg"
+  },
+  {
+    "brand_id": 59,
+    "brand_name": "Crown",
+    "image_url": null
+  },
+  {
+    "brand_id": 61,
+    "brand_name": "APNA",
+    "image_url": null
+  },
+  {
+    "brand_id": 62,
+    "brand_name": "SHAN",
+    "image_url": null
+  },
+  {
+    "brand_id": 63,
+    "brand_name": "Premoro",
+    "image_url": null
+  },
+  {
+    "brand_id": 64,
+    "brand_name": "Freshe",
+    "image_url": null
+  },
+  {
+    "brand_id": 65,
+    "brand_name": "Togo",
+    "image_url": null
+  },
+  {
+    "brand_id": 66,
+    "brand_name": "Jay's Choice",
+    "image_url": null
+  },
+  {
+    "brand_id": 67,
+    "brand_name": "Starbucks",
+    "image_url": null
+  },
+  {
+    "brand_id": 68,
+    "brand_name": "Aginomoto",
+    "image_url": null
+  },
+  {
+    "brand_id": 69,
+    "brand_name": "Chef Nutri",
+    "image_url": null
+  },
+  {
+    "brand_id": 70,
+    "brand_name": "Mark's Choice",
+    "image_url": null
+  },
+  {
+    "brand_id": 71,
+    "brand_name": "Pearl River Bridge",
+    "image_url": null
+  },
+  {
+    "brand_id": 72,
+    "brand_name": "Swad",
+    "image_url": null
+  },
+  {
+    "brand_id": 73,
+    "brand_name": "Erawan",
+    "image_url": null
+  },
+  {
+    "brand_id": 318,
+    "brand_name": "Quaker",
+    "image_url": null
+  },
+  {
+    "brand_id": 321,
+    "brand_name": "Knorr",
+    "image_url": null
+  },
+  {
+    "brand_id": 322,
+    "brand_name": "MDH",
+    "image_url": null
+  },
+  {
+    "brand_id": 324,
+    "brand_name": "Supreme",
+    "image_url": null
+  },
+  {
+    "brand_id": 335,
+    "brand_name": "Ashoka",
+    "image_url": null
+  },
+  {
+    "brand_id": 343,
+    "brand_name": "Harvest",
+    "image_url": null
+  },
+  {
+    "brand_id": 345,
+    "brand_name": "Select",
+    "image_url": null
+  },
+  {
+    "brand_id": 347,
+    "brand_name": "Kasuku",
+    "image_url": null
+  },
+  {
+    "brand_id": 349,
+    "brand_name": "Sanam",
+    "image_url": null
+  },
+  {
+    "brand_id": 351,
+    "brand_name": "Delicious",
+    "image_url": null
+  },
+  {
+    "brand_id": 353,
+    "brand_name": "Shana",
+    "image_url": null
+  },
+  {
+    "brand_id": 357,
+    "brand_name": "Brar's",
+    "image_url": null
+  },
+  {
+    "brand_id": 359,
+    "brand_name": "HQ",
+    "image_url": null
+  },
+  {
+    "brand_id": 361,
+    "brand_name": "India Crown",
+    "image_url": null
+  },
+  {
+    "brand_id": 363,
+    "brand_name": "Natco",
+    "image_url": null
+  },
+  {
+    "brand_id": 365,
+    "brand_name": "Alasko",
+    "image_url": null
+  },
+  {
+    "brand_id": 367,
+    "brand_name": "Purex",
+    "image_url": null
+  },
+  {
+    "brand_id": 369,
+    "brand_name": "Nanak",
+    "image_url": null
+  },
+  {
+    "brand_id": 373,
+    "brand_name": "E.D. Smith",
+    "image_url": null
+  },
+  {
+    "brand_id": 375,
+    "brand_name": "Elegant",
+    "image_url": null
+  },
+  {
+    "brand_id": 379,
+    "brand_name": "Full Red",
+    "image_url": null
+  },
+  {
+    "brand_id": 381,
+    "brand_name": "Fresh",
+    "image_url": null
+  },
+  {
+    "brand_id": 383,
+    "brand_name": "Red Dragon",
+    "image_url": null
+  },
+  {
+    "brand_id": 385,
+    "brand_name": "Olympia",
+    "image_url": null
+  },
+  {
+    "brand_id": 388,
+    "brand_name": "Daniel's",
+    "image_url": null
+  },
+  {
+    "brand_id": 395,
+    "brand_name": "Del Monte",
+    "image_url": null
+  },
+  {
+    "brand_id": 397,
+    "brand_name": "Jarritos",
+    "image_url": null
+  },
+  {
+    "brand_id": 399,
+    "brand_name": "Scipio",
+    "image_url": null
+  },
+  {
+    "brand_id": 403,
+    "brand_name": "A&W",
+    "image_url": null
+  },
+  {
+    "brand_id": 404,
+    "brand_name": "ADM",
+    "image_url": null
+  },
+  {
+    "brand_id": 405,
+    "brand_name": "Sauce Craft",
+    "image_url": null
+  },
+  {
+    "brand_id": 407,
+    "brand_name": "VSO",
+    "image_url": null
+  },
+  {
+    "brand_id": 409,
+    "brand_name": "Arizona",
+    "image_url": null
+  },
+  {
+    "brand_id": 415,
+    "brand_name": "Beef Factory",
+    "image_url": null
+  },
+  {
+    "brand_id": 417,
+    "brand_name": "Decora",
+    "image_url": null
+  },
+  {
+    "brand_id": 419,
+    "brand_name": "Cavendish",
+    "image_url": null
+  },
+  {
+    "brand_id": 421,
+    "brand_name": "Cedar",
+    "image_url": null
+  },
+  {
+    "brand_id": 423,
+    "brand_name": "National",
+    "image_url": null
+  },
+  {
+    "brand_id": 427,
+    "brand_name": "Ching's",
+    "image_url": null
+  },
+  {
+    "brand_id": 429,
+    "brand_name": "Chocolake",
+    "image_url": null
+  },
+  {
+    "brand_id": 434,
+    "brand_name": "Dabur",
+    "image_url": null
+  },
+  {
+    "brand_id": 436,
+    "brand_name": "Derlea",
+    "image_url": null
+  },
+  {
+    "brand_id": 438,
+    "brand_name": "Desi",
+    "image_url": null
+  },
+  {
+    "brand_id": 444,
+    "brand_name": "Esma",
+    "image_url": null
+  },
+  {
+    "brand_id": 446,
+    "brand_name": "Solmaz",
+    "image_url": null
+  },
+  {
+    "brand_id": 450,
+    "brand_name": "GEDIK",
+    "image_url": null
+  },
+  {
+    "brand_id": 452,
+    "brand_name": "Glaceau",
+    "image_url": null
+  },
+  {
+    "brand_id": 454,
+    "brand_name": "Haldiram's",
+    "image_url": null
+  },
+  {
+    "brand_id": 455,
+    "brand_name": "HAMPA",
+    "image_url": null
+  },
+  {
+    "brand_id": 456,
+    "brand_name": "Hoffmann",
+    "image_url": null
+  },
+  {
+    "brand_id": 462,
+    "brand_name": "Kikkoman",
+    "image_url": null
+  },
+  {
+    "brand_id": 464,
+    "brand_name": "Lajawab",
+    "image_url": null
+  },
+  {
+    "brand_id": 466,
+    "brand_name": "Lynch",
+    "image_url": null
+  },
+  {
+    "brand_id": 468,
+    "brand_name": "Messina",
+    "image_url": null
+  },
+  {
+    "brand_id": 470,
+    "brand_name": "Monster",
+    "image_url": null
+  },
+  {
+    "brand_id": 472,
+    "brand_name": "Trio",
+    "image_url": null
+  },
+  {
+    "brand_id": 474,
+    "brand_name": "Nutella",
+    "image_url": null
+  },
+  {
+    "brand_id": 476,
+    "brand_name": "P&H",
+    "image_url": null
+  },
+  {
+    "brand_id": 479,
+    "brand_name": "Stone",
+    "image_url": null
+  },
+  {
+    "brand_id": 481,
+    "brand_name": "Pro-Kitchen",
+    "image_url": null
+  },
+  {
+    "brand_id": 487,
+    "brand_name": "Sagetra",
+    "image_url": null
+  },
+  {
+    "brand_id": 489,
+    "brand_name": "Becel",
+    "image_url": null
+  },
+  {
+    "brand_id": 491,
+    "brand_name": "Shareat",
+    "image_url": null
+  },
+  {
+    "brand_id": 495,
+    "brand_name": "Simply Simple",
+    "image_url": null
+  },
+  {
+    "brand_id": 497,
+    "brand_name": "Choice",
+    "image_url": null
+  },
+  {
+    "brand_id": 499,
+    "brand_name": "Snow Soft",
+    "image_url": null
+  },
+  {
+    "brand_id": 500,
+    "brand_name": "Spices Gourmet",
+    "image_url": null
+  },
+  {
+    "brand_id": 503,
+    "brand_name": "Starfrit",
+    "image_url": null
+  },
+  {
+    "brand_id": 505,
+    "brand_name": "Dora",
+    "image_url": null
+  },
+  {
+    "brand_id": 507,
+    "brand_name": "Tabasco",
+    "image_url": null
+  },
+  {
+    "brand_id": 509,
+    "brand_name": "Taj Mahal",
+    "image_url": null
+  },
+  {
+    "brand_id": 521,
+    "brand_name": "McNairn",
+    "image_url": null
+  },
+  {
+    "brand_id": 523,
+    "brand_name": "Windex",
+    "image_url": null
+  },
+  {
+    "brand_id": 525,
+    "brand_name": "Windsor",
+    "image_url": null
+  },
+  {
+    "brand_id": 527,
+    "brand_name": "Zaika",
+    "image_url": null
+  },
+  {
+    "brand_id": 529,
+    "brand_name": "Pearl Milling",
+    "image_url": null
+  },
+  {
+    "brand_id": 555,
+    "brand_name": "Beatrice",
+    "image_url": null
+  },
+  {
+    "brand_id": 557,
+    "brand_name": "Eco-Craze",
+    "image_url": null
+  },
+  {
+    "brand_id": 559,
+    "brand_name": "Burnbrae",
+    "image_url": null
+  },
+  {
+    "brand_id": 561,
+    "brand_name": "Castle Cheese",
+    "image_url": null
+  },
+  {
+    "brand_id": 563,
+    "brand_name": "Prime Bags",
+    "image_url": null
+  },
+  {
+    "brand_id": 565,
+    "brand_name": "Golden Gate",
+    "image_url": null
+  },
+  {
+    "brand_id": 567,
+    "brand_name": "UNIVERSAL KRAFT",
+    "image_url": null
+  },
+  {
+    "brand_id": 569,
+    "brand_name": "Lactantia",
+    "image_url": null
+  },
+  {
+    "brand_id": 571,
+    "brand_name": "Modhani",
+    "image_url": null
+  },
+  {
+    "brand_id": 573,
+    "brand_name": "Gay Lea",
+    "image_url": null
+  },
+  {
+    "brand_id": 575,
+    "brand_name": "Salerno",
+    "image_url": null
+  },
+  {
+    "brand_id": 577,
+    "brand_name": "Happy Dairy",
+    "image_url": null
+  },
+  {
+    "brand_id": 579,
+    "brand_name": "A1 Cash & Carry",
+    "image_url": null
+  },
+  {
+    "brand_id": 581,
+    "brand_name": "Dawn",
+    "image_url": null
+  },
+  {
+    "brand_id": 583,
+    "brand_name": "Triple A",
+    "image_url": null
+  },
+  {
+    "brand_id": 586,
+    "brand_name": "GENERIC",
+    "image_url": null
+  },
+  {
+    "brand_id": 588,
+    "brand_name": "Spirito",
+    "image_url": null
+  },
+  {
+    "brand_id": 590,
+    "brand_name": "Glacial Treasures",
+    "image_url": null
+  },
+  {
+    "brand_id": 592,
+    "brand_name": "Salamina",
+    "image_url": null
+  },
+  {
+    "brand_id": 594,
+    "brand_name": "Soloway's",
+    "image_url": null
+  },
+  {
+    "brand_id": 596,
+    "brand_name": "Chicago 58",
+    "image_url": null
+  },
+  {
+    "brand_id": 598,
+    "brand_name": "Washeze",
+    "image_url": null
+  },
+  {
+    "brand_id": 600,
+    "brand_name": "Turbo Power",
+    "image_url": null
+  },
+  {
+    "brand_id": 602,
+    "brand_name": "M2",
+    "image_url": null
+  },
+  {
+    "brand_id": 605,
+    "brand_name": "Shinex",
+    "image_url": null
+  },
+  {
+    "brand_id": 607,
+    "brand_name": "Pine Sol",
+    "image_url": null
+  },
+  {
+    "brand_id": 609,
+    "brand_name": "Saporito",
+    "image_url": null
+  },
+  {
+    "brand_id": 610,
+    "brand_name": "Capri",
+    "image_url": null
+  },
+  {
+    "brand_id": 614,
+    "brand_name": "Palmolive",
+    "image_url": null
+  },
+  {
+    "brand_id": 616,
+    "brand_name": "Multi-Blend",
+    "image_url": null
+  },
+  {
+    "brand_id": 618,
+    "brand_name": "Clorox",
+    "image_url": null
+  },
+  {
+    "brand_id": 620,
+    "brand_name": "Febreze",
+    "image_url": null
+  },
+  {
+    "brand_id": 622,
+    "brand_name": "Lysol",
+    "image_url": null
+  },
+  {
+    "brand_id": 627,
+    "brand_name": "GK",
+    "image_url": null
+  },
+  {
+    "brand_id": 629,
+    "brand_name": "Easyoff",
+    "image_url": null
+  },
+  {
+    "brand_id": 631,
+    "brand_name": "First Chemical",
+    "image_url": null
+  },
+  {
+    "brand_id": 633,
+    "brand_name": "Effeclean",
+    "image_url": null
+  },
+  {
+    "brand_id": 635,
+    "brand_name": "Ajax Ultra",
+    "image_url": null
+  },
+  {
+    "brand_id": 638,
+    "brand_name": "Scotch Brite",
+    "image_url": null
+  },
+  {
+    "brand_id": 640,
+    "brand_name": "Mr. Clean",
+    "image_url": null
+  },
+  {
+    "brand_id": 642,
+    "brand_name": "Liao",
+    "image_url": null
+  },
+  {
+    "brand_id": 644,
+    "brand_name": "CHOICE LINE",
+    "image_url": null
+  },
+  {
+    "brand_id": 646,
+    "brand_name": "CLASSI-K",
+    "image_url": null
+  },
+  {
+    "brand_id": 648,
+    "brand_name": "Deluxe",
+    "image_url": null
+  },
+  {
+    "brand_id": 650,
+    "brand_name": "Sanitrol",
+    "image_url": null
+  },
+  {
+    "brand_id": 652,
+    "brand_name": "Safeblend",
+    "image_url": null
+  },
+  {
+    "brand_id": 654,
+    "brand_name": "Grab-A-Rag",
+    "image_url": null
+  },
+  {
+    "brand_id": 656,
+    "brand_name": "Lobby",
+    "image_url": null
+  },
+  {
+    "brand_id": 658,
+    "brand_name": "Kodiak",
+    "image_url": null
+  },
+  {
+    "brand_id": 660,
+    "brand_name": "XC - Below Zero",
+    "image_url": null
+  },
+  {
+    "brand_id": 664,
+    "brand_name": "Samosa & Sweet Factory",
+    "image_url": null
+  },
+  {
+    "brand_id": 667,
+    "brand_name": "Aseel",
+    "image_url": null
+  },
+  {
+    "brand_id": 670,
+    "brand_name": "Pure Drop",
+    "image_url": null
+  },
+  {
+    "brand_id": 672,
+    "brand_name": "Brar",
+    "image_url": null
+  },
+  {
+    "brand_id": 674,
+    "brand_name": "Global Choice",
+    "image_url": null
+  },
+  {
+    "brand_id": 678,
+    "brand_name": "Buona",
+    "image_url": null
+  },
+  {
+    "brand_id": 680,
+    "brand_name": "Olitalia",
+    "image_url": null
+  },
+  {
+    "brand_id": 683,
+    "brand_name": "Bank Brother",
+    "image_url": null
+  },
+  {
+    "brand_id": 685,
+    "brand_name": "Sugardale",
+    "image_url": null
+  },
+  {
+    "brand_id": 687,
+    "brand_name": "Peppo Food",
+    "image_url": null
+  },
+  {
+    "brand_id": 689,
+    "brand_name": "McCain",
+    "image_url": null
+  },
+  {
+    "brand_id": 691,
+    "brand_name": "Sunspun",
+    "image_url": null
+  },
+  {
+    "brand_id": 694,
+    "brand_name": "Dr. Pepper",
+    "image_url": null
+  },
+  {
+    "brand_id": 696,
+    "brand_name": "Crush",
+    "image_url": null
+  },
+  {
+    "brand_id": 697,
+    "brand_name": "Coca Cola",
+    "image_url": null
+  },
+  {
+    "brand_id": 698,
+    "brand_name": "Barqs",
+    "image_url": null
+  },
+  {
+    "brand_id": 699,
+    "brand_name": "Brio",
+    "image_url": null
+  },
+  {
+    "brand_id": 701,
+    "brand_name": "Mountain Dew",
+    "image_url": null
+  },
+  {
+    "brand_id": 702,
+    "brand_name": "Mugs",
+    "image_url": null
+  },
+  {
+    "brand_id": 703,
+    "brand_name": "Fuze - Iced Tea",
+    "image_url": null
+  },
+  {
+    "brand_id": 704,
+    "brand_name": "Value +",
+    "image_url": null
+  },
+  {
+    "brand_id": 706,
+    "brand_name": "Fanta",
+    "image_url": null
+  },
+  {
+    "brand_id": 708,
+    "brand_name": "Brisk",
+    "image_url": null
+  },
+  {
+    "brand_id": 709,
+    "brand_name": "Perrier",
+    "image_url": null
+  },
+  {
+    "brand_id": 712,
+    "brand_name": "Tropik Splash",
+    "image_url": null
+  },
+  {
+    "brand_id": 714,
+    "brand_name": "Ziploc",
+    "image_url": null
+  },
+  {
+    "brand_id": 715,
+    "brand_name": "D&W",
+    "image_url": null
+  },
+  {
+    "brand_id": 716,
+    "brand_name": "Enjay",
+    "image_url": null
+  },
+  {
+    "brand_id": 717,
+    "brand_name": "Rhino-Foil",
+    "image_url": null
+  },
+  {
+    "brand_id": 718,
+    "brand_name": "Darnel",
+    "image_url": null
+  },
+  {
+    "brand_id": 719,
+    "brand_name": "Fresca",
+    "image_url": null
+  },
+  {
+    "brand_id": 720,
+    "brand_name": "Pina Colada",
+    "image_url": null
+  },
+  {
+    "brand_id": 722,
+    "brand_name": "Thums Up",
+    "image_url": null
+  },
+  {
+    "brand_id": 723,
+    "brand_name": "Limca",
+    "image_url": null
+  },
+  {
+    "brand_id": 724,
+    "brand_name": "Pakola",
+    "image_url": null
+  },
+  {
+    "brand_id": 725,
+    "brand_name": "Dasani",
+    "image_url": null
+  },
+  {
+    "brand_id": 726,
+    "brand_name": "Kesgi",
+    "image_url": null
+  },
+  {
+    "brand_id": 728,
+    "brand_name": "Amhil",
+    "image_url": null
+  },
+  {
+    "brand_id": 729,
+    "brand_name": "Can Foil",
+    "image_url": null
+  },
+  {
+    "brand_id": 730,
+    "brand_name": "Cantech",
+    "image_url": null
+  },
+  {
+    "brand_id": 731,
+    "brand_name": "Cardinal Tissue",
+    "image_url": null
+  },
+  {
+    "brand_id": 732,
+    "brand_name": "Chalet",
+    "image_url": null
+  },
+  {
+    "brand_id": 733,
+    "brand_name": "Anchor",
+    "image_url": null
+  },
+  {
+    "brand_id": 735,
+    "brand_name": "Dart",
+    "image_url": null
+  },
+  {
+    "brand_id": 736,
+    "brand_name": "Eco Cutlery",
+    "image_url": null
+  },
+  {
+    "brand_id": 738,
+    "brand_name": "Ecomates",
+    "image_url": null
+  },
+  {
+    "brand_id": 740,
+    "brand_name": "Galitos",
+    "image_url": null
+  },
+  {
+    "brand_id": 741,
+    "brand_name": "Genpak",
+    "image_url": null
+  },
+  {
+    "brand_id": 742,
+    "brand_name": "HFA",
+    "image_url": null
+  },
+  {
+    "brand_id": 743,
+    "brand_name": "Kissan",
+    "image_url": null
+  },
+  {
+    "brand_id": 746,
+    "brand_name": "Mcdermid/MultiBrands",
+    "image_url": null
+  },
+  {
+    "brand_id": 747,
+    "brand_name": "Pactiv",
+    "image_url": null
+  },
+  {
+    "brand_id": 748,
+    "brand_name": "Sweet Box",
+    "image_url": null
+  },
+  {
+    "brand_id": 749,
+    "brand_name": "ParPak",
+    "image_url": null
+  },
+  {
+    "brand_id": 750,
+    "brand_name": "EB",
+    "image_url": null
+  },
+  {
+    "brand_id": 751,
+    "brand_name": "Prokal",
+    "image_url": null
+  },
+  {
+    "brand_id": 752,
+    "brand_name": "Sabert",
+    "image_url": null
+  },
+  {
+    "brand_id": 753,
+    "brand_name": "SimplyFresh",
+    "image_url": null
+  },
+  {
+    "brand_id": 754,
+    "brand_name": "WNA",
+    "image_url": null
+  },
+  {
+    "brand_id": 755,
+    "brand_name": "Earth Choice",
+    "image_url": null
+  },
+  {
+    "brand_id": 756,
+    "brand_name": "Inline",
+    "image_url": null
+  },
+  {
+    "brand_id": 757,
+    "brand_name": "Vespa",
+    "image_url": null
+  },
+  {
+    "brand_id": 758,
+    "brand_name": "Hy Five",
+    "image_url": null
+  },
+  {
+    "brand_id": 759,
+    "brand_name": "Hy-Pax",
+    "image_url": null
+  },
+  {
+    "brand_id": 760,
+    "brand_name": "Indigo",
+    "image_url": null
+  },
+  {
+    "brand_id": 762,
+    "brand_name": "Naya",
+    "image_url": null
+  },
+  {
+    "brand_id": 764,
+    "brand_name": "Jianzhong",
+    "image_url": null
+  },
+  {
+    "brand_id": 765,
+    "brand_name": "Magma",
+    "image_url": null
+  },
+  {
+    "brand_id": 766,
+    "brand_name": "Vimto",
+    "image_url": null
+  },
+  {
+    "brand_id": 768,
+    "brand_name": "Maple",
+    "image_url": null
+  },
+  {
+    "brand_id": 769,
+    "brand_name": "Rite Pak",
+    "image_url": null
+  },
+  {
+    "brand_id": 770,
+    "brand_name": "Eco Natur",
+    "image_url": null
+  },
+  {
+    "brand_id": 771,
+    "brand_name": "Efes",
+    "image_url": null
+  },
+  {
+    "brand_id": 773,
+    "brand_name": "Eco-Nature",
+    "image_url": null
+  },
+  {
+    "brand_id": 774,
+    "brand_name": "White Swan",
+    "image_url": null
+  },
+  {
+    "brand_id": 775,
+    "brand_name": "McCall's",
+    "image_url": null
+  },
+  {
+    "brand_id": 776,
+    "brand_name": "Sanfacon",
+    "image_url": null
+  },
+  {
+    "brand_id": 777,
+    "brand_name": "Eurodib",
+    "image_url": null
+  },
+  {
+    "brand_id": 778,
+    "brand_name": "MegaStar",
+    "image_url": null
+  },
+  {
+    "brand_id": 779,
+    "brand_name": "Only EST",
+    "image_url": null
+  },
+  {
+    "brand_id": 780,
+    "brand_name": "Tilex",
+    "image_url": null
+  },
+  {
+    "brand_id": 781,
+    "brand_name": "Palace",
+    "image_url": null
+  },
+  {
+    "brand_id": 782,
+    "brand_name": "Frontenac Groupe",
+    "image_url": null
+  },
+  {
+    "brand_id": 784,
+    "brand_name": "Sanelli",
+    "image_url": null
+  },
+  {
+    "brand_id": 786,
+    "brand_name": "Par Excellence",
+    "image_url": null
+  },
+  {
+    "brand_id": 787,
+    "brand_name": "Reynolds",
+    "image_url": null
+  },
+  {
+    "brand_id": 788,
+    "brand_name": "Sun",
+    "image_url": null
+  },
+  {
+    "brand_id": 789,
+    "brand_name": "None Branded",
+    "image_url": null
+  },
+  {
+    "brand_id": 790,
+    "brand_name": "St. Albert",
+    "image_url": null
+  },
+  {
+    "brand_id": 792,
+    "brand_name": "Polar Pak",
+    "image_url": null
+  },
+  {
+    "brand_id": 793,
+    "brand_name": "Deli Fresh",
+    "image_url": null
+  },
+  {
+    "brand_id": 795,
+    "brand_name": "Titan",
+    "image_url": null
+  },
+  {
+    "brand_id": 796,
+    "brand_name": "Ekcoscreen",
+    "image_url": null
+  },
+  {
+    "brand_id": 798,
+    "brand_name": "Professional",
+    "image_url": null
+  },
+  {
+    "brand_id": 799,
+    "brand_name": "Belvario",
+    "image_url": null
+  },
+  {
+    "brand_id": 801,
+    "brand_name": "Grace",
+    "image_url": null
+  },
+  {
+    "brand_id": 803,
+    "brand_name": "Chefs Choice",
+    "image_url": null
+  },
+  {
+    "brand_id": 807,
+    "brand_name": "Pizzaiolo",
+    "image_url": null
+  },
+  {
+    "brand_id": 808,
+    "brand_name": "Stoney Creek",
+    "image_url": null
+  },
+  {
+    "brand_id": 810,
+    "brand_name": "Touch Flex",
+    "image_url": null
+  },
+  {
+    "brand_id": 811,
+    "brand_name": "Maoli",
+    "image_url": null
+  },
+  {
+    "brand_id": 813,
+    "brand_name": "Success",
+    "image_url": null
+  },
+  {
+    "brand_id": 815,
+    "brand_name": "Campbell's",
+    "image_url": null
+  },
+  {
+    "brand_id": 818,
+    "brand_name": "Sunbec",
+    "image_url": null
+  },
+  {
+    "brand_id": 819,
+    "brand_name": "Handi",
+    "image_url": null
+  },
+  {
+    "brand_id": 822,
+    "brand_name": "Luda",
+    "image_url": null
+  },
+  {
+    "brand_id": 825,
+    "brand_name": "Delmare",
+    "image_url": null
+  },
+  {
+    "brand_id": 831,
+    "brand_name": "Sifto",
+    "image_url": null
+  },
+  {
+    "brand_id": 833,
+    "brand_name": "Sher",
+    "image_url": null
+  },
+  {
+    "brand_id": 838,
+    "brand_name": "Sonf",
+    "image_url": null
+  },
+  {
+    "brand_id": 839,
+    "brand_name": "Parika",
+    "image_url": null
+  },
+  {
+    "brand_id": 840,
+    "brand_name": "Nescafe",
+    "image_url": null
+  },
+  {
+    "brand_id": 842,
+    "brand_name": "Realemon",
+    "image_url": null
+  },
+  {
+    "brand_id": 844,
+    "brand_name": "Chung Jung One",
+    "image_url": null
+  },
+  {
+    "brand_id": 849,
+    "brand_name": "Redpath",
+    "image_url": null
+  },
+  {
+    "brand_id": 851,
+    "brand_name": "Splenda",
+    "image_url": null
+  },
+  {
+    "brand_id": 853,
+    "brand_name": "Sugar Twin",
+    "image_url": null
+  },
+  {
+    "brand_id": 854,
+    "brand_name": "Club House",
+    "image_url": null
+  },
+  {
+    "brand_id": 856,
+    "brand_name": "Lawry's",
+    "image_url": null
+  },
+  {
+    "brand_id": 858,
+    "brand_name": "Montalis",
+    "image_url": null
+  },
+  {
+    "brand_id": 859,
+    "brand_name": "House of Excellence",
+    "image_url": null
+  },
+  {
+    "brand_id": 861,
+    "brand_name": "Arm & Hammer",
+    "image_url": null
+  },
+  {
+    "brand_id": 863,
+    "brand_name": "Fleischmanns",
+    "image_url": null
+  },
+  {
+    "brand_id": 866,
+    "brand_name": "Pinnacle",
+    "image_url": null
+  },
+  {
+    "brand_id": 868,
+    "brand_name": "Laxmi",
+    "image_url": null
+  },
+  {
+    "brand_id": 873,
+    "brand_name": "Bakers Hood",
+    "image_url": null
+  },
+  {
+    "brand_id": 874,
+    "brand_name": "Wohler",
+    "image_url": null
+  },
+  {
+    "brand_id": 876,
+    "brand_name": "Golden Temple",
+    "image_url": null
+  },
+  {
+    "brand_id": 879,
+    "brand_name": "Ingredion",
+    "image_url": null
+  },
+  {
+    "brand_id": 882,
+    "brand_name": "Ashrivaad",
+    "image_url": null
+  },
+  {
+    "brand_id": 884,
+    "brand_name": "Farina",
+    "image_url": null
+  },
+  {
+    "brand_id": 886,
+    "brand_name": "Soogi",
+    "image_url": null
+  },
+  {
+    "brand_id": 889,
+    "brand_name": "Monin",
+    "image_url": null
+  },
+  {
+    "brand_id": 891,
+    "brand_name": "Preema",
+    "image_url": null
+  },
+  {
+    "brand_id": 893,
+    "brand_name": "Diana",
+    "image_url": null
+  },
+  {
+    "brand_id": 895,
+    "brand_name": "Donmar",
+    "image_url": null
+  },
+  {
+    "brand_id": 897,
+    "brand_name": "Prime",
+    "image_url": null
+  },
+  {
+    "brand_id": 899,
+    "brand_name": "Arak",
+    "image_url": null
+  },
+  {
+    "brand_id": 903,
+    "brand_name": "Hellmann's",
+    "image_url": null
+  },
+  {
+    "brand_id": 905,
+    "brand_name": "Rose Hill",
+    "image_url": null
+  },
+  {
+    "brand_id": 906,
+    "brand_name": "Maggi",
+    "image_url": null
+  },
+  {
+    "brand_id": 909,
+    "brand_name": "Chocolate",
+    "image_url": null
+  },
+  {
+    "brand_id": 911,
+    "brand_name": "Grape leave food",
+    "image_url": null
+  },
+  {
+    "brand_id": 913,
+    "brand_name": "Garvey",
+    "image_url": null
+  },
+  {
+    "brand_id": 915,
+    "brand_name": "Wellson",
+    "image_url": null
+  },
+  {
+    "brand_id": 916,
+    "brand_name": "Work-Eze",
+    "image_url": null
+  },
+  {
+    "brand_id": 917,
+    "brand_name": "Bakers Choice",
+    "image_url": null
+  },
+  {
+    "brand_id": 918,
+    "brand_name": "Dynasco",
+    "image_url": null
+  },
+  {
+    "brand_id": 919,
+    "brand_name": "E2E Foodpack",
+    "image_url": null
+  },
+  {
+    "brand_id": 921,
+    "brand_name": "RestoGlove",
+    "image_url": null
+  },
+  {
+    "brand_id": 922,
+    "brand_name": "Cafe Express",
+    "image_url": null
+  },
+  {
+    "brand_id": 923,
+    "brand_name": "Fashish",
+    "image_url": null
+  },
+  {
+    "brand_id": 924,
+    "brand_name": "XTRA",
+    "image_url": null
+  },
+  {
+    "brand_id": 925,
+    "brand_name": "Chocoland",
+    "image_url": null
+  },
+  {
+    "brand_id": 927,
+    "brand_name": "Frenchs",
+    "image_url": null
+  },
+  {
+    "brand_id": 929,
+    "brand_name": "Cattlemens",
+    "image_url": null
+  },
+  {
+    "brand_id": 932,
+    "brand_name": "Hercuflex",
+    "image_url": null
+  },
+  {
+    "brand_id": 933,
+    "brand_name": "Frank's Red Hot",
+    "image_url": null
+  },
+  {
+    "brand_id": 935,
+    "brand_name": "Verka",
+    "image_url": null
+  },
+  {
+    "brand_id": 936,
+    "brand_name": "Lee Kum Kee",
+    "image_url": null
+  },
+  {
+    "brand_id": 938,
+    "brand_name": "VH",
+    "image_url": null
+  },
+  {
+    "brand_id": 940,
+    "brand_name": "KFI",
+    "image_url": null
+  },
+  {
+    "brand_id": 942,
+    "brand_name": "Smuckers",
+    "image_url": null
+  },
+  {
+    "brand_id": 944,
+    "brand_name": "Wings",
+    "image_url": null
+  },
+  {
+    "brand_id": 946,
+    "brand_name": "Huy Fong",
+    "image_url": null
+  },
+  {
+    "brand_id": 951,
+    "brand_name": "Del Sol",
+    "image_url": null
+  },
+  {
+    "brand_id": 952,
+    "brand_name": "AEG",
+    "image_url": null
+  },
+  {
+    "brand_id": 954,
+    "brand_name": "Carnation",
+    "image_url": null
+  },
+  {
+    "brand_id": 956,
+    "brand_name": "Vesuvio",
+    "image_url": null
+  },
+  {
+    "brand_id": 961,
+    "brand_name": "Reinhart",
+    "image_url": null
+  },
+  {
+    "brand_id": 973,
+    "brand_name": "Duru",
+    "image_url": null
+  },
+  {
+    "brand_id": 975,
+    "brand_name": "Mi Goreng",
+    "image_url": null
+  },
+  {
+    "brand_id": 977,
+    "brand_name": "Rooster",
+    "image_url": null
+  },
+  {
+    "brand_id": 979,
+    "brand_name": "Italpasta",
+    "image_url": null
+  },
+  {
+    "brand_id": 981,
+    "brand_name": "Y&Y",
+    "image_url": null
+  },
+  {
+    "brand_id": 985,
+    "brand_name": "India Gate",
+    "image_url": null
+  },
+  {
+    "brand_id": 987,
+    "brand_name": "Parliament",
+    "image_url": null
+  },
+  {
+    "brand_id": 989,
+    "brand_name": "Mr. Goudas",
+    "image_url": null
+  },
+  {
+    "brand_id": 991,
+    "brand_name": "Chandi Chowk",
+    "image_url": null
+  },
+  {
+    "brand_id": 997,
+    "brand_name": "Casa Mendosa",
+    "image_url": null
+  },
+  {
+    "brand_id": 1000,
+    "brand_name": "Vidhya",
+    "image_url": null
+  },
+  {
+    "brand_id": 1002,
+    "brand_name": "Kurkure",
+    "image_url": null
+  },
+  {
+    "brand_id": 1004,
+    "brand_name": "Express Paper",
+    "image_url": null
+  },
+  {
+    "brand_id": 1005,
+    "brand_name": "Reuven",
+    "image_url": null
+  },
+  {
+    "brand_id": 1007,
+    "brand_name": "Olympic",
+    "image_url": null
+  },
+  {
+    "brand_id": 1008,
+    "brand_name": "Attica",
+    "image_url": null
+  },
+  {
+    "brand_id": 1010,
+    "brand_name": "Dole",
+    "image_url": null
+  },
+  {
+    "brand_id": 1012,
+    "brand_name": "Oncu",
+    "image_url": null
+  },
+  {
+    "brand_id": 1014,
+    "brand_name": "Price Group",
+    "image_url": null
+  },
+  {
+    "brand_id": 1016,
+    "brand_name": "Maharani",
+    "image_url": null
+  },
+  {
+    "brand_id": 1019,
+    "brand_name": "Marsa",
+    "image_url": null
+  },
+  {
+    "brand_id": 1020,
+    "brand_name": "Bubly",
+    "image_url": null
+  },
+  {
+    "brand_id": 1021,
+    "brand_name": "Winco",
+    "image_url": null
+  },
+  {
+    "brand_id": 1022,
+    "brand_name": "Table Accent",
+    "image_url": null
+  },
+  {
+    "brand_id": 1023,
+    "brand_name": "Crystal",
+    "image_url": null
+  },
+  {
+    "brand_id": 1024,
+    "brand_name": "Dolce",
+    "image_url": null
+  },
+  {
+    "brand_id": 1025,
+    "brand_name": "Rite Tissue",
+    "image_url": null
+  },
+  {
+    "brand_id": 1026,
+    "brand_name": "Marks' Choice",
+    "image_url": null
+  },
+  {
+    "brand_id": 1029,
+    "brand_name": "Neweco",
+    "image_url": null
+  },
+  {
+    "brand_id": 1030,
+    "brand_name": "Balaji",
+    "image_url": null
+  },
+  {
+    "brand_id": 1031,
+    "brand_name": "Uline",
+    "image_url": null
+  },
+  {
+    "brand_id": 1032,
+    "brand_name": "Al-Watan",
+    "image_url": null
+  },
+  {
+    "brand_id": 1035,
+    "brand_name": "Nupak",
+    "image_url": null
+  },
+  {
+    "brand_id": 1037,
+    "brand_name": "Dharti",
+    "image_url": null
+  },
+  {
+    "brand_id": 1039,
+    "brand_name": "Hy- pax Eco",
+    "image_url": null
+  },
+  {
+    "brand_id": 1041,
+    "brand_name": "Delta",
+    "image_url": null
+  },
+  {
+    "brand_id": 1043,
+    "brand_name": "NEW GEN",
+    "image_url": null
+  },
+  {
+    "brand_id": 1044,
+    "brand_name": "Wisdom",
+    "image_url": null
+  },
+  {
+    "brand_id": 1045,
+    "brand_name": "Bliss",
+    "image_url": null
+  },
+  {
+    "brand_id": 1047,
+    "brand_name": "Hershey's",
+    "image_url": null
+  },
+  {
+    "brand_id": 1048,
+    "brand_name": "Incopil",
+    "image_url": null
+  },
+  {
+    "brand_id": 1050,
+    "brand_name": "Indgredion",
+    "image_url": null
+  },
+  {
+    "brand_id": 1051,
+    "brand_name": "Maher",
+    "image_url": null
+  },
+  {
+    "brand_id": 1052,
+    "brand_name": "Moulin",
+    "image_url": null
+  },
+  {
+    "brand_id": 1054,
+    "brand_name": "Mrs.",
+    "image_url": null
+  },
+  {
+    "brand_id": 1056,
+    "brand_name": "MSG",
+    "image_url": null
+  },
+  {
+    "brand_id": 1058,
+    "brand_name": "Nutmeg",
+    "image_url": null
+  },
+  {
+    "brand_id": 1059,
+    "brand_name": "Pam",
+    "image_url": null
+  },
+  {
+    "brand_id": 1062,
+    "brand_name": "Nurkaya",
+    "image_url": null
+  },
+  {
+    "brand_id": 1064,
+    "brand_name": "Safeena",
+    "image_url": null
+  },
+  {
+    "brand_id": 1066,
+    "brand_name": "Sun Med",
+    "image_url": null
+  },
+  {
+    "brand_id": 1068,
+    "brand_name": "Sunmak",
+    "image_url": null
+  },
+  {
+    "brand_id": 1073,
+    "brand_name": "Kirkland",
+    "image_url": null
+  },
+  {
+    "brand_id": 1076,
+    "brand_name": "Tapal",
+    "image_url": null
+  },
+  {
+    "brand_id": 1346,
+    "brand_name": "TIDE",
+    "image_url": null
+  },
+  {
+    "brand_id": 1349,
+    "brand_name": "Chapman's",
+    "image_url": null
+  },
+  {
+    "brand_id": 1351,
+    "brand_name": "Fortibag",
+    "image_url": null
+  },
+  {
+    "brand_id": 1352,
+    "brand_name": "San Felice",
+    "image_url": null
+  },
+  {
+    "brand_id": 1355,
+    "brand_name": "Elite Sweets",
+    "image_url": null
+  },
+  {
+    "brand_id": 1357,
+    "brand_name": "Olympia Gyros",
+    "image_url": null
+  },
+  {
+    "brand_id": 1359,
+    "brand_name": "HALLOOM",
+    "image_url": null
+  },
+  {
+    "brand_id": 1361,
+    "brand_name": "Mangal",
+    "image_url": null
+  },
+  {
+    "brand_id": 1362,
+    "brand_name": "Rubbermaid Wavebreak",
+    "image_url": null
+  },
+  {
+    "brand_id": 1363,
+    "brand_name": "Spa",
+    "image_url": null
+  },
+  {
+    "brand_id": 1365,
+    "brand_name": "Yupi",
+    "image_url": null
+  },
+  {
+    "brand_id": 1366,
+    "brand_name": "Eska Water",
+    "image_url": null
+  },
+  {
+    "brand_id": 1368,
+    "brand_name": "Barbican",
+    "image_url": null
+  },
+  {
+    "brand_id": 1369,
+    "brand_name": "Fluffy Soft",
+    "image_url": null
+  },
+  {
+    "brand_id": 1370,
+    "brand_name": "Tre Stelle",
+    "image_url": null
+  },
+  {
+    "brand_id": 1371,
+    "brand_name": "Tre Stelle",
+    "image_url": null
+  },
+  {
+    "brand_id": 1373,
+    "brand_name": "Pizzaletto",
+    "image_url": null
+  },
+  {
+    "brand_id": 1374,
+    "brand_name": "Saputo",
+    "image_url": null
+  },
+  {
+    "brand_id": 1375,
+    "brand_name": "Saputo",
+    "image_url": null
+  },
+  {
+    "brand_id": 1378,
+    "brand_name": "Calypso",
+    "image_url": null
+  },
+  {
+    "brand_id": 1380,
+    "brand_name": "PRIMAVERA",
+    "image_url": null
+  },
+  {
+    "brand_id": 1382,
+    "brand_name": "Salaam",
+    "image_url": null
+  },
+  {
+    "brand_id": 1384,
+    "brand_name": "ACE",
+    "image_url": null
+  },
+  {
+    "brand_id": 1391,
+    "brand_name": "Motherway",
+    "image_url": null
+  },
+  {
+    "brand_id": 1392,
+    "brand_name": "Sunset",
+    "image_url": null
+  },
+  {
+    "brand_id": 1393,
+    "brand_name": "Eggo",
+    "image_url": null
+  },
+  {
+    "brand_id": 1395,
+    "brand_name": "Made Good",
+    "image_url": null
+  },
+  {
+    "brand_id": 1397,
+    "brand_name": "Santa Lucia",
+    "image_url": null
+  },
+  {
+    "brand_id": 1399,
+    "brand_name": "Nikita",
+    "image_url": null
+  },
+  {
+    "brand_id": 1400,
+    "brand_name": "Green Ocean",
+    "image_url": null
+  },
+  {
+    "brand_id": 1402,
+    "brand_name": "PRIME KRAFT",
+    "image_url": null
+  },
+  {
+    "brand_id": 1404,
+    "brand_name": "SUNTAT",
+    "image_url": null
+  },
+  {
+    "brand_id": 1406,
+    "brand_name": "Tamek",
+    "image_url": null
+  },
+  {
+    "brand_id": 1408,
+    "brand_name": "Baktat",
+    "image_url": null
+  },
+  {
+    "brand_id": 1410,
+    "brand_name": "Ahmad",
+    "image_url": null
+  },
+  {
+    "brand_id": 1412,
+    "brand_name": "Ahmad Tea",
+    "image_url": null
+  },
+  {
+    "brand_id": 1414,
+    "brand_name": "Berrak",
+    "image_url": null
+  },
+  {
+    "brand_id": 1416,
+    "brand_name": "Afion",
+    "image_url": null
+  },
+  {
+    "brand_id": 1418,
+    "brand_name": "Almond",
+    "image_url": null
+  },
+  {
+    "brand_id": 1421,
+    "brand_name": "Cache Cuisine",
+    "image_url": null
+  },
+  {
+    "brand_id": 1423,
+    "brand_name": "Chaokoh",
+    "image_url": null
+  },
+  {
+    "brand_id": 1425,
+    "brand_name": "Dairy Max",
+    "image_url": null
+  },
+  {
+    "brand_id": 1428,
+    "brand_name": "Gatorade",
+    "image_url": null
+  },
+  {
+    "brand_id": 1431,
+    "brand_name": "Neilson",
+    "image_url": null
+  },
+  {
+    "brand_id": 1434,
+    "brand_name": "VEGGIE MAX",
+    "image_url": null
+  },
+  {
+    "brand_id": 1436,
+    "brand_name": "Element",
+    "image_url": null
+  },
+  {
+    "brand_id": 1438,
+    "brand_name": "AL-Bakhtiar",
+    "image_url": null
+  },
+  {
+    "brand_id": 1440,
+    "brand_name": "PASAND",
+    "image_url": null
+  },
+  {
+    "brand_id": 1442,
+    "brand_name": "Tetley",
+    "image_url": null
+  },
+  {
+    "brand_id": 1444,
+    "brand_name": "ZAFRON",
+    "image_url": null
+  },
+  {
+    "brand_id": 1446,
+    "brand_name": "Ardent Mills",
+    "image_url": null
+  },
+  {
+    "brand_id": 1448,
+    "brand_name": "Turbinado",
+    "image_url": null
+  },
+  {
+    "brand_id": 1449,
+    "brand_name": "Rice Plus",
+    "image_url": null
+  },
+  {
+    "brand_id": 1450,
+    "brand_name": "Far East Foods",
+    "image_url": null
+  },
+  {
+    "brand_id": 1451,
+    "brand_name": "ZAITS",
+    "image_url": null
+  },
+  {
+    "brand_id": 1453,
+    "brand_name": "Super Nazo",
+    "image_url": null
+  },
+  {
+    "brand_id": 1454,
+    "brand_name": "Vitusa",
+    "image_url": null
+  },
+  {
+    "brand_id": 1455,
+    "brand_name": "JANIN",
+    "image_url": null
+  },
+  {
+    "brand_id": 1457,
+    "brand_name": "Canaddin Pride",
+    "image_url": null
+  },
+  {
+    "brand_id": 1459,
+    "brand_name": "Terra Delyssa",
+    "image_url": null
+  },
+  {
+    "brand_id": 1461,
+    "brand_name": "Ottavio",
+    "image_url": null
+  },
+  {
+    "brand_id": 1463,
+    "brand_name": "Summum",
+    "image_url": null
+  },
+  {
+    "brand_id": 1465,
+    "brand_name": "Strub's",
+    "image_url": null
+  },
+  {
+    "brand_id": 1466,
+    "brand_name": "Travaglini",
+    "image_url": null
+  },
+  {
+    "brand_id": 1467,
+    "brand_name": "Bertolli",
+    "image_url": null
+  },
+  {
+    "brand_id": 1468,
+    "brand_name": "ULKER",
+    "image_url": null
+  },
+  {
+    "brand_id": 1470,
+    "brand_name": "Eti Hosbes",
+    "image_url": null
+  },
+  {
+    "brand_id": 1471,
+    "brand_name": "Caykur - Rize",
+    "image_url": null
+  },
+  {
+    "brand_id": 1472,
+    "brand_name": "Caykur",
+    "image_url": null
+  },
+  {
+    "brand_id": 1473,
+    "brand_name": "Krinos",
+    "image_url": null
+  },
+  {
+    "brand_id": 1474,
+    "brand_name": "Indomie",
+    "image_url": null
+  },
+  {
+    "brand_id": 1475,
+    "brand_name": "Dimes",
+    "image_url": null
+  },
+  {
+    "brand_id": 1476,
+    "brand_name": "Swiffer",
+    "image_url": null
+  },
+  {
+    "brand_id": 1477,
+    "brand_name": "Doritos",
+    "image_url": null
+  },
+  {
+    "brand_id": 1478,
+    "brand_name": "Forito Lay",
+    "image_url": null
+  },
+  {
+    "brand_id": 1479,
+    "brand_name": "Tostitos",
+    "image_url": null
+  },
+  {
+    "brand_id": 1480,
+    "brand_name": "Orville Redenbacher",
+    "image_url": null
+  },
+  {
+    "brand_id": 1481,
+    "brand_name": "Cheetos",
+    "image_url": null
+  },
+  {
+    "brand_id": 1482,
+    "brand_name": "French's",
+    "image_url": null
+  },
+  {
+    "brand_id": 1483,
+    "brand_name": "Gain",
+    "image_url": null
+  },
+  {
+    "brand_id": 1484,
+    "brand_name": "Griss Pasta",
+    "image_url": null
+  },
+  {
+    "brand_id": 1485,
+    "brand_name": "Elara",
+    "image_url": null
+  },
+  {
+    "brand_id": 1486,
+    "brand_name": "Rose's",
+    "image_url": null
+  },
+  {
+    "brand_id": 1488,
+    "brand_name": "Howson Mills",
+    "image_url": null
+  },
+  {
+    "brand_id": 1489,
+    "brand_name": "Adnoor",
+    "image_url": null
+  },
+  {
+    "brand_id": 1490,
+    "brand_name": "Ventura Foods Canada",
+    "image_url": null
+  },
+  {
+    "brand_id": 1491,
+    "brand_name": "Olde Style",
+    "image_url": null
+  },
+  {
+    "brand_id": 1492,
+    "brand_name": "Deep",
+    "image_url": null
+  },
+  {
+    "brand_id": 1493,
+    "brand_name": "High Line",
+    "image_url": null
+  },
+  {
+    "brand_id": 1495,
+    "brand_name": "Marco Polo",
+    "image_url": null
+  },
+  {
+    "brand_id": 1497,
+    "brand_name": "Clic",
+    "image_url": null
+  },
+  {
+    "brand_id": 1499,
+    "brand_name": "Sauvage",
+    "image_url": null
+  },
+  {
+    "brand_id": 1500,
+    "brand_name": "Quaker Quick",
+    "image_url": null
+  },
+  {
+    "brand_id": 1502,
+    "brand_name": "Golden Valley",
+    "image_url": null
+  },
+  {
+    "brand_id": 1504,
+    "brand_name": "Hajweri",
+    "image_url": null
+  },
+  {
+    "brand_id": 1506,
+    "brand_name": "Black Diamond",
+    "image_url": null
+  },
+  {
+    "brand_id": 1508,
+    "brand_name": "Di Manno",
+    "image_url": null
+  },
+  {
+    "brand_id": 1510,
+    "brand_name": "Astro",
+    "image_url": null
+  },
+  {
+    "brand_id": 1511,
+    "brand_name": "Chimisol",
+    "image_url": null
+  },
+  {
+    "brand_id": 1512,
+    "brand_name": "Excel",
+    "image_url": null
+  },
+  {
+    "brand_id": 1513,
+    "brand_name": "Wrigley's 5",
+    "image_url": null
+  },
+  {
+    "brand_id": 1514,
+    "brand_name": "Hubba Bubba",
+    "image_url": null
+  },
+  {
+    "brand_id": 1515,
+    "brand_name": "Lavazza",
+    "image_url": null
+  },
+  {
+    "brand_id": 1516,
+    "brand_name": "Cascade",
+    "image_url": null
+  },
+  {
+    "brand_id": 1517,
+    "brand_name": "Downy",
+    "image_url": null
+  },
+  {
+    "brand_id": 1518,
+    "brand_name": "Pringles",
+    "image_url": null
+  },
+  {
+    "brand_id": 1519,
+    "brand_name": "Ariston",
+    "image_url": null
+  },
+  {
+    "brand_id": 1520,
+    "brand_name": "Pisti",
+    "image_url": null
+  },
+  {
+    "brand_id": 1521,
+    "brand_name": "De Cecco",
+    "image_url": null
+  },
+  {
+    "brand_id": 1522,
+    "brand_name": "Di Martino",
+    "image_url": null
+  },
+  {
+    "brand_id": 1523,
+    "brand_name": "Sonora",
+    "image_url": null
+  },
+  {
+    "brand_id": 1524,
+    "brand_name": "69",
+    "image_url": null
+  },
+  {
+    "brand_id": 1526,
+    "brand_name": "479",
+    "image_url": null
+  },
+  {
+    "brand_id": 1529,
+    "brand_name": "569",
+    "image_url": null
+  },
+  {
+    "brand_id": 1531,
+    "brand_name": "369",
+    "image_url": null
+  },
+  {
+    "brand_id": 1533,
+    "brand_name": "778",
+    "image_url": null
+  },
+  {
+    "brand_id": 1534,
+    "brand_name": "946",
+    "image_url": null
+  },
+  {
+    "brand_id": 1536,
+    "brand_name": "444",
+    "image_url": null
+  },
+  {
+    "brand_id": 1538,
+    "brand_name": "903",
+    "image_url": null
+  },
+  {
+    "brand_id": 1540,
+    "brand_name": "375",
+    "image_url": null
+  },
+  {
+    "brand_id": 1542,
+    "brand_name": "565",
+    "image_url": null
+  },
+  {
+    "brand_id": 1544,
+    "brand_name": "1431",
+    "image_url": null
+  },
+  {
+    "brand_id": 1546,
+    "brand_name": "357",
+    "image_url": null
+  },
+  {
+    "brand_id": 1548,
+    "brand_name": "61",
+    "image_url": null
+  },
+  {
+    "brand_id": 1550,
+    "brand_name": "557",
+    "image_url": null
+  },
+  {
+    "brand_id": 1552,
+    "brand_name": "438",
+    "image_url": null
+  },
+  {
+    "brand_id": 1554,
+    "brand_name": "779",
+    "image_url": null
+  },
+  {
+    "brand_id": 1556,
+    "brand_name": "1012",
+    "image_url": null
+  },
+  {
+    "brand_id": 1558,
+    "brand_name": "1485",
+    "image_url": null
+  },
+  {
+    "brand_id": 1559,
+    "brand_name": "940",
+    "image_url": null
+  },
+  {
+    "brand_id": 1561,
+    "brand_name": "889",
+    "image_url": null
+  },
+  {
+    "brand_id": 1563,
+    "brand_name": "321",
+    "image_url": null
+  },
+  {
+    "brand_id": 1565,
+    "brand_name": "10",
+    "image_url": null
+  },
+  {
+    "brand_id": 1567,
+    "brand_name": "VEL",
+    "image_url": null
+  },
+  {
+    "brand_id": 1569,
+    "brand_name": "1567",
+    "image_url": null
+  },
+  {
+    "brand_id": 1571,
+    "brand_name": "985",
+    "image_url": null
+  },
+  {
+    "brand_id": 1573,
+    "brand_name": "6",
+    "image_url": null
+  },
+  {
+    "brand_id": 1574,
+    "brand_name": "660",
+    "image_url": null
+  },
+  {
+    "brand_id": 1576,
+    "brand_name": "Hung Wang",
+    "image_url": null
+  },
+  {
+    "brand_id": 1578,
+    "brand_name": "1576",
+    "image_url": null
+  },
+  {
+    "brand_id": 1581,
+    "brand_name": "70",
+    "image_url": null
+  },
+  {
+    "brand_id": 1583,
+    "brand_name": "1026",
+    "image_url": null
+  },
+  {
+    "brand_id": 1584,
+    "brand_name": "19",
+    "image_url": null
+  },
+  {
+    "brand_id": 1586,
+    "brand_name": "16",
+    "image_url": null
+  },
+  {
+    "brand_id": 1588,
+    "brand_name": "65",
+    "image_url": null
+  },
+  {
+    "brand_id": 1590,
+    "brand_name": "1511",
+    "image_url": null
+  },
+  {
+    "brand_id": 1591,
+    "brand_name": "833",
+    "image_url": null
+  },
+  {
+    "brand_id": 1593,
+    "brand_name": "586",
+    "image_url": null
+  },
+  {
+    "brand_id": 1594,
+    "brand_name": "523",
+    "image_url": null
+  },
+  {
+    "brand_id": 1596,
+    "brand_name": "405",
+    "image_url": null
+  },
+  {
+    "brand_id": 1598,
+    "brand_name": "345",
+    "image_url": null
+  },
+  {
+    "brand_id": 1600,
+    "brand_name": "4",
+    "image_url": null
+  },
+  {
+    "brand_id": 1601,
+    "brand_name": "466",
+    "image_url": null
+  },
+  {
+    "brand_id": 1603,
+    "brand_name": "Canpetek",
+    "image_url": null
+  },
+  {
+    "brand_id": 1604,
+    "brand_name": "1603",
+    "image_url": null
+  },
+  {
+    "brand_id": 1605,
+    "brand_name": "Temak",
+    "image_url": null
+  },
+  {
+    "brand_id": 1606,
+    "brand_name": "Favelli",
+    "image_url": null
+  },
+  {
+    "brand_id": 1607,
+    "brand_name": "1606",
+    "image_url": null
+  },
+  {
+    "brand_id": 1608,
+    "brand_name": "Kasturi",
+    "image_url": null
+  },
+  {
+    "brand_id": 1609,
+    "brand_name": "Knock Down",
+    "image_url": null
+  },
+  {
+    "brand_id": 1611,
+    "brand_name": "1609",
+    "image_url": null
+  },
+  {
+    "brand_id": 1613,
+    "brand_name": "26",
+    "image_url": null
+  },
+  {
+    "brand_id": 1614,
+    "brand_name": "26",
+    "image_url": null
+  },
+  {
+    "brand_id": 1615,
+    "brand_name": "26",
+    "image_url": null
+  },
+  {
+    "brand_id": 1616,
+    "brand_name": "33",
+    "image_url": null
+  },
+  {
+    "brand_id": 1618,
+    "brand_name": "Ecodinezoom",
+    "image_url": null
+  },
+  {
+    "brand_id": 1620,
+    "brand_name": "1618",
+    "image_url": null
+  },
+  {
+    "brand_id": 1622,
+    "brand_name": "1351",
+    "image_url": null
+  },
+  {
+    "brand_id": 1623,
+    "brand_name": "San Pellegrino",
+    "image_url": null
+  },
+  {
+    "brand_id": 1625,
+    "brand_name": "1623",
+    "image_url": null
+  },
+  {
+    "brand_id": 1626,
+    "brand_name": "1623",
+    "image_url": null
+  },
+  {
+    "brand_id": 1629,
+    "brand_name": "818",
+    "image_url": null
+  },
+  {
+    "brand_id": 1631,
+    "brand_name": "381",
+    "image_url": null
+  },
+  {
+    "brand_id": 1633,
+    "brand_name": "704",
+    "image_url": null
+  },
+  {
+    "brand_id": 1634,
+    "brand_name": "373",
+    "image_url": null
+  },
+  {
+    "brand_id": 1636,
+    "brand_name": "Laziza",
+    "image_url": null
+  },
+  {
+    "brand_id": 1637,
+    "brand_name": "1636",
+    "image_url": null
+  },
+  {
+    "brand_id": 1638,
+    "brand_name": "1636",
+    "image_url": null
+  },
+  {
+    "brand_id": 1639,
+    "brand_name": "423",
+    "image_url": null
+  },
+  {
+    "brand_id": 1641,
+    "brand_name": "404",
+    "image_url": null
+  },
+  {
+    "brand_id": 1643,
+    "brand_name": "Mitchell's",
+    "image_url": null
+  },
+  {
+    "brand_id": 1644,
+    "brand_name": "1643",
+    "image_url": null
+  },
+  {
+    "brand_id": 1645,
+    "brand_name": "470",
+    "image_url": null
+  },
+  {
+    "brand_id": 1647,
+    "brand_name": "Crispy",
+    "image_url": null
+  },
+  {
+    "brand_id": 1649,
+    "brand_name": "1647",
+    "image_url": null
+  },
+  {
+    "brand_id": 1651,
+    "brand_name": "EBM FP",
+    "image_url": null
+  },
+  {
+    "brand_id": 1652,
+    "brand_name": "1651",
+    "image_url": null
+  },
+  {
+    "brand_id": 1653,
+    "brand_name": "819",
+    "image_url": null
+  },
+  {
+    "brand_id": 1654,
+    "brand_name": "Nastle",
+    "image_url": null
+  },
+  {
+    "brand_id": 1656,
+    "brand_name": "1654",
+    "image_url": null
+  },
+  {
+    "brand_id": 1658,
+    "brand_name": "1605",
+    "image_url": null
+  },
+  {
+    "brand_id": 1659,
+    "brand_name": "476",
+    "image_url": null
+  },
+  {
+    "brand_id": 1661,
+    "brand_name": "Keynote",
+    "image_url": null
+  },
+  {
+    "brand_id": 1662,
+    "brand_name": "Callebaut",
+    "image_url": null
+  },
+  {
+    "brand_id": 1663,
+    "brand_name": "1662",
+    "image_url": null
+  },
+  {
+    "brand_id": 1664,
+    "brand_name": "573",
+    "image_url": null
+  },
+  {
+    "brand_id": 1667,
+    "brand_name": "1030",
+    "image_url": null
+  },
+  {
+    "brand_id": 1668,
+    "brand_name": "789",
+    "image_url": null
+  },
+  {
+    "brand_id": 1669,
+    "brand_name": "395",
+    "image_url": null
+  },
+  {
+    "brand_id": 1670,
+    "brand_name": "1368",
+    "image_url": null
+  },
+  {
+    "brand_id": 1671,
+    "brand_name": "944",
+    "image_url": null
+  },
+  {
+    "brand_id": 1674,
+    "brand_name": "Sekka",
+    "image_url": null
+  },
+  {
+    "brand_id": 1676,
+    "brand_name": "1674",
+    "image_url": null
+  },
+  {
+    "brand_id": 1678,
+    "brand_name": "39",
+    "image_url": null
+  },
+  {
+    "brand_id": 1680,
+    "brand_name": "Ocean Treasure",
+    "image_url": null
+  },
+  {
+    "brand_id": 1682,
+    "brand_name": "1680",
+    "image_url": null
+  },
+  {
+    "brand_id": 1684,
+    "brand_name": "Color Fruity",
+    "image_url": null
+  },
+  {
+    "brand_id": 1685,
+    "brand_name": "1684",
+    "image_url": null
+  },
+  {
+    "brand_id": 1686,
+    "brand_name": "571",
+    "image_url": null
+  },
+  {
+    "brand_id": 1688,
+    "brand_name": "385",
+    "image_url": null
+  },
+  {
+    "brand_id": 1690,
+    "brand_name": "1397",
+    "image_url": null
+  },
+  {
+    "brand_id": 1691,
+    "brand_name": "583",
+    "image_url": null
+  },
+  {
+    "brand_id": 1693,
+    "brand_name": "335",
+    "image_url": null
+  },
+  {
+    "brand_id": 1695,
+    "brand_name": "1444",
+    "image_url": null
+  },
+  {
+    "brand_id": 1697,
+    "brand_name": "1502",
+    "image_url": null
+  },
+  {
+    "brand_id": 1699,
+    "brand_name": "EcoDays",
+    "image_url": null
+  },
+  {
+    "brand_id": 1700,
+    "brand_name": "1699",
+    "image_url": null
+  },
+  {
+    "brand_id": 1701,
+    "brand_name": "Meat",
+    "image_url": null
+  },
+  {
+    "brand_id": 1703,
+    "brand_name": "975",
+    "image_url": null
+  },
+  {
+    "brand_id": 1705,
+    "brand_name": "1701",
+    "image_url": null
+  },
+  {
+    "brand_id": 1707,
+    "brand_name": "Poultry",
+    "image_url": null
+  },
+  {
+    "brand_id": 1709,
+    "brand_name": "1707",
+    "image_url": null
+  },
+  {
+    "brand_id": 1711,
+    "brand_name": "Apna Taste",
+    "image_url": null
+  },
+  {
+    "brand_id": 1714,
+    "brand_name": "674",
+    "image_url": null
+  },
+  {
+    "brand_id": 1716,
+    "brand_name": "810",
+    "image_url": null
+  },
+  {
+    "brand_id": 1717,
+    "brand_name": "961",
+    "image_url": null
+  },
+  {
+    "brand_id": 1721,
+    "brand_name": "1418",
+    "image_url": null
+  },
+  {
+    "brand_id": 1723,
+    "brand_name": "419",
+    "image_url": null
+  },
+  {
+    "brand_id": 1725,
+    "brand_name": "720",
+    "image_url": null
+  },
+  {
+    "brand_id": 1727,
+    "brand_name": "62",
+    "image_url": null
+  },
+  {
+    "brand_id": 1729,
+    "brand_name": "Spring Home",
+    "image_url": null
+  },
+  {
+    "brand_id": 1730,
+    "brand_name": "1729",
+    "image_url": null
+  },
+  {
+    "brand_id": 1731,
+    "brand_name": "481",
+    "image_url": null
+  },
+  {
+    "brand_id": 1733,
+    "brand_name": "322",
+    "image_url": null
+  },
+  {
+    "brand_id": 1735,
+    "brand_name": "638",
+    "image_url": null
+  },
+  {
+    "brand_id": 1738,
+    "brand_name": "Actus",
+    "image_url": null
+  },
+  {
+    "brand_id": 1740,
+    "brand_name": "1738",
+    "image_url": null
+  },
+  {
+    "brand_id": 1743,
+    "brand_name": "383",
+    "image_url": null
+  },
+  {
+    "brand_id": 1745,
+    "brand_name": "1477",
+    "image_url": null
+  },
+  {
+    "brand_id": 1746,
+    "brand_name": "Roltios",
+    "image_url": null
+  },
+  {
+    "brand_id": 1748,
+    "brand_name": "1746",
+    "image_url": null
+  },
+  {
+    "brand_id": 1750,
+    "brand_name": "Sai Krishna",
+    "image_url": null
+  },
+  {
+    "brand_id": 1751,
+    "brand_name": "1750",
+    "image_url": null
+  },
+  {
+    "brand_id": 1752,
+    "brand_name": "1010",
+    "image_url": null
+  },
+  {
+    "brand_id": 1754,
+    "brand_name": "1473",
+    "image_url": null
+  },
+  {
+    "brand_id": 1755,
+    "brand_name": "717",
+    "image_url": null
+  },
+  {
+    "brand_id": 1756,
+    "brand_name": "Rani Mahal",
+    "image_url": null
+  },
+  {
+    "brand_id": 1758,
+    "brand_name": "1756",
+    "image_url": null
+  },
+  {
+    "brand_id": 1760,
+    "brand_name": "1399",
+    "image_url": null
+  },
+  {
+    "brand_id": 1762,
+    "brand_name": "1349",
+    "image_url": null
+  },
+  {
+    "brand_id": 1764,
+    "brand_name": "359",
+    "image_url": null
+  },
+  {
+    "brand_id": 1765,
+    "brand_name": "Roots Baker",
+    "image_url": null
+  },
+  {
+    "brand_id": 1767,
+    "brand_name": "1765",
+    "image_url": null
+  },
+  {
+    "brand_id": 1769,
+    "brand_name": "500",
+    "image_url": null
+  },
+  {
+    "brand_id": 1771,
+    "brand_name": "Totole",
+    "image_url": null
+  },
+  {
+    "brand_id": 1772,
+    "brand_name": "1771",
+    "image_url": null
+  }
+]
