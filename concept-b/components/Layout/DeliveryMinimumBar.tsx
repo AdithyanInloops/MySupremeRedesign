@@ -4,60 +4,49 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import { useCart } from '../../lib/cart'
 import { money } from '../../lib/data'
+import { CUTOFF, DELIVERY_MINIMUM } from '../../lib/pricing'
+import { colors, focusRing, layout } from '../../lib/theme'
 
 /**
- * Concept B #11 — Delivery-minimum progress bar, shown under the header while the cart has items.
- * The $350 threshold is the live delivery minimum ("Delivery available for orders above $350 CAD").
- * In production read it from Magento store config / the shipping rule — no new data model needed.
+ * Delivery-minimum progress, shown under the header on shopping pages while the cart has items.
+ * The $350 threshold is the live rule; production reads it from Magento store config / the shipping rule.
  */
-export default function DeliveryMinimumBar({ minimum = 350 }: { minimum?: number }) {
-  const { count, subtotal } = useCart()
-  if (!count) return null
+export function DeliveryProgress({ subtotal, minimum = DELIVERY_MINIMUM, dense = false }: { subtotal: number; minimum?: number; dense?: boolean }) {
   const ok = subtotal >= minimum
   const pct = Math.min(100, (subtotal / minimum) * 100)
   return (
-    <Box
-      role="status"
-      aria-live="polite"
-      sx={{ bgcolor: ok ? '#ECFDF3' : '#FFF5F5', borderBottom: `1px solid ${ok ? '#C6F0D7' : '#FFE0E0'}`, px: { xs: '15px', md: 3, lg: '40px' } }}
-    >
-      <Box sx={{ maxWidth: 1500, mx: 'auto', minHeight: 40, display: 'flex', alignItems: 'center', gap: { xs: 1, md: 2 } }}>
-        {ok ? (
-          <CheckCircleRoundedIcon sx={{ color: '#05753D', fontSize: 20, flexShrink: 0 }} />
-        ) : (
-          <LocalShippingOutlinedIcon sx={{ color: '#D50000', fontSize: 20, flexShrink: 0 }} />
-        )}
-        <Typography sx={{ fontSize: { xs: 12, md: 13.5 }, color: '#0C0C0C', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}>
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
+        {ok ? <CheckCircleRoundedIcon sx={{ color: colors.success, fontSize: 20, mt: '1px' }} /> : <LocalShippingOutlinedIcon sx={{ color: colors.redText, fontSize: 20, mt: '1px' }} />}
+        <Typography sx={{ fontSize: dense ? 13.5 : 14 }}>
+          {ok ? <><b>Your order qualifies for delivery.</b> Order by {CUTOFF} for next-day.</> : <>Add <b>{money(minimum - subtotal)}</b> more to unlock delivery, or pick up at our Mississauga warehouse.</>}
+        </Typography>
+      </Box>
+      {!ok && <LinearProgress variant="determinate" value={pct} aria-label={`Delivery minimum: ${money(subtotal)} of ${money(minimum)}`} sx={{ '& .MuiLinearProgress-bar': { bgcolor: colors.red } }} />}
+    </Box>
+  )
+}
+
+export default function DeliveryMinimumBar({ minimum = DELIVERY_MINIMUM }: { minimum?: number }) {
+  const { count, subtotal, ready } = useCart()
+  if (!ready || !count) return null
+  const ok = subtotal >= minimum
+  const pct = Math.min(100, (subtotal / minimum) * 100)
+  return (
+    <Box role="status" aria-live="polite" sx={{ bgcolor: ok ? colors.successTint : colors.redTint, borderBottom: `1px solid ${ok ? colors.successLine : colors.redLine}` }}>
+      <Box sx={{ maxWidth: layout.maxWidth, mx: 'auto', px: layout.gutter, minHeight: 40, display: 'flex', alignItems: 'center', gap: { xs: 1.25, md: 2 } }}>
+        {ok ? <CheckCircleRoundedIcon sx={{ color: colors.success, fontSize: 20, flexShrink: 0 }} /> : <LocalShippingOutlinedIcon sx={{ color: colors.redText, fontSize: 20, flexShrink: 0 }} />}
+        <Typography sx={{ fontSize: { xs: 13, md: 14 }, color: colors.ink, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>
           {ok ? (
-            <>
-              <b>Your order qualifies for delivery</b>
-              <Box component="span" sx={{ display: { xs: 'none', md: 'inline' } }}> · Order by 2 PM for next-day</Box>
-            </>
+            <><b>Your order qualifies for delivery</b><Box component="span" sx={{ display: { xs: 'none', md: 'inline' } }}> · Order by {CUTOFF} for next-day</Box></>
           ) : (
-            <>
-              <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>Add </Box>
-              <b>{money(minimum - subtotal)}</b>
-              <Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}> more</Box> to unlock delivery
-              <Box component="span" sx={{ display: { xs: 'none', md: 'inline' }, color: '#4B5563' }}> · {money(subtotal)} of {money(minimum)}</Box>
-            </>
+            <>Add <b>{money(minimum - subtotal)}</b> more to unlock delivery<Box component="span" sx={{ display: { xs: 'none', md: 'inline' }, color: colors.ink600 }}> · {money(subtotal)} of {money(minimum)}</Box></>
           )}
         </Typography>
         {!ok && (
-          <LinearProgress
-            variant="determinate"
-            value={pct}
-            aria-label={`Delivery minimum progress, ${Math.round(pct)}%`}
-            sx={{ flex: 1, minWidth: 40, maxWidth: 320, height: 6, borderRadius: 3, bgcolor: '#FFD6D6', '& .MuiLinearProgress-bar': { bgcolor: '#D50000', borderRadius: 3 } }}
-          />
+          <LinearProgress variant="determinate" value={pct} aria-hidden sx={{ flex: 1, minWidth: 40, maxWidth: 280, bgcolor: colors.redTint2, '& .MuiLinearProgress-bar': { bgcolor: colors.red } }} />
         )}
-        <Box
-          component={Link}
-          href="/cart"
-          sx={{
-            ml: 'auto', flexShrink: 0, fontSize: { xs: 12, md: 13.5 }, fontWeight: 600, color: '#D50000', textDecoration: 'none', px: 1, py: 0.5, borderRadius: '4px',
-            '&:hover': { textDecoration: 'underline' }, '&:focus-visible': { outline: '3px solid #2d297d', outlineOffset: 2 },
-          }}
-        >
+        <Box component={Link} href="/cart" sx={{ ml: 'auto', flexShrink: 0, fontSize: { xs: 13, md: 14 }, fontWeight: 600, color: colors.redText, textDecoration: 'none', px: 1, py: 0.75, borderRadius: '4px', '&:hover': { textDecoration: 'underline' }, ...focusRing }}>
           View cart
         </Box>
       </Box>

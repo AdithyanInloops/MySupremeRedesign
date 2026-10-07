@@ -10,14 +10,15 @@ import KebabDiningOutlinedIcon from '@mui/icons-material/KebabDiningOutlined'
 import CleaningServicesOutlinedIcon from '@mui/icons-material/CleaningServicesOutlined'
 import BlenderOutlinedIcon from '@mui/icons-material/BlenderOutlined'
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined'
-import EastIcon from '@mui/icons-material/East'
+import EastRoundedIcon from '@mui/icons-material/EastRounded'
 import type { SvgIconComponent } from '@mui/icons-material'
 import subImagesJson from '../../data/subcategory-images.json'
 import { departments, type Category } from '../../lib/data'
+import { colors, focusRing, layout, motion, radius, shadow, z } from '../../lib/theme'
 
 /**
- * Concept B — redesigned category dropdown (reference: Alibaba "All categories").
- * The red bar is the department selector; the panel shows sub-categories as round picture tiles. Same data as today (Magento category tree); the tile
+ * Category dropdown (Alibaba-style "All categories"). The red bar is the department selector; the panel shows
+ * sub-categories as round picture tiles with product counts. Same data as today (Magento category tree); the tile
  * photo is the category image when Magento has one, otherwise a product photo from that sub-category.
  */
 
@@ -37,7 +38,7 @@ export const deptIcons: Record<string, SvgIconComponent> = {
 
 export const POPULAR = 'popular'
 
-type Tile = { name: string; href: string; image?: string | null; count?: number; dept: string }
+export type Tile = { name: string; href: string; image?: string | null; count?: number; dept: string }
 
 /** Largest sub-categories across all departments — "Popular categories" (existing data: product_count). */
 const popularTiles: Tile[] = departments
@@ -46,11 +47,11 @@ const popularTiles: Tile[] = departments
   .sort((a, b) => (b.count ?? 0) - (a.count ?? 0))
   .slice(0, 14)
 
-const tilesFor = (d: Category): Tile[] =>
+export const tilesFor = (d: Category): Tile[] =>
   d.children.map((s) => ({ name: s.name, href: `/${d.url_key}?sub=${s.url_key}`, image: s.image || subImages[s.url_key], count: s.product_count, dept: d.url_key }))
 
 /** Round picture tile; falls back to the department icon on a soft tint when there is no photo. */
-export function CategoryCircle({ tile, size = 104, cover = false, onNavigate }: { tile: Tile; size?: number; cover?: boolean; onNavigate?: () => void }) {
+export function CategoryCircle({ tile, size = 96, cover = false, onNavigate }: { tile: Tile; size?: number; cover?: boolean; onNavigate?: () => void }) {
   const Icon = deptIcons[tile.dept] ?? CategoryOutlinedIcon
   return (
     <Box
@@ -58,103 +59,93 @@ export function CategoryCircle({ tile, size = 104, cover = false, onNavigate }: 
       href={tile.href}
       onClick={onNavigate}
       sx={{
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1.25, textDecoration: 'none', color: '#0C0C0C', textAlign: 'center',
-        borderRadius: '12px', p: 1, outline: 'none',
-        '&:hover .circle, &:focus-visible .circle': { borderColor: '#FF0000', transform: 'translateY(-2px)', boxShadow: '0 8px 18px rgba(0,0,0,.08)' },
-        '&:hover .name, &:focus-visible .name': { color: '#D50000' },
-        '&:focus-visible': { boxShadow: '0 0 0 3px rgba(255,0,0,.35)' },
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, textDecoration: 'none', color: colors.ink, textAlign: 'center', borderRadius: radius.md, p: 1,
+        '&:hover .circle': { borderColor: colors.red, transform: 'translateY(-2px)', boxShadow: shadow.md },
+        '&:hover .name': { color: colors.redText },
+        ...focusRing,
       }}
     >
       <Box
         className="circle"
         sx={{
-          width: size, height: size, borderRadius: '50%', bgcolor: '#F3F4F6', border: '2px solid transparent', overflow: 'hidden',
-          display: 'grid', placeItems: 'center', transition: 'border-color .15s, transform .15s, box-shadow .15s', flexShrink: 0,
-          '@media (prefers-reduced-motion: reduce)': { transition: 'none', transform: 'none !important' },
+          width: size, height: size, borderRadius: '50%', bgcolor: colors.sunken, border: '2px solid transparent', overflow: 'hidden', display: 'grid', placeItems: 'center', flexShrink: 0,
+          transition: `border-color ${motion.fast}, transform ${motion.fast}, box-shadow ${motion.fast}`,
         }}
       >
         {tile.image ? (
-          <Box component="img" src={tile.image} alt="" sx={cover ? { width: '100%', height: '100%', objectFit: 'cover' } : { width: '78%', height: '78%', objectFit: 'contain', mixBlendMode: 'multiply' }} />
+          <Box component="img" src={tile.image} alt="" loading="lazy" sx={cover ? { width: '100%', height: '100%', objectFit: 'cover' } : { width: '76%', height: '76%', objectFit: 'contain', mixBlendMode: 'multiply' }} />
         ) : (
-          <Icon sx={{ fontSize: size * 0.38, color: '#9CA3AF' }} />
+          <Icon sx={{ fontSize: size * 0.38, color: colors.ink400 }} />
         )}
       </Box>
       <Box>
-        <Typography className="name" sx={{ fontSize: 14, lineHeight: 1.3, transition: 'color .15s', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+        <Typography className="name" sx={{ fontSize: 13.5, fontWeight: 500, lineHeight: 1.3, transition: `color ${motion.fast}`, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
           {tile.name}
         </Typography>
-        {!!tile.count && <Typography sx={{ fontSize: 11.5, color: '#6B7280', mt: 0.25 }}>{tile.count.toLocaleString()} products</Typography>}
+        {!!tile.count && <Typography sx={{ fontSize: 12, color: colors.ink500, mt: 0.25 }}>{tile.count.toLocaleString()} products</Typography>}
       </Box>
     </Box>
   )
 }
 
-function PanelHeader({ title, subtitle, href, cta, onClose }: { title: string; subtitle: string; href: string; cta: string; onClose: () => void }) {
+function PanelHeader({ id, title, subtitle, href, cta, onClose }: { id: string; title: string; subtitle: string; href: string; cta: string; onClose: () => void }) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 2, mb: 2 }}>
+    <Box sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 2, mb: 2 }}>
       <Box>
-        <Typography component="h2" sx={{ fontSize: 22, fontWeight: 600, color: '#0C0C0C' }}>{title}</Typography>
-        <Typography sx={{ fontSize: 13, color: '#6B7280', mt: 0.25 }}>{subtitle}</Typography>
+        <Typography id={id} component="h2" variant="h3" sx={{ fontSize: 20 }}>{title}</Typography>
+        <Typography sx={{ fontSize: 13.5, color: colors.ink500, mt: 0.25 }}>{subtitle}</Typography>
       </Box>
       <Box
         component={Link}
         href={href}
         onClick={onClose}
-        sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.75, color: '#D50000', fontWeight: 600, fontSize: 14, textDecoration: 'none', whiteSpace: 'nowrap', '&:hover': { textDecoration: 'underline' }, '&:focus-visible': { outline: '2px solid #FF0000', outlineOffset: 2 } }}
+        sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.75, color: colors.redText, fontWeight: 600, fontSize: 14.5, textDecoration: 'none', whiteSpace: 'nowrap', borderRadius: '4px', '&:hover': { textDecoration: 'underline' }, ...focusRing }}
       >
-        {cta} <EastIcon sx={{ fontSize: 18 }} />
+        {cta} <EastRoundedIcon sx={{ fontSize: 18 }} />
       </Box>
     </Box>
   )
 }
 
-const grid = { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', columnGap: 1, rowGap: 2 } as const
+const grid = { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(132px, 1fr))', columnGap: 1, rowGap: 1.5 } as const
 
 /**
- * Desktop dropdown panel (≥1100px), rendered under the red category bar. The red bar itself is the department
- * selector (no duplicate side list): hovering a department shows its sub-categories; "All Categories" shows an
- * overview of every department plus the most popular sub-categories.
+ * Desktop dropdown panel (≥1100px), rendered under the red category bar. Hovering a department (or pressing its
+ * chevron button) shows its sub-categories; "All categories" shows every department plus the most popular
+ * sub-categories. Escape closes it and returns focus to the bar.
  */
-export default function CategoryMenu({ active, onClose }: { active: string; onActive?: (key: string) => void; onClose: () => void }) {
+export default function CategoryMenu({ active, onClose, id }: { active: string; onClose: (refocus?: boolean) => void; id: string }) {
   const dept = departments.find((d) => d.url_key === active)
+  const titleId = `${id}-title`
   return (
     <Box
+      id={id}
       role="region"
-      aria-label={dept ? `${dept.name} categories` : 'All categories'}
-      onKeyDown={(e) => e.key === 'Escape' && onClose()}
+      aria-labelledby={titleId}
+      onKeyDown={(e) => e.key === 'Escape' && onClose(true)}
       sx={{
-        position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 1200, bgcolor: '#fff', borderTop: '1px solid #E5E7EB',
-        boxShadow: '0 24px 40px -12px rgba(0,0,0,.18)', borderRadius: '0 0 16px 16px',
+        position: 'absolute', top: '100%', left: 0, right: 0, zIndex: z.menu, bgcolor: '#fff', borderTop: `1px solid ${colors.line}`,
+        boxShadow: shadow.lg, borderRadius: `0 0 ${radius.xl} ${radius.xl}`, animation: 'menuIn .16s ease-out',
+        '@keyframes menuIn': { from: { opacity: 0, transform: 'translateY(-4px)' }, to: { opacity: 1, transform: 'none' } },
       }}
     >
-      <Box sx={{ maxWidth: 1500, mx: 'auto', maxHeight: 'min(600px, 72vh)', overflowY: 'auto', px: { lg: 4, xl: 6 }, py: 3 }}>
+      <Box sx={{ maxWidth: layout.maxWidth, mx: 'auto', maxHeight: 'min(600px, 72vh)', overflowY: 'auto', px: layout.gutter, py: 3 }}>
         {dept ? (
           <>
-            <PanelHeader
-              title={dept.name}
-              subtitle={`${dept.product_count.toLocaleString()} products · ${dept.children.length} categories`}
-              href={`/${dept.url_key}`}
-              cta={`Shop all ${dept.name}`}
-              onClose={onClose}
-            />
-            <Box sx={grid}>{tilesFor(dept).map((t) => <CategoryCircle key={t.href} tile={t} onNavigate={onClose} />)}</Box>
+            <PanelHeader id={titleId} title={dept.name} subtitle={`${dept.product_count.toLocaleString()} products · ${dept.children.length} categories`} href={`/${dept.url_key}`} cta={`Shop all ${dept.name}`} onClose={() => onClose()} />
+            <Box sx={grid}>{tilesFor(dept).map((t) => <CategoryCircle key={t.href} tile={t} onNavigate={() => onClose()} />)}</Box>
           </>
         ) : (
           <>
-            <PanelHeader title="Shop by department" subtitle={`${departments.length} departments · 4,300+ products`} href="/all-categories" cta="View all categories" onClose={onClose} />
+            <PanelHeader id={titleId} title="Shop by department" subtitle={`${departments.length} departments · 4,300+ products`} href="/all-categories" cta="View all categories" onClose={() => onClose()} />
             <Box sx={grid}>
               {departments.map((d) => (
-                <CategoryCircle
-                  key={d.uid}
-                  cover
-                  tile={{ name: d.name, href: `/${d.url_key}`, image: d.image, count: d.product_count, dept: d.url_key }}
-                  onNavigate={onClose}
-                />
+                <CategoryCircle key={d.uid} cover tile={{ name: d.name, href: `/${d.url_key}`, image: d.image, count: d.product_count, dept: d.url_key }} onNavigate={() => onClose()} />
               ))}
             </Box>
-            <Box sx={{ borderTop: '1px solid #E5E7EB', mt: 3, pt: 3 }}>
-              <PanelHeader title="Popular categories" subtitle="The biggest ranges across every department" href="/all-categories" cta="See more" onClose={onClose} />
-              <Box sx={grid}>{popularTiles.map((t) => <CategoryCircle key={t.href} tile={t} onNavigate={onClose} />)}</Box>
+            <Box sx={{ borderTop: `1px solid ${colors.line}`, mt: 3, pt: 3 }}>
+              <PanelHeader id={`${titleId}-popular`} title="Popular categories" subtitle="The biggest ranges across every department" href="/all-categories" cta="See more" onClose={() => onClose()} />
+              <Box sx={grid}>{popularTiles.map((t) => <CategoryCircle key={t.href} tile={t} onNavigate={() => onClose()} />)}</Box>
             </Box>
           </>
         )}
@@ -162,8 +153,6 @@ export default function CategoryMenu({ active, onClose }: { active: string; onAc
     </Box>
   )
 }
-
-export { tilesFor }
 
 /** Warms the browser cache with every tile photo so the panel opens fully drawn (called on first bar hover). */
 let preloaded = false
