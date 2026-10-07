@@ -1,154 +1,178 @@
-import { useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import Link from 'next/link'
-import { Box, Button, Collapse, Drawer, IconButton, Slider, Typography } from '@mui/material'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import CloseIcon from '@mui/icons-material/Close'
-import ProductCard from '../Product/ProductCard'
-import { finalPrice, type Aggregation, type Product } from '../../lib/data'
+import { useRouter } from 'next/router'
+import {
+  Accordion, AccordionDetails, AccordionSummary, Badge, Box, Button, Checkbox, Chip, Drawer, FormControlLabel, IconButton, InputAdornment, InputBase,
+  MenuItem, Pagination, Select, Slider, Typography, useMediaQuery,
+} from '@mui/material'
+import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded'
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
+import FilterAltOffOutlinedIcon from '@mui/icons-material/FilterAltOffOutlined'
+import { finalPrice, money, type Aggregation, type Product } from '../../lib/data'
+import { colors, focusRing, radius, z } from '../../lib/theme'
+import ProductGrid from '../Product/ProductGrid'
+import EmptyState from '../ui/EmptyState'
+import PageHeader, { type Crumb } from '../ui/PageHeader'
+import { PageContainer } from '../ui/Section'
 
-/* Mirrors ProductListLayoutSidebar + productFilterProCategories from the real repo. */
+/*
+ * Category + search listing. Filters come from Magento aggregations (with counts); applied filters show as removable
+ * chips; sort covers relevance, name and both price directions; state lives in the URL so Back restores it and
+ * links can be shared. Desktop: sidebar ≥1100px. Smaller: a "Filters" button opens a drawer with a live count.
+ */
 
-const PANEL_BG = '#F6F8FB'
-
-export type SortKey = 'position' | 'name' | 'price'
+export type SortKey = 'relevance' | 'name' | 'price-asc' | 'price-desc'
 export type FilterOption = { label: string; value: string; count: number }
 export type FilterGroup = { code: string; label: string; options: FilterOption[] }
 
 export type ListingConfig = {
   title: string
+  breadcrumbs?: Crumb[]
+  description?: ReactNode
   totalCount: number
   products: Product[]
   /** Sub-category links (category page only). */
   subCategories?: { name: string; url_key: string; product_count?: number }[]
   activeSub?: string
   baseHref?: string
-  showSort?: boolean
-  /** Search results list Price after the attribute filters (live behaviour). */
-  priceLast?: boolean
+  /** Department name for "All ‹Dept›" in the category list. */
+  allLabel?: string
   filters: FilterGroup[]
+  /** Content above the grid (e.g. exact SKU match on search). */
+  intro?: ReactNode
+  /** Rendered instead of the default empty state when the listing itself has no products. */
+  empty?: ReactNode
+  sortLabel?: string
 }
 
-const panel = { bgcolor: PANEL_BG, borderRadius: '12px', mb: 2, overflow: 'hidden' } as const
+const SORTS: [SortKey, string][] = [['relevance', 'Recommended'], ['name', 'Name: A to Z'], ['price-asc', 'Price: low to high'], ['price-desc', 'Price: high to low']]
+const PER_PAGE = [20, 40, 60]
 
-function CollapsibleHeader({ label, open, onToggle }: { label: string; open: boolean; onToggle: () => void }) {
-  return (
-    <Box
-      component="button"
-      onClick={onToggle}
-      aria-expanded={open}
-      sx={{ all: 'unset', boxSizing: 'border-box', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', px: '4px', py: 1.5, fontSize: 18, color: '#0C0C0C', '&:focus-visible': { outline: '2px solid #FF413D' } }}
-    >
-      {label}
-      {open ? <KeyboardArrowUpIcon sx={{ color: '#6B7280' }} /> : <KeyboardArrowDownIcon sx={{ color: '#6B7280' }} />}
-    </Box>
-  )
-}
+const asArray = (v: string | string[] | undefined) => (Array.isArray(v) ? v : v ? v.split(',') : [])
 
-function OptionList({ group, selected, onToggle, initial = 4 }: { group: FilterGroup; selected: string[]; onToggle: (v: string) => void; initial?: number }) {
+/* ------------------------------------------------------------------ Filter parts */
+
+function OptionList({ group, selected, onToggle }: { group: FilterGroup; selected: string[]; onToggle: (v: string) => void }) {
   const [more, setMore] = useState(false)
-  const list = more ? group.options : group.options.slice(0, initial)
+  const [q, setQ] = useState('')
+  const searchable = group.options.length > 8
+  const matches = q ? group.options.filter((o) => o.label.toLowerCase().includes(q.toLowerCase())) : group.options
+  // Selected options always stay visible, even when they'd fall under "Show more".
+  const base = more || q ? matches : matches.slice(0, 6)
+  const list = [...group.options.filter((o) => selected.includes(o.value) && !base.includes(o)), ...base]
   return (
-    <Box sx={{ px: 1.5, pb: 1 }}>
-      {list.map((o) => {
-        const on = selected.includes(o.value)
-        return (
-          <Box
+    <Box>
+      {searchable && (
+        <InputBase
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder={`Search ${group.label.toLowerCase()}`}
+          inputProps={{ 'aria-label': `Search ${group.label}` }}
+          startAdornment={<InputAdornment position="start"><SearchRoundedIcon sx={{ fontSize: 18, color: colors.ink500 }} /></InputAdornment>}
+          sx={{ width: '100%', height: 38, px: 1.25, mb: 1, border: `1px solid ${colors.line2}`, borderRadius: radius.sm, fontSize: 14, '&.Mui-focused': { borderColor: colors.navy } }}
+        />
+      )}
+      <Box sx={{ display: 'flex', flexDirection: 'column', maxHeight: more || q ? 300 : 'none', overflowY: 'auto', mx: -0.5, px: 0.5 }}>
+        {list.map((o) => (
+          <FormControlLabel
             key={o.value}
-            component="button"
-            onClick={() => onToggle(o.value)}
-            aria-pressed={on}
-            sx={{
-              all: 'unset', boxSizing: 'border-box', display: 'flex', alignItems: 'center', gap: 2, width: '100%', cursor: 'pointer', minHeight: 52,
-              px: 1.5, borderRadius: '8px', fontSize: 19, color: '#0C0C0C', bgcolor: on ? '#F8D7DA' : 'transparent',
-              '&:hover': { bgcolor: on ? '#F8D7DA' : '#EEF1F6' }, '&:focus-visible': { outline: '2px solid #FF413D' },
-            }}
-          >
-            {o.label}
-            <Box component="span" sx={{ fontSize: 13, color: '#9E9E9E' }}>({o.count})</Box>
-          </Box>
-        )
-      })}
-      {group.options.length > initial && (
-        <Button onClick={() => setMore(!more)} endIcon={<ExpandMoreIcon sx={{ transform: more ? 'rotate(180deg)' : 'none' }} />} sx={{ textTransform: 'none', color: '#FF0000', fontSize: 16, px: 1.5, mt: 1 }}>
-          {more ? 'Less options' : 'More options'}
+            control={<Checkbox size="small" checked={selected.includes(o.value)} onChange={() => onToggle(o.value)} />}
+            label={
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 1, width: '100%' }}>
+                <Box component="span" sx={{ fontSize: 14, overflowWrap: 'anywhere' }}>{o.label}</Box>
+                <Box component="span" sx={{ fontSize: 12.5, color: colors.ink500, flexShrink: 0 }}>{o.count.toLocaleString()}</Box>
+              </Box>
+            }
+            sx={{ mx: 0, minHeight: 36, borderRadius: radius.sm, '& .MuiFormControlLabel-label': { flex: 1, minWidth: 0 }, '&:hover': { bgcolor: colors.subtle } }}
+          />
+        ))}
+        {q && !matches.length && <Typography sx={{ fontSize: 13.5, color: colors.ink500, py: 1 }}>No {group.label.toLowerCase()} matches “{q}”.</Typography>}
+      </Box>
+      {!q && group.options.length > 6 && (
+        <Button size="small" onClick={() => setMore(!more)} sx={{ mt: 0.5, ml: -1, color: colors.redText }}>
+          {more ? 'Show fewer' : `Show all ${group.options.length}`}
         </Button>
       )}
     </Box>
   )
 }
 
-function SelectList<T extends string | number>({ title, options, value, onChange }: { title: string; options: [T, string][]; value: T; onChange: (v: T) => void }) {
+function PriceFilter({ max, value, onChange }: { max: number; value: [number, number]; onChange: (v: [number, number]) => void }) {
+  const [local, setLocal] = useState(value)
+  useEffect(() => setLocal(value), [value])
+  const field = (i: 0 | 1, label: string) => (
+    <InputBase
+      value={local[i]}
+      onChange={(e) => { const n = Math.max(0, Math.min(max, parseInt(e.target.value.replace(/\D/g, '') || '0', 10))); setLocal(i ? [local[0], n] : [n, local[1]]) }}
+      onBlur={() => onChange([Math.min(local[0], local[1]), Math.max(local[0], local[1])])}
+      onKeyDown={(e) => e.key === 'Enter' && onChange([Math.min(local[0], local[1]), Math.max(local[0], local[1])])}
+      inputProps={{ 'aria-label': label, inputMode: 'numeric' }}
+      startAdornment={<Box component="span" sx={{ color: colors.ink500, mr: 0.5 }}>$</Box>}
+      sx={{ flex: 1, minWidth: 0, height: 38, px: 1.25, border: `1px solid ${colors.line2}`, borderRadius: radius.sm, fontSize: 14, '&.Mui-focused': { borderColor: colors.navy } }}
+    />
+  )
   return (
-    <Box sx={{ ...panel, p: 2 }}>
-      <Typography sx={{ fontWeight: 600, fontSize: 18, mb: 1.5, color: '#0C0C0C' }}>{title}</Typography>
-      {options.map(([v, label]) => (
-        <Box
-          key={String(v)}
-          component="button"
-          onClick={() => onChange(v)}
-          aria-pressed={value === v}
-          sx={{
-            all: 'unset', boxSizing: 'border-box', display: 'block', width: '100%', cursor: 'pointer', px: 1.5, py: 1.4, borderRadius: '8px', fontSize: 19,
-            color: '#0C0C0C', bgcolor: value === v ? '#F8D7DA' : 'transparent', '&:hover': { bgcolor: value === v ? '#F8D7DA' : '#EEF1F6' }, '&:focus-visible': { outline: '2px solid #FF413D' },
-          }}
-        >
-          {label}
-        </Box>
-      ))}
+    <Box sx={{ px: 1.25 }}>
+      <Slider value={local} min={0} max={max} onChange={(_, v) => setLocal(v as [number, number])} onChangeCommitted={(_, v) => onChange(v as [number, number])} getAriaLabel={(i) => (i === 0 ? 'Minimum price' : 'Maximum price')} getAriaValueText={(v) => money(v)} sx={{ mt: 0.5 }} />
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mx: -1.25 }}>
+        {field(0, 'Minimum price')}
+        <Box component="span" sx={{ color: colors.ink400 }}>–</Box>
+        {field(1, 'Maximum price')}
+      </Box>
     </Box>
   )
 }
 
-function PriceFilter({ max, value, onChange }: { max: number; value: [number, number]; onChange: (v: [number, number]) => void }) {
+function FilterSection({ title, children, defaultOpen = true, count }: { title: string; children: ReactNode; defaultOpen?: boolean; count?: number }) {
   return (
-    <Box sx={{ px: 2.5, pb: 2 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', fontWeight: 700, fontSize: 14, mb: 0.5 }}>
-        <span>${value[0]}</span>
-        <span>${value[1]}</span>
-      </Box>
-      <Slider
-        value={value}
-        min={0}
-        max={max}
-        onChange={(_, v) => onChange(v as [number, number])}
-        getAriaLabel={(i) => (i === 0 ? 'Minimum price' : 'Maximum price')}
-        sx={{
-          color: '#FF0000', height: 4,
-          '& .MuiSlider-thumb': { width: 30, height: 30, bgcolor: '#fff', border: '1px solid #D1D5DB', boxShadow: '0 1px 3px rgba(0,0,0,.2)' },
-          '& .MuiSlider-rail': { bgcolor: '#D1D5DB' },
-        }}
-      />
-    </Box>
+    <Accordion defaultExpanded={defaultOpen} sx={{ border: 0, borderBottom: `1px solid ${colors.line}`, borderRadius: '0 !important', '& + &': { mt: 0 } }}>
+      <AccordionSummary expandIcon={<ExpandMoreRoundedIcon />} sx={{ px: 0, minHeight: 52 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          {title}
+          {!!count && <Box component="span" sx={{ fontSize: 12, fontWeight: 700, color: '#fff', bgcolor: colors.ink, borderRadius: radius.pill, minWidth: 20, height: 20, px: 0.75, display: 'grid', placeItems: 'center' }}>{count}</Box>}
+        </Box>
+      </AccordionSummary>
+      <AccordionDetails sx={{ px: 0, pb: 2 }}>{children}</AccordionDetails>
+    </Accordion>
   )
 }
 
 /* ------------------------------------------------------------------ Layout */
 
 export default function ProductListLayout(cfg: ListingConfig) {
+  const router = useRouter()
+  const resultsRef = useRef<HTMLDivElement>(null)
   const maxPrice = useMemo(() => {
     const m = Math.max(10, ...cfg.products.map(finalPrice))
-    return m > 100 ? Math.ceil(m / 100) * 100 : Math.ceil(m / 10) * 10
+    return m > 100 ? Math.ceil(m / 50) * 50 : Math.ceil(m / 10) * 10
   }, [cfg.products])
 
-  const [sort, setSort] = useState<SortKey>('position')
-  const [perPage, setPerPage] = useState(40)
-  const [price, setPrice] = useState<[number, number]>([0, maxPrice])
-  const [selected, setSelected] = useState<Record<string, string[]>>({})
-  const [open, setOpen] = useState<Record<string, boolean>>({ categories: true, price: true })
-  const [mobileFilter, setMobileFilter] = useState<string | null>(null)
-  const [page, setPage] = useState(1)
+  // URL is the source of truth for sort, page, price and attribute filters.
+  const q = router.query
+  const sort = (SORTS.find(([k]) => k === q.sort)?.[0] ?? 'relevance') as SortKey
+  const perPage = PER_PAGE.includes(Number(q.per)) ? Number(q.per) : 40
+  const page = Math.max(1, Number(q.page) || 1)
+  const price: [number, number] = [Number(q.min) || 0, q.max ? Math.min(maxPrice, Number(q.max)) : maxPrice]
+  const selected: Record<string, string[]> = Object.fromEntries(cfg.filters.map((g) => [g.code, asArray(q[`f_${g.code}`] as string | undefined)]))
 
-  const isOpen = (k: string) => open[k] ?? true
-  const toggleOpen = (k: string) => setOpen((o) => ({ ...o, [k]: !isOpen(k) }))
-  const toggleOpt = (code: string, v: string) =>
-    setSelected((s) => ({ ...s, [code]: (s[code] ?? []).includes(v) ? s[code].filter((x) => x !== v) : [...(s[code] ?? []), v] }))
+  const update = (patch: Record<string, string | number | undefined>, resetPage = true) => {
+    const next: Record<string, string | string[]> = {}
+    for (const [k, v] of Object.entries({ ...q, ...(resetPage ? { page: undefined } : {}), ...patch })) {
+      if (v !== undefined && v !== '' && v !== null) next[k] = String(v)
+    }
+    router.replace({ pathname: router.pathname, query: next }, undefined, { shallow: true, scroll: false })
+  }
+  const toggleOpt = (code: string, v: string) => {
+    const cur = selected[code] ?? []
+    const vals = cur.includes(v) ? cur.filter((x) => x !== v) : [...cur, v]
+    update({ [`f_${code}`]: vals.join(',') || undefined })
+  }
+  const setPrice = (v: [number, number]) => update({ min: v[0] > 0 ? v[0] : undefined, max: v[1] < maxPrice ? v[1] : undefined })
+  const clearAll = () => update({ min: undefined, max: undefined, ...Object.fromEntries(cfg.filters.map((g) => [`f_${g.code}`, undefined])) })
 
-  // Brand / Manufacturer filter on the Magento labels; other attributes (not in the snapshot) match the product name.
-  const shown = useMemo(() => {
+  const filtered = useMemo(() => {
     let list = cfg.products.filter((p) => {
       const pr = finalPrice(p)
       if (pr < price[0] || pr > price[1]) return false
@@ -156,152 +180,193 @@ export default function ProductListLayout(cfg: ListingConfig) {
         if (!vals.length) return true
         const group = cfg.filters.find((g) => g.code === code)
         const labels = vals.map((v) => group?.options.find((o) => o.value === v)?.label.toLowerCase() ?? '')
+        // Brand / manufacturer use the Magento labels; other attributes (not in the snapshot) match the product name.
         const own = code === 'brand' ? p.brand_label : code === 'manufacturer' ? p.manufacturer_label : undefined
         if (own !== undefined) return labels.includes((own ?? '').toLowerCase())
         return labels.some((l) => p.name.toLowerCase().includes(l))
       })
     })
     if (sort === 'name') list = [...list].sort((a, b) => a.name.localeCompare(b.name))
-    if (sort === 'price') list = [...list].sort((a, b) => finalPrice(a) - finalPrice(b))
-    return list.slice(0, perPage)
-  }, [cfg.products, cfg.filters, price, selected, sort, perPage])
+    if (sort === 'price-asc') list = [...list].sort((a, b) => finalPrice(a) - finalPrice(b))
+    if (sort === 'price-desc') list = [...list].sort((a, b) => finalPrice(b) - finalPrice(a))
+    return list
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cfg.products, cfg.filters, JSON.stringify(selected), price[0], price[1], sort])
 
-  const filtered = Object.values(selected).some((v) => v.length) || price[0] > 0 || price[1] < maxPrice
-  const count = filtered ? shown.length : cfg.totalCount
-  const pages = Math.max(1, Math.ceil(count / perPage))
+  const activeCount = Object.values(selected).reduce((a, v) => a + v.length, 0) + (price[0] > 0 || price[1] < maxPrice ? 1 : 0)
+  const isFiltered = activeCount > 0
+  const total = isFiltered ? filtered.length : cfg.totalCount
+  const pages = Math.max(1, Math.ceil(total / perPage))
+  const current = Math.min(page, pages)
+  // The snapshot holds a few dozen products per department while counts are the real Magento totals, so unfiltered
+  // pages cycle through the snapshot (prototype only). Filtered results paginate exactly.
+  const shown = useMemo(() => {
+    const start = (current - 1) * perPage
+    const n = Math.min(perPage, total - start)
+    if (isFiltered || filtered.length >= total) return filtered.slice(start, start + perPage)
+    return Array.from({ length: Math.max(0, n) }, (_, i) => filtered[(start + i) % filtered.length]).filter(Boolean)
+  }, [filtered, current, perPage, total, isFiltered])
 
-  const pricePanel = (
-    <Box sx={{ ...panel, px: 1 }}>
-      <CollapsibleHeader label="Price" open={isOpen('price')} onToggle={() => toggleOpen('price')} />
-      <Collapse in={isOpen('price')}><PriceFilter max={maxPrice} value={price} onChange={setPrice} /></Collapse>
-    </Box>
+  const [drawer, setDrawer] = useState(false)
+  const phone = useMediaQuery('(max-width:599.98px)')
+  const goPage = (n: number) => {
+    update({ page: n > 1 ? n : undefined }, false)
+    window.requestAnimationFrame(() => {
+      const el = resultsRef.current
+      if (!el) return
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 180, behavior: 'smooth' })
+      el.focus({ preventScroll: true })
+    })
+  }
+
+  const chips = [
+    ...(price[0] > 0 || price[1] < maxPrice ? [{ key: 'price', label: `${money(price[0])} – ${money(price[1])}`, onDelete: () => setPrice([0, maxPrice]) }] : []),
+    ...cfg.filters.flatMap((g) => (selected[g.code] ?? []).map((v) => ({ key: `${g.code}-${v}`, label: g.options.find((o) => o.value === v)?.label ?? v, onDelete: () => toggleOpt(g.code, v) }))),
+  ]
+
+  const subLinks = cfg.subCategories ?? []
+  const categoryList = subLinks.length > 0 && (
+    <FilterSection title="Category">
+      <Box component="ul" sx={{ listStyle: 'none', m: 0, p: 0 }}>
+        <li>
+          <Box component={Link} href={cfg.baseHref ?? '/'} aria-current={!cfg.activeSub ? 'page' : undefined} sx={{ display: 'flex', justifyContent: 'space-between', py: 0.75, px: 1, mx: -1, borderRadius: radius.sm, textDecoration: 'none', fontSize: 14, color: colors.ink, fontWeight: !cfg.activeSub ? 600 : 400, bgcolor: !cfg.activeSub ? colors.sunken : 'transparent', '&:hover': { bgcolor: colors.sunken }, ...focusRing }}>
+            All {cfg.allLabel ?? ''}
+          </Box>
+        </li>
+        {subLinks.map((s) => {
+          const on = cfg.activeSub === s.url_key
+          return (
+            <li key={s.url_key}>
+              <Box component={Link} href={`${cfg.baseHref}?sub=${s.url_key}`} aria-current={on ? 'page' : undefined} sx={{ display: 'flex', justifyContent: 'space-between', gap: 1, py: 0.75, px: 1, mx: -1, borderRadius: radius.sm, textDecoration: 'none', fontSize: 14, color: colors.ink, fontWeight: on ? 600 : 400, bgcolor: on ? colors.sunken : 'transparent', '&:hover': { bgcolor: colors.sunken }, ...focusRing }}>
+                <span>{s.name}</span>
+                {s.product_count != null && <Box component="span" sx={{ fontSize: 12.5, color: colors.ink500 }}>{s.product_count.toLocaleString()}</Box>}
+              </Box>
+            </li>
+          )
+        })}
+      </Box>
+    </FilterSection>
   )
-  const filterPanels = (only?: string) => (
+  const filterPanels = (
     <>
-      {!cfg.priceLast && (!only || only === 'price') && pricePanel}
-      {cfg.filters.filter((g) => !only || g.code === only).map((g) => (
-        <Box key={g.code} sx={{ ...panel, px: 1 }}>
-          <CollapsibleHeader label={g.label} open={isOpen(g.code)} onToggle={() => toggleOpen(g.code)} />
-          <Collapse in={isOpen(g.code)}><OptionList group={g} selected={selected[g.code] ?? []} onToggle={(v) => toggleOpt(g.code, v)} /></Collapse>
-        </Box>
+      <FilterSection title="Price" count={price[0] > 0 || price[1] < maxPrice ? 1 : 0}>
+        <PriceFilter max={maxPrice} value={price} onChange={setPrice} />
+      </FilterSection>
+      {cfg.filters.map((g) => (
+        <FilterSection key={g.code} title={g.label} defaultOpen={g.options.length <= 40 || (selected[g.code]?.length ?? 0) > 0} count={selected[g.code]?.length}>
+          <OptionList group={g} selected={selected[g.code] ?? []} onToggle={(v) => toggleOpt(g.code, v)} />
+        </FilterSection>
       ))}
-      {cfg.priceLast && (!only || only === 'price') && pricePanel}
     </>
   )
 
-  const subLinks = cfg.subCategories ?? []
+  const from = total ? (current - 1) * perPage + 1 : 0
+  const to = Math.min(total, current * perPage)
 
   return (
-    <Box sx={{ display: 'flex', gap: { lg: 4 }, px: { xs: 1, md: 1.25 }, pt: { xs: 2, md: 5 }, pb: 6 }}>
-      {/* Desktop sidebar */}
-      <Box component="aside" aria-label="Filters" sx={{ display: { xs: 'none', md: 'block' }, width: 265, flexShrink: 0, pt: { md: 11 } }}>
-        {subLinks.length > 0 && (
-          <Box sx={{ ...panel, px: 0.5 }}>
-            <CollapsibleHeader label="Categories" open={isOpen('categories')} onToggle={() => toggleOpen('categories')} />
-            <Collapse in={isOpen('categories')}>
-              <Box sx={{ px: 1, pb: 2 }}>
-                {subLinks.map((s) => (
-                  <Box
-                    key={s.url_key}
-                    component={Link}
-                    href={`${cfg.baseHref}?sub=${s.url_key}`}
-                    sx={{ display: 'block', px: 1, py: 1.4, fontSize: 19, color: cfg.activeSub === s.url_key ? '#FF0000' : '#0C0C0C', fontWeight: cfg.activeSub === s.url_key ? 600 : 400, textDecoration: 'none', borderRadius: '8px', lineHeight: 1.4, '&:hover': { bgcolor: '#EEF1F6' } }}
-                  >
-                    {s.name}
-                  </Box>
-                ))}
-              </Box>
-            </Collapse>
+    <PageContainer sx={{ pb: { xs: 5, md: 8 } }}>
+      <PageHeader breadcrumbs={cfg.breadcrumbs} title={cfg.title} meta={`${cfg.totalCount.toLocaleString()} product${cfg.totalCount === 1 ? '' : 's'}`} description={cfg.description} />
+
+      {/* Phones/tablets: sub-categories as a swipeable chip row */}
+      {subLinks.length > 0 && (
+        <Box component="nav" aria-label="Sub-categories" sx={{ display: { xs: 'flex', lg: 'none' }, gap: 1, overflowX: 'auto', pb: 2, mx: -2, px: 2, scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}>
+          <Chip component={Link} href={cfg.baseHref ?? '/'} clickable label={`All ${cfg.allLabel ?? ''}`} color={!cfg.activeSub ? 'secondary' : 'default'} variant={!cfg.activeSub ? 'filled' : 'outlined'} />
+          {subLinks.map((s) => (
+            <Chip key={s.url_key} component={Link} href={`${cfg.baseHref}?sub=${s.url_key}`} clickable label={s.name} color={cfg.activeSub === s.url_key ? 'secondary' : 'default'} variant={cfg.activeSub === s.url_key ? 'filled' : 'outlined'} />
+          ))}
+        </Box>
+      )}
+
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0,1fr)', lg: '256px minmax(0,1fr)' }, gap: { lg: 4 } }}>
+        <Box component="aside" aria-label="Filters" sx={{ display: { xs: 'none', lg: 'block' } }}>
+          <Box sx={{ position: 'sticky', top: 180, maxHeight: 'calc(100vh - 200px)', overflowY: 'auto', pr: 1, mr: -1, borderTop: `1px solid ${colors.line}` }}>
+            {categoryList}
+            {filterPanels}
           </Box>
-        )}
-        {cfg.showSort && (
-          <SelectList<SortKey> title="Sort" value={sort} onChange={setSort} options={[['position', 'Position'], ['name', 'Product Name'], ['price', 'Price']]} />
-        )}
-        <SelectList<number> title="Per page" value={perPage} onChange={(v) => { setPerPage(v); setPage(1) }} options={[[20, '20 Per page'], [36, '36 Per page'], [40, '40 Per page']]} />
-        {filterPanels()}
-      </Box>
+        </Box>
 
-      {/* Results */}
-      <Box sx={{ flex: 1, minWidth: 0 }}>
-        <Typography component="h1" sx={{ fontSize: { xs: 26, md: 52 }, fontWeight: 500, color: '#0C0C0C', letterSpacing: '-.01em', px: { xs: 1, md: 0.5 }, mb: { xs: 1, md: 3 } }}>
-          {cfg.title}
-        </Typography>
+        <Box sx={{ minWidth: 0 }}>
+          {/* Toolbar */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap', pb: 1.5, mb: 2, borderBottom: `1px solid ${colors.line}` }}>
+            <Badge badgeContent={activeCount} color="primary" sx={{ display: { lg: 'none' } }}>
+              <Button variant="outlined" startIcon={<TuneRoundedIcon />} onClick={() => setDrawer(true)}>Filters</Button>
+            </Badge>
+            <Typography role="status" aria-live="polite" sx={{ fontSize: 14, color: colors.ink600, mr: 'auto', display: { xs: 'none', sm: 'block' } }}>
+              {total ? <>Showing <b style={{ color: colors.ink }}>{from}–{to}</b> of {total.toLocaleString()}</> : 'No matches'}
+            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, ml: { xs: 'auto', sm: 0 } }}>
+              <Typography component="label" htmlFor="sort-select" sx={{ fontSize: 14, color: colors.ink600, display: { xs: 'none', md: 'block' } }}>Sort by</Typography>
+              <Select id="sort-select" size="small" value={sort} onChange={(e) => update({ sort: e.target.value === 'relevance' ? undefined : e.target.value })} inputProps={{ 'aria-label': 'Sort by' }} sx={{ minWidth: 190, fontSize: 14, '& .MuiSelect-select': { py: 1.1 } }}>
+                {SORTS.map(([k, label]) => <MenuItem key={k} value={k}>{label}</MenuItem>)}
+              </Select>
+            </Box>
+          </Box>
 
-        {/* Mobile sub-category row + filter chips */}
-        <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-          {subLinks.length > 0 && (
-            <Box sx={{ display: 'flex', gap: 2, overflowX: 'auto', px: 1, pb: 1.5, '&::-webkit-scrollbar': { display: 'none' } }}>
-              {subLinks.map((s) => (
-                <Box key={s.url_key} component={Link} href={`${cfg.baseHref}?sub=${s.url_key}`} sx={{ whiteSpace: 'nowrap', fontSize: 17, color: cfg.activeSub === s.url_key ? '#FF0000' : '#0C0C0C', textDecoration: 'none' }}>
-                  {s.name}
-                </Box>
-              ))}
+          {chips.length > 0 && (
+            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center', mb: 2 }} aria-label="Applied filters" role="group">
+              {chips.map((c) => <Chip key={c.key} label={c.label} onDelete={c.onDelete} variant="outlined" deleteIcon={<CloseRoundedIcon aria-label={`Remove filter ${c.label}`} />} />)}
+              <Button size="small" onClick={clearAll} sx={{ color: colors.redText }}>Clear all</Button>
             </Box>
           )}
-          <Box sx={{ display: 'flex', gap: 1, overflowX: 'auto', pb: 1, '&::-webkit-scrollbar': { display: 'none' } }}>
-            {[{ code: 'price', label: 'Price' }, ...cfg.filters.map((g) => ({ code: g.code, label: g.label }))].map((f) => (
-              <Button
-                key={f.code}
-                onClick={() => setMobileFilter(f.code)}
-                endIcon={<KeyboardArrowDownIcon />}
-                sx={{ flexShrink: 0, textTransform: 'none', color: '#0C0C0C', border: '1px solid #D1D5DB', borderRadius: '20px', px: 1.5, height: 32, fontSize: 13, fontWeight: 400, bgcolor: (selected[f.code]?.length ?? 0) > 0 ? '#F8D7DA' : '#fff' }}
+
+          {cfg.intro}
+
+          <Box ref={resultsRef} tabIndex={-1} aria-label={`${cfg.title}, page ${current} of ${pages}`} sx={{ outline: 'none' }}>
+            {shown.length ? (
+              <ProductGrid products={shown} label={cfg.title} columns={{ xs: 'repeat(2, minmax(0,1fr))', md: 'repeat(auto-fill, minmax(212px, 1fr))' }} />
+            ) : isFiltered ? (
+              <EmptyState
+                size="inline"
+                icon={<FilterAltOffOutlinedIcon />}
+                title="No products match these filters"
+                actions={<><Button variant="contained" onClick={clearAll}>Clear all filters</Button>{chips[chips.length - 1] && <Button variant="outlined" onClick={chips[chips.length - 1].onDelete}>Undo last filter</Button>}</>}
               >
-                {f.label}
-              </Button>
-            ))}
+                Try removing a filter or widening the price range.
+              </EmptyState>
+            ) : (
+              cfg.empty ?? <EmptyState size="inline" title="Nothing here yet" actions={<Button component={Link} href="/all-categories" variant="outlined">Browse all categories</Button>}>This category has no products online right now.</EmptyState>
+            )}
           </Box>
+
+          {shown.length > 0 && (
+            <Box sx={{ mt: { xs: 4, md: 6 }, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 2, flexWrap: 'wrap' }}>
+              <Pagination
+                count={pages}
+                page={current}
+                onChange={(_, n) => goPage(n)}
+                siblingCount={phone ? 0 : 1}
+                boundaryCount={1}
+                shape="rounded"
+                getItemAriaLabel={(type, p, sel) => (type === 'page' ? `${sel ? 'Current page, ' : 'Go to '}page ${p}` : type === 'next' ? 'Next page' : type === 'previous' ? 'Previous page' : type)}
+                sx={{ '& ul': { flexWrap: 'nowrap' }, mx: { xs: 'auto', sm: 0 } }}
+              />
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mx: { xs: 'auto', sm: 0 } }}>
+                <Typography component="label" htmlFor="per-page" sx={{ fontSize: 14, color: colors.ink600 }}>Per page</Typography>
+                <Select id="per-page" size="small" value={perPage} onChange={(e) => update({ per: Number(e.target.value) === 40 ? undefined : e.target.value })} sx={{ fontSize: 14, '& .MuiSelect-select': { py: 1 } }}>
+                  {PER_PAGE.map((n) => <MenuItem key={n} value={n}>{n}</MenuItem>)}
+                </Select>
+              </Box>
+            </Box>
+          )}
         </Box>
-
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mx: { xs: -1, md: 6 }, my: { xs: 1.5, md: 2 }, mb: { xs: 3, md: 5 } }}>
-          <Box sx={{ flex: 1, height: '1px', bgcolor: '#E5E7EB' }} />
-          <Typography sx={{ fontSize: 14, color: '#C4C4C4' }}>{count} {count === 1 ? 'product' : 'products'}</Typography>
-          <Box sx={{ flex: 1, height: '1px', bgcolor: '#E5E7EB' }} />
-        </Box>
-
-        {shown.length ? (
-          <Box sx={{ display: 'grid', columnGap: { xs: 2, md: 5 }, rowGap: { xs: 5, md: 6 }, gridTemplateColumns: { xs: 'repeat(2, minmax(0,1fr))', md: 'repeat(3, minmax(0,1fr))', lg: 'repeat(4, minmax(0,1fr))' }, px: { xs: 0.5, md: 0 },
-            // SupremePlaceholder uses a fixed 40px wordmark; shrink it in the 2-up mobile grid so it isn't clipped.
-            '& [role=img] p': { fontSize: { xs: 28, sm: 34, lg: 40 } } }}>
-            {shown.map((p) => <ProductCard key={p.sku} product={p} />)}
-          </Box>
-        ) : (
-          <NoResults />
-        )}
-
-        {shown.length > 0 && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 1, mt: 6 }}>
-            <IconButton aria-label="Previous page" disabled={page <= 1} onClick={() => setPage(page - 1)}><ChevronLeftIcon /></IconButton>
-            <Typography sx={{ fontSize: 17, color: '#0C0C0C' }}>Page {page} of {pages}</Typography>
-            <IconButton aria-label="Next page" disabled={page >= pages} onClick={() => setPage(page + 1)} sx={{ color: '#0C0C0C' }}><ChevronRightIcon /></IconButton>
-          </Box>
-        )}
       </Box>
 
-      {/* Mobile filter drawer */}
-      <Drawer anchor="bottom" open={!!mobileFilter} onClose={() => setMobileFilter(null)} PaperProps={{ sx: { borderRadius: '16px 16px 0 0', maxHeight: '80vh', p: 2 } }} sx={{ zIndex: 1300 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-          <Typography sx={{ fontWeight: 600, fontSize: 18 }}>Filters</Typography>
-          <IconButton aria-label="Close filters" onClick={() => setMobileFilter(null)}><CloseIcon /></IconButton>
+      {/* Filter drawer (<1100px): full height, live result count in the footer */}
+      <Drawer anchor="right" open={drawer} onClose={() => setDrawer(false)} sx={{ zIndex: z.modal }} PaperProps={{ sx: { width: { xs: '100%', sm: 400 }, display: 'flex', flexDirection: 'column' } }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, height: 60, borderBottom: `1px solid ${colors.line}`, flexShrink: 0 }}>
+          <Typography component="h2" variant="h3">Filters</Typography>
+          <IconButton aria-label="Close filters" onClick={() => setDrawer(false)}><CloseRoundedIcon /></IconButton>
         </Box>
-        {mobileFilter && filterPanels(mobileFilter)}
-        <Button fullWidth variant="contained" disableElevation onClick={() => setMobileFilter(null)} sx={{ mt: 1, height: 48, textTransform: 'none', fontWeight: 600, bgcolor: '#FF0000', '&:hover': { bgcolor: '#e60000' } }}>
-          Show {shown.length} products
-        </Button>
+        <Box sx={{ flex: 1, overflowY: 'auto', px: 2 }}>
+          {categoryList}
+          {filterPanels}
+        </Box>
+        <Box sx={{ display: 'flex', gap: 1, p: 2, borderTop: `1px solid ${colors.line}`, pb: 'calc(16px + env(safe-area-inset-bottom))', flexShrink: 0 }}>
+          <Button variant="outlined" onClick={clearAll} disabled={!isFiltered} sx={{ flex: 1 }}>Clear all</Button>
+          <Button variant="contained" onClick={() => setDrawer(false)} sx={{ flex: 2 }}>Show {total.toLocaleString()} product{total === 1 ? '' : 's'}</Button>
+        </Box>
       </Drawer>
-    </Box>
-  )
-}
-
-export function NoResults({ children }: { children?: ReactNode }) {
-  return (
-    <Box sx={{ textAlign: 'center', py: 8, px: 2 }}>
-      <Typography sx={{ fontSize: 22, fontWeight: 600, color: '#0C0C0C', mb: 1 }}>We couldn’t find any products</Typography>
-      <Typography sx={{ fontSize: 15, color: '#6B7280', mb: 3 }}>Try a different search term, check the SKU, or browse our categories.</Typography>
-      {children}
-      <Button component={Link} href="/all-categories" variant="outlined" sx={{ borderRadius: '40px', borderColor: '#FF0000', color: '#FF0000', textTransform: 'none', px: 3 }}>
-        Browse all categories
-      </Button>
-    </Box>
+    </PageContainer>
   )
 }
 

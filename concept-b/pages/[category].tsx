@@ -31,13 +31,14 @@ export default function CategoryPage({ url }: Props) {
       <ProductListLayout
         key={sub ?? 'all'}
         title={subCat?.name ?? dept.name}
+        breadcrumbs={[{ label: 'Home', href: '/' }, ...(subCat ? [{ label: dept.name, href: `/${url}` }] : []), { label: subCat?.name ?? dept.name }]}
         totalCount={subCat?.product_count ?? (sub ? inSub.length : listing?.total_count ?? dept.product_count)}
         products={products}
         subCategories={dept.children}
         activeSub={sub}
         baseHref={`/${url}`}
-        showSort
-        filters={aggregationsToFilters(listing?.aggregations ?? [], ['manufacturer', 'brand', 'restaurants_category'])}
+        allLabel={dept.name}
+        filters={aggregationsToFilters(listing?.aggregations ?? [], ['brand', 'manufacturer', 'restaurants_category'])}
       />
     </>
   )
