@@ -1,102 +1,64 @@
-import { useState } from 'react'
 import Link from 'next/link'
-import { Box, Button, Card, Grid, InputBase, Typography } from '@mui/material'
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined'
-import ScheduleIcon from '@mui/icons-material/Schedule'
-import { money, packSize, regularPrice, type Product } from '../../lib/data'
-import { useCart } from '../../lib/cart'
-import { ProductImage } from '../Product/ProductCard'
-import { SectionHeading } from './HomeSection'
+import { Box, Typography } from '@mui/material'
+import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded'
+import { money, regularPrice, type Product } from '../../lib/data'
+import { colors, focusRing, motion, radius, shadow } from '../../lib/theme'
+import ProductImage from '../ui/ProductImage'
+import { PackChip, Sku } from '../ui/ProductMeta'
+import CartControl from '../Product/CartControl'
 
 /*
- * CONCEPT B — CHANGE #4 (replaces OfferCards.tsx; keeps its three #EBF2FE cards and grid).
- * NEW FEATURE: needs an offer entity — deal type, sku, offer price, valid from/to
- * (prototype data: data/offers.json). Product name, image, pack size and regular price are existing fields.
+ * This week's deals — real offers with validity dates and add to cart.
+ * NEW FEATURE: needs an offer entity — deal type, sku, offer price, valid from/to (prototype: data/offers.json).
+ * Name, image, pack size and regular price are existing product fields.
  */
 
-const RED_AA = '#D50000'
-const focusRing = { '&.Mui-focusVisible, &:focus-visible': { outline: `3px solid ${RED_AA}`, outlineOffset: 2 } }
-
-export type Offer = { id: string; deal_type: string; sku: string; offer_price: number; valid_from: string; valid_to: string; note?: string }
+export type Offer = { id: string; deal_type: string; sku: string; offer_price: number; valid_from: string; valid_to: string; note?: string; warehouses?: string[] }
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 /** "2026-10-12" → "Mon, Oct 12" without timezone or locale drift between server and browser. */
-const shortDate = (iso: string) => {
+export const shortDate = (iso: string) => {
   const [y, m, d] = iso.split('-').map(Number)
-  const dt = new Date(y, m - 1, d)
-  return `${DAYS[dt.getDay()]}, ${MONTHS[m - 1]} ${d}`
+  return `${DAYS[new Date(y, m - 1, d).getDay()]}, ${MONTHS[m - 1]} ${d}`
 }
 
-function DealCard({ offer, product }: { offer: Offer; product: Product }) {
-  const { add } = useCart()
-  const [qty, setQty] = useState('1')
+export function DealCard({ offer, product }: { offer: Offer; product: Product }) {
   const regular = regularPrice(product)
   const save = Math.max(0, regular - offer.offer_price)
-  const pack = packSize(product)
+  const pct = regular ? Math.round((save / regular) * 100) : 0
   const href = `/p/${product.url_key}`
-
   return (
-    <Card
+    <Box
       component="article"
-      aria-label={`${offer.deal_type}: ${product.name}, ${pack}, ${money(offer.offer_price)}`}
-      sx={{
-        backgroundColor: '#EBF2FE', boxShadow: 2, borderRadius: 3, border: '1px solid transparent', transition: '0.3s', '&:hover': { borderColor: '#2196F3' },
-        height: '100%', display: 'flex', flexDirection: 'column', p: { xs: 2, md: 2.5 }, gap: 1.75,
-      }}
+      aria-label={`${offer.deal_type}: ${product.name}, ${money(offer.offer_price)}, ends ${shortDate(offer.valid_to)}`}
+      sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: '#fff', border: `1px solid ${colors.line}`, borderRadius: radius.lg, overflow: 'hidden', transition: `box-shadow ${motion.base}`, '&:hover': { boxShadow: shadow.md } }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1, flexWrap: 'wrap' }}>
-        <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, bgcolor: RED_AA, color: '#fff', px: 1.25, height: 26, borderRadius: '40px', fontSize: 12, fontWeight: 700 }}>
-          <LocalOfferOutlinedIcon sx={{ fontSize: 14 }} /> {offer.deal_type}
-        </Box>
-        <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, color: '#4B5563', fontSize: 12.5, fontWeight: 500 }}>
-          <ScheduleIcon sx={{ fontSize: 15 }} /> Ends {shortDate(offer.valid_to)}
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1, px: 2, py: 1.25, bgcolor: colors.redTint, borderBottom: `1px solid ${colors.redLine}` }}>
+        <Typography sx={{ fontSize: 12.5, fontWeight: 700, color: colors.redText, letterSpacing: '.04em', textTransform: 'uppercase' }}>{offer.deal_type}</Typography>
+        <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, color: colors.ink700, fontSize: 12.5, fontWeight: 500 }}>
+          <ScheduleRoundedIcon sx={{ fontSize: 16 }} /> Ends {shortDate(offer.valid_to)}
         </Box>
       </Box>
-
-      <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
-        <Box component={Link} href={href} tabIndex={-1} aria-hidden sx={{ width: { xs: 96, md: 110 }, flexShrink: 0, bgcolor: '#fff', borderRadius: '8px', overflow: 'hidden', border: '1px solid #DCE6F8' }}>
-          <ProductImage product={product} size={18} />
+      <Box sx={{ p: 2, display: 'flex', gap: 2, alignItems: 'flex-start', flex: 1 }}>
+        <Box component={Link} href={href} tabIndex={-1} aria-hidden sx={{ width: { xs: 96, md: 112 }, flexShrink: 0, borderRadius: radius.md, overflow: 'hidden', border: `1px solid ${colors.line}` }}>
+          <ProductImage product={product} alt="" caption={false} />
         </Box>
-        <Box sx={{ minWidth: 0, flex: 1 }}>
-          <Typography sx={{ fontSize: 12, color: '#6B7280' }}>{product.sku}</Typography>
-          <Box component={Link} href={href} title={product.name} sx={{ color: '#0C0C0C', textDecoration: 'none', '&:hover': { color: RED_AA }, '&:focus-visible': { outline: `3px solid ${RED_AA}`, outlineOffset: 2 } }}>
-            <Typography component="h3" sx={{ fontSize: { xs: 15, md: 16 }, fontWeight: 600, lineHeight: 1.35, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-              {product.name}
-            </Typography>
+        <Box sx={{ minWidth: 0, flex: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+          <Sku sku={product.sku} />
+          <Box component={Link} href={href} title={product.name} sx={{ color: colors.ink, textDecoration: 'none', borderRadius: '4px', '&:hover': { color: colors.redText, textDecoration: 'underline' }, ...focusRing }}>
+            <Typography component="h3" sx={{ fontSize: 15, fontWeight: 600, lineHeight: 1.35, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{product.name}</Typography>
           </Box>
-          {pack && (
-            <Box component="span" sx={{ display: 'inline-block', mt: 0.75, fontSize: '11px', fontWeight: 500, color: '#555', bgcolor: '#F5F5F5', border: '1px solid #EAEAEA', borderRadius: '4px', p: '2px 6px', maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {pack}
-            </Box>
-          )}
+          <Box><PackChip product={product} /></Box>
+          <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1, flexWrap: 'wrap', mt: 0.5 }}>
+            <Typography sx={{ fontSize: 24, fontWeight: 700, color: colors.redText, lineHeight: 1.1, fontVariantNumeric: 'tabular-nums' }}>{money(offer.offer_price)}</Typography>
+            {save > 0 && <Typography sx={{ fontSize: 14, color: colors.ink500, textDecoration: 'line-through' }} aria-label={`Regular price ${money(regular)}`}>{money(regular)}</Typography>}
+          </Box>
+          {save > 0 && <Typography sx={{ fontSize: 13, fontWeight: 600, color: colors.success }}>Save {money(save)} ({pct}%){offer.note ? <Box component="span" sx={{ color: colors.ink600, fontWeight: 400 }}> · {offer.note}</Box> : null}</Typography>}
         </Box>
       </Box>
-
-      <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1, flexWrap: 'wrap' }}>
-        <Typography sx={{ fontSize: { xs: 24, md: 26 }, fontWeight: 700, color: RED_AA, lineHeight: 1 }}>{money(offer.offer_price)}</Typography>
-        {save > 0 && <Typography sx={{ fontSize: 14, color: '#6B7280', textDecoration: 'line-through' }} aria-label={`Regular price ${money(regular)}`}>{money(regular)}</Typography>}
-        {save > 0 && <Typography sx={{ fontSize: 13, fontWeight: 700, color: '#05753D' }}>Save {money(save)}</Typography>}
-        {offer.note && <Typography sx={{ fontSize: 12.5, color: '#4B5563', width: '100%' }}>{offer.note}</Typography>}
-      </Box>
-
-      <Box sx={{ display: 'flex', height: 44, mt: 'auto' }}>
-        <InputBase
-          value={qty}
-          onChange={(e) => setQty(e.target.value.replace(/\D/g, '').slice(0, 3))}
-          inputProps={{ 'aria-label': `Quantity for ${product.name}`, inputMode: 'numeric', style: { padding: '0 12px' } }}
-          sx={{ width: 72, height: 44, border: '1px solid #D1D5DB', borderRight: 'none', borderRadius: '8px 0 0 8px', fontSize: 14, bgcolor: '#fff' }}
-        />
-        <Button
-          onClick={() => add(product.sku, Math.max(1, parseInt(qty || '1', 10)))}
-          variant="contained"
-          disableElevation
-          sx={{ flex: 1, height: 44, bgcolor: RED_AA, color: '#fff', borderRadius: '0 8px 8px 0', textTransform: 'none', fontWeight: 600, fontSize: 14, '&:hover': { bgcolor: '#B00000' }, ...focusRing }}
-        >
-          Add to Cart
-        </Button>
-      </Box>
-    </Card>
+      <Box sx={{ px: 2, pb: 2 }}><CartControl product={product} /></Box>
+    </Box>
   )
 }
 
@@ -105,17 +67,9 @@ export default function WeeklyDeals({ offers, products }: { offers: Offer[]; pro
     .map((o) => ({ offer: o, product: products.find((p) => p.sku === o.sku) }))
     .filter((d): d is { offer: Offer; product: Product } => !!d.product)
   if (!deals.length) return null
-
   return (
-    <Box>
-      <SectionHeading id="deals-title" eyebrow="Flyers & offers" title="This Week's Deals" subtitle="Limited-time prices on kitchen staples — while stock lasts" action={{ label: 'See all Flyers & Offers', href: '/flyers-offers' }} />
-      <Grid container spacing={{ xs: 2, md: 3 }}>
-        {deals.map((d) => (
-          <Grid item xs={12} sm={6} md={4} key={d.offer.id}>
-            <DealCard offer={d.offer} product={d.product} />
-          </Grid>
-        ))}
-      </Grid>
+    <Box component="ul" aria-label="This week's deals" sx={{ listStyle: 'none', p: 0, m: 0, display: 'grid', gap: { xs: 1.5, md: 2 }, gridTemplateColumns: { xs: 'minmax(0,1fr)', md: 'repeat(3, minmax(0,1fr))' } }}>
+      {deals.map((d) => <li key={d.offer.id}><DealCard offer={d.offer} product={d.product} /></li>)}
     </Box>
   )
 }

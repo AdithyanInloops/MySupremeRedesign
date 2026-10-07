@@ -1,130 +1,121 @@
 import { useState } from 'react'
+import Link from 'next/link'
 import { Box, Button, InputBase, Typography } from '@mui/material'
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined'
 import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined'
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
+import { colors, radius, srOnly } from '../../lib/theme'
+import { DELIVERY_MINIMUM } from '../../lib/pricing'
+import { checkPostal, type DeliveryZone, type DeliveryZones, type PostalResult } from '../../lib/delivery'
 
 /*
- * CONCEPT B — CHANGE #3 (replaces DeliveryBanner.tsx in the same 1920:500 footprint on desktop).
- * NEW FEATURE: needs delivery zones by postal-code prefix with the next route, window and cut-off
- * (prototype data: data/delivery-zones.json). Without that data the banner can still ship as copy +
- * region chips and hide the checker.
+ * Delivery check: postal code → next delivery window, or pickup when outside the routes.
+ * NEW FEATURE: delivery zones by postal-code prefix (FSA) with next route, window and cut-off
+ * (prototype data: data/delivery-zones.json). Without that data, ship the copy + region chips and hide the checker.
  */
 
-const RED_AA = '#D50000'
-const focusRing = { '&.Mui-focusVisible, &:focus-visible': { outline: `3px solid ${RED_AA}`, outlineOffset: 2 } }
+export type { DeliveryZone, DeliveryZones, PostalResult }
+export { checkPostal }
 
-export type DeliveryZone = { id: string; region: string; name: string; prefixes: string[]; next_delivery: string; window: string; cutoff: string }
-export type DeliveryZones = { pickup: { name: string; address: string; hours: string }; zones: DeliveryZone[] }
-
-type Result = { kind: 'in'; zone: DeliveryZone; postal: string } | { kind: 'out'; postal: string } | { kind: 'invalid' }
-
-const POSTAL = /^[A-Z]\d[A-Z](\s?\d[A-Z]\d)?$/
-
-export function checkPostal(input: string, data: DeliveryZones): Result {
-  const postal = input.trim().toUpperCase().replace(/\s+/g, ' ')
-  if (!POSTAL.test(postal)) return { kind: 'invalid' }
-  const compact = postal.replace(' ', '')
-  let best: { zone: DeliveryZone; len: number } | undefined
-  for (const zone of data.zones) {
-    for (const pre of zone.prefixes) {
-      if (compact.startsWith(pre) && (!best || pre.length > best.len)) best = { zone, len: pre.length }
-    }
+/** Result panel shared by the home checker and checkout. */
+export function PostalResultNote({ result, data }: { result: PostalResult; data: DeliveryZones }) {
+  if (result.kind === 'invalid') {
+    return (
+      <Box sx={{ display: 'flex', gap: 1, color: colors.error }}>
+        <ErrorOutlineRoundedIcon sx={{ fontSize: 20, mt: '1px' }} />
+        <Typography sx={{ fontSize: 14 }}>That doesn’t look like a Canadian postal code. Use the format L5L 0A2 — the first 3 characters are enough.</Typography>
+      </Box>
+    )
   }
-  return best ? { kind: 'in', zone: best.zone, postal } : { kind: 'out', postal }
+  if (result.kind === 'in') {
+    return (
+      <Box sx={{ display: 'flex', gap: 1.25, p: 1.5, borderRadius: radius.md, bgcolor: colors.successTint, border: `1px solid ${colors.successLine}` }}>
+        <CheckCircleRoundedIcon sx={{ color: colors.success, mt: '1px' }} />
+        <Box>
+          <Typography sx={{ fontSize: 14.5, fontWeight: 600 }}>We deliver to {result.postal} ({result.zone.name})</Typography>
+          <Typography sx={{ fontSize: 13.5, color: colors.ink700 }}>Next delivery <b>{result.zone.next_delivery}, {result.zone.window}</b> · order by {result.zone.cutoff}. Minimum order {`$${DELIVERY_MINIMUM}`}.</Typography>
+        </Box>
+      </Box>
+    )
+  }
+  return (
+    <Box sx={{ display: 'flex', gap: 1.25, p: 1.5, borderRadius: radius.md, bgcolor: colors.warningTint, border: `1px solid ${colors.warningLine}` }}>
+      <StorefrontOutlinedIcon sx={{ color: colors.warning, mt: '1px' }} />
+      <Box>
+        <Typography sx={{ fontSize: 14.5, fontWeight: 600 }}>{result.postal} is outside our delivery routes</Typography>
+        <Typography sx={{ fontSize: 13.5, color: colors.ink700 }}>Pick up at {data.pickup.name}, {data.pickup.address} · {data.pickup.hours}.</Typography>
+      </Box>
+    </Box>
+  )
 }
 
-export default function DeliveryCheckBanner({ data, image = '/assets/stickydelivery.png' }: { data: DeliveryZones; image?: string }) {
+export function DeliveryChecker({ data }: { data: DeliveryZones }) {
   const [postal, setPostal] = useState('')
-  const [result, setResult] = useState<Result | null>(null)
-  const regions = Array.from(new Set(data.zones.map((z) => z.region)))
-
+  const [result, setResult] = useState<PostalResult | null>(null)
   return (
-    <Box component="section" aria-labelledby="delivery-title" sx={{ width: '100%' }}>
-      <Box
-        sx={{
-          display: 'grid', gridTemplateColumns: { xs: 'minmax(0,1fr)', md: 'minmax(0,1fr) minmax(0,1fr)', xl: 'minmax(0,1.1fr) minmax(0,1fr)' }, aspectRatio: { xl: '1920 / 500' }, minHeight: { md: 320 },
-          borderRadius: { xs: '8px', sm: '12px' }, overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', bgcolor: '#fff',
-        }}
-      >
-        {/* Truck — the left half of the live banner artwork */}
-        <Box sx={{ position: 'relative', minHeight: { xs: 170, sm: 220, md: 0 }, bgcolor: '#fff' }}>
-          <Box component="img" src={image} alt="Supreme Restaurant Supply delivery truck" sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '8% 50%' }} />
-        </Box>
+    <>
+      <Box component="form" noValidate onSubmit={(e) => { e.preventDefault(); setResult(checkPostal(postal, data)) }} sx={{ display: 'flex', gap: 1, maxWidth: 460 }}>
+        <Box component="label" htmlFor="delivery-postal" sx={srOnly}>Postal code</Box>
+        <InputBase
+          id="delivery-postal"
+          value={postal}
+          onChange={(e) => { setPostal(e.target.value.toUpperCase().slice(0, 7)); setResult(null) }}
+          placeholder="Postal code, e.g. L5L 0A2"
+          inputProps={{ 'aria-describedby': 'delivery-result', autoComplete: 'postal-code', 'aria-invalid': result?.kind === 'invalid' }}
+          sx={{
+            flex: 1, minWidth: 0, height: 46, px: 1.75, border: `1px solid ${result?.kind === 'invalid' ? colors.error : colors.line2}`, borderRadius: radius.md, bgcolor: '#fff', fontSize: 15,
+            '&.Mui-focused': { borderColor: colors.navy, boxShadow: `0 0 0 3px ${colors.navyTint}` },
+          }}
+        />
+        <Button type="submit" variant="contained" sx={{ height: 46 }}>Check</Button>
+      </Box>
+      <Box id="delivery-result" role="status" aria-live="polite" sx={{ mt: 1.5, minHeight: { md: 68 }, maxWidth: 520 }}>
+        {result ? <PostalResultNote result={result} data={data} /> : <Typography sx={{ fontSize: 13.5, color: colors.ink600 }}>Scheduled cold-chain routes, or pick up at our Mississauga cash &amp; carry any day Mon–Sat.</Typography>}
+      </Box>
+    </>
+  )
+}
 
-        {/* Checker */}
-        <Box sx={{ p: { xs: 2.5, sm: 3, md: 3, xl: 5 }, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: { xs: 1.5, md: 1.75 } }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: '#FF413D' }}>
+/** Delivery checker + Click & Collect app card, side by side (they answer the same question: how do I get my order?). */
+export default function DeliveryCheckBanner({ data, image = '/assets/stickydelivery.png' }: { data: DeliveryZones; image?: string }) {
+  const regions = Array.from(new Set(data.zones.map((z) => z.region)))
+  return (
+    <Box sx={{ display: 'grid', gap: { xs: 1.5, md: 2 }, gridTemplateColumns: { xs: 'minmax(0,1fr)', lg: 'minmax(0,1.6fr) minmax(0,1fr)' } }}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0,1fr)', md: 'minmax(0,0.9fr) minmax(0,1fr)' }, borderRadius: radius.xl, overflow: 'hidden', border: `1px solid ${colors.line}`, bgcolor: '#fff' }}>
+        <Box sx={{ position: 'relative', minHeight: { xs: 160, sm: 200, md: 0 }, bgcolor: '#fff' }}>
+          <Box component="img" src={image} alt="MySupreme delivery truck" loading="lazy" sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: '10% 50%' }} />
+        </Box>
+        <Box sx={{ p: { xs: 2.5, md: 3.5 }, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 1.5 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: colors.redText }}>
             <LocalShippingOutlinedIcon sx={{ fontSize: 20 }} />
-            <Typography sx={{ fontSize: { xs: 10, sm: 11 }, fontWeight: 800, letterSpacing: '2px', textTransform: 'uppercase' }}>Same-day &amp; next-day delivery</Typography>
+            <Typography variant="overline">Same-day &amp; next-day delivery</Typography>
           </Box>
-          <Typography id="delivery-title" component="h2" sx={{ fontWeight: 700, color: '#0C0C0C', fontSize: { xs: 20, sm: 24, lg: 30 }, lineHeight: 1.15 }}>
-            We deliver daily across the GTA, Hamilton &amp; Niagara
-          </Typography>
+          <Typography id="delivery-title" component="h2" variant="h2">Do we deliver to you?</Typography>
+          <Typography sx={{ color: colors.ink600, fontSize: 14.5 }}>Daily routes across the GTA, Hamilton &amp; Niagara. Enter your postal code to see your next delivery window.</Typography>
           <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
             {regions.map((r) => (
-              <Box key={r} sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, px: 1.25, height: 28, borderRadius: '40px', bgcolor: '#FFF0F0', color: '#B00000', fontSize: 12.5, fontWeight: 600 }}>
+              <Box key={r} sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, px: 1.25, height: 28, borderRadius: radius.pill, bgcolor: colors.sunken, color: colors.ink700, fontSize: 12.5, fontWeight: 600 }}>
                 <PlaceOutlinedIcon sx={{ fontSize: 15 }} /> {r}
               </Box>
             ))}
           </Box>
+          <DeliveryChecker data={data} />
+        </Box>
+      </Box>
 
-          <Box
-            component="form"
-            onSubmit={(e) => { e.preventDefault(); setResult(checkPostal(postal, data)) }}
-            sx={{ display: 'flex', gap: 1, mt: 0.5, maxWidth: 480 }}
-          >
-            <InputBase
-              value={postal}
-              onChange={(e) => { setPostal(e.target.value.toUpperCase().slice(0, 7)); setResult(null) }}
-              placeholder="Postal code, e.g. L5L 0A2"
-              inputProps={{ 'aria-label': 'Postal code', 'aria-describedby': 'delivery-result', autoComplete: 'postal-code' }}
-              sx={{
-                flex: 1, minWidth: 0, height: 46, px: 2, border: `1px solid ${result?.kind === 'invalid' ? RED_AA : '#E5E7EB'}`, borderRadius: '10px', bgcolor: '#F9FAFB', fontSize: 14,
-                '&.Mui-focused': { borderColor: '#FF0000', bgcolor: '#fff', boxShadow: '0 0 0 3px rgba(255, 0, 0, 0.08)' },
-              }}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              disableElevation
-              sx={{ height: 46, px: 3, bgcolor: RED_AA, color: '#fff', textTransform: 'none', fontWeight: 600, fontSize: 14, borderRadius: '10px', '&:hover': { bgcolor: '#B00000' }, ...focusRing }}
-            >
-              Check
-            </Button>
+      <Box sx={{ position: 'relative', borderRadius: radius.xl, overflow: 'hidden', bgcolor: colors.navyDark, color: '#fff', p: { xs: 2.5, md: 3.5 }, display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: { lg: '100%' } }}>
+        <Box component="img" src="/assets/order-anytime.png" alt="" aria-hidden loading="lazy" sx={{ display: { xs: 'none', sm: 'block' }, position: 'absolute', right: 0, bottom: -60, height: 300, pointerEvents: 'none' }} />
+        <Box sx={{ position: 'relative', maxWidth: { sm: '58%', lg: '62%' } }}>
+          <Typography variant="overline" component="p" sx={{ color: '#FCA5A5' }}>Click &amp; Collect</Typography>
+          <Typography component="h2" variant="h2" sx={{ color: '#fff', mt: 0.5 }}>Order in the app, pick up at Laird Road</Typography>
+          <Typography sx={{ mt: 1, fontSize: 14.5, color: 'rgba(255,255,255,.8)' }}>Skip the aisles: your order is packed and waiting at the cash &amp; carry counter.</Typography>
+          <Box sx={{ display: 'flex', gap: 1.25, mt: 2.5, flexWrap: 'wrap' }}>
+            <Box component="a" href="https://apps.apple.com/in/app/mysupreme/id6749691637" target="_blank" rel="noopener noreferrer" sx={{ display: 'inline-flex', borderRadius: radius.sm, '&:focus-visible': { outline: '2px solid #fff', outlineOffset: 2 } }}><img src="/assets/appstore1.svg" alt="Download on the App Store" style={{ height: 42 }} /></Box>
+            <Box component="a" href="https://play.google.com/store/apps/details?id=com.mysupreme.app" target="_blank" rel="noopener noreferrer" sx={{ display: 'inline-flex', borderRadius: radius.sm, '&:focus-visible': { outline: '2px solid #fff', outlineOffset: 2 } }}><img src="/assets/playstore1.svg" alt="Get it on Google Play" style={{ height: 42 }} /></Box>
           </Box>
-
-          <Box id="delivery-result" role="status" aria-live="polite" sx={{ minHeight: { md: 64 }, maxWidth: 480 }}>
-            {result?.kind === 'invalid' && (
-              <Typography sx={{ fontSize: 13, color: RED_AA, fontWeight: 500 }}>Enter a Canadian postal code like L5L 0A2 (the first 3 characters are enough).</Typography>
-            )}
-            {result?.kind === 'in' && (
-              <Box sx={{ display: 'flex', gap: 1.25, p: 1.5, borderRadius: '10px', bgcolor: '#E7F9EF', border: '1px solid #BDEFD3' }}>
-                <CheckCircleIcon sx={{ color: '#05753D', mt: 0.25 }} />
-                <Box>
-                  <Typography sx={{ fontSize: 14, fontWeight: 600, color: '#0C0C0C' }}>
-                    Yes — we deliver to {result.postal} ({result.zone.name})
-                  </Typography>
-                  <Typography sx={{ fontSize: 13, color: '#4B5563' }}>
-                    Next delivery: <b>{result.zone.next_delivery}, {result.zone.window}</b> · Order by {result.zone.cutoff}
-                  </Typography>
-                </Box>
-              </Box>
-            )}
-            {result?.kind === 'out' && (
-              <Box sx={{ display: 'flex', gap: 1.25, p: 1.5, borderRadius: '10px', bgcolor: '#FEF3E2', border: '1px solid #F8D9A8' }}>
-                <StorefrontOutlinedIcon sx={{ color: '#B45309', mt: 0.25 }} />
-                <Box>
-                  <Typography sx={{ fontSize: 14, fontWeight: 600, color: '#0C0C0C' }}>{result.postal} is outside our delivery routes</Typography>
-                  <Typography sx={{ fontSize: 13, color: '#4B5563' }}>
-                    Pick up at {data.pickup.name}, {data.pickup.address} · {data.pickup.hours}
-                  </Typography>
-                </Box>
-              </Box>
-            )}
-            {!result && <Typography sx={{ fontSize: 13, color: '#6B7280' }}>Scheduled cold-chain routes. Pickup at our Mississauga cash &amp; carry anytime.</Typography>}
-          </Box>
+          <Box component={Link} href="/download-app" sx={{ display: 'inline-block', mt: 1.5, color: '#fff', fontSize: 14, fontWeight: 500, borderRadius: '4px', '&:focus-visible': { outline: '2px solid #fff', outlineOffset: 2 } }}>More about the app</Box>
         </Box>
       </Box>
     </Box>

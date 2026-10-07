@@ -1,130 +1,255 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Box, Button, IconButton, InputBase, Typography } from '@mui/material'
-import ArrowBackIos from '@mui/icons-material/ArrowBackIos'
-import ArrowForwardIos from '@mui/icons-material/ArrowForwardIos'
-import RemoveIcon from '@mui/icons-material/Remove'
-import AddIcon from '@mui/icons-material/Add'
-import EastIcon from '@mui/icons-material/East'
+import { Box, Button, IconButton, Tab, Tabs, Typography } from '@mui/material'
+import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded'
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
+import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded'
+import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined'
 import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined'
-import { finalPrice, hasImage, money, packSize, percentOff, regularPrice, type Product } from '../../lib/data'
+import AssignmentReturnOutlinedIcon from '@mui/icons-material/AssignmentReturnOutlined'
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
+import EastRoundedIcon from '@mui/icons-material/EastRounded'
+import { departmentOf, finalPrice, hasImage, inStock, money, packSize, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
-import { SupremePlaceholder, WishlistStar } from '../Product/ProductCard'
+import { CUTOFF, DELIVERY_MINIMUM } from '../../lib/pricing'
+import { colors, focusRing, motion, radius } from '../../lib/theme'
+import { ProductPlaceholder } from '../ui/ProductImage'
+import { PackChip, Price, SaleBadge, Sku } from '../ui/ProductMeta'
+import QuantityStepper from '../ui/QuantityStepper'
+import { StickyBottomBar } from '../ui/Feedback'
+import { FavoriteButton } from '../Product/CartControl'
 
 /** Brand label from Magento's `brand` attribute, as the live PDP reads it; null hides every brand element. */
 export const brandOf = (p: Product) => p.brand_label
 
+/* ------------------------------------------------------------------ Gallery */
+
 function Gallery({ product }: { product: Product }) {
-  const imgs = hasImage(product)
-    ? (product.media_gallery?.length ? product.media_gallery : [product.small_image!]).filter((i) => !i.url.includes('/placeholder/'))
-    : []
+  const imgs = hasImage(product) ? (product.media_gallery?.length ? product.media_gallery : [product.small_image!]).filter((i) => !i.url.includes('/placeholder/')) : []
   const [i, setI] = useState(0)
-  const box = { position: 'relative', width: '100%', aspectRatio: '1.25 / 1', border: '1px solid #E0E0E0', borderRadius: '4px', bgcolor: '#fff', overflow: 'hidden' } as const
-  if (!imgs.length) return <Box sx={box}><SupremePlaceholder size={64} /></Box>
+  const frame = { position: 'relative', width: '100%', aspectRatio: '1 / 1', border: `1px solid ${colors.line}`, borderRadius: radius.xl, bgcolor: '#fff', overflow: 'hidden' } as const
+  if (!imgs.length) {
+    return (
+      <Box>
+        <Box sx={frame}><ProductPlaceholder /></Box>
+        <Typography sx={{ mt: 1, fontSize: 13, color: colors.ink500, textAlign: 'center' }}>Product photo coming soon — check the pack size and SKU before ordering.</Typography>
+      </Box>
+    )
+  }
+  const go = (n: number) => setI((n + imgs.length) % imgs.length)
+  const arrow = (side: 'left' | 'right') => ({ position: 'absolute', top: '50%', [side]: 12, transform: 'translateY(-50%)', bgcolor: 'rgba(255,255,255,.92)', boxShadow: '0 2px 8px rgba(16,24,40,.12)', '&:hover': { bgcolor: '#fff' } }) as const
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-      <Box sx={box}>
-        <Box component="img" src={imgs[i].url} alt={`${product.name} my supreme`} sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain' }} />
+    <Box
+      role="region"
+      aria-roledescription="carousel"
+      aria-label={`${product.name} images`}
+      onKeyDown={(e) => { if (e.key === 'ArrowLeft') go(i - 1); if (e.key === 'ArrowRight') go(i + 1) }}
+      sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}
+    >
+      <Box sx={frame}>
+        <Box component="img" src={imgs[i].url} alt={imgs.length > 1 ? `${product.name}, image ${i + 1} of ${imgs.length}` : product.name} sx={{ position: 'absolute', inset: '6%', width: '88%', height: '88%', objectFit: 'contain' }} />
+        <SaleBadge product={product} sx={{ position: 'absolute', top: 14, left: 14, fontSize: 13 }} />
+        {imgs.length > 1 && (
+          <>
+            <IconButton aria-label="Previous image" onClick={() => go(i - 1)} sx={arrow('left')}><ChevronLeftRoundedIcon /></IconButton>
+            <IconButton aria-label="Next image" onClick={() => go(i + 1)} sx={arrow('right')}><ChevronRightRoundedIcon /></IconButton>
+          </>
+        )}
       </Box>
       {imgs.length > 1 && (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <IconButton aria-label="Previous image" onClick={() => setI((i - 1 + imgs.length) % imgs.length)}><ArrowBackIos fontSize="small" /></IconButton>
-          <Box sx={{ display: 'flex', gap: 1, overflowX: 'auto' }}>
-            {imgs.map((im, k) => (
-              <Box key={im.url} component="button" onClick={() => setI(k)} aria-label={`Show image ${k + 1}`} sx={{ all: 'unset', cursor: 'pointer', width: 64, height: 64, flexShrink: 0, borderRadius: '4px', border: k === i ? '2px solid #FF413D' : '1px solid #E0E0E0', overflow: 'hidden', bgcolor: '#fff' }}>
-                <Box component="img" src={im.url} alt="" sx={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-              </Box>
-            ))}
-          </Box>
-          <IconButton aria-label="Next image" onClick={() => setI((i + 1) % imgs.length)}><ArrowForwardIos fontSize="small" /></IconButton>
+        <Box sx={{ display: 'flex', gap: 1, overflowX: 'auto', pb: 0.5 }}>
+          {imgs.map((im, k) => (
+            <Box
+              key={im.url}
+              component="button"
+              onClick={() => setI(k)}
+              aria-label={`Show image ${k + 1}`}
+              aria-current={k === i ? 'true' : undefined}
+              sx={{ all: 'unset', cursor: 'pointer', width: 68, height: 68, flexShrink: 0, borderRadius: radius.md, border: `2px solid ${k === i ? colors.ink : colors.line}`, overflow: 'hidden', bgcolor: '#fff', transition: `border-color ${motion.fast}`, ...focusRing }}
+            >
+              <Box component="img" src={im.url} alt="" sx={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            </Box>
+          ))}
         </Box>
       )}
     </Box>
   )
 }
 
-function Stepper({ qty, setQty, uom }: { qty: number; setQty: (n: number) => void; uom: string }) {
+/* ------------------------------------------------------------------ Buy box */
+
+function useAddFeedback() {
+  const [added, setAdded] = useState(false)
+  useEffect(() => {
+    if (!added) return
+    const t = window.setTimeout(() => setAdded(false), 2200)
+    return () => window.clearTimeout(t)
+  }, [added])
+  return { added, flash: () => setAdded(true) }
+}
+
+function AddButton({ added, onClick, product, size = 'large' }: { added: boolean; onClick: () => void; product: Product; size?: 'large' | 'medium' }) {
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', border: '1px solid #FF413D', borderRadius: '4px', height: 48, width: { xs: 174, md: 174 }, px: 0.5, bgcolor: '#fff' }}>
-      <IconButton aria-label="Decrease quantity" size="small" onClick={() => setQty(Math.max(1, qty - 1))} sx={{ color: '#FF413D' }}><RemoveIcon fontSize="small" /></IconButton>
-      <InputBase
-        value={qty}
-        onChange={(e) => setQty(Math.max(1, parseInt(e.target.value.replace(/\D/g, '') || '1', 10)))}
-        inputProps={{ 'aria-label': 'Quantity', inputMode: 'numeric', style: { textAlign: 'center', fontWeight: 600, fontSize: 15 } }}
-        sx={{ flex: 1, minWidth: 0 }}
-      />
-      <Typography sx={{ fontSize: 11, fontWeight: 600, color: '#FF413D', mr: 0.5 }}>{uom.toUpperCase()}</Typography>
-      <IconButton aria-label="Increase quantity" size="small" onClick={() => setQty(qty + 1)} sx={{ color: '#FF413D' }}><AddIcon fontSize="small" /></IconButton>
-    </Box>
+    <Button
+      variant="contained"
+      size={size}
+      onClick={onClick}
+      startIcon={added ? <CheckRoundedIcon /> : <AddShoppingCartRoundedIcon />}
+      aria-label={`Add ${product.name} to cart`}
+      sx={{ flex: 1, minWidth: 0, ...(added ? { bgcolor: colors.success, '&:hover': { bgcolor: colors.success } } : {}) }}
+    >
+      {added ? 'Added to cart' : 'Add to cart'}
+    </Button>
   )
 }
 
 export default function ProductDetailView({ product }: { product: Product }) {
-  const { add, markViewed } = useCart()
+  const { add, markViewed, qtyOf, ready } = useCart()
   const [qty, setQty] = useState(1)
-  // Concept B #7 — feeds the home "Pick up where you left off" row. Deferred one tick so it lands after the
-  // cart provider restores the saved history on a full page load (otherwise the restore overwrites it).
+  const { added, flash } = useAddFeedback()
+  // Feeds the home "Pick up where you left off" row. Deferred one tick so it lands after the cart provider
+  // restores the saved history on a full page load (otherwise the restore overwrites it).
   useEffect(() => {
     const t = window.setTimeout(() => markViewed(product.sku), 0)
     return () => window.clearTimeout(t)
   }, [product.sku, markViewed])
   const brand = brandOf(product)
-  const off = percentOff(product)
   const uom = product.uom || 'pcs'
+  const inCart = ready ? qtyOf(product.sku) : 0
+  const available = inStock(product)
+  const addNow = () => { add(product.sku, qty); flash(); setQty(1) }
+
+  const info = [
+    { icon: LocalShippingOutlinedIcon, title: 'Delivery', text: <>Order by {CUTOFF} for next-day delivery across the GTA, Hamilton &amp; Niagara (orders over ${DELIVERY_MINIMUM}). <Box component={Link} href="/#delivery" sx={{ color: colors.redText, fontWeight: 500, borderRadius: '4px', ...focusRing }}>Check your postal code</Box></> },
+    { icon: StorefrontOutlinedIcon, title: 'Pickup', text: <>Free at our cash &amp; carry, 3750A Laird Road, Mississauga · Mon–Sat 9am–6pm</> },
+    { icon: AssignmentReturnOutlinedIcon, title: 'Easy returns', text: <>Damaged or not right? Tell us within 48 hours for a replacement or credit.</> },
+  ]
 
   return (
-    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: { xs: 3, md: 4 }, alignItems: 'start' }}>
-      <Gallery product={product} />
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, pt: { md: 1 }, maxWidth: { md: 520 } }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          {brand && <Typography sx={{ fontSize: { xs: '13px', md: '16px' }, fontWeight: 500, color: '#FF413D', whiteSpace: 'nowrap' }}>{brand}</Typography>}
-          <Typography sx={{ fontSize: { xs: '12px', md: '14px' }, color: '#9E9E9E', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.sku}</Typography>
-          <Box sx={{ flex: 1, height: '1px', bgcolor: '#E0E0E0', mx: 1 }} />
-          <WishlistStar sku={product.sku} />
-        </Box>
-        <Typography component="h1" sx={{ color: '#0C0C0C', fontSize: { xs: '16px', sm: '17px', md: '18px' }, fontWeight: 600, lineHeight: 1.4, mt: 1 }}>
-          {product.name}
-        </Typography>
-        {packSize(product) && <Typography sx={{ color: '#555', fontSize: '13px' }}>{packSize(product)}</Typography>}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.25, mb: 0.5 }}>
-          <Typography sx={{ fontSize: { xs: '20px', md: '26px' }, fontWeight: 700, color: '#0C0C0C', lineHeight: 1.2 }}>{money(finalPrice(product))}</Typography>
-          {off > 0 && (
-            <>
-              <Typography sx={{ fontSize: 15, color: '#9E9E9E', textDecoration: 'line-through' }}>{money(regularPrice(product))}</Typography>
-              <Typography sx={{ color: '#fff', bgcolor: '#FF3B30', fontSize: '13px', fontWeight: 600, px: 1, borderRadius: '4px' }}>-{off}%</Typography>
-            </>
+    <>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0,1fr)', md: 'minmax(0,1fr) minmax(0,1fr)', lg: 'minmax(0,1.05fr) minmax(0,1fr)' }, gap: { xs: 3, md: 5 }, alignItems: 'start' }}>
+        <Box sx={{ position: { md: 'sticky' }, top: { md: 150 } }}><Gallery product={product} /></Box>
+
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0 }}>
+          <Box>
+            {brand && (
+              <Box component={Link} href={`/search/${encodeURIComponent(brand)}`} sx={{ display: 'inline-block', fontSize: 14, fontWeight: 600, color: colors.redText, textDecoration: 'none', mb: 0.5, borderRadius: '4px', '&:hover': { textDecoration: 'underline' }, ...focusRing }}>
+                {brand}
+              </Box>
+            )}
+            <Typography variant="h1" sx={{ fontSize: { xs: 22, md: 28 }, overflowWrap: 'anywhere' }}>{product.name}</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexWrap: 'wrap', mt: 1 }}>
+              <Sku sku={product.sku} copyable />
+              {packSize(product) && <PackChip product={product} size="md" />}
+              <Typography sx={{ fontSize: 13, color: colors.ink600 }}>Sold per {uom}</Typography>
+            </Box>
+          </Box>
+
+          <Box sx={{ border: `1px solid ${colors.line}`, borderRadius: radius.xl, p: { xs: 2, md: 2.5 }, display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box>
+              <Price product={product} size="lg" showSave />
+              <Typography sx={{ fontSize: 13, color: colors.ink500, mt: 0.5 }}>Guest price per {uom}. Business accounts may see customer-group pricing after sign-in.</Typography>
+            </Box>
+            {available ? (
+              <Box sx={{ display: 'flex', gap: 1.25, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
+                <QuantityStepper value={qty} onChange={setQty} size="lg" unit={uom} label={`Quantity of ${product.name}`} />
+                <AddButton added={added} onClick={addNow} product={product} />
+              </Box>
+            ) : (
+              <Box role="status" sx={{ p: 1.75, borderRadius: radius.lg, bgcolor: colors.warningTint, border: `1px solid ${colors.warningLine}` }}>
+                <Typography sx={{ fontWeight: 600, color: '#78350F' }}>Out of stock at the moment</Typography>
+                <Typography sx={{ fontSize: 14, color: colors.ink700, mt: 0.25 }}>
+                  Most items are back within a week. Save it to Favorites to find it fast, or call {''}
+                  <Box component="a" href="tel:+13657770999" sx={{ color: colors.redText, fontWeight: 600 }}>+1 365-777-0999</Box> for an alternative.
+                </Typography>
+              </Box>
+            )}
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1, flexWrap: 'wrap', minHeight: 44 }}>
+              <Box role="status" aria-live="polite" sx={{ fontSize: 14, color: colors.ink700, display: 'flex', alignItems: 'center', gap: 1 }}>
+                {inCart > 0 && (
+                  <>
+                    <ShoppingCartOutlinedIcon sx={{ fontSize: 19, color: colors.success }} />
+                    <span><b>{inCart}</b> in your cart · {money(finalPrice(product) * inCart)}</span>
+                    <Box component={Link} href="/cart" sx={{ color: colors.redText, fontWeight: 600, borderRadius: '4px', ...focusRing }}>View cart</Box>
+                  </>
+                )}
+              </Box>
+              <FavoriteButton product={product} variant="labelled" />
+            </Box>
+          </Box>
+
+          <Box component="ul" sx={{ listStyle: 'none', m: 0, p: 0, display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+            {info.map((it) => {
+              const Icon = it.icon
+              return (
+                <Box component="li" key={it.title} sx={{ display: 'flex', gap: 1.5 }}>
+                  <Icon sx={{ fontSize: 22, color: colors.ink500, mt: '1px' }} />
+                  <Typography sx={{ fontSize: 14, color: colors.ink700 }}><b style={{ color: colors.ink }}>{it.title}.</b> {it.text}</Typography>
+                </Box>
+              )
+            })}
+          </Box>
+
+          {brand && (
+            <Box component={Link} href={`/search/${encodeURIComponent(brand)}`} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, p: 1.75, borderRadius: radius.lg, bgcolor: colors.subtle, textDecoration: 'none', color: colors.ink, transition: `background-color ${motion.fast}`, '&:hover': { bgcolor: colors.sunken }, ...focusRing }}>
+              <StorefrontOutlinedIcon sx={{ color: colors.ink500 }} />
+              <Box sx={{ flex: 1 }}>
+                <Typography sx={{ fontSize: 13, color: colors.ink600 }}>Explore more from</Typography>
+                <Typography sx={{ fontSize: 15, fontWeight: 600 }}>{brand}</Typography>
+              </Box>
+              <EastRoundedIcon sx={{ color: colors.redText }} />
+            </Box>
           )}
         </Box>
-        {off > 0 && <Typography sx={{ color: '#2FA84F', fontWeight: 600, fontSize: '13px', mt: -1 }}>You save {money(regularPrice(product) - finalPrice(product))}</Typography>}
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: { xs: 'flex-start', md: 'center' }, gap: { xs: 2.5, md: 2.25 }, mt: 1 }}>
-          <Stepper qty={qty} setQty={setQty} uom={uom} />
-          <Button
-            onClick={() => add(product.sku, qty)}
-            variant="contained"
-            disableElevation
-            sx={{
-              height: 60, px: 4, width: { xs: '100%', md: 'auto' }, fontSize: '15px', fontWeight: 600, letterSpacing: '.08em', borderRadius: '4px',
-              backgroundColor: '#E0000A', color: '#fff', '&:hover': { backgroundColor: '#b5000a' },
-            }}
-          >
-            ADD TO CART
-          </Button>
+      </Box>
+
+      {/* Phones: price + quantity + add stay in reach while reading the page */}
+      <StickyBottomBar show={available}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box sx={{ minWidth: 0, mr: 'auto' }}>
+            <Typography sx={{ fontSize: 16, fontWeight: 700, lineHeight: 1.2 }}>{money(finalPrice(product))}</Typography>
+            <Typography sx={{ fontSize: 12, color: colors.ink500, whiteSpace: 'nowrap' }}>{inCart ? `${inCart} in cart` : `per ${uom}`}</Typography>
+          </Box>
+          <QuantityStepper value={qty} onChange={setQty} size="md" label={`Quantity of ${product.name}`} />
+          <Box sx={{ display: 'flex', flex: '0 1 150px' }}><AddButton added={added} onClick={addNow} product={product} size="medium" /></Box>
         </Box>
-        {brand && (
-          <Box
-            component={Link}
-            href={`/search/${encodeURIComponent(brand)}`}
-            sx={{
-              mt: 4, display: 'flex', alignItems: 'center', gap: 1.5, p: '12px 16px', borderRadius: '8px', bgcolor: '#F7F7F7', border: '1px solid #EDEDED',
-              textDecoration: 'none', transition: 'all .2s', '&:hover': { bgcolor: '#FFF0F0', borderColor: '#FF413D', '& .brand-tag': { color: '#FF413D' } },
-            }}
-          >
-            <StorefrontOutlinedIcon sx={{ fontSize: '22px', color: '#9E9E9E' }} />
-            <Box sx={{ flex: 1 }}>
-              <Typography sx={{ fontSize: '14px', color: '#9E9E9E', fontWeight: 400, lineHeight: 1.2 }}>Explore more from</Typography>
-              <Typography className="brand-tag" sx={{ fontSize: '16px', color: '#0C0C0C', fontWeight: 600, lineHeight: 1.4 }}>{brand}</Typography>
-            </Box>
-            <EastIcon sx={{ color: '#FF413D', fontSize: '18px' }} />
+      </StickyBottomBar>
+    </>
+  )
+}
+
+/* ------------------------------------------------------------------ Description + specifications */
+
+export function ProductDescription({ product }: { product: Product }) {
+  const [tab, setTab] = useState<'desc' | 'specs'>('desc')
+  const brand = brandOf(product)
+  const html = product.description?.html?.trim() || product.short_description?.html || ''
+  const specs: [string, string][] = [
+    ['SKU', product.sku],
+    ['Pack size', packSize(product) || '—'],
+    ['Unit of measure', product.uom || 'pcs'],
+    ...(brand ? [['Brand', brand] as [string, string]] : []),
+    ...(product.manufacturer_label ? [['Manufacturer', product.manufacturer_label] as [string, string]] : []),
+    ['Department', departmentOf(product)?.name ?? '—'],
+  ]
+  return (
+    <Box component="section" aria-label="Product information" sx={{ mt: { xs: 5, md: 7 } }}>
+      <Tabs value={tab} onChange={(_, v) => setTab(v)} aria-label="Product information" sx={{ borderBottom: `1px solid ${colors.line}` }}>
+        <Tab value="desc" label="Description" id="pi-tab-desc" aria-controls="pi-panel" />
+        <Tab value="specs" label="Specifications" id="pi-tab-specs" aria-controls="pi-panel" />
+      </Tabs>
+      <Box id="pi-panel" role="tabpanel" aria-labelledby={`pi-tab-${tab}`} sx={{ pt: 3, maxWidth: 880 }}>
+        {tab === 'desc' ? (
+          <Box sx={{ color: colors.ink700, fontSize: 15.5, lineHeight: 1.75, '& p': { m: 0, mb: 1.5 } }} dangerouslySetInnerHTML={{ __html: html || `<p>${product.name}.</p>` }} />
+        ) : (
+          <Box component="dl" sx={{ m: 0, border: `1px solid ${colors.line}`, borderRadius: radius.lg, overflow: 'hidden' }}>
+            {specs.map(([k, v], i) => (
+              <Box key={k} sx={{ display: 'grid', gridTemplateColumns: { xs: '130px minmax(0,1fr)', sm: '200px minmax(0,1fr)' }, px: 2.5, py: 1.5, bgcolor: i % 2 ? '#fff' : colors.subtle }}>
+                <Box component="dt" sx={{ fontSize: 14, color: colors.ink600 }}>{k}</Box>
+                <Box component="dd" sx={{ m: 0, fontSize: 14, fontWeight: 500, overflowWrap: 'anywhere' }}>{v}</Box>
+              </Box>
+            ))}
           </Box>
         )}
       </Box>
@@ -132,30 +257,3 @@ export default function ProductDetailView({ product }: { product: Product }) {
   )
 }
 
-export function ProductDescription({ product }: { product: Product }) {
-  const [tab] = useState('details')
-  const brand = brandOf(product)
-  const html = product.description?.html?.trim() || product.short_description?.html || ''
-  return (
-    <Box sx={{ mt: { xs: 5, md: 4 } }}>
-      <Typography component="h2" sx={{ fontSize: { xs: 18, md: 24 }, fontWeight: 600, color: '#0C0C0C', mb: 2, px: { xs: 1, md: 0 } }}>Product description</Typography>
-      <Box sx={{ px: { xs: 3, md: 2 }, color: '#1C1C1C', fontSize: { xs: 15, md: 16 }, lineHeight: 1.75, '& p': { m: 0 } }} dangerouslySetInnerHTML={{ __html: html || `${product.name}.` }} />
-      <Box role="tablist" sx={{ mt: 4, display: 'flex', px: { xs: 1, md: 0 } }}>
-        <Box role="tab" aria-selected={tab === 'details'} sx={{ fontSize: { xs: 18, md: 16 }, fontWeight: 600, color: '#0C0C0C', pb: 1, borderBottom: '3px solid #FF413D', pr: 0.25 }}>
-          Product Details
-        </Box>
-      </Box>
-      <Box sx={{ mt: 1.5, border: '1px solid #EAEAEA', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 1px 2px rgba(0,0,0,.04)' }}>
-        {([['Uom', product.uom || 'pcs'], ...(brand ? [['Brand', brand]] : [])] as [string, string][]).map(([k, v], i) => (
-          <Box key={k} sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', px: { xs: 2.5, md: 3.5 }, py: 1.5, bgcolor: i % 2 ? '#fff' : '#F7F7F7' }}>
-            <Typography sx={{ fontSize: 14, fontWeight: 500, color: '#555' }}>{k}</Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Box sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: '#FF413D' }} />
-              <Typography sx={{ fontSize: 14, color: '#0C0C0C' }}>{v}</Typography>
-            </Box>
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  )
-}

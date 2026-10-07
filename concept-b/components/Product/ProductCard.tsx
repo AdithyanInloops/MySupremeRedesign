@@ -1,118 +1,96 @@
-import { useState } from 'react'
 import Link from 'next/link'
-import { Box, Button, IconButton, InputBase, Typography } from '@mui/material'
-import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded'
-import StarRoundedIcon from '@mui/icons-material/StarRounded'
-import { finalPrice, hasImage, money, packSize, percentOff, regularPrice, type Product } from '../../lib/data'
-import { useCart } from '../../lib/cart'
+import { Box, Typography } from '@mui/material'
+import { finalPrice, inStock, money, packSize, type Product } from '../../lib/data'
+import { colors, focusRing, motion, radius, shadow } from '../../lib/theme'
+import ProductImage from '../ui/ProductImage'
+import { PackChip, Price, SaleBadge, Sku } from '../ui/ProductMeta'
+import CartControl, { FavoriteButton } from './CartControl'
 
-/** "SUPREME" text placeholder used when Magento returns its /placeholder/ image. */
-export function SupremePlaceholder({ size = 40 }: { size?: number }) {
+export const productHref = (p: Product) => `/p/${p.url_key}`
+/** Cards read as "name, pack size, price" to screen readers (design brief). */
+export const cardLabel = (p: Product) => `${p.name}, ${packSize(p) || 'single unit'}, ${money(finalPrice(p))}${inStock(p) ? '' : ', out of stock'}`
+
+export type CardBadge = { label: string; tone?: 'navy' | 'red' | 'ink' }
+
+const badgeBg = { navy: colors.navy, red: colors.red, ink: colors.ink }
+
+function Badge({ badge }: { badge: CardBadge }) {
   return (
-    <Box role="img" aria-label="No product image" sx={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', bgcolor: '#fff', containerType: 'inline-size' }}>
-      {/* Scales with the image box so the wordmark never clips in 2-up mobile grids. */}
-      <Typography sx={{ fontWeight: 700, fontSize: `min(${size}px, 15cqw)`, color: '#2d297d', letterSpacing: '.02em', lineHeight: 1 }}>SUPREME</Typography>
+    <Box sx={{ bgcolor: badgeBg[badge.tone ?? 'navy'], color: '#fff', fontSize: 11.5, fontWeight: 700, letterSpacing: '.04em', px: 0.875, lineHeight: '22px', borderRadius: radius.xs }}>
+      {badge.label}
     </Box>
   )
 }
 
-export function ProductImage({ product, size = 40 }: { product: Product; size?: number }) {
+function Name({ product, lines = 2, size = 14.5 }: { product: Product; lines?: number; size?: number }) {
   return (
-    <Box sx={{ position: 'relative', width: '100%', aspectRatio: '1 / 1', overflow: 'hidden' }}>
-      {hasImage(product) ? (
-        <Box component="img" src={product.small_image!.url} alt={`${product.name} my supreme`} loading="lazy" sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain' }} />
-      ) : (
-        <SupremePlaceholder size={size} />
-      )}
+    <Box component={Link} href={productHref(product)} title={product.name} sx={{ color: colors.ink, textDecoration: 'none', borderRadius: '4px', '&:hover': { color: colors.redText, textDecoration: 'underline' }, ...focusRing }}>
+      <Typography component="h3" sx={{ fontSize: size, fontWeight: 500, lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: lines, WebkitBoxOrient: 'vertical', overflow: 'hidden', minHeight: lines > 1 ? `${1.4 * lines}em` : undefined, overflowWrap: 'anywhere' }}>
+        {product.name}
+      </Typography>
     </Box>
   )
 }
 
-/** Quantity box joined to the red "Add to Cart" button (real AddToCartComponent). */
-export function AddToCartRow({ sku }: { sku: string }) {
-  const { add } = useCart()
-  const [qty, setQty] = useState('1')
-  return (
-    <Box sx={{ display: 'flex', width: '100%', height: '40px' }}>
-      <InputBase
-        value={qty}
-        onChange={(e) => setQty(e.target.value.replace(/\D/g, '').slice(0, 3))}
-        inputProps={{ 'aria-label': 'Quantity', inputMode: 'numeric', style: { padding: '0 12px' } }}
-        sx={{ width: { xs: '60px', sm: '70px', md: '80px' }, height: '40px', border: '1px solid #D1D5DB', borderRight: 'none', borderRadius: '4px 0 0 4px', fontSize: 14, bgcolor: '#fff' }}
-      />
-      <Button
-        onClick={() => add(sku, Math.max(1, parseInt(qty || '1', 10)))}
-        disableElevation
-        variant="contained"
+/**
+ * The one product card. `grid` for listings, rails and favourites; `compact` (image left) for reorder lists and
+ * dense side panels. Optional `badge` (NEW, #1 …) sits on the image. Everything else is identical everywhere.
+ */
+export default function ProductCard({ product, variant = 'grid', badge }: { product: Product; variant?: 'grid' | 'compact'; badge?: CardBadge }) {
+  if (variant === 'compact') {
+    return (
+      <Box
+        component="article"
+        aria-label={cardLabel(product)}
         sx={{
-          flex: 1, minWidth: 0, bgcolor: '#FF413D', color: 'white', borderRadius: '0 4px 4px 0', height: '40px', textTransform: 'none',
-          fontFamily: 'Poppins', fontWeight: 600, fontSize: { xs: '11px', sm: '12px' }, whiteSpace: 'nowrap', '&:hover': { bgcolor: '#e63939' },
+          display: 'grid', gridTemplateColumns: '84px minmax(0,1fr)', gap: 1.5, alignItems: 'center', height: '100%', p: 1.25,
+          bgcolor: '#fff', border: `1px solid ${colors.line}`, borderRadius: radius.lg, transition: `box-shadow ${motion.base}, border-color ${motion.base}`,
+          '&:hover': { borderColor: colors.line2, boxShadow: shadow.md },
         }}
       >
-        Add to Cart
-      </Button>
-    </Box>
-  )
-}
+        <Box component={Link} href={productHref(product)} tabIndex={-1} aria-hidden sx={{ display: 'block', borderRadius: radius.md, overflow: 'hidden', border: `1px solid ${colors.sunken}` }}>
+          <ProductImage product={product} caption={false} alt="" />
+        </Box>
+        <Box sx={{ minWidth: 0, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+          <Name product={product} size={14} />
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }}>
+            <Price product={product} size="sm" />
+            <Box sx={{ minWidth: 0 }}><PackChip product={product} /></Box>
+          </Box>
+          <Box sx={{ mt: 0.5, maxWidth: 220 }}><CartControl product={product} size="sm" label="Add" /></Box>
+        </Box>
+      </Box>
+    )
+  }
 
-export function WishlistStar({ sku }: { sku: string }) {
-  const { wishlist, toggleWish } = useCart()
-  const on = wishlist.includes(sku)
-  return (
-    <IconButton
-      aria-label={on ? 'Remove from Favorites' : 'Add to Favorites'}
-      aria-pressed={on}
-      onClick={(e) => { e.preventDefault(); toggleWish(sku) }}
-      size="small"
-      sx={{ color: '#FF413D' }}
-    >
-      {on ? <StarRoundedIcon /> : <StarBorderRoundedIcon />}
-    </IconButton>
-  )
-}
-
-/** Product card — mirrors components/ProductListItems/productListRenderer.tsx. */
-export default function ProductCard({ product }: { product: Product }) {
-  const off = percentOff(product)
-  const pack = packSize(product)
-  const href = `/p/${product.url_key}`
   return (
     <Box
       component="article"
-      aria-label={`${product.name}, ${pack}, ${money(finalPrice(product))}`}
+      aria-label={cardLabel(product)}
       sx={{
-        position: 'relative', bgcolor: '#fff', border: '1px solid #E5E7EB', borderRadius: '4px', boxShadow: '0 1px 3px rgba(0,0,0,.08)',
-        width: '100%', maxWidth: { xs: '100%', sm: 200, md: 220, lg: 250 }, mx: 'auto', display: 'flex', flexDirection: 'column', height: '100%',
+        position: 'relative', display: 'flex', flexDirection: 'column', height: '100%', minWidth: 0, bgcolor: '#fff',
+        border: `1px solid ${colors.line}`, borderRadius: radius.lg, overflow: 'hidden', transition: `box-shadow ${motion.base}, border-color ${motion.base}`,
+        '&:hover': { borderColor: colors.line2, boxShadow: shadow.md },
+        '&:hover .card-img img': { transform: 'scale(1.03)' },
       }}
     >
-      <Box sx={{ position: 'relative', p: '12px', pb: 0 }}>
-        <Box component={Link} href={href} sx={{ display: 'block' }} tabIndex={-1}>
-          <ProductImage product={product} />
+      <Box sx={{ position: 'relative' }}>
+        <Box component={Link} href={productHref(product)} tabIndex={-1} aria-hidden className="card-img" sx={{ display: 'block', '& img': { transition: `transform ${motion.slow}, opacity .25s ease` } }}>
+          <ProductImage product={product} alt="" />
         </Box>
-        {off > 0 && (
-          <Box sx={{ position: 'absolute', top: 16, left: 16, bgcolor: '#FF0000', color: '#fff', fontSize: 12, fontWeight: 700, px: 1, py: 0.25, borderRadius: '4px' }}>-{off}%</Box>
-        )}
-        <Box sx={{ position: 'absolute', top: 10, right: 10 }}><WishlistStar sku={product.sku} /></Box>
+        <Box sx={{ position: 'absolute', top: 10, left: 10, display: 'flex', gap: 0.5 }}>
+          {badge && <Badge badge={badge} />}
+          <SaleBadge product={product} />
+          {!inStock(product) && <Badge badge={{ label: 'Out of stock', tone: 'ink' }} />}
+        </Box>
+        <Box sx={{ position: 'absolute', top: 8, right: 8 }}><FavoriteButton product={product} /></Box>
       </Box>
-      <Box sx={{ p: '12px', pt: 1.5, display: 'flex', flexDirection: 'column', flex: 1 }}>
-        <Typography sx={{ fontSize: 12, color: '#6B7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{product.sku}</Typography>
-        <Box component={Link} href={href} sx={{ textDecoration: 'none', color: '#0C0C0C' }} title={product.name}>
-          <Typography component="h3" sx={{ fontSize: { xs: '13px', sm: '14px', md: '15px' }, fontWeight: 500, lineHeight: 1.35, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden', minHeight: '2.7em' }}>
-            {product.name}
-          </Typography>
-        </Box>
-        <Box sx={{ minHeight: 24, mt: 0.5 }}>
-          {pack && (
-            <Box component="span" sx={{ display: 'inline-block', fontSize: '11px', fontWeight: 500, color: '#555555', lineHeight: 1.2, bgcolor: '#F5F5F5', border: '1px solid #EAEAEA', borderRadius: '4px', p: '2px 6px', maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {pack}
-            </Box>
-          )}
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 1, mt: 0.75, mb: 1.25 }}>
-          <Typography sx={{ fontSize: 16, fontWeight: 600, color: off ? '#FF0000' : '#0C0C0C' }}>{money(finalPrice(product))}</Typography>
-          {off > 0 && <Typography sx={{ fontSize: 13, color: '#9CA3AF', textDecoration: 'line-through' }}>{money(regularPrice(product))}</Typography>}
-        </Box>
-        <Box sx={{ mt: 'auto' }}><AddToCartRow sku={product.sku} /></Box>
+      <Box sx={{ p: { xs: 1.25, sm: 1.5 }, pt: { xs: 1, sm: 1.25 }, display: 'flex', flexDirection: 'column', gap: 0.75, flex: 1, borderTop: `1px solid ${colors.sunken}` }}>
+        <Sku sku={product.sku} />
+        <Name product={product} />
+        <Box sx={{ minHeight: 21 }}><PackChip product={product} /></Box>
+        <Box sx={{ mt: 'auto', pt: 0.25 }}><Price product={product} /></Box>
+        <Box sx={{ mt: 0.5 }}><CartControl product={product} /></Box>
       </Box>
     </Box>
   )
