@@ -3,7 +3,8 @@ import Link from 'next/link'
 import { Box, Typography } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import type { Category, Product } from '../../lib/data'
-import ProductCard from '../Product/ProductCard'
+import RankedProductCard from '../Product/cards/RankedProductCard'
+import { CardRow } from '../Product/cards/shared'
 import { SectionHeading } from './HomeSection'
 
 /*
@@ -88,13 +89,11 @@ export default function TrendingByDepartment({ departments, productsByDepartment
         id="trend-panel"
         role="tabpanel"
         aria-labelledby={`trend-tab-${dept.url_key}`}
-        sx={{ display: 'flex', gap: { xs: 1.5, md: 2 }, overflowX: 'auto', pb: 1, scrollSnapType: 'x mandatory', '&::-webkit-scrollbar': { height: 6 }, '&::-webkit-scrollbar-thumb': { bgcolor: '#E5E7EB', borderRadius: 3 } }}
       >
-        {items.map((p) => (
-          <Box key={p.sku} sx={{ flex: '0 0 auto', width: { xs: 175, sm: 200, md: 220, lg: 237 }, scrollSnapAlign: 'start' }}>
-            <ProductCard product={p} />
-          </Box>
-        ))}
+        {/* Concept B — ranked, image-led cards with quick add */}
+        <CardRow itemWidth={{ xs: '47%', sm: '31%', md: '210px' }} gap={{ xs: 1.5, md: 2.5 }}>
+          {items.map((p, i) => <RankedProductCard key={p.sku} product={p} rank={i + 1} />)}
+        </CardRow>
       </Box>
     </Box>
   )

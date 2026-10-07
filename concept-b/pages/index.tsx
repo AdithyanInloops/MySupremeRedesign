@@ -5,8 +5,7 @@ import offersJson from '../data/offers.json'
 import zonesJson from '../data/delivery-zones.json'
 import Supremebanner from '../components/HomeComponents/Supremebanner'
 import RecommentedProducts from '../components/HomeComponents/RecommentedProducts'
-import SumOfferImages from '../components/HomeComponents/SumOfferImages'
-import PromoTwoCards from '../components/HomeComponents/PromoTwoCards'
+import FeaturedOffersCarousel, { type PromoSlide } from '../components/HomeComponents/FeaturedOffersCarousel'
 import RecommendedCategories from '../components/HomeComponents/RecommendedCategories'
 import Homebanner from '../components/HomeComponents/homebanner'
 import PromoTwoCards2 from '../components/HomeComponents/PromoTwoCards2'
@@ -33,9 +32,36 @@ const imageUrls = ['Banner-1.png', '1920_1.jpg', 'Banner2.jpg', 'banner3.jpg', '
 const mobileImageUrls = ['Banner1-mobile_3.jpg', '1280_1.jpg', 'Banner2-mobile_2.jpg', 'BANEER-3.jpg', '20260902-111744.png', '1280_-720_5.jpg'].map(banner)
 
 // Same copy and images as the live pages/index.tsx
-const promoTestData = [
-  { image: '/assets/package-offer.jpeg', title: 'Packaging', subtitle: 'Foodservices Packaging Fresh Secure. Professional', link: '/packaging' },
-  { image: '/assets/produce-offer-1.jpeg', title: 'Produce', subtitle: 'Fresh, quality produce selected for foodservice needs.', link: '/produce' },
+// Concept B — "Featured offers" carousel slides (a CMS block in production). The old Packaging / Produce
+// posters (package-offer.jpeg, produce-offer-1.jpeg) carry their own dated text, so those slides use the
+// Magento department photos instead (CLAUDE.md §7).
+const deptImage = (key: string) => departments.find((d) => d.url_key === key)?.image ?? ''
+const featuredOffers: PromoSlide[] = [
+  {
+    id: 'wholesale', tag: 'Wholesale', title: 'Wholesale sourcing, made simple', href: '/account/signin', cta: 'Register for business pricing',
+    subtitle: 'Quality brands across every department — register for business pricing',
+    media: { kind: 'poster', src: '/assets/sum-offer-1.jpeg', alt: 'Elevate your business — wholesale sourcing made simple' },
+  },
+  {
+    id: 'canola', tag: 'In-store deal', title: '16L canola oil — now $42.99', href: '/search/canola',
+    subtitle: 'Limited-time offer at our Mississauga cash & carry',
+    media: { kind: 'poster', src: '/assets/sum-offer-2.jpeg', alt: 'Business owners — 16L canola oil deal, now $42.99' },
+  },
+  {
+    id: 'packaging', tag: 'Department', title: 'Packaging for every order', href: '/packaging',
+    subtitle: 'Containers, cups, bags and cutlery for takeout and delivery',
+    media: { kind: 'photo', src: deptImage('packaging'), alt: 'Takeout packaging', overlayTitle: 'Packaging', overlayText: 'Foodservice packaging — fresh, secure, professional' },
+  },
+  {
+    id: 'produce', tag: 'Department', title: 'Fresh produce, picked for kitchens', href: '/produce',
+    subtitle: 'Fruit, vegetables and herbs delivered on cold-chain routes',
+    media: { kind: 'photo', src: deptImage('produce'), alt: 'Fresh fruit and vegetables', overlayTitle: 'Produce', overlayText: 'Fresh, quality produce selected for foodservice' },
+  },
+  {
+    id: 'dairy', tag: 'Department', title: 'Dairy & eggs, stocked daily', href: '/dairy-eggs',
+    subtitle: 'Milk, cheese, butter and eggs in foodservice sizes',
+    media: { kind: 'photo', src: deptImage('dairy-eggs'), alt: 'Dairy products and eggs', overlayTitle: 'Dairy & Eggs', overlayText: 'Fresh dairy and eggs you can trust' },
+  },
 ]
 const promoTestData2 = [
   { image: '/assets/dairyandeggs.png', title: 'Dairy & Eggs', subtitle: 'Fresh, dairy and eggs trusted supply.', link: '/dairy-eggs' },
@@ -97,8 +123,7 @@ export default function Home() {
 
       {/* 3. Two large promo images + 4. PromoTwoCards */}
       <HomeSection id="featured-offers" band="grey" eyebrow="Promotions" title="Featured offers" subtitle="Current promotions from our warehouse">
-        <SumOfferImages />
-        <PromoTwoCards items={promoTestData} />
+        <FeaturedOffersCarousel slides={featuredOffers} />
       </HomeSection>
 
       {/* ── 4. Discover ──────────────────────────── */}

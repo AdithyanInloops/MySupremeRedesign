@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Box, Button } from '@mui/material'
-import { ProductRow } from '../Product/ProductCarousel'
+import ReorderCard from '../Product/cards/ReorderCard'
+import { CardRow } from '../Product/cards/shared'
 import { SectionHeading } from './HomeSection'
 import { productBySku, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
@@ -19,6 +20,11 @@ export default function RecentlyViewed({ fallback }: { fallback: Product[] }) {
   const hasHistory = viewed.length > 0
   const items = hasHistory ? viewed : fallback
   if (!items.length) return null
+  // Two rows when there's enough history; columns fill the row width instead of leaving a gap.
+  const shown = items.slice(0, 12)
+  const rows = shown.length > 4 ? 2 : 1
+  const cols = Math.ceil(shown.length / rows)
+  const colWidth = (n: number) => (n <= 1 ? '360px' : `calc((100% - ${(n - 1) * 16}px) / ${n})`)
 
   return (
     <Box>
@@ -33,7 +39,10 @@ export default function RecentlyViewed({ fallback }: { fallback: Product[] }) {
           </Button>
         ) : undefined}
       />
-      <ProductRow products={items.slice(0, 12)} />
+      {/* Concept B — compact reorder cards, two rows on wider screens */}
+      <CardRow itemWidth={{ xs: '85%', sm: '320px', md: colWidth(Math.min(3, cols)), lg: colWidth(Math.min(4, cols)) }} rows={rows}>
+        {shown.map((p) => <ReorderCard key={p.sku} product={p} />)}
+      </CardRow>
     </Box>
   )
 }
