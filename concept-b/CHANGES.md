@@ -18,6 +18,7 @@ interactions are redesigned on one design system. Everything runs on the same du
 | Motion | 150 ms hover/press, 200–250 ms panels; all off under `prefers-reduced-motion` (global rule) | Short and functional. |
 | Focus | 2 px navy ring, offset 2 (white on red/navy surfaces) | Visible on every control. |
 | Layout | 1440 px container, gutters 16 / 24 / 32, 8 px spacing unit | Same rhythm on every page. |
+| Icons | The site's own inline SVG set (`components/ui/icons.tsx`): 24 px grid, 1.8 px rounded strokes, `currentColor`. No icon library — `@mui/icons-material` is removed, and MUI's built-in checkbox, radio, select, pagination, chip and alert glyphs use the same set via the theme. | One drawing style everywhere; icons take the colour and size of the text around them. |
 
 Shared components: `Section` + `SectionHeading` + `PageContainer`, `PageHeader` + `Breadcrumbs` (mobile shows "‹ Parent"),
 `QuantityStepper` (the only stepper; typeable; "−" becomes delete at 1 in cart contexts), `Price`, `PackChip`, `Sku`
@@ -25,7 +26,7 @@ Shared components: `Section` + `SectionHeading` + `PageContainer`, `PageHeader` 
 error with icon), skeletons, `StickyBottomBar` (publishes `--sticky-bottom` so the floating buttons and toasts move up),
 `RouteProgress`, `SkipLink`, toast system (`lib/toast.tsx`: message + detail + action such as Undo / View cart).
 
-**One product card** (`components/Product/ProductCard.tsx`, variants `grid` / `compact`) replaces the five card designs
+**One product card** (`components/Product/ProductCard.tsx`, variants `grid` / `compact`; 5:4 photo area, no reserved second name line, price and pack size on one row) replaces the five card designs
 (live card + four section-specific home cards). Its cart control (`CartControl.tsx`) is "Add to cart" until the item
 is in the cart, then a stepper bound to the cart line. States: photo, placeholder, sale, long name, badge (NEW / #1),
 in cart, out of stock.
@@ -37,12 +38,12 @@ were merged:
 
 | Live / previous section | Now |
 | --- | --- |
-| Hero slider | Hero slider with per-slide links and alt text, pause button, arrows/dots (`Supremebanner.tsx`) |
-| Quick Order bar | Next to the hero on desktop (`HomeHero.tsx`), and in a header dialog on every page (`QuickOrder/QuickOrder.tsx`) |
+| Hero slider | Full-width hero slider with per-slide links and alt text, pause button, arrows/dots (`Supremebanner.tsx`) |
+| Quick Order bar | Off the page: the header's Quick order button opens a dialog on every page (SKU entry + paste a list, `QuickOrder/QuickOrder.tsx`) |
 | Feature cards + Trust stats | One compact value strip under the hero |
 | Pick up where you left off | Kept; shown only when there is history (no filler for first visits) |
-| Recommended Categories + Shop by your kitchen | One "Shop the catalogue" block with tabs: By department / By kitchen type (`BrowseCatalogue.tsx`) |
-| This Week's Deals + promo posters + PromoTwoCards + PromoTwoCards2 | One "Deals" band: three deal cards, then one promotions rail (posters + department promos) |
+| Recommended Categories + Shop by your kitchen | One "Shop the catalogue" block with tabs: By department / By kitchen type (`BrowseCatalogue.tsx`). Departments are a bento grid: one 2×2 featured department with its top sub-categories + eight photo tiles — 4 per row on desktop, 3 on tablets, 2 on phones, no orphan tiles. |
+| This Week's Deals + promo posters + PromoTwoCards + PromoTwoCards2 | One "Deals" band: four flyer-style deal cards (deal-type ribbon, savings burst, price, saving, end date, add to cart), then one promotions rail (posters + department promos) |
 | Trending by Department | Kept (department pills + ranked rail) |
 | Recommended Products + New Arrivals | One "Featured products" block with tabs |
 | Ready-to-order kits | Kept |
@@ -71,7 +72,7 @@ focused header (logo, help phone, one way back).
 | Favorites | Same card grid, "Add all to cart", helpful empty state. Wording is "Favorites" everywhere (was Wishlist / Favorites, star / heart). |
 | All categories | Every department and sub-category on one page with counts, a sticky jump list and "Find a category". |
 | Brands | Find-a-brand search, A–Z filter, "Show more" paging (651 brands). |
-| Flyers & Offers | The "live" version the design brief asked for: warehouse picker, deal-type filters with counts, real deal cards (price, saving, end date, add to cart), "Coming next" teasers, how-deals-work, Monday email signup. |
+| Flyers & Offers | The "live" version the design brief asked for, with a printed-flyer feel: red flyer-cover hero (week, deal count, "save up to", warehouse picker, live countdown to the end of the weekly hot picks, tilted product stickers with price bursts); flip-through flyer posters per deal type generated from the live offers (open full size in a viewer with ←/→ and "Shop these deals"); the two in-store posters; the deal grid with deal-type filters and sort (biggest saving / ending soonest / lowest price); a next-week sneak peek with prices blurred until Monday; Monday email signup. (`pages/flyers-offers.tsx`, `components/Deals/*`) |
 | About, Contact | Rebuilt on the design system; same copy, regrouped. Contact leads with the four ways to reach us; the pricing form keeps every live field, grouped, with inline validation and a success state. |
 | Become a supplier | Was a stub; now a short application form. |
 | Get the app, policies, blog | Consistent content template with a help card. |

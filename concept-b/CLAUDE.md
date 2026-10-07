@@ -9,7 +9,8 @@
 >
 > When changing UI: reuse the shared components (one `ProductCard`, one `QuantityStepper`, `Section`, `PageHeader`,
 > `EmptyState`, `Field`, toasts via `useToast` / `useCart().notify`) and tokens (`colors`, `radius`, `shadow`, `motion`,
-> `focusRing`) instead of hard-coded values. Fonts now load Poppins 400–700; framer-motion is no longer used.
+> `focusRing`) instead of hard-coded values. Icons come only from `components/ui/icons.tsx` (the site's own SVGs —
+> don't add an icon library). Fonts now load Poppins 400–700; framer-motion is no longer used.
 
 The original brief follows.
 
