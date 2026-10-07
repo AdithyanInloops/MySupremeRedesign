@@ -1,12 +1,26 @@
 # MySupreme UI Variant — Build Guide for Claude Code
 
+> **Status (2026-10-07): Concept B is now a full UI/UX redesign.** The "match the live site" golden rule below no
+> longer applies — every page was redesigned on one design system (`lib/theme.ts`, `components/ui/*`), the home page
+> was regrouped, and a clickable checkout was added. Read `CHANGES.md` first: it records the design system, where every
+> live section went, the new-feature data, and prototype-only behaviour. Keep using this guide for the stack, data,
+> assets and the rules below that still hold: routes and data files stay, brand stays (red crown, Poppins, red-led
+> palette), AA contrast, visible focus, reduced motion, and "new feature" labelling for anything that needs new data.
+>
+> When changing UI: reuse the shared components (one `ProductCard`, one `QuantityStepper`, `Section`, `PageHeader`,
+> `EmptyState`, `Field`, toasts via `useToast` / `useCart().notify`) and tokens (`colors`, `radius`, `shadow`, `motion`,
+> `focusRing`) instead of hard-coded values. Icons come only from `components/ui/icons.tsx` (the site's own SVGs —
+> don't add an icon library). Fonts now load Poppins 400–700; framer-motion is no longer used.
+
+The original brief follows.
+
 You are building a **UI prototype of mysupreme.ca that looks the same as the current live website**, except for
 the sections listed in [Section 9: Changes to make](#9-changes-to-make). It runs on **dummy data only** and is
 shown to the client for review. If the client approves it, the changed sections will be ported back into the
 real codebase, so build them the way the real site is built.
 
-**Golden rule:** anything not listed in Section 9 must look like the current site: same layout, spacing,
-colours, fonts, copy and order. Do not "improve" untouched sections. When unsure, match the screenshot.
+**Golden rule (superseded — see Status above):** anything not listed in Section 9 must look like the current site:
+same layout, spacing, colours, fonts, copy and order.
 
 **Where to work:** this guide lives in `MySupremeRedesign/concept-b/`. Build the whole prototype inside
 `concept-b/` (its own `package.json`). Do not modify `concept-a/` (a separate, finished concept) or `docs/`.

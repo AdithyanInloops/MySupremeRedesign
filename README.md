@@ -6,7 +6,7 @@ its own `package.json`, so each deploys as a **separate Vercel project** from th
 | Folder | Concept | Stack | Vercel framework preset | Output |
 | --- | --- | --- | --- | --- |
 | `concept-a/` | A — "Pro Counter" full redesign | Vite + React 18 + MUI 5 | Vite | `dist` (static) |
-| `concept-b/` | B — live site + four home-page changes | Next.js 15 (pages router) + MUI 5 | Next.js | managed by Next |
+| `concept-b/` | B — redesigned live site (full UI/UX transformation, clickable checkout) | Next.js 15 (pages router) + MUI 5 | Next.js | managed by Next |
 
 Both folders already contain a `vercel.json` (framework, install and build commands) and pin a Node version in
 `package.json` → `engines`, so Vercel needs only the Root Directory.

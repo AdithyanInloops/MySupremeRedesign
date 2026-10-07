@@ -38,6 +38,8 @@ export type Product = {
   /** Magento `brand` / `manufacturer` option labels (custom_attributesV2), null when the product has none. */
   brand_label: string | null
   manufacturer_label: string | null
+  /** Magento stock_status. Missing means in stock (the snapshot only marks the hand-edited test cases). */
+  stock_status?: 'IN_STOCK' | 'OUT_OF_STOCK'
 }
 
 export type Aggregation = { label: string; attribute_code: string; count: number; options: { label: string; value: string; count: number }[] }
@@ -62,6 +64,7 @@ export const productBySku = (sku: string) => products.find((p) => p.sku.toLowerC
 
 /** Pack size shown on cards = short_description.html with tags stripped (real site behaviour). */
 export const packSize = (p: Product) => (p.short_description?.html ?? '').replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim()
+export const inStock = (p: Product) => p.stock_status !== 'OUT_OF_STOCK'
 export const hasImage = (p: Product) => !!p.small_image?.url && !p.small_image.url.includes('/placeholder/')
 export const finalPrice = (p: Product) => p.price_range.minimum_price.final_price.value
 export const regularPrice = (p: Product) => p.price_range.minimum_price.regular_price.value
@@ -91,3 +94,20 @@ const withPhotoFirst = (list: Product[], n: number) => {
 }
 export const recommendedProducts = withPhotoFirst(products.filter((_, i) => i % 3 === 0), 12)
 export const newArrivals = withPhotoFirst(products.filter((p) => ['packaging', 'janitorial', 'ware-equipment'].includes(p.department)), 12)
+
+/** Department + sub-category names matching a search term (search suggestions, "no results" help). */
+export type CategoryHit = { name: string; href: string; parent?: string; count?: number }
+export const searchCategories = (term: string, limit = 4): CategoryHit[] => {
+  const t = term.trim().toLowerCase()
+  if (t.length < 2) return []
+  const hits: CategoryHit[] = []
+  for (const d of departments) {
+    if (d.name.toLowerCase().includes(t)) hits.push({ name: d.name, href: `/${d.url_key}`, count: d.product_count })
+    for (const s of d.children) {
+      if (s.name.toLowerCase().includes(t)) hits.push({ name: s.name, href: `/${d.url_key}?sub=${s.url_key}`, parent: d.name, count: s.product_count })
+    }
+  }
+  return hits.sort((a, b) => (b.count ?? 0) - (a.count ?? 0)).slice(0, limit)
+}
+
+export const departmentOf = (p: Product) => categoryByKey(p.department)

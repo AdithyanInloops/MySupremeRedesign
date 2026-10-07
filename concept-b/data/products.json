@@ -865,7 +865,8 @@
     ],
     "department": "grocery",
     "brand_label": "Spices Gourmet",
-    "manufacturer_label": "Spices Gourmet"
+    "manufacturer_label": "Spices Gourmet",
+    "stock_status": "OUT_OF_STOCK"
   },
   {
     "__typename": "SimpleProduct",
@@ -2295,7 +2296,8 @@
     ],
     "department": "frozen",
     "brand_label": "VEGGIE MAX",
-    "manufacturer_label": "Dairy Max"
+    "manufacturer_label": "Dairy Max",
+    "stock_status": "OUT_OF_STOCK"
   },
   {
     "__typename": "SimpleProduct",

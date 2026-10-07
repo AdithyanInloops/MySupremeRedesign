@@ -1,288 +1,442 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import {
-  Badge, Box, Button, Divider, Drawer, IconButton, InputAdornment, InputBase, List, ListItemButton, ListItemText, Menu, MenuItem, Typography,
-} from '@mui/material'
-import MicIcon from '@mui/icons-material/Mic'
-import SearchIcon from '@mui/icons-material/Search'
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import MenuIcon from '@mui/icons-material/Menu'
-import CloseIcon from '@mui/icons-material/Close'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import { departments, type Category } from '../../lib/data'
+import { Avatar, Badge, Box, Button, Divider, Drawer, IconButton, ListItemIcon, Menu, MenuItem, Tooltip, Typography } from '@mui/material'
+import { departments, money, productByUrlKey, type Category } from '../../lib/data'
 import { useCart } from '../../lib/cart'
+import { useSession } from '../../lib/session'
+import { CUTOFF } from '../../lib/pricing'
+import { colors, focusRing, focusRingInverse, layout, motion, radius, srOnly, z } from '../../lib/theme'
+import CategoryMenu, { CategoryCircle, POPULAR, deptIcons, preloadCategoryImages, tilesFor } from './CategoryMenu'
+import SearchBox from './SearchBox'
+import { useQuickOrder } from '../QuickOrder/QuickOrder'
+import { BoltIcon, CartIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, CloseIcon, GridIcon, HeartIcon, LockIcon, LogOutIcon, MenuIcon, PhoneIcon, StoreIcon, TagIcon, TruckIcon, UserIcon, WhatsAppIcon } from '../ui/icons'
 
-/* ------------------------------------------------------------------ Search box (desktop + mobile) */
+export const PHONE = '+1 365-777-0999'
+export const PHONE_HREF = 'tel:+13657770999'
+export const WHATSAPP_HREF = 'https://wa.me/13657770999'
 
-function SearchBox({ mobile }: { mobile?: boolean }) {
-  const router = useRouter()
-  const [q, setQ] = useState('')
-  const submit = () => q.trim() && router.push(`/search/${encodeURIComponent(q.trim())}`)
+const Logo = ({ height = 48 }: { height?: number | Record<string, number> }) => (
+  <Box component={Link} href="/" aria-label="MySupreme home" sx={{ display: 'inline-flex', flexShrink: 0, borderRadius: radius.sm, ...focusRing }}>
+    <Box component="img" src="/assets/header_logo.svg" alt="MySupreme Cash & Carry" sx={{ height, width: 'auto', display: 'block' }} />
+  </Box>
+)
+
+/** Department the current page belongs to (category page or product page), for "you are here" in the bar. */
+function useActiveDepartment() {
+  const { pathname, query } = useRouter()
+  if (pathname === '/[category]' && typeof query.category === 'string') return query.category
+  if (pathname === '/p/[url]' && typeof query.url === 'string') return productByUrlKey(query.url)?.department
+  return undefined
+}
+
+/* ------------------------------------------------------------------ Utility bar (desktop) */
+
+function UtilityBar() {
+  const link = { color: colors.ink600, textDecoration: 'none', borderRadius: '4px', '&:hover': { color: colors.ink, textDecoration: 'underline' }, ...focusRing } as const
   return (
-    <InputBase
-      value={q}
-      onChange={(e) => setQ(e.target.value)}
-      onKeyDown={(e) => e.key === 'Enter' && submit()}
-      placeholder={mobile ? 'Search...' : 'Search by product or SKU'}
-      inputProps={{ 'aria-label': 'Search by product or SKU' }}
-      endAdornment={
-        <InputAdornment position="end" sx={{ gap: 0.25 }}>
-          <IconButton size="small" aria-label="Search with voice" sx={{ color: 'rgba(0,0,0,.38)' }}>
-            <MicIcon sx={{ fontSize: 20 }} />
-          </IconButton>
-          <IconButton size="small" aria-label="Search with an image" sx={{ color: 'primary.main' }}>
-            <PhotoCameraIcon sx={{ fontSize: 22 }} />
-          </IconButton>
-          <SearchIcon onClick={submit} aria-label="Search" role="button" sx={{ color: 'primary.main', cursor: 'pointer', fontSize: 22 }} />
-        </InputAdornment>
-      }
-      sx={{
-        px: 2, border: '1px solid #E5E7EB', width: '100%', borderRadius: mobile ? '8px' : '10px', height: mobile ? '40px' : '46px',
-        backgroundColor: '#F9FAFB', color: '#374151', fontSize: '14px', transition: 'all 0.2s ease',
-        '&:focus-within': { borderColor: 'primary.main', backgroundColor: '#FFFFFF', boxShadow: '0 0 0 3px rgba(255, 0, 0, 0.08)' },
-      }}
-    />
+    <Box sx={{ display: { xs: 'none', lg: 'block' }, bgcolor: colors.subtle, borderBottom: `1px solid ${colors.line}` }}>
+      <Box sx={{ maxWidth: layout.maxWidth, mx: 'auto', px: layout.gutter, height: 36, display: 'flex', alignItems: 'center', gap: 3, fontSize: 13 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: colors.ink700, minWidth: 0 }}>
+          <TruckIcon sx={{ fontSize: 18, color: colors.redText }} />
+          <Box component="span" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <b>Same-day &amp; next-day delivery</b>
+            <Box component="span" sx={{ display: 'none', '@media (min-width:1300px)': { display: 'inline' } }}> across the GTA, Hamilton &amp; Niagara</Box>
+            {' '}· Order by {CUTOFF} for next-day
+          </Box>
+        </Box>
+        <Box component="nav" aria-label="Help and services" sx={{ ml: 'auto', display: 'flex', alignItems: 'center', gap: 2.5, flexShrink: 0, whiteSpace: 'nowrap' }}>
+          <Box component={Link} href="/become-a-supplier" sx={link}>Become a supplier</Box>
+          <Box component={Link} href="/download-app" sx={link}>Get the app</Box>
+          <Box component={Link} href="/service/contact-us" sx={link}>Help &amp; contact</Box>
+          <Box component="a" href={PHONE_HREF} sx={{ ...link, display: 'inline-flex', alignItems: 'center', gap: 0.5, color: colors.ink, fontWeight: 600 }}>
+            <PhoneIcon sx={{ fontSize: 16 }} /> {PHONE}
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   )
 }
 
-/* ------------------------------------------------------------------ Right-side actions */
+/* ------------------------------------------------------------------ Actions */
 
-const iconLink = {
-  display: 'flex', alignItems: 'center', gap: 0.75, px: 1, py: 0.75, borderRadius: '8px', color: '#0C0C0C', textDecoration: 'none',
-  fontSize: '14px', fontWeight: 500, transition: 'color 0.2s ease', '&:hover': { color: 'primary.main' },
-} as const
+function CartButton({ compact = false }: { compact?: boolean }) {
+  const { count, subtotal, ready } = useCart()
+  const n = ready ? count : 0
+  // Brief pulse on the badge when the count changes, so adding from anywhere visibly lands in the cart.
+  const [pulse, setPulse] = useState(false)
+  const prev = useRef(n)
+  useEffect(() => {
+    if (n > prev.current) {
+      setPulse(true)
+      const t = window.setTimeout(() => setPulse(false), 450)
+      prev.current = n
+      return () => window.clearTimeout(t)
+    }
+    prev.current = n
+  }, [n])
+  return (
+    <Box
+      component={Link}
+      href="/cart"
+      aria-label={n ? `Cart, ${n} items, ${money(subtotal)}` : 'Cart, empty'}
+      sx={{
+        display: 'flex', alignItems: 'center', gap: 1.75, px: compact ? 1 : 1.5, height: 44, borderRadius: radius.md, color: colors.ink, textDecoration: 'none',
+        transition: `background-color ${motion.fast}`, '&:hover': { bgcolor: colors.sunken }, ...focusRing,
+      }}
+    >
+      <Badge
+        badgeContent={n}
+        color="primary"
+        max={999}
+        sx={{ '& .MuiBadge-badge': { transition: `transform ${motion.base}`, transform: pulse ? 'scale(1.25) translate(50%, -50%)' : undefined, border: '2px solid #fff' } }}
+      >
+        <CartIcon sx={{ fontSize: 24 }} />
+      </Badge>
+      {!compact && (
+        <Box sx={{ display: { xs: 'none', lg: 'block' }, lineHeight: 1.15 }}>
+          <Typography sx={{ fontSize: 12, color: colors.ink500 }}>Cart</Typography>
+          <Typography sx={{ fontSize: 14, fontWeight: 600, fontVariantNumeric: 'tabular-nums' }}>{n ? money(subtotal) : '$0.00'}</Typography>
+        </Box>
+      )}
+    </Box>
+  )
+}
 
-function MoreMenu() {
+const initials = (name: string) => name.split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase()
+
+function AccountButton({ compact = false }: { compact?: boolean | 'responsive' }) {
+  const { user, signOut, ready } = useSession()
+  const { notify } = useCart()
+  const quick = useQuickOrder()
+  const router = useRouter()
   const [anchor, setAnchor] = useState<HTMLElement | null>(null)
+  if (!ready || !user) {
+    if (compact === 'responsive') {
+      return (
+        <>
+          <Box sx={{ display: { xs: 'block', lg: 'none' } }}><AccountButton compact /></Box>
+          <Box sx={{ display: { xs: 'none', lg: 'block' } }}><AccountButton /></Box>
+        </>
+      )
+    }
+    return compact ? (
+      <Tooltip title="Sign in">
+        <IconButton component={Link} href="/account/signin" aria-label="Sign in"><UserIcon /></IconButton>
+      </Tooltip>
+    ) : (
+      <Button component={Link} href="/account/signin" variant="outlined" startIcon={<UserIcon />} sx={{ ml: 0.5 }}>
+        Sign in
+      </Button>
+    )
+  }
   return (
     <>
-      <Box component="button" onClick={(e: React.MouseEvent<HTMLElement>) => setAnchor(e.currentTarget)} sx={{ ...iconLink, border: 0, bgcolor: 'transparent', cursor: 'pointer', font: 'inherit' }}>
-        More <KeyboardArrowDownIcon sx={{ fontSize: 18 }} />
+      <Box
+        component="button"
+        onClick={(e: React.MouseEvent<HTMLElement>) => setAnchor(e.currentTarget)}
+        aria-haspopup="menu"
+        aria-expanded={!!anchor}
+        aria-label={`Account: ${user.business}`}
+        sx={{
+          all: 'unset', boxSizing: 'border-box', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 1, height: 44, px: compact ? 0.5 : 1, borderRadius: radius.md,
+          '&:hover': { bgcolor: colors.sunken }, ...focusRing,
+        }}
+      >
+        <Avatar sx={{ width: 32, height: 32, bgcolor: colors.navy, fontSize: 13, fontWeight: 600 }}>{initials(user.business)}</Avatar>
+        {!compact && (
+          <Box sx={{ display: { xs: 'none', lg: 'block' }, lineHeight: 1.15, textAlign: 'left', maxWidth: 140 }}>
+            <Typography sx={{ fontSize: 12, color: colors.ink500 }}>Hello, {user.name.split(' ')[0]}</Typography>
+            <Typography sx={{ fontSize: 14, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.business}</Typography>
+          </Box>
+        )}
+        {!compact && <ChevronDownIcon sx={{ fontSize: 20, color: colors.ink500, display: { xs: 'none', lg: 'block' } }} />}
       </Box>
-      <Menu anchorEl={anchor} open={!!anchor} onClose={() => setAnchor(null)} slotProps={{ paper: { sx: { borderRadius: '10px', mt: 1, minWidth: 220 } } }}>
-        {[['Become a Supplier', '/become-a-supplier'], ['24x7 Customer Care', '/service/contact-us'], ['Download App', '/download-app']].map(([t, href]) => (
-          <MenuItem key={t} component={Link} href={href} onClick={() => setAnchor(null)} sx={{ fontSize: 14 }}>{t}</MenuItem>
-        ))}
+      <Menu anchorEl={anchor} open={!!anchor} onClose={() => setAnchor(null)} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }} slotProps={{ paper: { sx: { minWidth: 260 } } }}>
+        <Box sx={{ px: 1.5, py: 1.25 }}>
+          <Typography sx={{ fontWeight: 600 }}>{user.business}</Typography>
+          <Typography sx={{ fontSize: 13, color: colors.ink500 }}>{user.email}</Typography>
+          <Box sx={{ display: 'inline-flex', mt: 1, fontSize: 12, fontWeight: 600, color: colors.navy, bgcolor: colors.navyTint, px: 1, py: 0.25, borderRadius: radius.pill }}>Business account · {user.terms}</Box>
+        </Box>
+        <Divider sx={{ my: 0.5 }} />
+        <MenuItem onClick={() => { setAnchor(null); quick.open() }}><ListItemIcon><BoltIcon fontSize="small" /></ListItemIcon>Quick order</MenuItem>
+        <MenuItem component={Link} href="/wishlist" onClick={() => setAnchor(null)}><ListItemIcon><HeartIcon fontSize="small" /></ListItemIcon>Favorites</MenuItem>
+        <MenuItem component={Link} href="/cart" onClick={() => setAnchor(null)}><ListItemIcon><CartIcon fontSize="small" /></ListItemIcon>Cart</MenuItem>
+        <Divider sx={{ my: 0.5 }} />
+        <MenuItem onClick={() => { setAnchor(null); signOut(); notify('You’re signed out', 'info'); if (router.pathname.startsWith('/checkout')) router.push('/cart') }}>
+          <ListItemIcon><LogOutIcon fontSize="small" /></ListItemIcon>Sign out
+        </MenuItem>
       </Menu>
     </>
   )
 }
 
-function CartLink({ mobile }: { mobile?: boolean }) {
-  const { count } = useCart()
+function FavoritesLink({ compact = false }: { compact?: boolean }) {
+  const { wishlist, ready } = useCart()
+  const n = ready ? wishlist.length : 0
   return (
-    <Box component={Link} href="/cart" sx={iconLink} aria-label={`Cart, ${count} items`}>
-      <Badge badgeContent={count} color="primary" sx={{ '& .MuiBadge-badge': { fontSize: '10px', height: '16px', minWidth: '16px', px: 0.5 } }}>
-        <ShoppingCartOutlinedIcon sx={{ fontSize: mobile ? 24 : 22 }} />
-      </Badge>
-      {!mobile && 'Cart'}
-    </Box>
+    <Tooltip title={compact ? 'Favorites' : ''}>
+      <Box
+        component={Link}
+        href="/wishlist"
+        aria-label={n ? `Favorites, ${n} saved` : 'Favorites'}
+        sx={{ display: 'flex', alignItems: 'center', gap: 0.75, height: 44, px: compact ? 1.25 : 1.5, borderRadius: radius.md, color: colors.ink, textDecoration: 'none', fontSize: 14.5, fontWeight: 500, '&:hover': { bgcolor: colors.sunken }, ...focusRing }}
+      >
+        <Badge badgeContent={n} color="secondary" sx={{ '& .MuiBadge-badge': { border: '2px solid #fff' } }}><HeartIcon sx={{ fontSize: 23 }} /></Badge>
+        {!compact && <Box component="span" sx={{ display: { xs: 'none', xl: 'inline' } }}>Favorites</Box>}
+      </Box>
+    </Tooltip>
   )
 }
 
-/* ------------------------------------------------------------------ Red category bar + mega menu */
+/* ------------------------------------------------------------------ Red category bar */
 
 function CategoryBar() {
-  const { pathname } = useRouter()
-  const [hover, setHover] = useState<string | null>(null)
-  const item = {
-    minHeight: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 'bold', px: { lg: 0.25, xl: 0.5 }, flexShrink: 1, minWidth: 0,
-    '&:hover': { bgcolor: 'black' },
+  const { pathname, asPath } = useRouter()
+  const current = useActiveDepartment()
+  const [active, setActive] = useState<string | null>(null)
+  const timer = useRef<number | undefined>(undefined)
+  const bar = useRef<HTMLDivElement>(null)
+  useEffect(() => () => window.clearTimeout(timer.current), [])
+  useEffect(() => setActive(null), [asPath])
+  // Small delay so sweeping the mouse across the bar doesn't flash the panel.
+  const hoverOpen = (key: string) => {
+    window.clearTimeout(timer.current)
+    if (active) setActive(key)
+    else timer.current = window.setTimeout(() => setActive(key), 140)
+  }
+  const close = (refocus?: boolean) => {
+    window.clearTimeout(timer.current)
+    const was = active
+    setActive(null)
+    if (refocus && was) bar.current?.querySelector<HTMLElement>(`[data-toggle="${was}"]`)?.focus()
+  }
+  const toggle = (key: string) => (active === key ? close() : setActive(key))
+
+  // Items stay position: static so each panel (rendered right after its toggle, for a logical Tab order) spans the
+  // whole bar. "You are here" = white underline drawn with an inset shadow.
+  const item = (on: boolean) => ({
+    display: 'flex', alignItems: 'center', height: 48, flexShrink: 1, minWidth: 0,
+    bgcolor: on ? colors.redPressed : 'transparent', transition: `background-color ${motion.fast}`, '&:hover': { bgcolor: colors.redHover },
+  }) as const
+  const here = { boxShadow: 'inset 0 -3px 0 #fff' } as const
+  const linkSx = {
+    color: '#fff', textDecoration: 'none', fontWeight: 600, whiteSpace: 'nowrap', display: 'flex', alignItems: 'center', gap: 0.75, height: '100%',
+    fontSize: { lg: 12.5, xl: 14.5 }, pl: { lg: '5px', xl: 1.5 }, pr: 0.25, '@media (min-width:1300px) and (max-width:1499.98px)': { fontSize: 13, pl: 1 }, borderRadius: radius.xs, ...focusRingInverse,
   } as const
-  const btn = {
-    color: '#fff', textTransform: 'none', fontWeight: 'bold', lineHeight: 1.2, whiteSpace: 'nowrap', minWidth: 'auto',
-    fontSize: { xs: '11px', xl: '14px' }, px: { xs: 0.5, lg: 0.8, xl: 1.5 }, '@media (min-width:1300px)': { fontSize: '13px' },
-    '&:hover': { color: '#fff', bgcolor: 'transparent' }, '&.Mui-focusVisible': { outline: '2px solid #fff', outlineOffset: -2 },
-  } as const
-  return (
-    <Box component="nav" aria-label="Departments" sx={{ display: { xs: 'none', lg: 'flex' }, position: 'relative', justifyContent: 'center', alignItems: 'center', height: 48, bgcolor: 'primary.main', color: 'white', px: { lg: 1, xl: 4 } }}>
-      {pathname !== '/' && (
-        <Box sx={item}><Button component={Link} href="/" sx={btn}>Home</Button></Box>
-      )}
-      {departments.map((d) => (
-        <Box key={d.uid} sx={item} onMouseEnter={() => setHover(d.uid)} onMouseLeave={() => setHover(null)}>
-          <Button component={Link} href={`/${d.url_key}`} sx={btn}>{d.name}</Button>
-          {d.children.length > 0 && <KeyboardArrowDownIcon />}
-          {hover === d.uid && d.children.length > 0 && <MegaMenu dept={d} />}
-        </Box>
-      ))}
-      <Box sx={item}>
-        <Button component={Link} href="/flyers-offers" sx={{ ...btn, gap: 0.75 }}>
-          Flyers &amp; Offers
-          <Box component="span" sx={{ bgcolor: '#fff', color: 'primary.main', borderRadius: '40px', px: 0.75, fontSize: '10px', fontWeight: 800, lineHeight: '16px' }}>NEW</Box>
-        </Button>
-      </Box>
+  const chevron = (key: string, name: string) => (
+    <Box
+      component="button"
+      data-toggle={key}
+      onClick={() => toggle(key)}
+      aria-expanded={active === key}
+      aria-controls="category-panel"
+      aria-label={`Show ${name} categories`}
+      sx={{ all: 'unset', cursor: 'pointer', display: 'grid', placeItems: 'center', width: { lg: 22, xl: 26 }, height: 32, color: '#fff', borderRadius: radius.xs, mr: { lg: 0.25, xl: 1 }, '@media (min-width:1300px)': { width: 26, mr: 0.5 }, ...focusRingInverse }}
+    >
+      <ChevronDownIcon sx={{ fontSize: 20, transition: `transform ${motion.fast}`, transform: active === key ? 'rotate(180deg)' : 'none' }} />
     </Box>
   )
-}
 
-function MegaMenu({ dept }: { dept: Category }) {
   return (
     <Box
-      sx={{
-        position: 'absolute', top: 'calc(100% + 2px)', left: 0, width: '100%', maxHeight: '70vh', overflowY: 'auto', bgcolor: '#fff',
-        boxShadow: '0px 12px 30px rgba(0,0,0,0.15)', zIndex: 1200, borderRadius: '0 0 12px 12px',
-      }}
+      ref={bar}
+      onMouseLeave={() => close()}
+      onMouseEnter={preloadCategoryImages}
+      onFocus={preloadCategoryImages}
+      onKeyDown={(e) => { if (e.key === 'Escape' && active) { e.stopPropagation(); close(true) } }}
+      onBlur={(e) => { if (active && !bar.current?.contains(e.relatedTarget as Node)) close() }}
+      sx={{ display: { xs: 'none', lg: 'block' }, position: 'relative', bgcolor: colors.red }}
     >
-      <Box sx={{ columnWidth: '150px', columnGap: '5px', p: '12px 15px 25px' }}>
-        {dept.children.map((sub) => (
-          <Box key={sub.url_key} sx={{ mb: 1, breakInside: 'avoid' }}>
-            <Box component={Link} href={`/${dept.url_key}?sub=${sub.url_key}`} sx={{ textDecoration: 'none', color: 'inherit' }}>
-              <Typography sx={{ fontSize: '14px', fontWeight: 700, p: '4px 6px', borderRadius: '6px', color: '#0C0C0C', wordBreak: 'break-word', '&:hover': { bgcolor: '#F3F4F6' } }}>
-                {sub.name}
-              </Typography>
-            </Box>
-            {!!sub.children?.length && (
-              <Box sx={{ pl: 1, mt: 0.5 }}>
-                {sub.children.map((child) => (
-                  <Box key={child.url_key} component={Link} href={`/${dept.url_key}?sub=${sub.url_key}`} sx={{ textDecoration: 'none', display: 'block' }}>
-                    <Typography sx={{ color: '#4F4F4F', fontSize: '11.5px', p: '0.5px 4px', borderRadius: '4px', '&:hover': { bgcolor: '#F3F4F6', color: '#0C0C0C' } }}>
-                      {child.name}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-            )}
+      <Box component="nav" aria-label="Departments" sx={{ maxWidth: layout.maxWidth, mx: 'auto', px: { lg: 0.5, xl: 3 }, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Box sx={{ ...item(active === POPULAR), bgcolor: active === POPULAR ? colors.redPressed : 'rgba(0,0,0,.12)', mr: { lg: 0.25, xl: 0.5 } }} onMouseEnter={() => hoverOpen(POPULAR)}>
+          <Box
+            component="button"
+            data-toggle={POPULAR}
+            onClick={() => toggle(POPULAR)}
+            aria-expanded={active === POPULAR}
+            aria-controls="category-panel"
+            sx={{ all: 'unset', boxSizing: 'border-box', cursor: 'pointer', ...linkSx, px: { lg: 1, xl: 1.75 } }}
+          >
+            <GridIcon sx={{ fontSize: 19 }} />
+            <Box component="span" aria-hidden sx={{ '@media (min-width:1300px)': { display: 'none' } }}>All</Box>
+            <Box component="span" sx={{ display: 'none', '@media (min-width:1300px)': { display: 'inline' } }}>All categories</Box>
+            <Box component="span" sx={{ ...srOnly, '@media (min-width:1300px)': { display: 'none' } }}> categories</Box>
+          </Box>
+          {active === POPULAR && <CategoryMenu id="category-panel" active={POPULAR} onClose={close} />}
+        </Box>
+        {departments.map((d) => (
+          <Box key={d.uid} sx={{ ...item(active === d.url_key), ...(current === d.url_key ? here : {}) }} onMouseEnter={() => hoverOpen(d.url_key)}>
+            <Box component={Link} href={`/${d.url_key}`} aria-current={current === d.url_key ? 'page' : undefined} sx={linkSx}>{d.name}</Box>
+            {d.children.length > 0 && chevron(d.url_key, d.name)}
+            {active === d.url_key && <CategoryMenu id="category-panel" active={d.url_key} onClose={close} />}
           </Box>
         ))}
+        <Box sx={{ ...item(false), ...(pathname === '/flyers-offers' ? here : {}) }} onMouseEnter={() => close()}>
+          <Box component={Link} href="/flyers-offers" aria-current={pathname === '/flyers-offers' ? 'page' : undefined} sx={{ ...linkSx, pr: { lg: 0.75, xl: 1.5 } }}>
+            Flyers &amp; Offers
+            {/* The NEW pill only where the bar has room for it (≥1500px). */}
+            <Box component="span" sx={{ display: { xs: 'none', xl: 'inline' }, bgcolor: '#fff', color: colors.redText, borderRadius: radius.pill, px: 0.75, fontSize: 10.5, fontWeight: 700, lineHeight: '17px', letterSpacing: '.04em' }}>NEW</Box>
+          </Box>
+        </Box>
       </Box>
     </Box>
   )
 }
 
-/* ------------------------------------------------------------------ Mobile drawer */
+/* ------------------------------------------------------------------ Mobile menu */
 
-function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
+function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [dept, setDept] = useState<Category | null>(null)
-  const router = useRouter()
-  const go = (href: string) => {
-    onClose()
-    setDept(null)
-    router.push(href)
-  }
+  const { user } = useSession()
+  const quick = useQuickOrder()
+  const current = useActiveDepartment()
+  useEffect(() => { if (!open) window.setTimeout(() => setDept(null), 250) }, [open])
+  const row = { display: 'flex', alignItems: 'center', gap: 1.75, minHeight: 52, px: 2, color: colors.ink, textDecoration: 'none', fontSize: 15, fontWeight: 500, width: '100%', '&:hover': { bgcolor: colors.subtle }, ...focusRing } as const
+  const btnReset = { all: 'unset', boxSizing: 'border-box', cursor: 'pointer' } as const
   return (
-    <Drawer open={open} onClose={onClose} PaperProps={{ sx: { width: 'min(85vw, 340px)' } }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, height: 60 }}>
+    <Drawer open={open} onClose={onClose} PaperProps={{ sx: { width: 'min(88vw, 360px)', display: 'flex', flexDirection: 'column' } }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 1.5, height: 60, borderBottom: `1px solid ${colors.line}`, flexShrink: 0 }}>
         {dept ? (
-          <Button startIcon={<ChevronLeftIcon />} onClick={() => setDept(null)} sx={{ color: '#0C0C0C', textTransform: 'none', fontWeight: 600, ml: -1 }}>{dept.name}</Button>
+          <Button startIcon={<ChevronLeftIcon />} onClick={() => setDept(null)} sx={{ color: colors.ink }}>All departments</Button>
         ) : (
-          <Typography sx={{ fontWeight: 700, fontSize: 18 }}>Menu</Typography>
+          <Box sx={{ pl: 0.5 }}><Logo height={38} /></Box>
         )}
         <IconButton aria-label="Close menu" onClick={onClose}><CloseIcon /></IconButton>
       </Box>
-      <Divider />
-      <List disablePadding>
+      <Box sx={{ flex: 1, overflowY: 'auto' }}>
         {!dept ? (
           <>
-            {departments.map((d) => (
-              <ListItemButton key={d.uid} onClick={() => (d.children.length ? setDept(d) : go(`/${d.url_key}`))} sx={{ minHeight: 48 }}>
-                <ListItemText primary={d.name} primaryTypographyProps={{ fontSize: 15, fontWeight: 500 }} />
-                <ChevronRightIcon sx={{ color: '#9CA3AF' }} />
-              </ListItemButton>
+            <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 1, borderBottom: `1px solid ${colors.line}` }}>
+              {user ? (
+                <Typography sx={{ fontSize: 14, color: colors.ink600 }}>Signed in as <b style={{ color: colors.ink }}>{user.business}</b></Typography>
+              ) : (
+                <Button component={Link} href="/account/signin" onClick={onClose} variant="contained" fullWidth startIcon={<UserIcon />}>Sign in or create account</Button>
+              )}
+              <Button variant="outlined" fullWidth startIcon={<BoltIcon />} onClick={() => { onClose(); quick.open() }}>Quick order by SKU</Button>
+            </Box>
+            <Typography sx={{ px: 2, pt: 2, pb: 0.5, fontSize: 12, fontWeight: 600, color: colors.ink500, letterSpacing: '.08em', textTransform: 'uppercase' }}>Departments</Typography>
+            <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
+              {departments.map((d) => {
+                const Icon = deptIcons[d.url_key]
+                return (
+                  <li key={d.uid}>
+                    <Box component="button" onClick={() => setDept(d)} aria-current={current === d.url_key ? 'page' : undefined} sx={{ ...btnReset, ...row, fontWeight: current === d.url_key ? 600 : 500 }}>
+                      {Icon && <Icon sx={{ fontSize: 22, color: current === d.url_key ? colors.redText : colors.ink500 }} />}
+                      <Box sx={{ flex: 1 }}>{d.name}</Box>
+                      <Typography component="span" sx={{ fontSize: 12.5, color: colors.ink500 }}>{d.product_count.toLocaleString()}</Typography>
+                      <ChevronRightIcon sx={{ color: colors.ink400 }} />
+                    </Box>
+                  </li>
+                )
+              })}
+            </Box>
+            <Divider sx={{ my: 1 }} />
+            <Box component={Link} href="/flyers-offers" onClick={onClose} sx={{ ...row, color: colors.redText, fontWeight: 600 }}><TagIcon sx={{ fontSize: 22 }} /> Flyers &amp; Offers</Box>
+            <Box component={Link} href="/all-categories" onClick={onClose} sx={row}><GridIcon sx={{ fontSize: 22, color: colors.ink500 }} /> All categories</Box>
+            <Box component={Link} href="/brands" onClick={onClose} sx={row}><StoreIcon sx={{ fontSize: 22, color: colors.ink500 }} /> Brands</Box>
+            <Box component={Link} href="/wishlist" onClick={onClose} sx={row}><HeartIcon sx={{ fontSize: 22, color: colors.ink500 }} /> Favorites</Box>
+            <Divider sx={{ my: 1 }} />
+            {[['Become a supplier', '/become-a-supplier'], ['Get the app', '/download-app'], ['About us', '/about-us'], ['Help & contact', '/service/contact-us']].map(([t, href]) => (
+              <Box key={href} component={Link} href={href} onClick={onClose} sx={{ ...row, minHeight: 46, fontSize: 14.5, color: colors.ink700 }}>{t}</Box>
             ))}
-            <ListItemButton onClick={() => go('/flyers-offers')} sx={{ minHeight: 48 }}>
-              <ListItemText primary="Flyers & Offers" primaryTypographyProps={{ fontSize: 15, fontWeight: 600, color: 'primary.main' }} />
-              <ChevronRightIcon sx={{ color: '#9CA3AF' }} />
-            </ListItemButton>
           </>
         ) : (
           <>
-            <ListItemButton onClick={() => go(`/${dept.url_key}`)} sx={{ minHeight: 48 }}>
-              <ListItemText primary={`All ${dept.name}`} primaryTypographyProps={{ fontSize: 15, fontWeight: 700, color: 'primary.main' }} />
-            </ListItemButton>
-            {dept.children.map((s) => (
-              <ListItemButton key={s.url_key} onClick={() => go(`/${dept.url_key}?sub=${s.url_key}`)} sx={{ minHeight: 48 }}>
-                <ListItemText primary={s.name} primaryTypographyProps={{ fontSize: 15 }} />
-                <ChevronRightIcon sx={{ color: '#9CA3AF' }} />
-              </ListItemButton>
-            ))}
+            <Box sx={{ px: 2, pt: 2 }}>
+              <Typography variant="h3" component="p">{dept.name}</Typography>
+              <Typography sx={{ fontSize: 13, color: colors.ink500 }}>{dept.product_count.toLocaleString()} products</Typography>
+              <Button component={Link} href={`/${dept.url_key}`} onClick={onClose} variant="outlined" color="primary" fullWidth sx={{ mt: 1.5 }} endIcon={<ChevronRightIcon />}>Shop all {dept.name}</Button>
+            </Box>
+            <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', gap: 0.5, px: 1, py: 1.5 }}>
+              {tilesFor(dept).map((t) => <CategoryCircle key={t.href} tile={t} size={72} onNavigate={onClose} />)}
+            </Box>
           </>
         )}
-      </List>
+      </Box>
+      <Box sx={{ borderTop: `1px solid ${colors.line}`, p: 2, bgcolor: colors.subtle, flexShrink: 0 }}>
+        <Typography sx={{ fontSize: 13, color: colors.ink600, mb: 1 }}>Questions? Mon–Sat 9am–6pm</Typography>
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          <Button component="a" href={PHONE_HREF} variant="outlined" size="small" startIcon={<PhoneIcon />} sx={{ flex: 1 }}>Call</Button>
+          <Button component="a" href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" variant="outlined" size="small" startIcon={<WhatsAppIcon />} sx={{ flex: 1 }}>WhatsApp</Button>
+        </Box>
+      </Box>
     </Drawer>
   )
 }
 
 /* ------------------------------------------------------------------ Header */
 
-/**
- * `categoryBar` mirrors the live pages that pass `menuItems` (cart, brands, about, contact don't).
- * `minimal` is the logo-only header the live sign-in page uses.
- */
-export default function Header({ categoryBar = true, minimal = false }: { categoryBar?: boolean; minimal?: boolean }) {
-  const [drawer, setDrawer] = useState(false)
-  if (minimal) {
-    return (
-      <Box component="header" sx={{ bgcolor: 'white', display: 'flex', alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' }, height: { xs: 72, md: 88 }, px: { md: 3, lg: '40px' } }}>
-        <Link href="/" aria-label="MySupreme home">
-          <Box component="img" src="/assets/header_logo.svg" alt="MySupreme Cash & Carry" sx={{ height: { xs: '50px', md: '65px' }, width: 'auto', display: 'block' }} />
-        </Link>
-      </Box>
-    )
-  }
+/** Logo-only header for focused flows (sign in, checkout): fewer exits, one clear way back. */
+export function FocusedHeader({ variant }: { variant: 'signin' | 'checkout' }) {
   return (
-    <Box component="header" sx={{ position: 'sticky', top: 0, zIndex: 1100, bgcolor: 'white' }}>
-      {/* Desktop row (≥800 like the real site; category bar only ≥1100) */}
-      <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', height: 88, px: { md: 3, lg: '40px' }, justifyContent: 'space-between' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', mr: { md: 2, lg: 4 } }}>
-          <IconButton aria-label="Open menu" onClick={() => setDrawer(true)} sx={{ display: { md: 'inline-flex', lg: 'none' }, mr: 1, color: 'primary.main' }}>
-            <MenuIcon sx={{ fontSize: 32 }} />
-          </IconButton>
-          <Link href="/" aria-label="MySupreme home">
-            <Box component="img" src="/assets/header_logo.svg" alt="MySupreme Cash & Carry" sx={{ height: '65px', width: 'auto', display: 'block' }} />
-          </Link>
-        </Box>
-        <Box sx={{ display: 'flex', flexGrow: 1, justifyContent: { md: 'center', lg: 'flex-start' }, ml: { lg: 2 }, px: { lg: 1 } }}>
-          <Box sx={{ width: '100%', maxWidth: { md: '450px', lg: '560px', xl: '680px' } }}>
-            <SearchBox />
+    <Box component="header" sx={{ bgcolor: '#fff', borderBottom: `1px solid ${colors.line}` }}>
+      <Box sx={{ maxWidth: layout.maxWidth, mx: 'auto', px: layout.gutter, height: { xs: 60, md: 72 }, display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Logo height={{ xs: 38, md: 46 }} />
+        {variant === 'checkout' && (
+          <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: 0.75, color: colors.ink600, fontSize: 14, pl: 2, borderLeft: `1px solid ${colors.line}` }}>
+            <LockIcon sx={{ fontSize: 18, color: colors.success }} /> Secure checkout
           </Box>
-        </Box>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: { md: 0.5, lg: 1.5 }, ml: 2 }}>
-          <Box sx={{ display: { md: 'none', lg: 'flex' } }}><MoreMenu /></Box>
-          <Box component={Link} href="/wishlist" sx={iconLink}>
-            <FavoriteBorderOutlinedIcon sx={{ fontSize: 21 }} /> <Box component="span" sx={{ display: { md: 'none', lg: 'inline' } }}>Favorites</Box>
+        )}
+        <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Box component="a" href={PHONE_HREF} sx={{ display: { xs: 'none', md: 'inline-flex' }, alignItems: 'center', gap: 0.75, color: colors.ink700, fontSize: 14, textDecoration: 'none', mr: 1, borderRadius: '4px', ...focusRing }}>
+            <PhoneIcon sx={{ fontSize: 18 }} /> Need help? <b>{PHONE}</b>
           </Box>
-          <CartLink />
-          <Button
-            component={Link}
-            href="/account/signin"
-            variant="contained"
-            disableElevation
-            sx={{ height: '38px', borderRadius: '50px', px: 2.5, textTransform: 'none', fontSize: '14px', fontWeight: 600, ml: 1, bgcolor: 'primary.main', '&:hover': { bgcolor: '#e60000' } }}
-          >
-            Login
-          </Button>
+          {variant === 'checkout' ? (
+            <Button component={Link} href="/cart" startIcon={<ChevronLeftIcon />}>Back to cart</Button>
+          ) : (
+            <Button component={Link} href="/" startIcon={<ChevronLeftIcon />}>Continue shopping</Button>
+          )}
         </Box>
       </Box>
-
-      {/* Mobile row (<800) */}
-      <Box sx={{ display: { xs: 'block', md: 'none' }, pt: 1.5, pb: 1, px: '15px' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <IconButton aria-label="Open menu" onClick={() => setDrawer(true)} sx={{ color: 'primary.main', ml: -1 }}>
-              <MenuIcon sx={{ fontSize: 34 }} />
-            </IconButton>
-            <Link href="/" aria-label="MySupreme home">
-              <Box component="img" src="/assets/header_logo.svg" alt="MySupreme Cash & Carry" sx={{ height: '42px', width: 'auto', display: 'block' }} />
-            </Link>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Box component={Link} href="/wishlist" sx={iconLink} aria-label="Favorites"><FavoriteBorderOutlinedIcon sx={{ fontSize: 24 }} /></Box>
-            <CartLink mobile />
-            <Box component={Link} href="/account/signin" sx={iconLink} aria-label="Account"><AccountCircleIcon sx={{ fontSize: 26 }} /></Box>
-          </Box>
-        </Box>
-        <Box sx={{ mt: 1 }}><SearchBox mobile /></Box>
-      </Box>
-
-      {categoryBar && <CategoryBar />}
-      <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
     </Box>
+  )
+}
+
+export default function Header() {
+  const [drawer, setDrawer] = useState(false)
+  const quick = useQuickOrder()
+  return (
+    <>
+      <UtilityBar />
+      <Box component="header" sx={{ position: 'sticky', top: 0, zIndex: z.header, bgcolor: '#fff', boxShadow: `0 1px 0 ${colors.line}` }}>
+        {/* Tablet + desktop row */}
+        <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: { md: 1.5, lg: 3 }, maxWidth: layout.maxWidth, mx: 'auto', px: layout.gutter, height: 76 }}>
+          <IconButton aria-label="Open menu" onClick={() => setDrawer(true)} sx={{ display: { md: 'inline-flex', lg: 'none' }, ml: -1 }}><MenuIcon /></IconButton>
+          <Logo height={50} />
+          <Box sx={{ flex: 1, minWidth: 0, maxWidth: 760, mx: 'auto' }}><SearchBox /></Box>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: { md: 0, lg: 0.5 } }}>
+            <Tooltip title="Order by SKU or paste a list">
+              <Button onClick={() => quick.open()} startIcon={<BoltIcon sx={{ color: colors.redText }} />} sx={{ display: { md: 'none', lg: 'inline-flex' }, color: colors.ink }}>
+                Quick order
+              </Button>
+            </Tooltip>
+            <Tooltip title="Quick order">
+              <IconButton aria-label="Quick order" onClick={() => quick.open()} sx={{ display: { md: 'inline-flex', lg: 'none' } }}><BoltIcon sx={{ color: colors.redText }} /></IconButton>
+            </Tooltip>
+            <FavoritesLink />
+            <AccountButton compact="responsive" />
+            <CartButton />
+          </Box>
+        </Box>
+
+        {/* Phone rows */}
+        <Box sx={{ display: { xs: 'block', md: 'none' }, px: 1.5, pt: 0.75, pb: 1.25 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.75 }}>
+            <IconButton aria-label="Open menu" onClick={() => setDrawer(true)} sx={{ ml: -0.5 }}><MenuIcon /></IconButton>
+            <Logo height={38} />
+            <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
+              <IconButton aria-label="Quick order" onClick={() => quick.open()}><BoltIcon sx={{ color: colors.redText }} /></IconButton>
+              <AccountButton compact />
+              <CartButton compact />
+            </Box>
+          </Box>
+          <SearchBox />
+        </Box>
+
+        <CategoryBar />
+      </Box>
+      <MobileMenu open={drawer} onClose={() => setDrawer(false)} />
+    </>
   )
 }

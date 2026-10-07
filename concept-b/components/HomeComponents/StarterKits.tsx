@@ -1,18 +1,18 @@
 import Link from 'next/link'
 import { Box, Button, Typography } from '@mui/material'
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined'
-import { finalPrice, money, packSize, type Product } from '../../lib/data'
+import { finalPrice, money, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
-import { ProductImage } from '../Product/ProductCard'
+import { colors, focusRing, motion, radius, shadow } from '../../lib/theme'
+import ProductImage from '../ui/ProductImage'
+import { PackChip } from '../ui/ProductMeta'
+import Section from '../ui/Section'
+import { CartPlusIcon } from '../ui/icons'
 
 /*
- * CONCEPT B — NEW SECTION #6 "Ready-to-order kits".
- * NEW FEATURE: needs curated bundles (kit id, name, blurb, items {sku, qty}) — prototype data in data/kits.json.
- * Product name, image, pack size and price are existing fields; "Add kit" maps to one addProductsToCart call.
+ * Ready-to-order kits.
+ * NEW FEATURE: curated bundles (kit id, name, blurb, items {sku, qty}) — prototype data in data/kits.json.
+ * Name, image, pack size and price are existing product fields; "Add kit" maps to one addProductsToCart call.
  */
-
-const RED_AA = '#D50000'
 
 export type Kit = { id: string; name: string; blurb: string; items: { sku: string; qty: number }[] }
 
@@ -25,63 +25,35 @@ function KitCard({ kit, products }: { kit: Kit; products: Product[] }) {
   const units = lines.reduce((a, l) => a + l.qty, 0)
 
   return (
-    <Box
-      component="article"
-      aria-label={`${kit.name} kit, ${lines.length} products, ${money(total)}`}
-      sx={{ height: '100%', bgcolor: '#fff', border: '1px solid #E5E7EB', borderRadius: '12px', p: { xs: 2, md: 2.25 }, display: 'flex', flexDirection: 'column', gap: 1.5 }}
-    >
-      {/* Stacked thumbnails */}
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }} aria-hidden>
-        <Box sx={{ display: 'flex', minWidth: 0 }}>
-        {lines.map((l, i) => (
-          <Box key={l.sku} sx={{ width: 56, flexShrink: 0, ml: i ? '-12px' : 0, bgcolor: '#fff', border: '2px solid #fff', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 1px 4px rgba(0,0,0,.12)', zIndex: lines.length - i }}>
-            <ProductImage product={l.product} size={10} />
+    <Box component="article" aria-labelledby={`kit-${kit.id}`} sx={{ height: '100%', bgcolor: '#fff', border: `1px solid ${colors.line}`, borderRadius: radius.lg, p: 2, display: 'flex', flexDirection: 'column', gap: 1.5, transition: `box-shadow ${motion.base}`, '&:hover': { boxShadow: shadow.md } }}>
+      <Box sx={{ display: 'flex' }} aria-hidden>
+        {lines.slice(0, 5).map((l, i) => (
+          <Box key={l.sku} sx={{ width: 52, flexShrink: 0, ml: i ? '-10px' : 0, bgcolor: '#fff', border: '2px solid #fff', borderRadius: radius.md, overflow: 'hidden', boxShadow: shadow.sm, zIndex: lines.length - i }}>
+            <ProductImage product={l.product} caption={false} alt="" />
           </Box>
         ))}
-        </Box>
-        <Box sx={{ ml: 'auto', flexShrink: 0, whiteSpace: 'nowrap', display: 'inline-flex', alignItems: 'center', gap: 0.5, fontSize: 12, color: '#4B5563', bgcolor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '40px', px: 1, height: 26 }}>
-          <Inventory2OutlinedIcon sx={{ fontSize: 14 }} /> {lines.length} products
-        </Box>
       </Box>
-
       <Box>
-        <Typography component="h3" sx={{ fontSize: { xs: 16, md: 17 }, fontWeight: 600, color: '#0C0C0C' }}>{kit.name}</Typography>
-        <Typography sx={{ fontSize: 13, color: '#4B5563', lineHeight: 1.45 }}>{kit.blurb}</Typography>
+        <Typography id={`kit-${kit.id}`} component="h3" sx={{ fontSize: 16.5, fontWeight: 600 }}>{kit.name}</Typography>
+        <Typography sx={{ fontSize: 13.5, color: colors.ink600, lineHeight: 1.45 }}>{kit.blurb}</Typography>
       </Box>
-
-      <Box component="ul" sx={{ listStyle: 'none', m: 0, p: 0, display: 'flex', flexDirection: 'column', gap: 0.75, borderTop: '1px dashed #E5E7EB', pt: 1.25 }}>
+      <Box component="ul" aria-label={`${kit.name} contents`} sx={{ listStyle: 'none', m: 0, p: 0, display: 'flex', flexDirection: 'column', gap: 0.75, borderTop: `1px solid ${colors.line}`, pt: 1.5 }}>
         {lines.map((l) => (
           <Box component="li" key={l.sku} sx={{ display: 'flex', alignItems: 'center', gap: 1, minWidth: 0 }}>
-            <Typography sx={{ fontSize: 12.5, fontWeight: 600, color: '#0C0C0C', flexShrink: 0, minWidth: 26 }}>{l.qty} ×</Typography>
-            <Box component={Link} href={`/p/${l.product.url_key}`} title={l.product.name}
-              sx={{ fontSize: 12.5, color: '#374151', textDecoration: 'none', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0, flex: 1, '&:hover': { color: RED_AA }, '&:focus-visible': { outline: `3px solid ${RED_AA}`, outlineOffset: 1 } }}>
+            <Typography sx={{ fontSize: 13, fontWeight: 600, flexShrink: 0, minWidth: 28, fontVariantNumeric: 'tabular-nums' }}>{l.qty}×</Typography>
+            <Box component={Link} href={`/p/${l.product.url_key}`} title={l.product.name} sx={{ fontSize: 13, color: colors.ink700, textDecoration: 'none', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0, flex: 1, borderRadius: '4px', '&:hover': { color: colors.redText, textDecoration: 'underline' }, ...focusRing }}>
               {l.product.name}
             </Box>
-            {packSize(l.product) && (
-              <Box component="span" sx={{ flexShrink: 0, maxWidth: { xs: 68, md: 96 }, fontSize: '10.5px', color: '#555', bgcolor: '#F5F5F5', border: '1px solid #EAEAEA', borderRadius: '4px', p: '1px 5px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                {packSize(l.product)}
-              </Box>
-            )}
+            <Box sx={{ flexShrink: 0, maxWidth: { xs: 80, md: 100 } }}><PackChip product={l.product} /></Box>
           </Box>
         ))}
       </Box>
-
       <Box sx={{ mt: 'auto', display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 1 }}>
-        <Typography sx={{ fontSize: 12.5, color: '#4B5563' }}>Kit total · {units} units</Typography>
-        <Typography sx={{ fontSize: 20, fontWeight: 700, color: '#0C0C0C' }}>{money(total)}</Typography>
+        <Typography sx={{ fontSize: 13, color: colors.ink600 }}>{lines.length} products · {units} units</Typography>
+        <Typography sx={{ fontSize: 20, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{money(total)}</Typography>
       </Box>
-      <Button
-        fullWidth
-        disableElevation
-        variant="contained"
-        startIcon={<AddShoppingCartIcon />}
-        onClick={() => addMany(lines.map(({ sku, qty }) => ({ sku, qty })), `${kit.name} added to cart`)}
-        sx={{
-          height: 44, borderRadius: '6px', bgcolor: RED_AA, textTransform: 'none', fontWeight: 600, fontSize: 14,
-          '&:hover': { bgcolor: '#B00000' }, '&.Mui-focusVisible': { outline: `3px solid ${RED_AA}`, outlineOffset: 2 },
-        }}
-      >
-        Add kit to cart ({units} items)
+      <Button fullWidth variant="contained" startIcon={<CartPlusIcon />} onClick={() => addMany(lines.map(({ sku, qty }) => ({ sku, qty })), `${kit.name} kit added to cart`)}>
+        Add kit · {units} items
       </Button>
     </Box>
   )
@@ -89,21 +61,10 @@ function KitCard({ kit, products }: { kit: Kit; products: Product[] }) {
 
 export default function StarterKits({ kits, products }: { kits: Kit[]; products: Product[] }) {
   return (
-    <Box component="section" aria-labelledby="starter-kits" sx={{ mx: '12px', my: { xs: 2, md: 3 }, p: { xs: 2, md: 3 }, bgcolor: '#FFF5F4', borderRadius: '12px' }}>
-      <Typography sx={{ fontSize: 12, fontWeight: 600, letterSpacing: '.12em', color: '#FF0000', textTransform: 'uppercase' }}>Ready-to-order kits</Typography>
-      <Typography id="starter-kits" component="h2" sx={{ fontSize: { xs: 18, md: 26 }, fontWeight: 500, color: '#0C0C0C' }}>Stock up in one tap</Typography>
-      <Typography sx={{ fontSize: { xs: 13, md: 14 }, color: '#4B5563', mb: 2 }}>Curated bundles of what kitchens reorder together — edit quantities in the cart.</Typography>
-      <Box
-        sx={{
-          display: 'grid', gap: { xs: 1.5, md: 2 },
-          gridAutoFlow: { xs: 'column', md: 'row' }, gridAutoColumns: { xs: '84%', sm: '58%' },
-          gridTemplateColumns: { md: 'repeat(2, minmax(0,1fr))', xl: 'repeat(4, minmax(0,1fr))' },
-          overflowX: { xs: 'auto', md: 'visible' }, scrollSnapType: { xs: 'x mandatory', md: 'none' }, pb: { xs: 1, md: 0 },
-          '& > *': { scrollSnapAlign: 'start' },
-        }}
-      >
-        {kits.map((k) => <KitCard key={k.id} kit={k} products={products} />)}
+    <Section id="kits" eyebrow="Ready-to-order kits" title="Stock up in one tap" subtitle="Bundles of what kitchens reorder together — adjust quantities in your cart">
+      <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0, display: 'grid', gap: { xs: 1.5, md: 2 }, gridTemplateColumns: { xs: 'minmax(0,1fr)', sm: 'repeat(2, minmax(0,1fr))', xl: 'repeat(4, minmax(0,1fr))' } }}>
+        {kits.map((k) => <li key={k.id}><KitCard kit={k} products={products} /></li>)}
       </Box>
-    </Box>
+    </Section>
   )
 }

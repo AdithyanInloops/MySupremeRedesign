@@ -1,51 +1,35 @@
 import { useEffect, useState } from 'react'
-import { Box, Button, Typography } from '@mui/material'
-import ProductCard from '../Product/ProductCard'
+import { Box, Button } from '@mui/material'
 import { productBySku, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
+import Section from '../ui/Section'
+import ProductCard from '../Product/ProductCard'
+import { Rail } from '../Product/ProductRail'
+import { HistoryIcon } from '../ui/icons'
 
 /**
- * Concept B #7 — "Pick up where you left off": the buyer's recently viewed products (front-end history,
- * existing product data only). First visit: shows `fallback` products so the section is never empty.
+ * "Pick up where you left off": the buyer's recently viewed products as compact cards with an in-place cart control.
+ * Shown only when there is history — first-time visitors aren't shown a block of guesses.
+ * Production: GraphCommerce recently-viewed store (signed-in: last order lines).
  */
-export default function RecentlyViewed({ fallback }: { fallback: Product[] }) {
-  const { recentlyViewed, clearViewed } = useCart()
+export default function RecentlyViewed() {
+  const { recentlyViewed, clearViewed, ready } = useCart()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
-  if (!mounted) return null
-
-  const viewed = (recentlyViewed.map((s) => productBySku(s)).filter(Boolean) as Product[])
-  const hasHistory = viewed.length > 0
-  const items = hasHistory ? viewed : fallback
-  if (!items.length) return null
-
+  const viewed = recentlyViewed.map((s) => productBySku(s)).filter(Boolean) as Product[]
+  if (!mounted || !ready || !viewed.length) return null
   return (
-    <Box component="section" aria-labelledby="recently-viewed-title" sx={{ px: '12px', py: { xs: 2, md: 3 } }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2, gap: 2 }}>
-        <Box sx={{ minWidth: 0 }}>
-          <Typography id="recently-viewed-title" component="h2" sx={{ fontSize: { xs: 18, md: 26 }, fontWeight: 500, color: '#0C0C0C' }}>
-            {hasHistory ? 'Pick up where you left off' : 'Popular with kitchens like yours'}
-          </Typography>
-          <Typography sx={{ fontSize: { xs: 12, md: 14 }, color: '#6B7280' }}>
-            {hasHistory ? `${viewed.length} product${viewed.length === 1 ? '' : 's'} you viewed recently` : 'Products you view will appear here for quick reordering'}
-          </Typography>
-        </Box>
-        {hasHistory && (
-          <Button
-            onClick={clearViewed}
-            sx={{ color: '#4B5563', textTransform: 'none', fontWeight: 500, flexShrink: 0, '&.Mui-focusVisible': { outline: '3px solid #2d297d' } }}
-          >
-            Clear
-          </Button>
-        )}
-      </Box>
-      <Box sx={{ display: 'flex', gap: { xs: 1.5, md: 2 }, overflowX: 'auto', pb: 1, scrollSnapType: 'x mandatory', '&::-webkit-scrollbar': { height: 6 }, '&::-webkit-scrollbar-thumb': { bgcolor: '#E5E7EB', borderRadius: 3 } }}>
-        {items.slice(0, 12).map((p) => (
-          <Box key={p.sku} sx={{ flex: '0 0 auto', width: { xs: 175, sm: 200, md: 220, lg: 237 }, scrollSnapAlign: 'start' }}>
-            <ProductCard product={p} />
-          </Box>
-        ))}
-      </Box>
-    </Box>
+    <Section
+      id="recently-viewed"
+      band="subtle"
+      eyebrow="Welcome back"
+      title="Pick up where you left off"
+      subtitle={`${viewed.length} product${viewed.length === 1 ? '' : 's'} you looked at recently`}
+      extra={<Button onClick={clearViewed} startIcon={<HistoryIcon />} sx={{ color: 'text.secondary' }}>Clear history</Button>}
+    >
+      <Rail label="Recently viewed products" itemWidth={{ xs: '86%', sm: '58%', md: '40%', lg: '31.5%', xl: '24%' }}>
+        {viewed.map((p) => <Box role="listitem" key={p.sku}><ProductCard product={p} variant="compact" /></Box>)}
+      </Rail>
+    </Section>
   )
 }

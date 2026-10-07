@@ -1,8 +1,16 @@
 {
   "_note": "NEW FEATURE — prototype data. Production needs an offer entity in Magento (deal type, sku, offer price, valid from/to, warehouses). Prices are dummy.",
   "offers": [
-    { "id": "o1", "deal_type": "Weekly Hot Pick", "sku": "RM", "offer_price": 38.99, "valid_from": "2026-10-06", "valid_to": "2026-10-12", "note": "While stock lasts" },
-    { "id": "o2", "deal_type": "Bulk Saver", "sku": "PLT00150", "offer_price": 42.49, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "Buy 5+ bags" },
-    { "id": "o3", "deal_type": "Monthly Flyer", "sku": "CS0156", "offer_price": 16.99, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "October flyer" }
+    { "id": "o1", "deal_type": "Weekly Hot Pick", "sku": "RM", "offer_price": 38.99, "valid_from": "2026-10-06", "valid_to": "2026-10-12", "note": "While stock lasts", "warehouses": ["mississauga", "hamilton", "niagara"] },
+    { "id": "o2", "deal_type": "Bulk Saver", "sku": "PLT00150", "offer_price": 42.49, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "Buy 5+ bags", "warehouses": ["mississauga", "hamilton", "niagara"] },
+    { "id": "o3", "deal_type": "Monthly Flyer", "sku": "CS0156", "offer_price": 16.99, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "October flyer", "warehouses": ["mississauga", "hamilton", "niagara"] },
+    { "id": "o4", "deal_type": "Weekly Hot Pick", "sku": "VGT00027", "offer_price": 12.49, "valid_from": "2026-10-06", "valid_to": "2026-10-12", "note": "Limit 10 per order", "warehouses": ["mississauga", "hamilton"] },
+    { "id": "o5", "deal_type": "Weekly Hot Pick", "sku": "FP0020", "offer_price": 46.99, "valid_from": "2026-10-06", "valid_to": "2026-10-12", "note": "This week only", "warehouses": ["mississauga", "niagara"] },
+    { "id": "o6", "deal_type": "Bulk Saver", "sku": "HD0031", "offer_price": 31.99, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "Buy 4+ for this price", "warehouses": ["mississauga", "hamilton", "niagara"] },
+    { "id": "o7", "deal_type": "Bulk Saver", "sku": "CS0158", "offer_price": 9.99, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "Buy 6+ bottles", "warehouses": ["hamilton", "niagara"] },
+    { "id": "o8", "deal_type": "Monthly Flyer", "sku": "CH0043", "offer_price": 36.99, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "October flyer", "warehouses": ["mississauga", "niagara"] },
+    { "id": "o9", "deal_type": "Monthly Flyer", "sku": "SUP099", "offer_price": 31.49, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "October flyer", "warehouses": ["mississauga", "hamilton", "niagara"] },
+    { "id": "o10", "deal_type": "Monthly Flyer", "sku": "PC00031", "offer_price": 54.99, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "October flyer", "warehouses": ["mississauga", "hamilton"] },
+    { "id": "o11", "deal_type": "Restaurant Bundle", "sku": "59620000008478349", "offer_price": 7.49, "valid_from": "2026-10-01", "valid_to": "2026-10-31", "note": "With any 2 Monin syrups", "warehouses": ["mississauga", "hamilton", "niagara"] }
   ]
 }

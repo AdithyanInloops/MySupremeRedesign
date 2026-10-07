@@ -1,1108 +1,244 @@
+import { useRef, useState } from 'react'
 import Head from 'next/head'
-import { useCart } from '../../lib/cart'
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Container,
-  Grid,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  useTheme,
-  Card,
-  CardContent,
-  Alert,
-  CircularProgress,
-  FormHelperText,
-} from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import PhoneIcon from '@mui/icons-material/Phone'
-import EmailIcon from '@mui/icons-material/Email'
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
-import RestaurantIcon from '@mui/icons-material/Restaurant'
-import LocalCafeIcon from '@mui/icons-material/LocalCafe'
-import BakeryDiningIcon from '@mui/icons-material/BakeryDining'
-import LocalShippingIcon from '@mui/icons-material/LocalShipping'
-import HotelIcon from '@mui/icons-material/Hotel'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import SendOutlinedIcon from '@mui/icons-material/SendOutlined'
-import SoupKitchenIcon from '@mui/icons-material/SoupKitchen'
-import LocalOfferIcon from '@mui/icons-material/LocalOffer'
-import SupportAgentIcon from '@mui/icons-material/SupportAgent'
-import VerifiedIcon from '@mui/icons-material/Verified'
-import AssignmentIcon from '@mui/icons-material/Assignment'
-import React, { useState } from 'react'
+import Link from 'next/link'
+import { Box, Button, Checkbox, CircularProgress, FormControlLabel, MenuItem, Typography } from '@mui/material'
+import { departments } from '../../lib/data'
+import { emailError, phoneError } from '../../lib/validate'
+import { colors, focusRing, layout, radius, shadow } from '../../lib/theme'
+import PageHeader from '../../components/ui/PageHeader'
+import Section, { PageContainer } from '../../components/ui/Section'
+import Field from '../../components/ui/Field'
+import HomeFAQ, { type Faq } from '../../components/HomeComponents/HomeFAQ'
+import { PHONE, PHONE_HREF, WHATSAPP_HREF } from '../../components/Layout/Header'
+import { type IconComponent, AlertCircleIcon, CheckCircleIcon, ClockIcon, DirectionsIcon, MailIcon, MapIcon, MapPinIcon, PhoneIcon, WhatsAppIcon } from '../../components/ui/icons'
 
-type Props = Record<string, unknown>
-type RouteProps = { url: string[] }
+/*
+ * Contact — the ways to reach us first (call, WhatsApp, email, visit), then the "Request pricing & supply
+ * solutions" form from the live page with the same fields, regrouped, with inline validation and a clear success
+ * state. Submit is simulated (live: /api/contactus-info).
+ */
 
-const primaryRed = '#FF0004'
+const MAPS = 'https://www.google.com/maps/search/?api=1&query=3750A+Laird+Road+Unit+9+Mississauga+ON'
 
-// Figma Heading Style
-const figmaHeadingSx = {
-  fontFamily: 'Poppins, sans-serif',
-  fontWeight: 600,
-  fontSize: { xs: '32px', md: '48px' },
-  lineHeight: { xs: '40px', md: '56px' },
-  letterSpacing: '0px',
-  color: '#000000',
-}
-
-const faqs = [
-  { q: 'Do you offer delivery or pickup?', a: 'We offer both Cash & Carry pickup and delivery services' },
-  { q: 'What is the minimum order for delivery?', a: 'Minimums vary based on location and order type' },
-  { q: 'Do I need a business account?', a: 'Yes, we primarily serve registered foodservice businesses' },
-  { q: 'How fast is delivery?', a: 'Same day or next day delivery options are available.' },
+const methods: { icon: IconComponent; title: string; value: string; note: string; href: string; external?: boolean }[] = [
+  { icon: PhoneIcon, title: 'Call sales & support', value: PHONE, note: 'Mon–Sat, 9am–6pm', href: PHONE_HREF },
+  { icon: WhatsAppIcon, title: 'WhatsApp', value: 'Message us', note: 'Photos of labels welcome', href: WHATSAPP_HREF, external: true },
+  { icon: MailIcon, title: 'Email', value: 'sales@mysupreme.ca', note: 'We reply within 1 business day', href: 'mailto:sales@mysupreme.ca' },
+  { icon: MapPinIcon, title: 'Visit the warehouse', value: '3750A Laird Rd, Unit 9', note: 'Mississauga · Get directions', href: MAPS, external: true },
 ]
 
-// Ported from the live pages/service/contact-us.tsx; the submit is simulated.
-function ContactUs(props: Props) {
-  const title = 'Contact us'
-  const { notify } = useCart()
-  const [expanded, setExpanded] = useState<string | false>(false)
-  const theme = useTheme()
+const SPEND = [['under1k', 'Under $1K'], ['1k-5k', '$1K – $5K'], ['5k-15k', '$5K – $15K'], ['15k-30k', '$15K – $30K'], ['30k-60k', '$30K – $60K'], ['60k-100k', '$60K – $100K']]
+const REQUIREMENT = [['regular', 'Regular supply partnership'], ['bulk', 'Bulk purchasing'], ['urgent', 'Urgent restocking'], ['one-time', 'One-time purchase']]
+const SERVICES = ['Cash & Carry pickup', 'Delivery service', 'Online ordering (mysupreme.ca)', 'Dedicated sales representative']
 
-  const [formData, setFormData] = useState({
-    business_name: '',
-    contact_person: '',
-    phone_number: '',
-    email_address: '',
-    business_type: '',
-    location: '',
-    monthly_spend: '',
-    requirement_type: '',
-    service_interest: [] as string[],
-    product_categories: '',
-    message: ''
-  })
-  const [formErrors, setFormErrors] = useState<Partial<Record<keyof typeof formData, string>>>({})
-  const [loading, setLoading] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: '' })
+const faqs: Faq[] = [
+  { q: 'Do you offer delivery or pickup?', a: 'Both. Pick up at our Mississauga cash & carry, or get same-day or next-day delivery across the GTA, Hamilton and Niagara.' },
+  { q: 'What is the minimum order for delivery?', a: 'Delivery is available on orders of $350 or more. Smaller orders can be picked up at the warehouse.' },
+  { q: 'Do I need a business account?', a: 'We mainly serve registered foodservice businesses. A free business account gives you customer-group pricing and credit terms.' },
+  { q: 'How fast is delivery?', a: 'Orders placed by 2 PM go out on the next route day; same-day is available on selected routes.' },
+]
 
-  const handleInputChange = (field: keyof typeof formData) => (e: any) => {
-    setFormData(prev => ({ ...prev, [field]: e.target.value }))
-    // Clear error on change
-    if (formErrors[field]) {
-      setFormErrors(prev => ({ ...prev, [field]: '' }))
-    }
+type Form = { business: string; contact: string; phone: string; email: string; type: string; location: string; spend: string; requirement: string; services: string[]; categories: string[]; message: string }
+const empty: Form = { business: '', contact: '', phone: '', email: '', type: '', location: '', spend: '', requirement: '', services: [], categories: [], message: '' }
+
+function PricingForm() {
+  const [f, setF] = useState<Form>(empty)
+  const [touched, setTouched] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [sent, setSent] = useState<Form | null>(null)
+  const doneRef = useRef<HTMLDivElement>(null)
+  const set = (k: keyof Form) => (e: React.ChangeEvent<HTMLInputElement>) => setF({ ...f, [k]: e.target.value })
+  const toggle = (k: 'services' | 'categories', v: string) => setF({ ...f, [k]: f[k].includes(v) ? f[k].filter((x) => x !== v) : [...f[k], v] })
+  const errors: Partial<Record<keyof Form, string>> = {
+    business: f.business.trim() ? '' : 'Enter your business name.',
+    contact: f.contact.trim() ? '' : 'Enter the name of the person we should contact.',
+    phone: phoneError(f.phone),
+    email: emailError(f.email),
+    spend: f.spend ? '' : 'Choose an estimated monthly spend so we can size your pricing.',
+    requirement: f.requirement ? '' : 'Choose what kind of supply you need.',
   }
-
-  const validate = () => {
-    const errors: Partial<Record<keyof typeof formData, string>> = {}
-    if (!formData.business_name.trim()) errors.business_name = 'Business name is required.'
-    if (!formData.contact_person.trim()) errors.contact_person = 'Contact person is required.'
-    if (!formData.phone_number.trim()) {
-      errors.phone_number = 'Phone number is required.'
-    } else {
-      const phoneRegex = /^\d{10}$/
-      if (!phoneRegex.test(formData.phone_number.replace(/\D/g, ''))) {
-        errors.phone_number = 'Enter a valid 10-digit phone number.'
-      }
-    }
-    if (!formData.email_address.trim()) {
-      errors.email_address = 'Email address is required.'
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email_address.trim())) {
-      errors.email_address = 'Enter a valid email address.'
-    }
-    if (!formData.monthly_spend) errors.monthly_spend = 'Please select an estimated monthly spend.'
-    if (!formData.requirement_type) errors.requirement_type = 'Please select a requirement type.'
-    return errors
-  }
-
-  const handleCheckboxChange = (label: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => {
-      const interests = prev.service_interest
-      if (e.target.checked) {
-        return { ...prev, service_interest: [...interests, label] }
-      } else {
-        return { ...prev, service_interest: interests.filter(item => item !== label) }
-      }
-    })
-  }
-
-  const handleSubmit = async () => {
-    const newErrors = validate()
-
-    if (Object.keys(newErrors).length > 0) {
-      setFormErrors(newErrors)
-      const firstErrorField = Object.keys(formData).find((key) => newErrors[key as keyof typeof formData])
-      if (firstErrorField) {
-        const el = document.getElementsByName(firstErrorField)[0]
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'center' })
-          el.focus()
-        }
-      }
+  const err = (k: keyof Form) => (touched ? errors[k] || undefined : undefined)
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setTouched(true)
+    const first = (Object.keys(errors) as (keyof Form)[]).find((k) => errors[k])
+    if (first) {
+      const el = document.getElementById(`cf-${first}`)
+      el?.focus()
+      el?.scrollIntoView({ block: 'center', behavior: 'smooth' })
       return
     }
-    setFormErrors({})
-    setLoading(true)
-    setSubmitStatus({ type: null, message: '' })
-
-    // Prototype: no backend — simulate the /api/contactus-info success response.
-    await new Promise((r) => setTimeout(r, 700))
-    setSubmitStatus({ type: 'success', message: 'Thank you! Your request has been sent successfully.' })
-    notify('Thank you! Your request has been sent successfully.')
-    setFormData({
-      business_name: '', contact_person: '', phone_number: '', email_address: '',
-      business_type: '', location: '', monthly_spend: '', requirement_type: '',
-      service_interest: [], product_categories: '', message: ''
-    })
-    setLoading(false)
+    setBusy(true)
+    await new Promise((r) => setTimeout(r, 900))
+    setBusy(false)
+    setSent(f)
+    setF(empty)
+    setTouched(false)
+    window.requestAnimationFrame(() => doneRef.current?.focus())
   }
 
-  const handleAccordion = (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpanded(isExpanded ? panel : false)
+  if (sent) {
+    return (
+      <Box ref={doneRef} tabIndex={-1} role="status" sx={{ textAlign: 'center', py: { xs: 3, md: 6 }, outline: 'none' }}>
+        <CheckCircleIcon sx={{ fontSize: 56, color: colors.success }} />
+        <Typography variant="h2" component="h2" sx={{ mt: 1 }}>Request sent — thank you</Typography>
+        <Typography sx={{ color: colors.ink600, mt: 1, maxWidth: 440, mx: 'auto' }}>
+          Our B2B team will call {sent.contact.split(' ')[0]} at {sent.phone} or email {sent.email} within 24 hours with pricing for {sent.business}.
+        </Typography>
+        <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', flexWrap: 'wrap', mt: 3 }}>
+          <Button component={Link} href="/" variant="contained">Browse products</Button>
+          <Button variant="outlined" onClick={() => setSent(null)}>Send another request</Button>
+        </Box>
+      </Box>
+    )
   }
 
-  const formSectionHeadingSx = {
-    fontFamily: 'Poppins, sans-serif',
-    fontWeight: 500,
-    fontSize: '16px',
-    color: '#374151',
-    mb: 1
-  }
-
-  const formLabelSx = {
-    fontFamily: 'Poppins, sans-serif',
-    fontWeight: 600,
-    fontSize: '13px',
-    color: '#4b5563',
-    mb: 0.5,
-    display: 'block'
-  }
-
-  const inputStyle = {
-    '& .MuiOutlinedInput-root': {
-      bgcolor: '#fcfcfd',
-      borderRadius: '6px',
-      '& fieldset': { borderColor: '#e5e7eb' },
-      '& input': { p: '10px 14px', fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: '#4b5563', '&::placeholder': { color: '#9ca3af', opacity: 1 } },
-      '& textarea': { p: '4px', fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: '#4b5563', '&::placeholder': { color: '#9ca3af', opacity: 1 } }
-    }
-  }
-
-  const selectStyle = {
-    bgcolor: '#fcfcfd',
-    borderRadius: '6px',
-    '& .MuiOutlinedInput-notchedOutline': { borderColor: '#e5e7eb' },
-    '& .MuiSelect-select': { p: '10px 14px', fontSize: '13px', fontFamily: 'Poppins, sans-serif', color: '#4b5563' }
-  }
-
-  const heroPrimaryButtonSx = {
-    bgcolor: '#FF0000',
-    color: 'white',
-    '&:hover': { bgcolor: '#cc0000' },
-    fontWeight: 600,
-    px: '32px',
-    height: '58px',
-    borderRadius: '8px',
-    fontFamily: 'Poppins, sans-serif',
-    textTransform: 'none',
-    fontSize: '16px'
-  }
-
-  const heroSecondaryButtonSx = {
-    bgcolor: 'white',
-    color: 'black',
-    '&:hover': { bgcolor: '#f0f0f0' },
-    fontWeight: 600,
-    px: '32px',
-    height: '58px',
-    borderRadius: '8px',
-    fontFamily: 'Poppins, sans-serif',
-    textTransform: 'none',
-    fontSize: '16px'
-  }
+  const group = (title: string, children: React.ReactNode) => (
+    <Box component="fieldset" sx={{ border: 0, p: 0, m: 0, display: 'grid', gap: 2, gridTemplateColumns: { xs: 'minmax(0,1fr)', sm: 'minmax(0,1fr) minmax(0,1fr)' } }}>
+      <Box component="legend" sx={{ fontSize: 13, fontWeight: 600, color: colors.ink500, letterSpacing: '.08em', textTransform: 'uppercase', mb: 1.5, p: 0 }}>{title}</Box>
+      {children}
+    </Box>
+  )
 
   return (
-    <Box sx={{ width: '100%', overflowX: 'hidden' }}>
-      <Head><title>{`${title} | MySupreme`}</title><meta name="description" content="Contact MySupreme Food Service – reach our team for wholesale pricing, supply solutions, and foodservice support." /></Head>
-
-      {/* ── 1. HERO SECTION ── */}
-      <Box
-        sx={{
-          width: '100vw',
-          position: 'relative',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          minHeight: { xs: '500px', md: '614px' },
-          backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%), url('/assets/overlay.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          color: 'white'
-        }}
-      >
-        <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 6, lg: 10 } }}>
-          <Box sx={{ maxWidth: '800px', display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
-            <Typography
-              variant="h1"
-              sx={{
-                ...figmaHeadingSx,
-                color: '#FFFFFF',
-                fontSize: { xs: '28px', sm: '36px', md: '44px', lg: '48px' },
-                lineHeight: { xs: '36px', sm: '44px', md: '52px', lg: '56px' },
-                mb: { xs: 2, md: 3 },
-              }}
-            >
-              Get in Touch with<br />MySupreme Food Service
-            </Typography>
-            <Typography sx={{
-              fontFamily: 'Poppins, sans-serif',
-              fontWeight: 400,
-              fontSize: { xs: '15px', sm: '17px', md: '20px' },
-              lineHeight: { xs: '22px', sm: '26px', md: '28px' },
-              mb: { xs: 3, md: 4 },
-              maxWidth: '671px',
-              color: '#F1F5F9'
-            }}>
-              Wholesale food supply, bulk pricing, and reliable delivery for restaurants across the GTA, GTHA, and Niagara Region.
-            </Typography>
-
-            <Box sx={{ display: 'flex', gap: { xs: 1.5, md: 2 }, flexWrap: 'wrap', mb: { xs: 3, md: 4 } }}>
-              <Button
-                component="a"
-                href="https://api.whatsapp.com/send/?phone=13657770999&text&type=phone_number&app_absent=0&wame_ctl=1&source_surface=20"
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="contained"
-                sx={{
-                  ...heroPrimaryButtonSx,
-                  height: { xs: '48px', md: '58px' },
-                  fontSize: { xs: '14px', md: '16px' },
-                  px: { xs: '20px', md: '32px' }
-                }}>
-                Request Pricing
-              </Button>
-              <Button
-                component="a"
-                href="tel:+13657770999"
-                variant="contained"
-                sx={{ ...heroSecondaryButtonSx, height: { xs: '48px', md: '58px' }, fontSize: { xs: '14px', md: '16px' }, px: { xs: '20px', md: '32px' } }}
-              >
-                Speak to Sales
-              </Button>
-            </Box>
-
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5 }}>
-              <VerifiedIcon sx={{ color: '#FF0000', fontSize: { xs: '16px', md: '18px' }, mt: '1px', flexShrink: 0 }} />
-              <Typography sx={{
-                fontFamily: 'Poppins, sans-serif',
-                fontSize: { xs: '10px', sm: '11px' },
-                letterSpacing: '0.5px',
-                color: '#ecedf0ff',
-                textTransform: 'uppercase',
-                fontWeight: 700,
-                lineHeight: 1.5,
-              }}>
-                SERVING RESTAURANTS, CAFES, CATERERS, AND FOODSERVICE BUSINESSES ACROSS ONTARIO.
-              </Typography>
-            </Box>
-
+    <Box component="form" noValidate onSubmit={submit} sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+      {group('Your business', <>
+        <Field id="cf-business" label="Business name" autoComplete="organization" value={f.business} onChange={set('business')} error={err('business')} />
+        <Field id="cf-contact" label="Contact person" autoComplete="name" value={f.contact} onChange={set('contact')} error={err('contact')} />
+        <Field id="cf-phone" label="Phone" type="tel" autoComplete="tel" value={f.phone} onChange={set('phone')} error={err('phone')} inputProps={{ inputMode: 'tel' }} />
+        <Field id="cf-email" label="Email" type="email" autoComplete="email" value={f.email} onChange={set('email')} error={err('email')} inputProps={{ inputMode: 'email' }} />
+        <Field id="cf-type" label="Business type" optional value={f.type} onChange={set('type')} placeholder="Restaurant, café, bakery…" />
+        <Field id="cf-location" label="City or region" optional value={f.location} onChange={set('location')} placeholder="Toronto, Hamilton, Niagara…" />
+      </>)}
+      {group('What you need', <>
+        <Field id="cf-spend" label="Estimated monthly spend" select value={f.spend} onChange={set('spend')} error={err('spend')} SelectProps={{ displayEmpty: true }}>
+          <MenuItem value="" disabled>Choose a range</MenuItem>
+          {SPEND.map(([v, l]) => <MenuItem key={v} value={v}>{l}</MenuItem>)}
+        </Field>
+        <Field id="cf-requirement" label="Type of supply" select value={f.requirement} onChange={set('requirement')} error={err('requirement')} SelectProps={{ displayEmpty: true }}>
+          <MenuItem value="" disabled>Choose one</MenuItem>
+          {REQUIREMENT.map(([v, l]) => <MenuItem key={v} value={v}>{l}</MenuItem>)}
+        </Field>
+        <Box component="fieldset" sx={{ gridColumn: '1 / -1', border: 0, p: 0, m: 0 }}>
+          <Box component="legend" sx={{ fontSize: 14, fontWeight: 500, mb: 0.5 }}>How you’d like to buy <Box component="span" sx={{ color: colors.ink500, fontWeight: 400 }}>(optional)</Box></Box>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0,1fr)', sm: 'minmax(0,1fr) minmax(0,1fr)' } }}>
+            {SERVICES.map((s) => <FormControlLabel key={s} control={<Checkbox size="small" checked={f.services.includes(s)} onChange={() => toggle('services', s)} />} label={<Typography sx={{ fontSize: 14 }}>{s}</Typography>} />)}
           </Box>
-        </Container>
-      </Box>
-
-      {/* ── 2. TALK TO OUR TEAM DIRECTLY ── */}
-      <Box sx={{ py: { xs: 5, sm: 6, md: 8 }, bgcolor: '#FFFFFF' }}>
-        <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
-          <Typography
-            variant="h2"
-            align="center"
-            sx={{
-              ...figmaHeadingSx,
-              fontSize: { xs: '24px', sm: '32px', md: '40px', lg: '48px' },
-              lineHeight: { xs: '32px', sm: '40px', md: '48px', lg: '56px' },
-              mb: { xs: 3, sm: 4, md: 6 },
-            }}
-          >
-            Talk to Our Team Directly
-          </Typography>
-
-          <Grid container spacing={{ xs: 2, sm: 2.5, md: 3 }} justifyContent="center">
-            {[
-              { icon: <PhoneIcon />, title: 'Sales & Support', desc: '+1 365-777-0999' },
-              { icon: <EmailIcon />, title: 'Email Us', desc: 'sales@mysupreme.ca' },
-              { icon: <AccountBalanceWalletIcon />, title: 'Business Hours', desc: 'Mon - Sat : 9am - 6pm' },
-              { icon: <LocationOnIcon />, title: 'Service Areas', desc: 'GTA, GTHA, Niagara' },
-            ].map((card, i) => (
-              <Grid item xs={12} sm={6} md={6} lg={3} key={i}>
-                <Box
-                  sx={{
-                    bgcolor: primaryRed,
-                    color: 'white',
-                    borderRadius: { xs: '10px', md: '12px' },
-                    p: { xs: 2, sm: 2.5, md: 3 },
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: { xs: 1.5, md: 2 },
-                    boxShadow: '0 4px 15px rgba(255,0,0,0.2)',
-                    height: '100%',
-                    minHeight: { xs: '72px', sm: '80px', md: '88px' },
-                    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 8px 24px rgba(255,0,0,0.3)',
-                    },
-                  }}
-                >
-                  {/* Icon container — scales across breakpoints */}
-                  <Box
-                    sx={{
-                      flexShrink: 0,
-                      bgcolor: 'rgba(255,255,255,0.15)',
-                      borderRadius: '8px',
-                      width: { xs: 40, sm: 44, md: 48 },
-                      height: { xs: 40, sm: 44, md: 48 },
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      '& > svg': { fontSize: { xs: 22, sm: 26, md: 28 } },
-                    }}
-                  >
-                    {card.icon}
-                  </Box>
-
-                  {/* Text */}
-                  <Box sx={{ minWidth: 0 }}>
-                    <Typography
-                      sx={{
-                        fontFamily: 'Poppins, sans-serif',
-                        fontSize: { xs: '11px', sm: '12px', md: '13px' },
-                        opacity: 0.85,
-                        lineHeight: 1.3,
-                        mb: 0.25,
-                      }}
-                    >
-                      {card.title}
-                    </Typography>
-                    <Typography
-                      noWrap
-                      sx={{
-                        fontFamily: 'Poppins, sans-serif',
-                        fontWeight: 700,
-                        fontSize: { xs: '13px', sm: '14px', md: '15px', lg: '16px' },
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      {card.desc}
-                    </Typography>
-                  </Box>
+        </Box>
+        <Box component="fieldset" sx={{ gridColumn: '1 / -1', border: 0, p: 0, m: 0 }}>
+          <Box component="legend" sx={{ fontSize: 14, fontWeight: 500, mb: 1 }}>Departments you buy from <Box component="span" sx={{ color: colors.ink500, fontWeight: 400 }}>(optional)</Box></Box>
+          <Box sx={{ display: 'flex', gap: 0.75, flexWrap: 'wrap' }}>
+            {departments.map((d) => {
+              const on = f.categories.includes(d.name)
+              return (
+                <Box key={d.uid} component="button" type="button" aria-pressed={on} onClick={() => toggle('categories', d.name)}
+                  sx={{ all: 'unset', boxSizing: 'border-box', cursor: 'pointer', minHeight: 36, px: 1.5, display: 'inline-flex', alignItems: 'center', borderRadius: radius.pill, fontSize: 13.5, fontWeight: 500, border: `1px solid ${on ? colors.ink : colors.line2}`, bgcolor: on ? colors.ink : '#fff', color: on ? '#fff' : colors.ink, ...focusRing }}>
+                  {d.name}
                 </Box>
-              </Grid>
-            ))}
-          </Grid>
-
-          <Typography
-            align="center"
-            sx={{
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: { xs: '13px', sm: '14px', md: '15px' },
-              mt: { xs: 3, md: 4 },
-              color: '#555',
-            }}
-          >
-            Need immediate help?{' '}
-            <Box component="a" href="tel:+13657770999" sx={{ color: primaryRed, fontWeight: 600, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>
-              Call our team now.
-            </Box>
-          </Typography>
-        </Container>
-      </Box>
-
-      {/* ── 3. WAREHOUSE & FORM SECTION ── */}
-      <Box sx={{ py: { xs: 6, md: 10 } }}>
-        <Container maxWidth="xl">
-          <Grid container spacing={{ xs: 6, lg: 8 }} alignItems="flex-start">
-
-            {/* Left Column: Warehouse */}
-            <Grid item xs={12} lg={5}>
-              <Typography variant="h2" sx={{ ...figmaHeadingSx, mb: { xs: 2, md: 3 } }}>
-                Visit Our Wholesale Cash & Carry Warehouse
-              </Typography>
-              <Typography sx={{ fontFamily: 'Poppins, sans-serif', color: '#111827', mb: { xs: 4, md: 5 }, fontSize: { xs: '16px', md: '18px' }, lineHeight: 1.6 }}>
-                Shop directly from our warehouse and access thousands of products at competitive wholesale pricing. Ideal for urgent restocking and bulk purchases.
-              </Typography>
-
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, mb: { xs: 5, md: 6 } }}>
-                {[
-                  'walk in and explore products',
-                  'Select what your business needs',
-                  'Checkout and take it immediately'
-                ].map((text, i) => (
-                  <Box key={i} sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    <Box sx={{ width: 28, height: 28, borderRadius: '50%', bgcolor: primaryRed, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 600, fontFamily: 'Poppins, sans-serif', flexShrink: 0 }}>
-                      {i + 1}
-                    </Box>
-                    <Typography sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 600, fontSize: '18px', lineHeight: '24px', color: '#111827' }}>
-                      {text}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-
-              <Button
-                component="a"
-                href="https://share.google/6dgfHkiflica2vsjB"
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="contained"
-                startIcon={<LocationOnIcon />}
-                sx={{ bgcolor: primaryRed, color: 'white', '&:hover': { bgcolor: '#cc0000' }, fontWeight: 600, px: 4, py: 1.5, borderRadius: '8px', fontFamily: 'Poppins, sans-serif', textTransform: 'none', fontSize: '16px' }}
-              >
-                Visit Our Warehouse
-              </Button>
-            </Grid>
-
-            {/* Right Column: Form */}
-            <Grid item xs={12} lg={7}>
-              <Box sx={{ bgcolor: 'white', borderRadius: '16px', p: { xs: 3, sm: 5, md: 6 }, border: '1px solid #f0f0f0', boxShadow: '0px 4px 24px rgba(0,0,0,0.03)' }}>
-
-                <Typography variant="h3" sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '28px', mb: 1, color: '#111827' }}>
-                  Request Pricing & Supply Solutions
-                </Typography>
-                <Typography sx={{ fontFamily: 'Poppins, sans-serif', color: '#6b7280', mb: 4, fontSize: '14px' }}>
-                  Fill out the form below and our B2B team will respond within 2 business hours.
-                </Typography>
-
-                <Grid container spacing={2.5}>
-
-                  {/* --- Business Information --- */}
-                  <Grid item xs={12}>
-                    <Typography sx={formSectionHeadingSx}>Business Information</Typography>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography sx={formLabelSx}>Business Name <Box component="span" sx={{ color: primaryRed }}>*</Box></Typography>
-                    <TextField
-                      fullWidth placeholder="Business Name" variant="outlined"
-                      name="business_name"
-                      sx={inputStyle} value={formData.business_name} onChange={handleInputChange('business_name')}
-                      error={!!formErrors.business_name}
-                      helperText={formErrors.business_name}
-                      FormHelperTextProps={{ sx: { fontFamily: 'Poppins, sans-serif', fontSize: '11px', ml: 0 } }}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography sx={formLabelSx}>Contact Person <Box component="span" sx={{ color: primaryRed }}>*</Box></Typography>
-                    <TextField
-                      fullWidth placeholder="Contact Person" variant="outlined"
-                      name="contact_person"
-                      sx={inputStyle} value={formData.contact_person} onChange={handleInputChange('contact_person')}
-                      error={!!formErrors.contact_person}
-                      helperText={formErrors.contact_person}
-                      FormHelperTextProps={{ sx: { fontFamily: 'Poppins, sans-serif', fontSize: '11px', ml: 0 } }}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography sx={formLabelSx}>Phone Number <Box component="span" sx={{ color: primaryRed }}>*</Box></Typography>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
-                      <Box sx={{
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        px: 1.5, border: '1px solid', borderColor: '#e5e7eb',
-                        borderRadius: '6px', bgcolor: '#f3f4f6', fontSize: '14px', fontWeight: 600,
-                        fontFamily: 'Poppins, sans-serif', color: '#374151', whiteSpace: 'nowrap', userSelect: 'none',
-                      }}>
-                        +1
-                      </Box>
-                      <TextField
-                        fullWidth placeholder="e.g. 4165550199" variant="outlined"
-                        name="phone_number"
-                        sx={inputStyle} value={formData.phone_number}
-                        onChange={(e) => {
-                          const val = e.target.value.replace(/\D/g, '').slice(0, 10)
-                          setFormData(prev => ({ ...prev, phone_number: val }))
-                          if (formErrors.phone_number) setFormErrors(prev => ({ ...prev, phone_number: '' }))
-                        }}
-                        inputProps={{ maxLength: 10, inputMode: 'numeric' }}
-                        error={!!formErrors.phone_number}
-                      />
-                    </Box>
-                    {formErrors.phone_number && (
-                      <FormHelperText error sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', ml: 0, mt: '3px' }}>
-                        {formErrors.phone_number}
-                      </FormHelperText>
-                    )}
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography sx={formLabelSx}>Email Address <Box component="span" sx={{ color: primaryRed }}>*</Box></Typography>
-                    <TextField
-                      fullWidth placeholder="Email Address" variant="outlined"
-                      name="email_address"
-                      sx={inputStyle} value={formData.email_address} onChange={handleInputChange('email_address')}
-                      error={!!formErrors.email_address}
-                      helperText={formErrors.email_address}
-                      FormHelperTextProps={{ sx: { fontFamily: 'Poppins, sans-serif', fontSize: '11px', ml: 0 } }}
-                    />
-                  </Grid>
-
-                  {/* --- Business Profile --- */}
-                  <Grid item xs={12} sx={{ mt: 1 }}>
-                    <Typography sx={formSectionHeadingSx}>Business Profile</Typography>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography sx={formLabelSx}>Business Type</Typography>
-                    <TextField fullWidth placeholder="e.g. Restaurant, Cafe, Bakery" variant="outlined" sx={inputStyle} value={formData.business_type} onChange={handleInputChange('business_type')} />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography sx={formLabelSx}>Location (City / Region)</Typography>
-                    <TextField fullWidth placeholder="e.g. Toronto, Niagara, Mississauga" variant="outlined" sx={inputStyle} value={formData.location} onChange={handleInputChange('location')} />
-                  </Grid>
-
-                  {/* --- Purchase Requirements --- */}
-                  <Grid item xs={12} sx={{ mt: 1 }}>
-                    <Typography sx={formSectionHeadingSx}>Purchase Requirements</Typography>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography sx={formLabelSx}>Estimated Monthly Spend <Box component="span" sx={{ color: primaryRed }}>*</Box></Typography>
-                    <Select
-                      fullWidth displayEmpty value={formData.monthly_spend}
-                      onChange={handleInputChange('monthly_spend')}
-                      inputProps={{ name: 'monthly_spend' }}
-                      sx={{ ...selectStyle, ...(formErrors.monthly_spend ? { '& .MuiOutlinedInput-notchedOutline': { borderColor: '#d32f2f !important' } } : {}) }}
-                      IconComponent={ExpandMoreIcon}
-                      error={!!formErrors.monthly_spend}
-                    >
-                      <MenuItem value="" disabled><Typography sx={{ color: '#9ca3af', fontSize: '13px' }}>$1K - $5K</Typography></MenuItem>
-                      <MenuItem value="under1k">Under $1K</MenuItem>
-                      <MenuItem value="1k-5k">$1K - $5K</MenuItem>
-                      <MenuItem value="5k-15k">$5K - $15K</MenuItem>
-                      <MenuItem value="15k-30k">$15K - $30K</MenuItem>
-                      <MenuItem value="30k-60k">$30K - $60K</MenuItem>
-                      <MenuItem value="60k-100k">$60K - $100K</MenuItem>
-                    </Select>
-                    {formErrors.monthly_spend && (
-                      <FormHelperText error sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', ml: 0, mt: '3px' }}>
-                        {formErrors.monthly_spend}
-                      </FormHelperText>
-                    )}
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Typography sx={formLabelSx}>Requirement Type <Box component="span" sx={{ color: primaryRed }}>*</Box></Typography>
-                    <Select
-                      fullWidth displayEmpty value={formData.requirement_type}
-                      onChange={handleInputChange('requirement_type')}
-                      inputProps={{ name: 'requirement_type' }}
-                      sx={{ ...selectStyle, ...(formErrors.requirement_type ? { '& .MuiOutlinedInput-notchedOutline': { borderColor: '#d32f2f !important' } } : {}) }}
-                      IconComponent={ExpandMoreIcon}
-                      error={!!formErrors.requirement_type}
-                    >
-                      <MenuItem value="" disabled><Typography sx={{ color: '#9ca3af', fontSize: '13px' }}>Regular Supply Partnership</Typography></MenuItem>
-                      <MenuItem value="regular">Regular Supply Partnership</MenuItem>
-                      <MenuItem value="bulk">Bulk Purchasing</MenuItem>
-                      <MenuItem value="urgent">Urgent Restocking</MenuItem>
-                      <MenuItem value="one-time">One-time Purchase</MenuItem>
-                    </Select>
-                    {formErrors.requirement_type && (
-                      <FormHelperText error sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', ml: 0, mt: '3px' }}>
-                        {formErrors.requirement_type}
-                      </FormHelperText>
-                    )}
-                  </Grid>
-
-                  {/* --- Service Interest & Categories --- */}
-                  {/* <Grid item xs={12} sm={6} sx={{ mt: 1 }}>
-                    <Typography sx={formLabelSx}>Service Interest</Typography>
-                    <FormGroup sx={{ gap: 1 }}>
-                      {['Cash & Carry Pickup', 'Delivery Service', 'Online Ordering ( mysupreme.ca )', 'Dedicated Sales Representative'].map((label, idx) => (
-                        <Box key={idx} sx={{ border: '1px solid #f3f4f6', borderRadius: '6px', px: 1, py: 0, bgcolor: '#fbfcfd' }}>
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                checked={formData.service_interest.includes(label)}
-                                onChange={handleCheckboxChange(label)}
-                                sx={{ py: 1, color: '#d1d5db', '&.Mui-checked': { color: primaryRed } }}
-                                size="small"
-                              />
-                            }
-                            label={<Typography sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '13px', color: '#6b7280' }}>{label}</Typography>}
-                            sx={{ m: 0, width: '100%' }}
-                          />
-                        </Box>
-                      ))}
-                    </FormGroup>
-                  </Grid> */}
-
-                  {/* <Grid item xs={12} sm={6} sx={{ mt: 1 }}>
-                    <Typography sx={formLabelSx}>Product Categories</Typography>
-                    <Select fullWidth displayEmpty value={formData.product_categories} onChange={handleInputChange('product_categories')} sx={{ ...selectStyle, mb: 1, '& .MuiOutlinedInput-notchedOutline': { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } }} IconComponent={ExpandMoreIcon}>
-                      <MenuItem value="" disabled><Typography sx={{ color: '#9ca3af', fontSize: '13px' }}>Select product categories</Typography></MenuItem>
-                      <MenuItem value="all">All Categories</MenuItem>
-                      <MenuItem value="frozen">Frozen Foods</MenuItem>
-                      <MenuItem value="dairy">Dairy & Cheese</MenuItem>
-                      <MenuItem value="produce">Fresh Produce</MenuItem>
-                      <MenuItem value="dry">Dry Goods</MenuItem>
-                    </Select>
-
-                    <Box sx={{ border: '1px solid #e5e7eb', borderTop: 'none', borderBottomLeftRadius: '6px', borderBottomRightRadius: '6px', bgcolor: '#fcfcfd', mt: '-8px' }}>
-                      {['Frozen Foods', 'Dairy & Cheese', 'Fresh Produce', 'Dry Goods'].map((item, i) => (
-                        <Typography key={i} sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '13px', color: '#6b7280', py: 1.2, px: 2, borderBottom: i !== 3 ? '1px solid #f3f4f6' : 'none' }}>
-                          {item}
-                        </Typography>
-                      ))}
-                    </Box>
-                  </Grid> */}
-
-                  {/* --- Special Requirements --- */}
-                  <Grid item xs={12} sx={{ mt: 1 }}>
-                    <Typography sx={formSectionHeadingSx}>Special Requirements / Message</Typography>
-                    <TextField fullWidth placeholder="Tell us more about your specific needs..." variant="outlined" multiline rows={4} sx={inputStyle} value={formData.message} onChange={handleInputChange('message')} />
-                  </Grid>
-
-                  {/* --- Submit Section --- */}
-                  <Grid item xs={12} sx={{ mt: 2 }}>
-                    {submitStatus.type && (
-                      <Alert severity={submitStatus.type} sx={{ mb: 2, fontFamily: 'Poppins, sans-serif', borderRadius: '8px' }}>
-                        {submitStatus.message}
-                      </Alert>
-                    )}
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      onClick={handleSubmit}
-                      disabled={loading}
-                      endIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SendOutlinedIcon sx={{ ml: 1 }} />}
-                      sx={{ bgcolor: primaryRed, color: 'white', '&:hover': { bgcolor: '#cc0000' }, fontWeight: 600, py: 1.8, borderRadius: '6px', fontFamily: 'Poppins, sans-serif', textTransform: 'none', fontSize: '16px', '&.Mui-disabled': { bgcolor: '#ffb3b3', color: 'white' } }}
-                    >
-                      {loading ? 'Sending...' : 'Get Custom Pricing'}
-                    </Button>
-                    <Typography align="center" sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '11px', color: '#9ca3af', mt: 2 }}>
-                      We respond within 24 hours with pricing and supply details tailored to your business
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* ── 4. FLEXIBLE SUPPLY OPTIONS ── */}
-      <Box
-        sx={{
-          py: { xs: 8, md: 10 },
-          width: '100vw',
-          position: 'relative',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('/assets/flexible-supply.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Container maxWidth="xl" sx={{ textAlign: 'center' }}>
-          <Typography variant="h2" sx={{ ...figmaHeadingSx, color: '#FFFFFF', mb: 2 }}>
-            Flexible Supply Options Designed for Restaurants
-          </Typography>
-          <Typography sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 400, fontSize: '16px', lineHeight: '24px', color: '#FFFFFF', mb: 5 }}>
-            MySupreme offers multiple ways to source your restaurant supplies based on your business needs
-          </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 2, maxWidth: '1000px', mx: 'auto' }}>
-            {[
-              'Visit our Cash & Carry warehouse for immediate purchases',
-              'Work directly with a dedicated sales representative',
-              'Use our mobile app for fast reordering',
-              'Order online anytime through mysupreme.ca',
-              'Get fast delivery with same-day or next-day options'
-            ].map((text, i) => (
-              <Box
-                key={i}
-                sx={{
-                  bgcolor: '#FFFFFF',
-                  color: '#000000',
-                  px: 3,
-                  py: 1.5,
-                  borderRadius: '30px',
-                  fontFamily: 'Poppins, sans-serif',
-                  fontWeight: 500,
-                  fontSize: '14px',
-                  boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
-                }}
-              >
-                {text}
-              </Box>
-            ))}
+              )
+            })}
           </Box>
-        </Container>
-      </Box>
-
-      {/* ── 5. LONG-TERM SUPPLY PARTNER CTA ── */}
-      <Box sx={{ py: { xs: 8, md: 10 }, bgcolor: '#FFFFFF', display: 'flex', justifyContent: 'center' }}>
-        <Container maxWidth="xl" sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Box
-            sx={{
-              bgcolor: '#FF0000',
-              color: 'white',
-              borderRadius: '66px',
-              maxWidth: '1214px',
-              minHeight: { xs: 'auto', md: '409px' },
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              p: { xs: 4, md: 6 },
-              textAlign: 'center',
-            }}
-          >
-            <Typography
-              variant="h2"
-              sx={{
-                ...figmaHeadingSx,
-                color: '#FFFFFF',
-                fontSize: { xs: '24px', sm: '32px', md: '40px', lg: '48px' },
-                lineHeight: { xs: '32px', sm: '40px', md: '48px', lg: '56px' },
-                mb: { xs: 2, md: 3 },
-                textAlign: 'center',
-              }}
-            >
-              Looking for a Long-Term Supply<br />Partner?
-            </Typography>
-            <Typography sx={{ fontFamily: 'Poppins, sans-serif', fontSize: { xs: '14px', md: '16px' }, fontWeight: 400, mb: { xs: 3, md: 5 }, textAlign: 'center' }}>
-              Reliable supply, competitive pricing, and dedicated support for your growing business.
-            </Typography>
-            <Box
-              sx={{
-                display: 'flex',
-                gap: { xs: 2, sm: '26px' },
-                justifyContent: 'center',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                width: '100%',
-                maxWidth: '912px',
-                mx: 'auto'
-              }}
-            >
-              <Button
-                component="a"
-                href="https://api.whatsapp.com/send/?phone=13657770999&text&type=phone_number&app_absent=0&wame_ctl=1&source_surface=20"
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="contained"
-                disableElevation
-                sx={{
-                  bgcolor: '#FFF4F4',
-                  color: '#FF0000',
-                  '&:hover': { bgcolor: '#ffebeb' },
-                  fontWeight: 700,
-                  width: { xs: '100%', sm: '300px', md: '443px' },
-                  height: { xs: '56px', md: '70px' },
-                  borderRadius: '12px',
-                  fontFamily: 'Inter, sans-serif',
-                  textTransform: 'none',
-                  fontSize: { xs: '15px', md: '18px' },
-                  lineHeight: '28px',
-                }}
-              >
-                Request Wholesale Pricing
-              </Button>
-
-              <Button
-                component="a"
-                href="tel:+13657770999"
-                variant="contained"
-                disableElevation
-                sx={{
-                  bgcolor: '#FFF4F4',
-                  color: '#FF0000',
-                  '&:hover': { bgcolor: '#ffebeb' },
-                  fontWeight: 700,
-                  width: { xs: '100%', sm: '300px', md: '443px' },
-                  height: { xs: '56px', md: '70px' },
-                  borderRadius: '12px',
-                  fontFamily: 'Inter, sans-serif',
-                  textTransform: 'none',
-                  fontSize: { xs: '15px', md: '18px' },
-                  lineHeight: '28px',
-                }}
-              >
-                Schedule a Call with Our Sales Team
-              </Button>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* ── 6. TRUSTED BY FOODSERVICES ── */}
-      <Box sx={{ py: { xs: 8, md: 10 }, bgcolor: '#FFFFFF' }}>
-        <Container maxWidth="xl">
-          <Typography variant="h2" align="center" sx={{ ...figmaHeadingSx, mb: 1 }}>
-            Trusted by foodservices Businesses Across Ontario
-          </Typography>
-          <Typography
-            align="center"
-            sx={{
-              fontFamily: 'Poppins, sans-serif',
-              fontSize: '16px',
-              fontWeight: 500,
-              color: '#000000',
-              mb: 6
-            }}
-          >
-            We proudly support:
-          </Typography>
-
-          <Grid container spacing={2} justifyContent="center" sx={{ mb: 6 }}>
-            {[
-              { icon: <RestaurantIcon />, label: 'Restaurants' },
-              { icon: <LocalCafeIcon />, label: 'Cafés' },
-              { icon: <SoupKitchenIcon />, label: 'Caterers' },
-              { icon: <BakeryDiningIcon />, label: 'Bakeries' },
-              { icon: <LocalShippingIcon />, label: 'Food Trucks' },
-              { icon: <HotelIcon />, label: 'Hospitality Businesses' },
-            ].map((cat, i) => (
-              <Grid item xs={6} sm={4} md={1.8} key={i}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    borderRadius: '8px',
-                    border: '1px solid #E5E7EB',
-                    boxShadow: '0px 2px 4px rgba(0,0,0,0.04)',
-                    transition: 'all 0.2s ease-in-out',
-                    '&:hover': {
-                      boxShadow: '0 8px 20px rgba(0,0,0,0.08)',
-                      transform: 'translateY(-2px)',
-                      borderColor: primaryRed
-                    }
-                  }}
-                >
-                  <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', p: '24px 12px !important' }}>
-                    <Box
-                      sx={{
-                        color: primaryRed,
-                        bgcolor: '#FFFFFF',
-                        border: `1.5px solid ${primaryRed}`,
-                        borderRadius: '8px',
-                        width: '56px',
-                        height: '56px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        '& > svg': { fontSize: 32 },
-                        mb: 2
-                      }}
-                    >
-                      {cat.icon}
-                    </Box>
-                    <Typography
-                      align="center"
-                      sx={{
-                        fontFamily: 'Poppins, sans-serif',
-                        fontWeight: 600,
-                        fontSize: '14px',
-                        color: '#000000'
-                      }}
-                    >
-                      {cat.label}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-
-          {/* Tags Section - Responsive 2x2 Grid Layout */}
-          <Box
-            sx={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: { xs: '12px', sm: '16px', md: '20px' },
-              maxWidth: '850px',
-              justifyContent: 'center',
-              mx: 'auto'
-            }}
-          >
-            {[
-              { icon: <CheckCircleIcon sx={{ fontSize: { xs: '20px', sm: '22px' } }} />, text: 'Reliable product availability' },
-              { icon: <LocalOfferIcon sx={{ fontSize: { xs: '20px', sm: '22px' } }} />, text: 'Wholesale pricing' },
-              { icon: <LocalShippingIcon sx={{ fontSize: { xs: '20px', sm: '22px' } }} />, text: 'Fast and consistent delivery' },
-              { icon: <SupportAgentIcon sx={{ fontSize: { xs: '20px', sm: '22px' } }} />, text: 'Customer support' },
-            ].map((tag, i) => (
-              <Box
-                key={i}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: { xs: 'center', sm: 'flex-start' },
-                  gap: { xs: 1.5, sm: 2 },
-                  bgcolor: '#FF0000',
-                  color: 'white',
-                  px: { xs: 3, sm: 4, md: 5 },
-                  width: { xs: '100%', sm: 'calc(50% - 10px)', md: '400px' },
-                  height: { xs: '56px', sm: '64px' },
-                  borderRadius: '40px',
-                  transition: 'opacity 0.2s',
-                  '&:hover': { opacity: 0.9 }
-                }}
-              >
-                {tag.icon}
-                <Typography sx={{ fontFamily: 'Poppins, sans-serif', fontSize: { xs: '14px', sm: '15px', md: '16px' }, fontWeight: 600 }}>
-                  {tag.text}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-        </Container>
-      </Box>
-
-      {/* ── 7. FAQ ── */}
-      <Box sx={{ py: { xs: 8, md: 10 }, bgcolor: '#FFFFFF' }}>
-        <Container maxWidth="md">
-          <Typography variant="h2" align="center" sx={{ ...figmaHeadingSx, mb: 6 }}>
-            Frequently Asked Questions
-          </Typography>
-          {faqs.map((faq, i) => (
-            <Accordion
-              key={i}
-              expanded={expanded === `faq${i}`}
-              onChange={handleAccordion(`faq${i}`)}
-              disableGutters
-              elevation={0}
-              sx={{
-                border: '1px solid #eee',
-                borderBottom: i === faqs.length - 1 ? '1px solid #eee' : 0,
-                '&:before': { display: 'none' },
-              }}
-            >
-              <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: primaryRed }} />} sx={{ px: 3, py: 1.5 }}>
-                <Typography sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 600, fontSize: '16px' }}>{faq.q}</Typography>
-              </AccordionSummary>
-              <AccordionDetails sx={{ px: 3, pb: 3 }}>
-                <Typography sx={{ fontFamily: 'Poppins, sans-serif', color: '#555', fontSize: '15px', lineHeight: 1.6 }}>{faq.a}</Typography>
-              </AccordionDetails>
-            </Accordion>
-          ))}
-        </Container>
-      </Box>
-
-      {/* ── 8. PRE-FOOTER CTA ── */}
-      <Box sx={{
-        py: { xs: 8, md: 12 },
-        px: { xs: 3, md: 8 },
-        bgcolor: primaryRed,
-        color: '#FFFFFF',
-        textAlign: 'center',
-        width: '100vw',
-        position: 'relative',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        boxSizing: 'border-box',
-        mb: { xs: 6, md: 10 },
-      }}>
-        <Container maxWidth="lg">
-          <Typography
-            variant="h2"
-            sx={{
-              fontFamily: 'Poppins, sans-serif',
-              fontWeight: 800,
-              color: '#FFFFFF',
-              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-              lineHeight: { xs: '2.8rem', sm: '3.2rem', md: '4.2rem' },
-              mb: { xs: 3, md: 4 },
-              textAlign: 'center',
-            }}
-          >
-            Ready to Stock Your Business with Confidence?
-          </Typography>
-          <Typography sx={{
-            fontFamily: 'Poppins, sans-serif',
-            color: 'white',
-            opacity: 0.92,
-            mb: { xs: 4, md: 6 },
-            fontSize: { xs: '1rem', md: '1.15rem' },
-            lineHeight: 1.8,
-            maxWidth: '900px',
-            mx: 'auto',
-          }}>
-            Get the products you need, when you need them at wholesale pricing.
-          </Typography>
-          <Box sx={{ display: 'flex', gap: { xs: 1.5, sm: 2 }, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Button
-              component="a"
-              href="https://api.whatsapp.com/send/?phone=13657770999&text&type=phone_number&app_absent=0&wame_ctl=1&source_surface=20"
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="contained"
-              startIcon={<AssignmentIcon />}
-              sx={{
-                bgcolor: 'white',
-                color: primaryRed,
-                '&:hover': { bgcolor: '#f0f0f0' },
-                fontWeight: 600,
-                px: { xs: 3, md: 4 },
-                py: { xs: 1.5, md: 2 },
-                borderRadius: '8px',
-                fontFamily: 'Poppins, sans-serif',
-                textTransform: 'none',
-                fontSize: { xs: '14px', md: '16px' },
-                boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
-                width: { xs: '100%', sm: 'auto' },
-              }}
-            >
-              Request Pricing
-            </Button>
-            <Button
-              component="a"
-              href="tel:+13657770999"
-              variant="contained"
-              startIcon={<PhoneIcon />}
-              sx={{
-                bgcolor: 'white',
-                color: primaryRed,
-                '&:hover': { bgcolor: '#f0f0f0' },
-                fontWeight: 600,
-                px: { xs: 3, md: 4 },
-                py: { xs: 1.5, md: 2 },
-                borderRadius: '8px',
-                fontFamily: 'Poppins, sans-serif',
-                textTransform: 'none',
-                fontSize: { xs: '14px', md: '16px' },
-                boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
-                width: { xs: '100%', sm: 'auto' },
-              }}
-            >
-              Call Sales
-            </Button>
-            <Button
-              component="a"
-              href="https://share.google/6dgfHkiflica2vsjB"
-              target="_blank"
-              rel="noopener noreferrer"
-              variant="contained"
-              startIcon={<LocationOnIcon />}
-              sx={{
-                bgcolor: 'white',
-                color: primaryRed,
-                '&:hover': { bgcolor: '#f0f0f0' },
-                fontWeight: 600,
-                px: { xs: 3, md: 4 },
-                py: { xs: 1.5, md: 2 },
-                borderRadius: '8px',
-                fontFamily: 'Poppins, sans-serif',
-                textTransform: 'none',
-                fontSize: { xs: '14px', md: '16px' },
-                boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
-                width: { xs: '100%', sm: 'auto' },
-              }}
-            >
-              Visit Warehouse
-            </Button>
-          </Box>
-        </Container>
+        </Box>
+        <Box sx={{ gridColumn: '1 / -1' }}>
+          <Field id="cf-message" label="Anything else?" optional multiline minRows={3} value={f.message} onChange={set('message')} placeholder="Products you buy weekly, delivery days, current supplier pain points…" />
+        </Box>
+      </>)}
+      {touched && Object.values(errors).some(Boolean) && (
+        <Box role="alert" sx={{ display: 'flex', gap: 1, p: 1.5, borderRadius: radius.md, bgcolor: colors.errorTint, color: '#7F1D1D', fontSize: 14 }}>
+          <AlertCircleIcon sx={{ color: colors.error, fontSize: 20 }} /> Please fix the highlighted fields to send your request.
+        </Box>
+      )}
+      <Box>
+        <Button type="submit" variant="contained" size="large" fullWidth disabled={busy} startIcon={busy ? <CircularProgress size={18} sx={{ color: 'inherit' }} /> : undefined}>
+          {busy ? 'Sending…' : 'Get custom pricing'}
+        </Button>
+        <Typography sx={{ mt: 1.25, fontSize: 13, color: colors.ink500, textAlign: 'center' }}>We respond within 24 hours with pricing and supply details for your business.</Typography>
       </Box>
     </Box>
   )
 }
 
-export default ContactUs
+export default function ContactUs() {
+  return (
+    <>
+      <Head>
+        <title>Contact us | MySupreme</title>
+        <meta name="description" content="Contact MySupreme Food Service for wholesale pricing, supply solutions and order help. Call, WhatsApp, email or visit our Mississauga cash & carry." />
+      </Head>
+      <PageContainer>
+        <PageHeader
+          breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Contact us' }]}
+          eyebrow="We’re here to help"
+          title="Contact us"
+          description="Wholesale pricing, delivery questions or help with an order — our team answers Mon–Sat, 9am–6pm."
+        />
+        <Box component="ul" aria-label="Ways to reach us" sx={{ listStyle: 'none', p: 0, m: 0, display: 'grid', gap: { xs: 1.25, md: 2 }, gridTemplateColumns: { xs: 'minmax(0,1fr)', sm: 'repeat(2, minmax(0,1fr))', lg: 'repeat(4, minmax(0,1fr))' } }}>
+          {methods.map((m) => {
+            const Icon = m.icon
+            return (
+              <li key={m.title}>
+                <Box component="a" href={m.href} {...(m.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                  sx={{ display: 'flex', gap: 1.5, alignItems: 'center', p: 2, height: '100%', borderRadius: radius.lg, border: `1px solid ${colors.line}`, textDecoration: 'none', color: colors.ink, transition: 'box-shadow .2s, border-color .2s', '&:hover': { borderColor: colors.line2, boxShadow: shadow.md }, ...focusRing }}>
+                  <Box sx={{ width: 44, height: 44, borderRadius: '50%', bgcolor: colors.redTint, color: colors.redText, display: 'grid', placeItems: 'center', flexShrink: 0 }}><Icon /></Box>
+                  <Box sx={{ minWidth: 0 }}>
+                    <Typography sx={{ fontSize: 13, color: colors.ink600 }}>{m.title}</Typography>
+                    <Typography sx={{ fontWeight: 600, fontSize: 15.5, overflowWrap: 'anywhere' }}>{m.value}</Typography>
+                    <Typography sx={{ fontSize: 13, color: colors.ink500 }}>{m.note}</Typography>
+                  </Box>
+                </Box>
+              </li>
+            )
+          })}
+        </Box>
+      </PageContainer>
+
+      <Section id="pricing" labelledBy="pricing-title">
+        <Box sx={{ display: 'grid', gap: { xs: 3, md: 5 }, gridTemplateColumns: { xs: 'minmax(0,1fr)', lg: 'minmax(0,1.35fr) minmax(0,1fr)' }, alignItems: 'start' }}>
+          <Box sx={{ border: `1px solid ${colors.line}`, borderRadius: radius.xl, p: { xs: 2, md: 3.5 } }}>
+            <Typography variant="overline" component="p" sx={{ color: colors.redText }}>For businesses</Typography>
+            <Typography id="pricing-title" component="h2" variant="h2" sx={{ mt: 0.5 }}>Request pricing &amp; supply solutions</Typography>
+            <Typography sx={{ color: colors.ink600, mt: 0.75, mb: 3 }}>Tell us about your kitchen and our B2B team will reply within 24 hours.</Typography>
+            <PricingForm />
+          </Box>
+
+          <Box id="visit" sx={{ display: 'flex', flexDirection: 'column', gap: 2, scrollMarginTop: layout.headerOffset }}>
+            <Box sx={{ borderRadius: radius.xl, overflow: 'hidden', border: `1px solid ${colors.line}` }}>
+              {/* TODO(asset): static map of 3750A Laird Road (Google Static Maps or a designed map illustration), 16:9. */}
+              <Box role="img" aria-label="Map placeholder: Supreme Cash & Carry, 3750A Laird Road, Mississauga" sx={{ aspectRatio: '16 / 9', bgcolor: colors.sunken, display: 'grid', placeItems: 'center', backgroundImage: `linear-gradient(${colors.line} 1px, transparent 1px), linear-gradient(90deg, ${colors.line} 1px, transparent 1px)`, backgroundSize: '32px 32px' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.5, bgcolor: '#fff', px: 2, py: 1.25, borderRadius: radius.md, boxShadow: shadow.md }}>
+                  <MapIcon sx={{ color: colors.redText }} />
+                  <Typography sx={{ fontSize: 13, fontWeight: 600 }}>Supreme Cash &amp; Carry</Typography>
+                </Box>
+              </Box>
+              <Box sx={{ p: { xs: 2, md: 2.5 } }}>
+                <Typography component="h2" variant="h3">Visit our cash &amp; carry</Typography>
+                <Typography sx={{ color: colors.ink700, mt: 0.75, display: 'flex', gap: 1 }}><MapPinIcon sx={{ fontSize: 20, color: colors.ink500 }} /> 3750A Laird Road, Unit 9, Mississauga, ON L5L 0A2</Typography>
+                <Typography sx={{ color: colors.ink700, mt: 0.5, display: 'flex', gap: 1 }}><ClockIcon sx={{ fontSize: 20, color: colors.ink500 }} /> Mon–Sat, 9am–6pm</Typography>
+                <Box component="ol" sx={{ m: 0, mt: 2, pl: 2.5, color: colors.ink700, fontSize: 14.5, '& li': { mb: 0.5 } }}>
+                  <li>Walk in and explore thousands of products</li>
+                  <li>Pick what your business needs, at wholesale prices</li>
+                  <li>Check out and take it with you — ideal for urgent restocks</li>
+                </Box>
+                <Button component="a" href={MAPS} target="_blank" rel="noopener noreferrer" variant="outlined" startIcon={<DirectionsIcon />} sx={{ mt: 2 }}>Get directions</Button>
+              </Box>
+            </Box>
+            <Box sx={{ p: { xs: 2, md: 2.5 }, borderRadius: radius.xl, bgcolor: colors.subtle }}>
+              <Typography component="h2" variant="h4">Four ways to order</Typography>
+              <Box component="ul" sx={{ m: 0, mt: 1, pl: 2.5, color: colors.ink700, fontSize: 14.5, '& li': { mb: 0.5 } }}>
+                <li>Online anytime at mysupreme.ca</li>
+                <li>On the MySupreme app — fast reordering</li>
+                <li>With a dedicated sales representative</li>
+                <li>In person at the cash &amp; carry</li>
+              </Box>
+              <Typography sx={{ fontSize: 14, color: colors.ink600, mt: 1.5 }}>Delivery across the GTA, Hamilton &amp; Niagara. <Box component={Link} href="/#delivery" sx={{ color: colors.redText, fontWeight: 600 }}>Check your postal code</Box></Typography>
+            </Box>
+          </Box>
+        </Box>
+      </Section>
+
+      <Section id="contact-faq" band="subtle" labelledBy="faq-title">
+        <HomeFAQ faqs={faqs} contactLink={false} />
+      </Section>
+    </>
+  )
+}
