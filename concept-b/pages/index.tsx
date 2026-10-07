@@ -69,7 +69,7 @@ export default function Home() {
       <BrowseCatalogue departments={departments} />
 
       <Section id="deals" band="subtle" eyebrow="Flyers & offers" title="This week’s deals" subtitle="Limited-time prices on kitchen staples — while stock lasts" action={{ label: 'All flyers & offers', href: '/flyers-offers' }}>
-        <WeeklyDeals offers={(offersJson.offers as Offer[]).slice(0, 3)} products={products} />
+        <WeeklyDeals offers={(offersJson.offers as Offer[]).slice(0, 4)} products={products} />
         <Typography component="h3" variant="h3" sx={{ mt: { xs: 4, md: 5 }, mb: 2, color: colors.ink }}>More promotions</Typography>
         <FeaturedOffersCarousel slides={promotions} />
       </Section>
