@@ -25,7 +25,7 @@ function Badge({ badge }: { badge: CardBadge }) {
 function Name({ product, lines = 2, size = 14.5 }: { product: Product; lines?: number; size?: number }) {
   return (
     <Box component={Link} href={productHref(product)} title={product.name} sx={{ color: colors.ink, textDecoration: 'none', borderRadius: '4px', '&:hover': { color: colors.redText, textDecoration: 'underline' }, ...focusRing }}>
-      <Typography component="h3" sx={{ fontSize: size, fontWeight: 500, lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: lines, WebkitBoxOrient: 'vertical', overflow: 'hidden', minHeight: lines > 1 ? `${1.4 * lines}em` : undefined, overflowWrap: 'anywhere' }}>
+      <Typography component="h3" sx={{ fontSize: size, fontWeight: 500, lineHeight: 1.4, display: '-webkit-box', WebkitLineClamp: lines, WebkitBoxOrient: 'vertical', overflow: 'hidden', overflowWrap: 'anywhere' }}>
         {product.name}
       </Typography>
     </Box>
@@ -76,7 +76,7 @@ export default function ProductCard({ product, variant = 'grid', badge }: { prod
     >
       <Box sx={{ position: 'relative' }}>
         <Box component={Link} href={productHref(product)} tabIndex={-1} aria-hidden className="card-img" sx={{ display: 'block', '& img': { transition: `transform ${motion.slow}, opacity .25s ease` } }}>
-          <ProductImage product={product} alt="" />
+          <ProductImage product={product} alt="" ratio="5 / 4" padding="6%" />
         </Box>
         <Box sx={{ position: 'absolute', top: 10, left: 10, display: 'flex', gap: 0.5 }}>
           {badge && <Badge badge={badge} />}
@@ -85,11 +85,14 @@ export default function ProductCard({ product, variant = 'grid', badge }: { prod
         </Box>
         <Box sx={{ position: 'absolute', top: 8, right: 8 }}><FavoriteButton product={product} /></Box>
       </Box>
-      <Box sx={{ p: { xs: 1.25, sm: 1.5 }, pt: { xs: 1, sm: 1.25 }, display: 'flex', flexDirection: 'column', gap: 0.75, flex: 1, borderTop: `1px solid ${colors.sunken}` }}>
+      <Box sx={{ p: { xs: 1.25, sm: 1.5 }, pt: { xs: 1, sm: 1.25 }, display: 'flex', flexDirection: 'column', gap: 0.5, flex: 1, borderTop: `1px solid ${colors.sunken}` }}>
         <Sku sku={product.sku} />
         <Name product={product} />
-        <Box sx={{ minHeight: 21 }}><PackChip product={product} /></Box>
-        <Box sx={{ mt: 'auto', pt: 0.25 }}><Price product={product} /></Box>
+        {/* Price + pack size on one row, pinned to the bottom so buttons line up across a row. */}
+        <Box sx={{ mt: 'auto', pt: 0.5, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1, flexWrap: 'wrap', minWidth: 0 }}>
+          <Price product={product} />
+          <Box sx={{ minWidth: 0, maxWidth: '100%' }}><PackChip product={product} /></Box>
+        </Box>
         <Box sx={{ mt: 0.5 }}><CartControl product={product} /></Box>
       </Box>
     </Box>

@@ -115,7 +115,7 @@ export default function AboutUs() {
           {categories.map(([name, img, href]) => (
             <li key={name}>
               <Box component={Link} href={href} sx={{ display: 'block', position: 'relative', borderRadius: radius.lg, overflow: 'hidden', aspectRatio: '4 / 3', color: '#fff', textDecoration: 'none', '&:hover img': { transform: 'scale(1.05)' }, ...focusRing }}>
-                <Box component="img" src={img} alt="" loading="lazy" sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: `transform ${motion.slow}` }} />
+                <Box component="img" src={img} alt="" loading="lazy" sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: `transform ${motion.slow}` }} />
                 <Box sx={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(17,24,39,0) 45%, rgba(17,24,39,.8) 100%)' }} />
                 <Typography sx={{ position: 'absolute', left: 14, right: 14, bottom: 12, fontWeight: 600, fontSize: { xs: 14.5, md: 16 } }}>{name}</Typography>
               </Box>
