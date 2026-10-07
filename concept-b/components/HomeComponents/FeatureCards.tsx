@@ -10,7 +10,7 @@ const features = [
 /** Four feature columns (real: FeatureCards.tsx — copy kept verbatim). */
 export default function FeatureCards() {
   return (
-    <Box sx={{ py: 8 }}>
+    <Box>
       <Grid container spacing={4}>
         {features.map((f) => (
           <Grid item xs={12} sm={6} md={3} key={f.title}>

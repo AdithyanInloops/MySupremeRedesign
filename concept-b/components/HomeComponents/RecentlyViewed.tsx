@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Box, Button, Typography } from '@mui/material'
-import ProductCard from '../Product/ProductCard'
+import { Box, Button } from '@mui/material'
+import { ProductRow } from '../Product/ProductCarousel'
+import { SectionHeading } from './HomeSection'
 import { productBySku, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 
@@ -20,32 +21,19 @@ export default function RecentlyViewed({ fallback }: { fallback: Product[] }) {
   if (!items.length) return null
 
   return (
-    <Box component="section" aria-labelledby="recently-viewed-title" sx={{ px: '12px', py: { xs: 2, md: 3 } }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2, gap: 2 }}>
-        <Box sx={{ minWidth: 0 }}>
-          <Typography id="recently-viewed-title" component="h2" sx={{ fontSize: { xs: 18, md: 26 }, fontWeight: 500, color: '#0C0C0C' }}>
-            {hasHistory ? 'Pick up where you left off' : 'Popular with kitchens like yours'}
-          </Typography>
-          <Typography sx={{ fontSize: { xs: 12, md: 14 }, color: '#6B7280' }}>
-            {hasHistory ? `${viewed.length} product${viewed.length === 1 ? '' : 's'} you viewed recently` : 'Products you view will appear here for quick reordering'}
-          </Typography>
-        </Box>
-        {hasHistory && (
-          <Button
-            onClick={clearViewed}
-            sx={{ color: '#4B5563', textTransform: 'none', fontWeight: 500, flexShrink: 0, '&.Mui-focusVisible': { outline: '3px solid #2d297d' } }}
-          >
-            Clear
+    <Box>
+      <SectionHeading
+        id="recently-viewed-title"
+        eyebrow={hasHistory ? 'Welcome back' : 'Popular right now'}
+        title={hasHistory ? 'Pick up where you left off' : 'Popular with kitchens like yours'}
+        subtitle={hasHistory ? `${viewed.length} product${viewed.length === 1 ? '' : 's'} you viewed recently` : 'Products you view will appear here for quick reordering'}
+        extra={hasHistory ? (
+          <Button onClick={clearViewed} sx={{ color: '#4B5563', textTransform: 'none', fontWeight: 500, flexShrink: 0, '&.Mui-focusVisible': { outline: '3px solid #2d297d' } }}>
+            Clear history
           </Button>
-        )}
-      </Box>
-      <Box sx={{ display: 'flex', gap: { xs: 1.5, md: 2 }, overflowX: 'auto', pb: 1, scrollSnapType: 'x mandatory', '&::-webkit-scrollbar': { height: 6 }, '&::-webkit-scrollbar-thumb': { bgcolor: '#E5E7EB', borderRadius: 3 } }}>
-        {items.slice(0, 12).map((p) => (
-          <Box key={p.sku} sx={{ flex: '0 0 auto', width: { xs: 175, sm: 200, md: 220, lg: 237 }, scrollSnapAlign: 'start' }}>
-            <ProductCard product={p} />
-          </Box>
-        ))}
-      </Box>
+        ) : undefined}
+      />
+      <ProductRow products={items.slice(0, 12)} />
     </Box>
   )
 }

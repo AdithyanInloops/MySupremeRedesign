@@ -6,6 +6,7 @@ import ScheduleIcon from '@mui/icons-material/Schedule'
 import { money, packSize, regularPrice, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { ProductImage } from '../Product/ProductCard'
+import { SectionHeading } from './HomeSection'
 
 /*
  * CONCEPT B — CHANGE #4 (replaces OfferCards.tsx; keeps its three #EBF2FE cards and grid).
@@ -106,21 +107,9 @@ export default function WeeklyDeals({ offers, products }: { offers: Offer[]; pro
   if (!deals.length) return null
 
   return (
-    <Box component="section" aria-labelledby="deals-title" sx={{ pt: 4 }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 2, flexWrap: 'wrap' }}>
-        <Box>
-          <Typography sx={{ fontSize: { xs: '9px', sm: '11px' }, fontWeight: 800, color: '#FF413D', letterSpacing: '2px', textTransform: 'uppercase' }}>Flyers &amp; Offers</Typography>
-          <Typography id="deals-title" component="h2" sx={{ fontWeight: 700, color: '#0C0C0C', fontSize: { xs: '18px', sm: '20px', md: '24px' }, lineHeight: 1.2 }}>This Week&apos;s Deals</Typography>
-        </Box>
-        <Button
-          component={Link}
-          href="/flyers-offers"
-          sx={{ borderColor: RED_AA, color: RED_AA, fontWeight: 700, border: 1, borderRadius: '100px', height: { xs: 40, md: 45 }, px: 3, textTransform: 'none', fontSize: { xs: 13, md: 15 }, '&:hover': { backgroundColor: RED_AA, color: 'white' }, ...focusRing }}
-        >
-          See all Flyers &amp; Offers
-        </Button>
-      </Box>
-      <Grid container spacing={4} sx={{ pt: 2.5, pb: 4 }}>
+    <Box>
+      <SectionHeading id="deals-title" eyebrow="Flyers & offers" title="This Week's Deals" subtitle="Limited-time prices on kitchen staples — while stock lasts" action={{ label: 'See all Flyers & Offers', href: '/flyers-offers' }} />
+      <Grid container spacing={{ xs: 2, md: 3 }}>
         {deals.map((d) => (
           <Grid item xs={12} sm={6} md={4} key={d.offer.id}>
             <DealCard offer={d.offer} product={d.product} />

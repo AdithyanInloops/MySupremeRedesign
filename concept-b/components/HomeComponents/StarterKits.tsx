@@ -5,6 +5,7 @@ import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined'
 import { finalPrice, money, packSize, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { ProductImage } from '../Product/ProductCard'
+import { SectionHeading } from './HomeSection'
 
 /*
  * CONCEPT B — NEW SECTION #6 "Ready-to-order kits".
@@ -89,10 +90,8 @@ function KitCard({ kit, products }: { kit: Kit; products: Product[] }) {
 
 export default function StarterKits({ kits, products }: { kits: Kit[]; products: Product[] }) {
   return (
-    <Box component="section" aria-labelledby="starter-kits" sx={{ mx: '12px', my: { xs: 2, md: 3 }, p: { xs: 2, md: 3 }, bgcolor: '#FFF5F4', borderRadius: '12px' }}>
-      <Typography sx={{ fontSize: 12, fontWeight: 600, letterSpacing: '.12em', color: '#FF0000', textTransform: 'uppercase' }}>Ready-to-order kits</Typography>
-      <Typography id="starter-kits" component="h2" sx={{ fontSize: { xs: 18, md: 26 }, fontWeight: 500, color: '#0C0C0C' }}>Stock up in one tap</Typography>
-      <Typography sx={{ fontSize: { xs: 13, md: 14 }, color: '#4B5563', mb: 2 }}>Curated bundles of what kitchens reorder together — edit quantities in the cart.</Typography>
+    <Box>
+      <SectionHeading id="starter-kits" eyebrow="Ready-to-order kits" title="Stock up in one tap" subtitle="Curated bundles of what kitchens reorder together — edit quantities in the cart" />
       <Box
         sx={{
           display: 'grid', gap: { xs: 1.5, md: 2 },

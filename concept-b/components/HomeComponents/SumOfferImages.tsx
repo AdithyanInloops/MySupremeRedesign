@@ -9,7 +9,7 @@ const promoTestData3 = [
 /** Two large promo images (inline block in the real pages/index.tsx). */
 export default function SumOfferImages() {
   return (
-    <Box sx={{ mt: 1, mb: 8, width: '100%', px: { xs: 2, md: 3 } }}>
+    <Box sx={{ width: '100%', mb: { xs: 2, md: 3 } }}>
       <Grid container spacing={{ xs: 4, sm: 5, md: 6 }} justifyContent="space-between">
         {promoTestData3.map((item) => (
           <Grid item xs={12} sm={6} md={6} key={item.image}>

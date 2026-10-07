@@ -69,7 +69,7 @@ export default function QuickOrderBar({ products, popularSkus }: Props) {
   }
 
   return (
-    <Box component="section" aria-labelledby="quick-order-title" sx={{ mx: '12px', mt: { xs: 2, md: 3 } }}>
+    <Box component="section" aria-labelledby="quick-order-title">
       <Box
         component="form"
         onSubmit={submit}

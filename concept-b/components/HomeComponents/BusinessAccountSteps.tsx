@@ -22,14 +22,14 @@ export const defaultSteps: Step[] = [
 
 export default function BusinessAccountSteps({ steps = defaultSteps }: { steps?: Step[] }) {
   return (
-    <Box component="section" aria-labelledby="account-steps" sx={{ mx: '12px', my: { xs: 2, md: 3 }, borderRadius: '12px', bgcolor: '#F9FAFB', border: '1px solid #E5E7EB', p: { xs: 2.5, md: 4 } }}>
+    <Box sx={{ borderRadius: '16px', bgcolor: '#FFFFFF', border: '1px solid #E5E7EB', p: { xs: 2.5, md: 4 } }}>
       <Box sx={{ display: 'grid', gap: { xs: 2.5, lg: 4 }, gridTemplateColumns: { xs: '1fr', lg: '400px minmax(0,1fr)' }, alignItems: 'center' }}>
         <Box>
-          <Typography sx={{ fontSize: 12, fontWeight: 600, letterSpacing: '.12em', color: '#FF0000', textTransform: 'uppercase' }}>For businesses</Typography>
-          <Typography id="account-steps" component="h2" sx={{ fontSize: { xs: 20, md: 26 }, fontWeight: 500, color: '#0C0C0C', lineHeight: 1.25 }}>
+          <Typography sx={{ fontSize: { xs: 11.5, md: 12.5 }, fontWeight: 600, letterSpacing: '.14em', color: '#D50000', textTransform: 'uppercase', mb: 0.75 }}>For businesses</Typography>
+          <Typography id="account-steps" component="h2" sx={{ fontSize: { xs: 22, sm: 26, md: 30 }, fontWeight: 600, color: '#0C0C0C', lineHeight: 1.2, letterSpacing: '-0.01em' }}>
             Open a business account in 3 steps
           </Typography>
-          <Typography sx={{ fontSize: 14, color: '#4B5563', mt: 1 }}>Free to join. Restaurants, cafés, caterers, food trucks and retailers welcome.</Typography>
+          <Typography sx={{ fontSize: { xs: 14, md: 15 }, color: '#4B5563', mt: 0.75, lineHeight: 1.55 }}>Free to join. Restaurants, cafés, caterers, food trucks and retailers welcome.</Typography>
           <Box sx={{ display: 'flex', gap: 1.25, flexWrap: 'wrap', mt: 2.5 }}>
             <Button
               component={Link}

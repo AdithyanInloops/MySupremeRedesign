@@ -25,12 +25,12 @@ export const defaultFaqs: Faq[] = [
 export default function HomeFAQ({ faqs = defaultFaqs }: { faqs?: Faq[] }) {
   const [open, setOpen] = useState<number | false>(0)
   return (
-    <Box component="section" aria-labelledby="home-faq" sx={{ px: '12px', py: { xs: 3, md: 5 } }}>
+    <Box>
       <Box sx={{ display: 'grid', gap: { xs: 2, lg: 5 }, gridTemplateColumns: { xs: '1fr', lg: '340px minmax(0,1fr)' }, alignItems: 'start' }}>
         <Box>
-          <Typography sx={{ fontSize: 12, fontWeight: 600, letterSpacing: '.12em', color: '#FF0000', textTransform: 'uppercase' }}>FAQ</Typography>
-          <Typography id="home-faq" component="h2" sx={{ fontSize: { xs: 20, md: 26 }, fontWeight: 500, color: '#0C0C0C' }}>Quick answers</Typography>
-          <Typography sx={{ fontSize: 14, color: '#4B5563', mt: 1, mb: 2 }}>
+          <Typography sx={{ fontSize: { xs: 11.5, md: 12.5 }, fontWeight: 600, letterSpacing: '.14em', color: '#D50000', textTransform: 'uppercase', mb: 0.75 }}>Need help?</Typography>
+          <Typography id="home-faq" component="h2" sx={{ fontSize: { xs: 22, sm: 26, md: 30 }, fontWeight: 600, color: '#0C0C0C', lineHeight: 1.2, letterSpacing: '-0.01em' }}>Quick answers</Typography>
+          <Typography sx={{ fontSize: { xs: 14, md: 15 }, color: '#4B5563', mt: 0.75, mb: 2, lineHeight: 1.55 }}>
             Still need help? Call or WhatsApp us Mon–Sat 9am–6pm.
           </Typography>
           <Box sx={{ display: 'flex', gap: 1.25, flexWrap: 'wrap' }}>

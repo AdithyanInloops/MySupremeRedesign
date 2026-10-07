@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Box, Button, Typography } from '@mui/material'
 import { keyframes } from '@mui/system'
 import type { Brand } from '../../lib/data'
+import { SectionHeading } from './HomeSection'
 
 const scrollAnimation = keyframes`
   0% { transform: translateX(0); }
@@ -14,26 +15,9 @@ function Homebanner({ brandList }: { brandList: Brand[] }) {
   if (!brandsToDisplay.length) return null
   const marqueeItems = [...brandsToDisplay, ...brandsToDisplay]
   return (
-    <Box sx={{ position: 'relative', mx: '12px', borderRadius: '12px', overflow: 'hidden', py: { xs: 2.5, sm: 3, md: 4 }, background: 'linear-gradient(180deg, #FFF6F6 0%, #FFF0F0 50%, #FFEAEA 100%)', border: '1px solid #FFE5E5', my: 4 }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', mb: { xs: 2.5, sm: 3 }, px: { xs: 2, sm: 3, md: 4 } }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-          <Typography sx={{ fontSize: { xs: '9px', sm: '11px' }, fontWeight: 800, color: '#FF413D', letterSpacing: '2px', textTransform: 'uppercase' }}>Shop By</Typography>
-          <Typography variant="h4" component="h2" sx={{ fontWeight: 900, color: '#1A1A1A', fontSize: { xs: '20px', sm: '26px', md: '32px' }, letterSpacing: '-0.5px', lineHeight: 1.1 }}>Our Brands</Typography>
-        </Box>
-        <Button
-          component={Link}
-          href="/brands"
-          sx={{
-            color: '#FFFFFF', backgroundColor: '#FF413D', fontWeight: 700, borderRadius: '50px', height: { xs: '36px', sm: '42px' }, px: { xs: 2.5, sm: 4 },
-            boxShadow: '0 4px 14px rgba(255, 65, 61, 0.25)', transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)', fontSize: { xs: '12px', sm: '13px', md: '14px' },
-            textTransform: 'none', display: 'inline-flex', alignItems: 'center', gap: 1.2, border: '2px solid transparent',
-            '&:hover': { backgroundColor: '#E53935', boxShadow: '0 6px 20px rgba(255, 65, 61, 0.4)', transform: 'translateY(-2px)', '& span': { transform: 'translateX(4px)' } },
-          }}
-        >
-          View All Brands
-          <Box component="span" sx={{ display: 'inline-block', transition: 'transform 0.25s ease', fontWeight: 'bold' }}>→</Box>
-        </Button>
-      </Box>
+    <Box>
+      <SectionHeading id="brands-title" eyebrow="Shop by brand" title="Our Brands" subtitle="Trusted names stocked in our Mississauga warehouse" action={{ label: 'View all brands', href: '/brands' }} />
+      <Box sx={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', py: { xs: 2, md: 3 }, background: 'linear-gradient(180deg, #FFF6F6 0%, #FFF0F0 50%, #FFEAEA 100%)', border: '1px solid #FFE5E5' }}>
       <Box sx={{ width: '100%', overflow: 'hidden', position: 'relative', py: 1, maskImage: 'linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, #000 8%, #000 92%, transparent)' }}>
         <Box sx={{ display: 'flex', width: 'max-content', gap: { xs: 2, sm: 3 }, animation: `${scrollAnimation} 180s linear infinite`, '&:hover': { animationPlayState: 'paused' } }}>
           {marqueeItems.map((brand, index) => (
@@ -50,6 +34,7 @@ function Homebanner({ brandList }: { brandList: Brand[] }) {
             </Box>
           ))}
         </Box>
+      </Box>
       </Box>
     </Box>
   )

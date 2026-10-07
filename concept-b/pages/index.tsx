@@ -13,6 +13,7 @@ import PromoTwoCards2 from '../components/HomeComponents/PromoTwoCards2'
 import NewArrival from '../components/HomeComponents/NewArrival'
 import Banner from '../components/HomeComponents/Banner'
 import FeatureCards from '../components/HomeComponents/FeatureCards'
+import HomeSection from '../components/HomeComponents/HomeSection'
 // Concept B changes (see CLAUDE.md §9 and CHANGES.md)
 import QuickOrderBar from '../components/HomeComponents/QuickOrderBar'
 import TrendingByDepartment from '../components/HomeComponents/TrendingByDepartment'
@@ -49,98 +50,121 @@ const productsByDepartment = Object.fromEntries(
 
 export default function Home() {
   return (
-    <Box sx={{ maxWidth: 1500, mx: 'auto' }}>
+    <Box sx={{ bgcolor: '#fff' }}>
       <Head>
         <title>MySupreme - Wholesale Food &amp; Restaurant Supply</title>
         <meta name="description" content="Fast, reliable support for all your wholesale food and restaurant supply needs." />
       </Head>
 
       {/*
-        Concept B — home order regrouped so the page reads like a shopping trip (every live section is kept):
+        Concept B — every section sits in a HomeSection: same spacing, same heading style, and alternating
+        white / soft-grey bands so each section reads as its own block. Order (every live section is kept):
         Order fast → Browse → Deals → Discover → Delivery & service → Trust & help.
       */}
 
       {/* ── 1. Order fast ──────────────────────────── */}
       {/* 1. Hero banner slider */}
-      <Box sx={{ mt: '2px', mx: '12px' }}>
+      <Box sx={{ maxWidth: 1500, mx: 'auto', pt: '2px', px: '12px' }}>
         <Supremebanner imageUrls={imageUrls} mobileImageUrls={mobileImageUrls} />
       </Box>
 
       {/* NEW (Concept B #1) — Quick Order bar */}
-      <QuickOrderBar products={products} popularSkus={popularSkus} />
+      <HomeSection id="quick-order" tight>
+        <QuickOrderBar products={products} popularSkus={popularSkus} />
+      </HomeSection>
 
       {/* NEW (Concept B #7) — Pick up where you left off (recently viewed) */}
-      <RecentlyViewed fallback={recommendedProducts.slice(4, 10)} />
+      <HomeSection id="recently-viewed" band="grey">
+        <RecentlyViewed fallback={recommendedProducts.slice(4, 10)} />
+      </HomeSection>
 
       {/* ── 2. Browse ──────────────────────────── */}
-      {/* 5. Recommended Categories */}
-      <RecommendedCategories data={departments} />
+      {/* 5. Recommended Categories → "Shop by department" */}
+      <HomeSection id="departments">
+        <RecommendedCategories data={departments} />
+      </HomeSection>
 
       {/* NEW (Concept B #5) — Shop by your kitchen */}
-      <ShopByBusiness />
+      <HomeSection id="shop-by-kitchen" band="grey">
+        <ShopByBusiness />
+      </HomeSection>
 
       {/* ── 3. Deals ──────────────────────────── */}
       {/* 11. Offer cards → CHANGED (Concept B #4) */}
-      <Box sx={{ mx: { xs: '16px', sm: '40px' } }}>
+      <HomeSection id="weekly-deals">
         <WeeklyDeals offers={offersJson.offers as Offer[]} products={products} />
-      </Box>
+      </HomeSection>
 
-      {/* 3. Two large promo images */}
-      <SumOfferImages />
-
-      {/* 4. PromoTwoCards */}
-      <Box sx={{ mt: 1, mx: '12px' }}>
+      {/* 3. Two large promo images + 4. PromoTwoCards */}
+      <HomeSection id="featured-offers" band="grey" eyebrow="Promotions" title="Featured offers" subtitle="Current promotions from our warehouse">
+        <SumOfferImages />
         <PromoTwoCards items={promoTestData} />
-      </Box>
+      </HomeSection>
 
       {/* ── 4. Discover ──────────────────────────── */}
       {/* 2. Recommended Products */}
-      <Box sx={{ mt: '5px' }}>
+      <HomeSection id="recommended">
         <RecommentedProducts products={recommendedProducts} />
-      </Box>
+      </HomeSection>
 
       {/* NEW (Concept B #2) — Trending by Department */}
-      <TrendingByDepartment departments={departments} productsByDepartment={productsByDepartment} initialTab="produce" />
+      <HomeSection id="trending" band="grey">
+        <TrendingByDepartment departments={departments} productsByDepartment={productsByDepartment} initialTab="produce" />
+      </HomeSection>
 
       {/* NEW (Concept B #6) — Ready-to-order kits */}
-      <StarterKits kits={kitsJson.kits as Kit[]} products={products} />
+      <HomeSection id="kits">
+        <StarterKits kits={kitsJson.kits as Kit[]} products={products} />
+      </HomeSection>
 
       {/* 9. New Arrivals */}
-      <Box sx={{ mt: '5px' }}>
+      <HomeSection id="new-arrivals" band="grey">
         <NewArrival products={newArrivals} />
-      </Box>
+      </HomeSection>
 
       {/* 8. PromoTwoCards2 */}
-      <Box sx={{ mt: 4, mx: '12px' }}>
+      <HomeSection id="more-departments" eyebrow="Departments" title="Fresh and stock-ready" subtitle="Dairy, eggs and pantry staples for every kitchen">
         <PromoTwoCards2 items={promoTestData2} />
-      </Box>
+      </HomeSection>
 
       {/* 7. Our Brands */}
-      <Homebanner brandList={brands} />
+      <HomeSection id="brands" band="grey">
+        <Homebanner brandList={brands} />
+      </HomeSection>
 
       {/* ── 5. Delivery & service ──────────────────────────── */}
       {/* 6. Delivery banner → CHANGED (Concept B #3) */}
-      <DeliveryCheckBanner data={zonesJson as DeliveryZones} />
+      <HomeSection id="delivery">
+        <DeliveryCheckBanner data={zonesJson as DeliveryZones} />
+      </HomeSection>
 
       {/* 10. Click & Collect banner (desktop only, as live) */}
       <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-        <Banner />
+        <HomeSection id="click-and-collect" tight>
+          <Banner />
+        </HomeSection>
       </Box>
 
       {/* 12. Feature cards */}
-      <Box sx={{ mx: '40px' }}>
+      <HomeSection id="why-mysupreme" band="grey" eyebrow="Why MySupreme" title="Built for busy kitchens" align="center">
         <FeatureCards />
-      </Box>
+      </HomeSection>
 
       {/* ── 6. Trust & help ──────────────────────────── */}
       {/* NEW (Concept B #8) — Trusted by Ontario kitchens */}
-      <TrustStrip />
+      <HomeSection id="trust">
+        <TrustStrip />
+      </HomeSection>
 
       {/* NEW (Concept B #9) — Open a business account in 3 steps */}
-      <BusinessAccountSteps />
+      <HomeSection id="business-account" band="grey">
+        <BusinessAccountSteps />
+      </HomeSection>
 
       {/* NEW (Concept B #10) — Quick answers (FAQ) */}
-      <HomeFAQ />
+      <HomeSection id="faq">
+        <HomeFAQ />
+      </HomeSection>
     </Box>
   )
 }

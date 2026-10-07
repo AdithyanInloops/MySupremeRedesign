@@ -7,6 +7,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining'
 import StorefrontIcon from '@mui/icons-material/Storefront'
 import type { SvgIconComponent } from '@mui/icons-material'
+import { SectionHeading } from './HomeSection'
 
 /*
  * CONCEPT B — NEW SECTION #5 "Shop by your kitchen".
@@ -86,11 +87,8 @@ function Tile({ t }: { t: BusinessType }) {
 
 export default function ShopByBusiness({ types = defaultBusinessTypes }: { types?: BusinessType[] }) {
   return (
-    <Box component="section" aria-labelledby="shop-by-business" sx={{ px: '12px', py: { xs: 2, md: 3 } }}>
-      <Typography sx={{ fontSize: 12, fontWeight: 600, letterSpacing: '.12em', color: '#FF0000', textTransform: 'uppercase' }}>Shop by business</Typography>
-      <Typography id="shop-by-business" component="h2" sx={{ fontSize: { xs: 18, md: 26 }, fontWeight: 500, color: '#0C0C0C', mb: 2 }}>
-        Shop by your kitchen
-      </Typography>
+    <Box>
+      <SectionHeading id="shop-by-business" eyebrow="Shop by business" title="Shop by your kitchen" subtitle="Jump straight to the departments your type of kitchen orders from most" />
       <Box
         sx={{
           display: 'grid', gap: { xs: 1.5, md: 2 },

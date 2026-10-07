@@ -4,6 +4,7 @@ import { Box, Typography } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import type { Category, Product } from '../../lib/data'
 import ProductCard from '../Product/ProductCard'
+import { SectionHeading } from './HomeSection'
 
 /*
  * CONCEPT B — CHANGE #2 (new section, after RecommendedCategories).
@@ -38,22 +39,14 @@ export default function TrendingByDepartment({ departments, productsByDepartment
   const items = (productsByDepartment[dept.url_key] ?? []).slice(0, limit)
 
   return (
-    <Box component="section" aria-labelledby="trending-title" sx={{ mx: '12px', mt: { xs: 3, md: 4 }, mb: { xs: 1, md: 2 } }}>
-      <Box sx={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 2, mb: 2, flexWrap: 'wrap' }}>
-        <Box>
-          <Typography sx={{ fontSize: { xs: '9px', sm: '11px' }, fontWeight: 800, color: '#FF413D', letterSpacing: '2px', textTransform: 'uppercase' }}>Trending now</Typography>
-          <Typography id="trending-title" component="h2" sx={{ fontWeight: 700, color: '#0C0C0C', fontSize: { xs: '18px', sm: '20px', md: '24px' }, lineHeight: 1.2 }}>
-            Popular in every department
-          </Typography>
-        </Box>
-        <Box
-          component={Link}
-          href={`/${dept.url_key}`}
-          sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, color: RED_AA, fontWeight: 600, fontSize: 14, textDecoration: 'none', minHeight: 44, '&:hover': { textDecoration: 'underline' }, '&:focus-visible': { outline: `3px solid ${RED_AA}`, outlineOffset: 2, borderRadius: '4px' } }}
-        >
-          Shop all {dept.name} <ArrowForwardIcon sx={{ fontSize: 18 }} />
-        </Box>
-      </Box>
+    <Box>
+      <SectionHeading
+        id="trending-title"
+        eyebrow="Trending now"
+        title="Popular in every department"
+        subtitle="What kitchens are ordering most this week, department by department"
+        action={{ label: `Shop all ${dept.name}`, href: `/${dept.url_key}` }}
+      />
 
       <Box
         ref={tablist}

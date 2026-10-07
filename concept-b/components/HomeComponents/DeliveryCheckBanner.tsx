@@ -41,7 +41,7 @@ export default function DeliveryCheckBanner({ data, image = '/assets/stickydeliv
   const regions = Array.from(new Set(data.zones.map((z) => z.region)))
 
   return (
-    <Box component="section" aria-labelledby="delivery-title" sx={{ width: '100%', px: { xs: '6px', sm: '12px' }, mb: { xs: 3, md: 5 }, mt: { xs: 1, md: 2 } }}>
+    <Box component="section" aria-labelledby="delivery-title" sx={{ width: '100%' }}>
       <Box
         sx={{
           display: 'grid', gridTemplateColumns: { xs: 'minmax(0,1fr)', md: 'minmax(0,1fr) minmax(0,1fr)', xl: 'minmax(0,1.1fr) minmax(0,1fr)' }, aspectRatio: { xl: '1920 / 500' }, minHeight: { md: 320 },

@@ -6,6 +6,7 @@ import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined
 import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined'
 import FormatQuoteRoundedIcon from '@mui/icons-material/FormatQuoteRounded'
 import type { SvgIconComponent } from '@mui/icons-material'
+import { SectionHeading } from './HomeSection'
 
 /*
  * CONCEPT B — NEW SECTION #8 "Trusted by Ontario kitchens".
@@ -30,10 +31,8 @@ export const defaultTestimonials: Testimonial[] = [
 
 export default function TrustStrip({ stats = defaultStats, testimonials = defaultTestimonials }: { stats?: Stat[]; testimonials?: Testimonial[] }) {
   return (
-    <Box component="section" aria-labelledby="trust-strip" sx={{ px: '12px', py: { xs: 3, md: 4 } }}>
-      <Typography id="trust-strip" component="h2" sx={{ fontSize: { xs: 18, md: 26 }, fontWeight: 500, color: '#0C0C0C', mb: 2 }}>
-        Trusted by Ontario kitchens
-      </Typography>
+    <Box>
+      <SectionHeading id="trust-strip" eyebrow="Why kitchens trust us" title="Trusted by Ontario kitchens" subtitle="One supplier for restaurants, cafés and caterers across the GTA, Hamilton & Niagara" />
 
       <Box component="ul" sx={{ listStyle: 'none', m: 0, p: 0, display: 'grid', gap: { xs: 1, md: 2 }, gridTemplateColumns: { xs: 'repeat(2, minmax(0,1fr))', lg: 'repeat(4, minmax(0,1fr))' }, mb: { xs: 2, md: 3 } }}>
         {stats.map((s) => {
