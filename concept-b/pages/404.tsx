@@ -1,41 +1,29 @@
-import { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { Box, Container, InputBase, Link as MuiLink, Typography } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
+import { Box, Button, Chip } from '@mui/material'
+import SearchOffRoundedIcon from '@mui/icons-material/SearchOffRounded'
+import { departments } from '../lib/data'
+import { PageContainer } from '../components/ui/Section'
+import EmptyState from '../components/ui/EmptyState'
+import SearchBox from '../components/Layout/SearchBox'
 
-// Mirrors the live pages/404.tsx: icon, "Whoops our bad...", search field, Store home | Account links.
+/** Not found: say what happened, offer search right here, and the most useful ways back. */
 export default function NotFound() {
-  const router = useRouter()
-  const [q, setQ] = useState('')
   return (
-    <Container maxWidth="sm">
+    <PageContainer>
       <Head><title>Page not found | MySupreme</title></Head>
-      <Box textAlign="center" mt={{ xs: 8, md: 16 }} mb={{ xs: 8, md: 16 }}>
-        <svg width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="#0C0C0C" strokeWidth="0.9" aria-hidden>
-          <circle cx="11" cy="11" r="7" /><path d="m20 20-4-4M8.5 8.5l5 5M13.5 8.5l-5 5" />
-        </svg>
-        <Typography variant="h3" component="h1" gutterBottom sx={{ fontSize: { xs: 22, md: 28 }, fontWeight: 500, mt: 2 }}>Whoops our bad...</Typography>
-        <Typography variant="body1">We couldn&apos;t find the page you were looking for</Typography>
-        <Box mt={4} mb={2}>
-          <InputBase
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && q.trim() && router.push(`/search/${encodeURIComponent(q.trim())}`)}
-            placeholder="Search..."
-            inputProps={{ 'aria-label': 'Search' }}
-            endAdornment={<SearchIcon sx={{ color: 'rgba(0,0,0,.5)' }} />}
-            sx={{ width: '100%', py: 1.5, px: 2, border: '1px solid #E5E7EB', borderRadius: '8px', fontSize: 16 }}
-          />
+      <EmptyState
+        icon={<SearchOffRoundedIcon />}
+        title="We can’t find that page"
+        headingLevel="h1"
+        actions={<><Button component={Link} href="/" variant="contained" size="large">Go to the home page</Button><Button component={Link} href="/service/contact-us" variant="outlined" size="large">Contact us</Button></>}
+      >
+        The link may be old or mistyped. Search for what you need, or pick a department.
+        <Box sx={{ maxWidth: 520, mx: 'auto', mt: 3, textAlign: 'left' }}><SearchBox size="lg" /></Box>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center', mt: 2.5 }}>
+          {departments.map((d) => <Chip key={d.uid} component={Link} href={`/${d.url_key}`} clickable label={d.name} variant="outlined" />)}
         </Box>
-        Or follow these links to get you back on track!
-        <Box mb={8} sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 1 }}>
-          <MuiLink component={Link} href="/" color="primary" underline="hover">Store home</MuiLink>
-          <span>|</span>
-          <MuiLink component={Link} href="/account/signin" color="primary" underline="hover">Account</MuiLink>
-        </Box>
-      </Box>
-    </Container>
+      </EmptyState>
+    </PageContainer>
   )
 }
