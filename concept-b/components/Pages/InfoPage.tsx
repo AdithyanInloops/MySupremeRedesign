@@ -1,25 +1,43 @@
 import type { ReactNode } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { Box, Button, Container, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
+import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded'
+import { colors, radius } from '../../lib/theme'
+import PageHeader from '../ui/PageHeader'
+import { PageContainer } from '../ui/Section'
+import { PHONE, PHONE_HREF } from '../Layout/Header'
 
 /**
- * Shared simple template for live pages that are out of scope for this prototype
- * (no screenshot / not in the change list). Keeps footer and More-menu links from dead-ending.
+ * Long-form content template (CMS pages, policies, blog index). Readable measure, a help card alongside, and the
+ * same header as every other page. Full copy comes from the Magento CMS on the live site.
  */
-export default function InfoPage({ eyebrow, title, children }: { eyebrow: string; title: string; children: ReactNode }) {
+export default function InfoPage({ eyebrow, title, lead, children, aside }: { eyebrow: string; title: string; lead?: string; children?: ReactNode; aside?: ReactNode }) {
   return (
-    <Container maxWidth="md" sx={{ py: { xs: 5, md: 10 } }}>
+    <PageContainer sx={{ pb: { xs: 5, md: 9 } }}>
       <Head><title>{`${title} | MySupreme`}</title></Head>
-      <Typography sx={{ fontSize: { xs: '11px', md: '12px' }, fontWeight: 800, color: '#FF413D', letterSpacing: '2.5px', textTransform: 'uppercase' }}>{eyebrow}</Typography>
-      <Typography component="h1" sx={{ fontWeight: 900, color: '#0C0C0C', fontSize: { xs: '28px', md: '40px' }, letterSpacing: '-1px', lineHeight: 1.1, mt: 0.5, mb: 3 }}>{title}</Typography>
-      <Box sx={{ color: '#4B5563', fontSize: { xs: 14, md: 16 }, lineHeight: 1.7, '& p': { mt: 0, mb: 2 } }}>{children}</Box>
-      <Box sx={{ mt: 4, p: 2.5, borderRadius: '12px', bgcolor: '#F9FAFB', border: '1px solid #E5E7EB' }}>
-        <Typography sx={{ fontSize: 14, color: '#4B5563' }}>
-          This page is unchanged from the live site and is not reproduced in full in this prototype.
-        </Typography>
-        <Button component={Link} href="/" variant="contained" disableElevation sx={{ mt: 2, borderRadius: '50px', textTransform: 'none', fontWeight: 600 }}>Back to home</Button>
+      <PageHeader breadcrumbs={[{ label: 'Home', href: '/' }, { label: title }]} eyebrow={eyebrow} title={title} description={lead} />
+      <Box sx={{ display: 'grid', gap: { xs: 3, md: 6 }, gridTemplateColumns: { xs: 'minmax(0,1fr)', md: 'minmax(0,1fr) 320px' }, alignItems: 'start' }}>
+        <Box sx={{ maxWidth: 720, color: colors.ink700, fontSize: 16, lineHeight: 1.75, '& p': { mt: 0, mb: 2 }, '& h2': { color: colors.ink, fontSize: 21, fontWeight: 600, mt: 4, mb: 1.5 }, '& ul': { pl: 3, mb: 2 } }}>
+          {children}
+          <Box sx={{ mt: 4, p: 2.5, borderRadius: radius.lg, bgcolor: colors.subtle, border: `1px dashed ${colors.line2}` }}>
+            {/* TODO(content): render this page's Magento CMS block here. */}
+            <Typography sx={{ fontSize: 14, color: colors.ink600 }}>The full text of this page is managed in the Magento CMS and appears here on the live site.</Typography>
+          </Box>
+        </Box>
+        <Box component="aside" sx={{ position: { md: 'sticky' }, top: { md: 180 }, display: 'flex', flexDirection: 'column', gap: 2 }}>
+          {aside}
+          <Box sx={{ p: 2.5, borderRadius: radius.xl, border: `1px solid ${colors.line}` }}>
+            <Typography component="h2" variant="h4">Questions?</Typography>
+            <Typography sx={{ fontSize: 14, color: colors.ink600, mt: 0.5, mb: 2 }}>Our team answers Mon–Sat, 9am–6pm.</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Button component="a" href={PHONE_HREF} variant="outlined" startIcon={<PhoneOutlinedIcon />} fullWidth>{PHONE}</Button>
+              <Button component={Link} href="/service/contact-us" variant="outlined" startIcon={<MailOutlineRoundedIcon />} fullWidth>Contact us</Button>
+            </Box>
+          </Box>
+        </Box>
       </Box>
-    </Container>
+    </PageContainer>
   )
 }

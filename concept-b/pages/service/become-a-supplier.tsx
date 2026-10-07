@@ -1,9 +1,4 @@
-import InfoPage from '../../components/Pages/InfoPage'
+import SupplierPage from '../../components/Pages/SupplierPage'
 
-export default function ServiceBecomeASupplier() {
-  return (
-    <InfoPage eyebrow="Partner with us" title="Become a Supplier">
-      <p>Sell your products to restaurants, cafés, caterers and foodservice businesses across the GTA, GTHA and Niagara Region through MySupreme.</p>
-    </InfoPage>
-  )
-}
+// Footer "Become a supplier" uses this live route; it renders the same page as /become-a-supplier.
+export default SupplierPage
