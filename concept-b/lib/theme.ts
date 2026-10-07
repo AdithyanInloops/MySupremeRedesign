@@ -1,4 +1,9 @@
+import { createElement } from 'react'
 import { createTheme, alpha } from '@mui/material/styles'
+import {
+  AlertCircleIcon, AlertTriangleIcon, CheckCircleIcon, CheckboxCheckedIcon, CheckboxIcon, CheckboxIndeterminateIcon, ChevronDownIcon,
+  ChevronLeftIcon, ChevronRightIcon, CloseIcon, InfoIcon, RadioCheckedIcon, RadioIcon,
+} from '../components/ui/icons'
 
 /**
  * MySupreme design system — one set of tokens for every page.
@@ -10,6 +15,7 @@ import { createTheme, alpha } from '@mui/material/styles'
  * Type: Poppins 400/500/600/700, one scale (display → caption). SKUs use the system mono stack.
  * Space: MUI's 8px unit; use 0.5 steps (4px). Radii: 6 / 8 / 10 / 14 / 20 / pill.
  * Motion: 150ms for hover/press, 200–250ms for panels; everything is disabled under prefers-reduced-motion.
+ * Icons: the site's own SVG set in components/ui/icons.tsx (also wired into MUI's checkbox, radio, select, etc. below).
  */
 
 export const colors = {
@@ -49,6 +55,8 @@ export const colors = {
   infoTint: '#EFF6FF',
   infoLine: '#BFDBFE',
   error: '#C00000',
+  /** Flyer accent (price bursts, Bulk Saver). Only ever behind ink text (13:1). */
+  yellow: '#FFD400',
   errorTint: '#FEF2F2',
   errorLine: '#FECACA',
 } as const
@@ -203,10 +211,12 @@ export const theme = createTheme({
     },
     MuiFormHelperText: { styleOverrides: { root: { marginLeft: 0, marginTop: 6, fontSize: 13, lineHeight: 1.4 } } },
     MuiInputLabel: { styleOverrides: { root: { fontSize: 15 } } },
-    MuiSelect: { styleOverrides: { icon: { color: colors.ink500 } } },
-    MuiCheckbox: { defaultProps: { color: 'primary' }, styleOverrides: { root: { color: colors.ink400, '&.Mui-focusVisible': { outline: `2px solid ${colors.navy}`, outlineOffset: -4, borderRadius: 8 } } } },
-    MuiRadio: { defaultProps: { color: 'primary' }, styleOverrides: { root: { color: colors.ink400 } } },
+    MuiSelect: { defaultProps: { IconComponent: ChevronDownIcon }, styleOverrides: { icon: { color: colors.ink500, fontSize: 20, right: 10 } } },
+    // Form-control glyphs come from the site's own SVG set too (components/ui/icons.tsx).
+    MuiCheckbox: { defaultProps: { color: 'primary', icon: createElement(CheckboxIcon), checkedIcon: createElement(CheckboxCheckedIcon), indeterminateIcon: createElement(CheckboxIndeterminateIcon) }, styleOverrides: { root: { color: colors.ink400, '&.Mui-focusVisible': { outline: `2px solid ${colors.navy}`, outlineOffset: -4, borderRadius: 8 } } } },
+    MuiRadio: { defaultProps: { color: 'primary', icon: createElement(RadioIcon), checkedIcon: createElement(RadioCheckedIcon) }, styleOverrides: { root: { color: colors.ink400 } } },
     MuiChip: {
+      defaultProps: { deleteIcon: createElement(CloseIcon) },
       styleOverrides: {
         root: { borderRadius: radius.pill, fontWeight: 500, fontSize: 13.5, height: 34, '&.Mui-focusVisible': { outline: `2px solid ${colors.navy}`, outlineOffset: 2 } },
         sizeSmall: { height: 28, fontSize: 12.5 },
@@ -230,6 +240,7 @@ export const theme = createTheme({
     MuiDrawer: { styleOverrides: { paper: { borderRadius: 0 } } },
     MuiBackdrop: { styleOverrides: { root: { backgroundColor: 'rgba(17,24,39,.45)' } } },
     MuiAlert: {
+      defaultProps: { iconMapping: { success: createElement(CheckCircleIcon), info: createElement(InfoIcon), warning: createElement(AlertTriangleIcon), error: createElement(AlertCircleIcon) } },
       styleOverrides: {
         root: { borderRadius: radius.md, fontSize: 14, alignItems: 'flex-start', '& .MuiAlert-message': { paddingTop: 9 } },
         standardSuccess: { backgroundColor: colors.successTint, color: '#065F46', border: `1px solid ${colors.successLine}` },
@@ -250,7 +261,7 @@ export const theme = createTheme({
     MuiSkeleton: { defaultProps: { animation: 'wave' }, styleOverrides: { root: { backgroundColor: colors.sunken }, rounded: { borderRadius: radius.md } } },
     MuiLinearProgress: { styleOverrides: { root: { borderRadius: 4, height: 6, backgroundColor: colors.sunken }, bar: { borderRadius: 4 } } },
     MuiBreadcrumbs: { styleOverrides: { root: { fontSize: 13.5 }, separator: { color: colors.ink400, marginInline: 6 } } },
-    MuiPaginationItem: { styleOverrides: { root: { borderRadius: radius.md, minWidth: 40, height: 40, fontSize: 14.5, fontWeight: 500, '&.Mui-selected': { backgroundColor: colors.ink, color: '#fff', '&:hover': { backgroundColor: colors.ink700 } } } } },
+    MuiPaginationItem: { defaultProps: { slots: { previous: ChevronLeftIcon, next: ChevronRightIcon } }, styleOverrides: { root: { borderRadius: radius.md, minWidth: 40, height: 40, fontSize: 14.5, fontWeight: 500, '&.Mui-selected': { backgroundColor: colors.ink, color: '#fff', '&:hover': { backgroundColor: colors.ink700 } } } } },
     MuiAccordion: {
       defaultProps: { disableGutters: true, elevation: 0 },
       styleOverrides: { root: { border: `1px solid ${colors.line}`, borderRadius: `${radius.lg} !important`, '&::before': { display: 'none' }, '& + &': { marginTop: 8 } } },

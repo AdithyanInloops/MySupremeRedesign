@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { Box, Button } from '@mui/material'
-import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 import { productBySku, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import Section from '../ui/Section'
 import ProductCard from '../Product/ProductCard'
 import { Rail } from '../Product/ProductRail'
+import { HistoryIcon } from '../ui/icons'
 
 /**
  * "Pick up where you left off": the buyer's recently viewed products as compact cards with an in-place cart control.
@@ -25,7 +25,7 @@ export default function RecentlyViewed() {
       eyebrow="Welcome back"
       title="Pick up where you left off"
       subtitle={`${viewed.length} product${viewed.length === 1 ? '' : 's'} you looked at recently`}
-      extra={<Button onClick={clearViewed} startIcon={<HistoryRoundedIcon />} sx={{ color: 'text.secondary' }}>Clear history</Button>}
+      extra={<Button onClick={clearViewed} startIcon={<HistoryIcon />} sx={{ color: 'text.secondary' }}>Clear history</Button>}
     >
       <Rail label="Recently viewed products" itemWidth={{ xs: '86%', sm: '58%', md: '40%', lg: '31.5%', xl: '24%' }}>
         {viewed.map((p) => <Box role="listitem" key={p.sku}><ProductCard product={p} variant="compact" /></Box>)}

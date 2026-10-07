@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { Box, Typography } from '@mui/material'
-import EastRoundedIcon from '@mui/icons-material/EastRounded'
 import { colors, focusRing, motion, radius, shadow } from '../../lib/theme'
 import { Rail } from '../Product/ProductRail'
+import { ArrowRightIcon } from '../ui/icons'
 
 /**
  * Promotions row: uniform promo cards (media + tag, title, subtitle, CTA) in the shared rail (swipe / arrows,
@@ -53,7 +53,7 @@ function PromoCard({ slide }: { slide: PromoSlide }) {
         <Typography component="h3" sx={{ fontSize: 17, fontWeight: 600, lineHeight: 1.3 }}>{slide.title}</Typography>
         <Typography sx={{ fontSize: 14, color: colors.ink600, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{slide.subtitle}</Typography>
         <Box className="promo-cta" component="span" sx={{ mt: 'auto', pt: 1, display: 'inline-flex', alignItems: 'center', gap: 0.5, color: colors.redText, fontWeight: 600, fontSize: 14.5, transition: `gap ${motion.fast}` }}>
-          {slide.cta ?? 'Shop now'} <EastRoundedIcon sx={{ fontSize: 18 }} />
+          {slide.cta ?? 'Shop now'} <ArrowRightIcon sx={{ fontSize: 18 }} />
         </Box>
       </Box>
     </Box>

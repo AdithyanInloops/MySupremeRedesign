@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { Box, Button, Chip } from '@mui/material'
-import SearchOffRoundedIcon from '@mui/icons-material/SearchOffRounded'
 import { departments } from '../lib/data'
 import { PageContainer } from '../components/ui/Section'
 import EmptyState from '../components/ui/EmptyState'
 import SearchBox from '../components/Layout/SearchBox'
+import { SearchXIcon } from '../components/ui/icons'
 
 /** Not found: say what happened, offer search right here, and the most useful ways back. */
 export default function NotFound() {
@@ -13,7 +13,7 @@ export default function NotFound() {
     <PageContainer>
       <Head><title>Page not found | MySupreme</title></Head>
       <EmptyState
-        icon={<SearchOffRoundedIcon />}
+        icon={<SearchXIcon />}
         title="We can’t find that page"
         headingLevel="h1"
         actions={<><Button component={Link} href="/" variant="contained" size="large">Go to the home page</Button><Button component={Link} href="/service/contact-us" variant="outlined" size="large">Contact us</Button></>}

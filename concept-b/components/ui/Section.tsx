@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { Box, Button, Typography, type SxProps, type Theme } from '@mui/material'
-import EastRoundedIcon from '@mui/icons-material/EastRounded'
 import { colors, layout } from '../../lib/theme'
+import { ArrowRightIcon } from './icons'
 
 /**
  * Layout primitives every page shares:
@@ -53,7 +53,7 @@ export function SectionHeading({
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexShrink: 0, ml: { sm: align === 'center' ? 0 : 'auto' } }}>
           {extra}
           {action && (
-            <Button component={Link} href={action.href} color="primary" endIcon={<EastRoundedIcon />} sx={{ mr: { sm: -1.5 }, ml: { xs: -1.5, sm: 0 } }}>
+            <Button component={Link} href={action.href} color="primary" endIcon={<ArrowRightIcon />} sx={{ mr: { sm: -1.5 }, ml: { xs: -1.5, sm: 0 } }}>
               {action.label}
             </Button>
           )}

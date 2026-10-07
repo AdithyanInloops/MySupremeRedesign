@@ -1,17 +1,13 @@
 import { createContext, useCallback, useContext, useId, useMemo, useRef, useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import { Box, Button, Dialog, DialogContent, DialogTitle, IconButton, InputBase, Tab, Tabs, Typography } from '@mui/material'
-import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
-import PlaylistAddRoundedIcon from '@mui/icons-material/PlaylistAddRounded'
 import { finalPrice, inStock, money, packSize, products as allProducts, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { colors, mono, motion, radius } from '../../lib/theme'
 import ProductImage from '../ui/ProductImage'
 import QuantityStepper from '../ui/QuantityStepper'
 import { PackChip } from '../ui/ProductMeta'
+import { AlertCircleIcon, BoltIcon, CheckCircleIcon, CloseIcon, ListPlusIcon } from '../ui/icons'
 
 /*
  * Quick order — for buyers who know their SKUs. Front-end only: product lookup by SKU + addProductsToCart.
@@ -110,7 +106,7 @@ export function QuickOrderForm({ products = allProducts, popularSkus = POPULAR_S
           </Box>
         ) : notFound ? (
           <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1, p: 1.25, bgcolor: colors.errorTint, borderRadius: radius.md, color: '#7F1D1D' }}>
-            <ErrorOutlineRoundedIcon sx={{ fontSize: 20, color: colors.error, mt: '1px' }} />
+            <AlertCircleIcon sx={{ fontSize: 20, color: colors.error, mt: '1px' }} />
             <Typography sx={{ fontSize: 13.5 }}>
               No product has SKU “{sku.trim()}”. Check the code on your invoice, or{' '}
               <Link href={`/search/${encodeURIComponent(sku.trim())}`} style={{ color: colors.redText, fontWeight: 600 }}>search for it instead</Link>.
@@ -118,7 +114,7 @@ export function QuickOrderForm({ products = allProducts, popularSkus = POPULAR_S
           </Box>
         ) : last ? (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: colors.success }}>
-            <CheckCircleRoundedIcon sx={{ fontSize: 20 }} />
+            <CheckCircleIcon sx={{ fontSize: 20 }} />
             <Typography sx={{ fontSize: 13.5, color: colors.ink700 }}><b>{last.qty} × {last.name}</b> added. Enter the next SKU.</Typography>
           </Box>
         ) : (
@@ -126,7 +122,7 @@ export function QuickOrderForm({ products = allProducts, popularSkus = POPULAR_S
             <Typography sx={{ fontSize: 13, fontWeight: 500, color: colors.ink600, mr: 0.25 }}>Popular:</Typography>
             {popular.map((p) => <SkuChip key={p.sku} product={p} onPick={() => { setSku(p.sku); input.current?.focus() }} />)}
             {onPaste && (
-              <Button size="small" startIcon={<PlaylistAddRoundedIcon />} onClick={onPaste} sx={{ ml: { md: 'auto' }, color: colors.redText }}>Paste a list instead</Button>
+              <Button size="small" startIcon={<ListPlusIcon />} onClick={onPaste} sx={{ ml: { md: 'auto' }, color: colors.redText }}>Paste a list instead</Button>
             )}
           </Box>
         )}
@@ -195,7 +191,7 @@ export function PasteList({ products = allProducts, onDone }: { products?: Produ
         <Box component="ul" aria-label="List check" sx={{ listStyle: 'none', p: 0, m: 0, mt: 2, display: 'flex', flexDirection: 'column', gap: 0.75, maxHeight: 260, overflowY: 'auto' }}>
           {lines.map((l, i) => (
             <Box component="li" key={i} sx={{ display: 'flex', alignItems: 'center', gap: 1.25, p: 1, borderRadius: radius.sm, bgcolor: l.p && inStock(l.p) ? colors.subtle : l.p ? colors.warningTint : colors.errorTint }}>
-              {l.p && inStock(l.p) ? <CheckCircleRoundedIcon sx={{ color: colors.success, fontSize: 20 }} /> : <ErrorOutlineRoundedIcon sx={{ color: l.p ? colors.warning : colors.error, fontSize: 20 }} />}
+              {l.p && inStock(l.p) ? <CheckCircleIcon sx={{ color: colors.success, fontSize: 20 }} /> : <AlertCircleIcon sx={{ color: l.p ? colors.warning : colors.error, fontSize: 20 }} />}
               <Box sx={{ minWidth: 0, flex: 1 }}>
                 <Typography sx={{ fontSize: 13.5, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{l.p?.name ?? l.code}</Typography>
                 <Typography sx={{ fontSize: 12, color: l.p && inStock(l.p) ? colors.ink500 : l.p ? colors.warning : colors.error }}>
@@ -238,9 +234,9 @@ export function QuickOrderProvider({ children }: { children: ReactNode }) {
       {children}
       <Dialog open={!!tab} onClose={() => setTab(null)} maxWidth="sm" fullWidth aria-labelledby="qo-dialog-title">
         <DialogTitle id="qo-dialog-title" sx={{ display: 'flex', alignItems: 'center', gap: 1.25, pr: 7 }}>
-          <Box sx={{ width: 36, height: 36, borderRadius: radius.md, bgcolor: colors.redTint, color: colors.redText, display: 'grid', placeItems: 'center' }}><BoltRoundedIcon /></Box>
+          <Box sx={{ width: 36, height: 36, borderRadius: radius.md, bgcolor: colors.redTint, color: colors.redText, display: 'grid', placeItems: 'center' }}><BoltIcon /></Box>
           Quick order
-          <IconButton aria-label="Close quick order" onClick={() => setTab(null)} sx={{ position: 'absolute', right: 12, top: 14 }}><CloseRoundedIcon /></IconButton>
+          <IconButton aria-label="Close quick order" onClick={() => setTab(null)} sx={{ position: 'absolute', right: 12, top: 14 }}><CloseIcon /></IconButton>
         </DialogTitle>
         <Box sx={{ px: 3 }}>
           <Tabs value={tab ?? 'sku'} onChange={(_, v) => setTab(v)} aria-label="Quick order method" sx={{ borderBottom: `1px solid ${colors.line}` }}>

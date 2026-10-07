@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 import { Box, Breadcrumbs as MuiBreadcrumbs, Typography } from '@mui/material'
-import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded'
-import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded'
 import { colors, focusRing } from '../../lib/theme'
+import { ChevronLeftIcon, ChevronRightIcon } from './icons'
 
 export type Crumb = { label: string; href?: string }
 
@@ -17,7 +16,7 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
   return (
     <Box component="nav" aria-label="Breadcrumb">
       <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-        <MuiBreadcrumbs separator={<NavigateNextRoundedIcon sx={{ fontSize: 16 }} />} sx={{ '& ol': { flexWrap: 'nowrap' }, '& li': { minWidth: 0 } }}>
+        <MuiBreadcrumbs separator={<ChevronRightIcon sx={{ fontSize: 16 }} />} sx={{ '& ol': { flexWrap: 'nowrap' }, '& li': { minWidth: 0 } }}>
           {items.map((c, i) =>
             c.href && i < items.length - 1 ? (
               <Box key={c.label} component={Link} href={c.href} sx={{ ...linkSx, whiteSpace: 'nowrap' }}>{c.label}</Box>
@@ -31,7 +30,7 @@ export function Breadcrumbs({ items }: { items: Crumb[] }) {
       </Box>
       {parent?.href && (
         <Box component={Link} href={parent.href} sx={{ ...linkSx, display: { xs: 'inline-flex', md: 'none' }, alignItems: 'center', gap: 0.25, fontSize: 14, fontWeight: 500, minHeight: 36, ml: -0.5 }}>
-          <ChevronLeftRoundedIcon sx={{ fontSize: 20 }} /> {parent.label}
+          <ChevronLeftIcon sx={{ fontSize: 20 }} /> {parent.label}
         </Box>
       )}
     </Box>

@@ -1,13 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { Box, Button, IconButton, Skeleton, Tooltip, Typography } from '@mui/material'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
-import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
-import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
-import EastRoundedIcon from '@mui/icons-material/EastRounded'
 import { departments, finalPrice, money, productBySku, products, type Product } from '../lib/data'
 import { useCart } from '../lib/cart'
 import { useSession } from '../lib/session'
@@ -24,6 +17,7 @@ import ProductRail from '../components/Product/ProductRail'
 import OrderSummary from '../components/Cart/OrderSummary'
 import { DeliveryProgress } from '../components/Layout/DeliveryMinimumBar'
 import { useQuickOrder } from '../components/QuickOrder/QuickOrder'
+import { ArrowRightIcon, BoltIcon, CartIcon, HeartFilledIcon, HeartIcon, LockIcon, TrashIcon } from '../components/ui/icons'
 
 function CartLine({ product, qty }: { product: Product; qty: number }) {
   const { setQty, remove, wishlist, toggleWish } = useCart()
@@ -44,10 +38,10 @@ function CartLine({ product, qty }: { product: Product; qty: number }) {
         </Box>
         <Typography sx={{ fontSize: 13.5, color: colors.ink600, mt: 0.5 }}>{money(finalPrice(product))} each</Typography>
         <Box sx={{ display: 'flex', gap: 0.5, mt: 0.5, ml: -1 }}>
-          <Button size="small" onClick={() => toggleWish(product.sku)} startIcon={saved ? <FavoriteRoundedIcon sx={{ color: colors.red }} /> : <FavoriteBorderRoundedIcon />} sx={{ color: colors.ink600, fontWeight: 500 }} aria-pressed={saved} aria-label={`${saved ? 'Saved' : 'Save for later'}: ${product.name}`}>
+          <Button size="small" onClick={() => toggleWish(product.sku)} startIcon={saved ? <HeartFilledIcon sx={{ color: colors.red }} /> : <HeartIcon />} sx={{ color: colors.ink600, fontWeight: 500 }} aria-pressed={saved} aria-label={`${saved ? 'Saved' : 'Save for later'}: ${product.name}`}>
             {saved ? 'Saved' : 'Save for later'}
           </Button>
-          <Button size="small" onClick={() => remove(product.sku)} startIcon={<DeleteOutlineRoundedIcon />} aria-label={`Remove ${product.name}`} sx={{ color: colors.ink600, fontWeight: 500, display: { md: 'none' } }}>Remove</Button>
+          <Button size="small" onClick={() => remove(product.sku)} startIcon={<TrashIcon />} aria-label={`Remove ${product.name}`} sx={{ color: colors.ink600, fontWeight: 500, display: { md: 'none' } }}>Remove</Button>
         </Box>
       </Box>
       {/* Quantity + line total: under the details on phones, own columns on desktop */}
@@ -58,7 +52,7 @@ function CartLine({ product, qty }: { product: Product; qty: number }) {
       <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1, justifyContent: 'flex-end', minWidth: 140 }}>
         <Typography sx={{ fontWeight: 700, fontSize: 16, fontVariantNumeric: 'tabular-nums' }} aria-label={`Line total ${money(finalPrice(product) * qty)}`}>{money(finalPrice(product) * qty)}</Typography>
         <Tooltip title="Remove">
-          <IconButton aria-label={`Remove ${product.name}`} onClick={() => remove(product.sku)} sx={{ color: colors.ink500, '&:hover': { color: colors.redText, bgcolor: colors.redTint } }}><DeleteOutlineRoundedIcon /></IconButton>
+          <IconButton aria-label={`Remove ${product.name}`} onClick={() => remove(product.sku)} sx={{ color: colors.ink500, '&:hover': { color: colors.redText, bgcolor: colors.redTint } }}><TrashIcon /></IconButton>
         </Tooltip>
       </Box>
     </Box>
@@ -72,13 +66,13 @@ function EmptyCart() {
   return (
     <>
       <EmptyState
-        icon={<ShoppingCartOutlinedIcon />}
+        icon={<CartIcon />}
         title="Your cart is empty"
         headingLevel="h1"
         actions={
           <>
             <Button component={Link} href="/" variant="contained" size="large">Start shopping</Button>
-            <Button variant="outlined" size="large" startIcon={<BoltRoundedIcon />} onClick={() => quick.open()}>Order by SKU</Button>
+            <Button variant="outlined" size="large" startIcon={<BoltIcon />} onClick={() => quick.open()}>Order by SKU</Button>
           </>
         }
       >
@@ -134,8 +128,8 @@ export default function CartPage() {
               meta={`${items.length} product${items.length === 1 ? '' : 's'} · ${units} item${units === 1 ? '' : 's'}`}
               actions={
                 <>
-                  <Button variant="outlined" startIcon={<BoltRoundedIcon />} onClick={() => quick.open()}>Add by SKU</Button>
-                  <Button onClick={() => clear()} startIcon={<DeleteOutlineRoundedIcon />} sx={{ color: colors.ink600 }}>Clear cart</Button>
+                  <Button variant="outlined" startIcon={<BoltIcon />} onClick={() => quick.open()}>Add by SKU</Button>
+                  <Button onClick={() => clear()} startIcon={<TrashIcon />} sx={{ color: colors.ink600 }}>Clear cart</Button>
                 </>
               }
             />
@@ -147,12 +141,12 @@ export default function CartPage() {
                 <Box component="ul" aria-label="Cart items" sx={{ listStyle: 'none', m: 0, p: 0, borderTop: `1px solid ${colors.line}` }}>
                   {items.map((l) => <CartLine key={l.sku} product={l.product} qty={l.qty} />)}
                 </Box>
-                <Button component={Link} href="/" startIcon={<EastRoundedIcon sx={{ transform: 'rotate(180deg)' }} />} sx={{ mt: 2, ml: -1.5 }}>Continue shopping</Button>
+                <Button component={Link} href="/" startIcon={<ArrowRightIcon sx={{ transform: 'rotate(180deg)' }} />} sx={{ mt: 2, ml: -1.5 }}>Continue shopping</Button>
               </Box>
 
               <Box sx={{ position: { md: 'sticky' }, top: { md: 180 } }}>
                 <OrderSummary>
-                  <Button component={Link} href="/checkout" variant="contained" size="large" fullWidth startIcon={<LockOutlinedIcon />} sx={{ mt: 0.5 }}>
+                  <Button component={Link} href="/checkout" variant="contained" size="large" fullWidth startIcon={<LockIcon />} sx={{ mt: 0.5 }}>
                     Check out · {money(t.total)}
                   </Button>
                   {!user && (
@@ -184,7 +178,7 @@ export default function CartPage() {
                   <Typography sx={{ fontSize: 12.5, color: colors.ink500 }}>Total ({units} items)</Typography>
                   <Typography sx={{ fontSize: 18, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{money(t.total)}</Typography>
                 </Box>
-                <Button component={Link} href="/checkout" variant="contained" size="large" startIcon={<LockOutlinedIcon />}>Check out</Button>
+                <Button component={Link} href="/checkout" variant="contained" size="large" startIcon={<LockIcon />}>Check out</Button>
               </Box>
             </StickyBottomBar>
           </>

@@ -1,11 +1,10 @@
 import Link from 'next/link'
 import { Box, LinearProgress, Typography } from '@mui/material'
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import { useCart } from '../../lib/cart'
 import { money } from '../../lib/data'
 import { CUTOFF, DELIVERY_MINIMUM } from '../../lib/pricing'
 import { colors, focusRing, layout } from '../../lib/theme'
+import { CheckCircleIcon, TruckIcon } from '../ui/icons'
 
 /**
  * Delivery-minimum progress, shown under the header on shopping pages while the cart has items.
@@ -17,7 +16,7 @@ export function DeliveryProgress({ subtotal, minimum = DELIVERY_MINIMUM, dense =
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.75 }}>
       <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1 }}>
-        {ok ? <CheckCircleRoundedIcon sx={{ color: colors.success, fontSize: 20, mt: '1px' }} /> : <LocalShippingOutlinedIcon sx={{ color: colors.redText, fontSize: 20, mt: '1px' }} />}
+        {ok ? <CheckCircleIcon sx={{ color: colors.success, fontSize: 20, mt: '1px' }} /> : <TruckIcon sx={{ color: colors.redText, fontSize: 20, mt: '1px' }} />}
         <Typography sx={{ fontSize: dense ? 13.5 : 14 }}>
           {ok ? <><b>Your order qualifies for delivery.</b> Order by {CUTOFF} for next-day.</> : <>Add <b>{money(minimum - subtotal)}</b> more to unlock delivery, or pick up at our Mississauga warehouse.</>}
         </Typography>
@@ -35,7 +34,7 @@ export default function DeliveryMinimumBar({ minimum = DELIVERY_MINIMUM }: { min
   return (
     <Box role="status" aria-live="polite" sx={{ bgcolor: ok ? colors.successTint : colors.redTint, borderBottom: `1px solid ${ok ? colors.successLine : colors.redLine}` }}>
       <Box sx={{ maxWidth: layout.maxWidth, mx: 'auto', px: layout.gutter, minHeight: 40, display: 'flex', alignItems: 'center', gap: { xs: 1.25, md: 2 } }}>
-        {ok ? <CheckCircleRoundedIcon sx={{ color: colors.success, fontSize: 20, flexShrink: 0 }} /> : <LocalShippingOutlinedIcon sx={{ color: colors.redText, fontSize: 20, flexShrink: 0 }} />}
+        {ok ? <CheckCircleIcon sx={{ color: colors.success, fontSize: 20, flexShrink: 0 }} /> : <TruckIcon sx={{ color: colors.redText, fontSize: 20, flexShrink: 0 }} />}
         <Typography sx={{ fontSize: { xs: 13, md: 14 }, color: colors.ink, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 }}>
           {ok ? (
             <><b>Your order qualifies for delivery</b><Box component="span" sx={{ display: { xs: 'none', md: 'inline' } }}> · Order by {CUTOFF} for next-day</Box></>

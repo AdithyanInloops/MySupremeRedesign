@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { Box, IconButton } from '@mui/material'
-import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded'
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
 import type { Product } from '../../lib/data'
 import { colors, shadow } from '../../lib/theme'
 import ProductCard, { type CardBadge } from './ProductCard'
+import { ChevronLeftIcon, ChevronRightIcon } from '../ui/icons'
 
 /**
  * Horizontal scroller: swipe on touch, arrow buttons on desktop (hidden at the ends), scroll-snap, and a peek of the
@@ -35,7 +34,7 @@ export function Rail({ children, itemWidth = { xs: '44%', sm: '30%', md: '23%', 
 
   return (
     <Box sx={{ position: 'relative' }}>
-      {!edge.start && <IconButton aria-label="Scroll left" onClick={() => page(-1)} sx={arrow(-1)}><ChevronLeftRoundedIcon /></IconButton>}
+      {!edge.start && <IconButton aria-label="Scroll left" onClick={() => page(-1)} sx={arrow(-1)}><ChevronLeftIcon /></IconButton>}
       <Box
         ref={ref}
         role="list"
@@ -50,7 +49,7 @@ export function Rail({ children, itemWidth = { xs: '44%', sm: '30%', md: '23%', 
       >
         {children}
       </Box>
-      {!edge.end && <IconButton aria-label="Scroll right" onClick={() => page(1)} sx={arrow(1)}><ChevronRightRoundedIcon /></IconButton>}
+      {!edge.end && <IconButton aria-label="Scroll right" onClick={() => page(1)} sx={arrow(1)}><ChevronRightIcon /></IconButton>}
     </Box>
   )
 }

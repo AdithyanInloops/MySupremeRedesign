@@ -2,9 +2,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Box, Button, Chip, Skeleton, Typography } from '@mui/material'
-import SearchOffRoundedIcon from '@mui/icons-material/SearchOffRounded'
-import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
-import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded'
 import ProductListLayout, { type FilterGroup } from '../../components/ProductListLayout/ProductListLayout'
 import EmptyState from '../../components/ui/EmptyState'
 import { PageContainer } from '../../components/ui/Section'
@@ -13,6 +10,7 @@ import ProductCard from '../../components/Product/ProductCard'
 import { useQuickOrder } from '../../components/QuickOrder/QuickOrder'
 import { departments, packSize, productBySku, products, searchCategories, searchProducts, type Product } from '../../lib/data'
 import { colors, radius } from '../../lib/theme'
+import { BadgeCheckIcon, BoltIcon, SearchXIcon } from '../../components/ui/icons'
 
 function brandFilter(list: Product[]): FilterGroup {
   const counts = new Map<string, number>()
@@ -39,12 +37,12 @@ function NoResults({ term }: { term: string }) {
   const cats = searchCategories(term.split(/\s+/)[0] ?? '', 4)
   return (
     <EmptyState
-      icon={<SearchOffRoundedIcon />}
+      icon={<SearchXIcon />}
       title={`No products match “${term}”`}
       actions={
         <>
           <Button component={Link} href="/all-categories" variant="contained">Browse all categories</Button>
-          <Button variant="outlined" startIcon={<BoltRoundedIcon />} onClick={() => quick.open()}>Order by SKU</Button>
+          <Button variant="outlined" startIcon={<BoltIcon />} onClick={() => quick.open()}>Order by SKU</Button>
         </>
       }
     >
@@ -88,7 +86,7 @@ export default function SearchPage() {
           exact ? (
             <Box sx={{ mb: 3, p: 2, borderRadius: radius.lg, bgcolor: colors.successTint, border: `1px solid ${colors.successLine}` }}>
               <Typography sx={{ display: 'flex', alignItems: 'center', gap: 0.75, fontWeight: 600, fontSize: 14.5, mb: 1.5 }}>
-                <VerifiedRoundedIcon sx={{ color: colors.success, fontSize: 20 }} /> Exact SKU match
+                <BadgeCheckIcon sx={{ color: colors.success, fontSize: 20 }} /> Exact SKU match
               </Typography>
               <Box sx={{ maxWidth: 520 }}><ProductCard product={exact} variant="compact" /></Box>
             </Box>

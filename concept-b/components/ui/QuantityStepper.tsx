@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Box, IconButton, InputBase } from '@mui/material'
-import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded'
-import AddRoundedIcon from '@mui/icons-material/AddRounded'
-import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded'
 import { colors, motion, radius } from '../../lib/theme'
+import { MinusIcon, PlusIcon, TrashIcon } from './icons'
 
 const heights = { sm: 36, md: 44, lg: 52 } as const
 
@@ -58,11 +56,11 @@ export default function QuantityStepper({
     >
       {removeAtMin && atMin ? (
         <IconButton aria-label="Remove from cart" onClick={() => onChange(0)} sx={{ ...btn, color: colors.redText }}>
-          <DeleteOutlineRoundedIcon sx={icon} />
+          <TrashIcon sx={icon} />
         </IconButton>
       ) : (
         <IconButton aria-label="Decrease quantity" disabled={atMin} onClick={() => onChange(Math.max(min, value - 1))} sx={btn}>
-          <RemoveRoundedIcon sx={icon} />
+          <MinusIcon sx={icon} />
         </IconButton>
       )}
       <Box sx={{ flex: 1, display: 'flex', alignItems: 'baseline', justifyContent: 'center', minWidth: size === 'sm' ? 30 : 40 }}>
@@ -81,7 +79,7 @@ export default function QuantityStepper({
         {unit && <Box component="span" sx={{ fontSize: 12, fontWeight: 500, color: colors.ink500, ml: 0.5, textTransform: 'uppercase' }}>{unit}</Box>}
       </Box>
       <IconButton aria-label="Increase quantity" disabled={value >= max} onClick={() => onChange(Math.min(max, value + 1))} sx={btn}>
-        <AddRoundedIcon sx={icon} />
+        <PlusIcon sx={icon} />
       </IconButton>
     </Box>
   )

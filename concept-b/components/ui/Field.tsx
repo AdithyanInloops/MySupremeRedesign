@@ -1,6 +1,6 @@
 import { Box, TextField, type TextFieldProps } from '@mui/material'
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import { colors } from '../../lib/theme'
+import { AlertCircleIcon } from './icons'
 
 /**
  * Form field with the label above the input (always visible, unlike placeholder-only labels), an optional hint,
@@ -30,7 +30,7 @@ export default function Field({ id, label, hint, error, optional, ...props }: Fi
         helperText={
           error ? (
             <Box component="span" sx={{ display: 'inline-flex', alignItems: 'flex-start', gap: 0.5, color: colors.error }}>
-              <ErrorOutlineRoundedIcon sx={{ fontSize: 16, mt: '1px' }} /> {error}
+              <AlertCircleIcon sx={{ fontSize: 16, mt: '1px' }} /> {error}
             </Box>
           ) : hint
         }

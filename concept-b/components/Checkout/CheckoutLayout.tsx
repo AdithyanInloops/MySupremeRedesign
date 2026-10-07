@@ -1,10 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Skeleton, Typography } from '@mui/material'
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import { finalPrice, money, productBySku, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { totals, type Method } from '../../lib/pricing'
@@ -13,6 +9,7 @@ import { PageContainer } from '../ui/Section'
 import EmptyState from '../ui/EmptyState'
 import ProductImage from '../ui/ProductImage'
 import OrderSummary from '../Cart/OrderSummary'
+import { AlertCircleIcon, CartIcon, CheckIcon, ChevronDownIcon } from '../ui/icons'
 
 const STEPS = [
   { key: 'cart', label: 'Cart', href: '/cart' },
@@ -36,7 +33,7 @@ export function CheckoutSteps({ current }: { current: StepKey }) {
           const now = i === idx
           const dot = (
             <Box sx={{ width: 26, height: 26, borderRadius: '50%', display: 'grid', placeItems: 'center', fontSize: 13, fontWeight: 700, flexShrink: 0, bgcolor: done ? colors.success : now ? colors.ink : '#fff', color: done || now ? '#fff' : colors.ink500, border: done || now ? 'none' : `1px solid ${colors.line2}` }}>
-              {done ? <CheckRoundedIcon sx={{ fontSize: 16 }} /> : i + 1}
+              {done ? <CheckIcon sx={{ fontSize: 16 }} /> : i + 1}
             </Box>
           )
           return (
@@ -82,7 +79,7 @@ export function ErrorSummary({ errors }: { errors: { id: string; message: string
   return (
     <Box id="error-summary" role="alert" tabIndex={-1} sx={{ p: 2, borderRadius: radius.lg, bgcolor: colors.errorTint, border: `1px solid ${colors.errorLine}`, outline: 'none', '&:focus-visible': { outline: `2px solid ${colors.navy}`, outlineOffset: 2 } }}>
       <Typography sx={{ display: 'flex', alignItems: 'center', gap: 0.75, fontWeight: 600, color: '#7F1D1D' }}>
-        <ErrorOutlineRoundedIcon sx={{ color: colors.error }} /> Please fix {errors.length === 1 ? 'this' : `these ${errors.length}`} to continue
+        <AlertCircleIcon sx={{ color: colors.error }} /> Please fix {errors.length === 1 ? 'this' : `these ${errors.length}`} to continue
       </Typography>
       <Box component="ul" sx={{ m: 0, mt: 1, pl: 4.5 }}>
         {errors.map((e) => (
@@ -129,7 +126,7 @@ export default function CheckoutLayout({ step, title, method, children }: { step
   if (!lines.length) {
     return (
       <PageContainer>
-        <EmptyState icon={<ShoppingCartOutlinedIcon />} title="Your cart is empty" headingLevel="h1" actions={<Button component={Link} href="/" variant="contained" size="large">Start shopping</Button>}>
+        <EmptyState icon={<CartIcon />} title="Your cart is empty" headingLevel="h1" actions={<Button component={Link} href="/" variant="contained" size="large">Start shopping</Button>}>
           Add products to your cart before checking out. Items you add stay saved on this device.
         </EmptyState>
       </PageContainer>
@@ -143,7 +140,7 @@ export default function CheckoutLayout({ step, title, method, children }: { step
 
       {/* Phones: summary collapsed above the form so the total is always one tap away */}
       <Accordion expanded={open} onChange={(_, v) => setOpen(v)} sx={{ display: { md: 'none' }, mb: 2, bgcolor: '#fff' }}>
-        <AccordionSummary expandIcon={<ExpandMoreRoundedIcon />} aria-controls="mobile-summary" id="mobile-summary-header">
+        <AccordionSummary expandIcon={<ChevronDownIcon />} aria-controls="mobile-summary" id="mobile-summary-header">
           <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', pr: 1 }}>
             <span>{open ? 'Hide' : 'Show'} order summary ({items})</span>
             <b style={{ fontVariantNumeric: 'tabular-nums' }}>{money(t.total)}</b>

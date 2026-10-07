@@ -2,15 +2,13 @@ import { useMemo, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { Box, Button, InputAdornment, InputBase, Typography } from '@mui/material'
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import EastRoundedIcon from '@mui/icons-material/EastRounded'
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import { departments } from '../lib/data'
 import { colors, focusRing, layout, radius } from '../lib/theme'
 import PageHeader from '../components/ui/PageHeader'
 import { PageContainer } from '../components/ui/Section'
 import EmptyState from '../components/ui/EmptyState'
 import { deptIcons } from '../components/Layout/CategoryMenu'
+import { ArrowRightIcon, CloseIcon, SearchIcon } from '../components/ui/icons'
 
 /**
  * Every department and sub-category on one scannable page, with a sticky jump list and "find a category".
@@ -50,8 +48,8 @@ export default function AllCategories() {
               onChange={(e) => setQ(e.target.value)}
               placeholder="Find a category, e.g. rice, cups, gloves"
               inputProps={{ 'aria-label': 'Find a category' }}
-              startAdornment={<InputAdornment position="start"><SearchRoundedIcon sx={{ color: colors.ink500 }} /></InputAdornment>}
-              endAdornment={q ? <InputAdornment position="end"><Button size="small" onClick={() => setQ('')} startIcon={<CloseRoundedIcon />}>Clear</Button></InputAdornment> : undefined}
+              startAdornment={<InputAdornment position="start"><SearchIcon sx={{ color: colors.ink500 }} /></InputAdornment>}
+              endAdornment={q ? <InputAdornment position="end"><Button size="small" onClick={() => setQ('')} startIcon={<CloseIcon />}>Clear</Button></InputAdornment> : undefined}
               sx={{ width: '100%', maxWidth: 520, height: 48, px: 1.75, border: `1px solid ${colors.line2}`, borderRadius: radius.md, fontSize: 15, mb: 3, '&.Mui-focused': { borderColor: colors.navy, boxShadow: `0 0 0 3px ${colors.navyTint}` } }}
             />
             {!list.length ? (
@@ -70,7 +68,7 @@ export default function AllCategories() {
                         <Typography id={`dept-${d.url_key}-title`} component="h2" variant="h2" sx={{ fontSize: { xs: 20, md: 22 } }}>{d.name}</Typography>
                         <Typography sx={{ fontSize: 13.5, color: colors.ink500 }}>{d.product_count.toLocaleString()} products · {d.children.length} categories</Typography>
                       </Box>
-                      <Button component={Link} href={`/${d.url_key}`} endIcon={<EastRoundedIcon />} color="primary" sx={{ flexShrink: 0, display: { xs: 'none', sm: 'inline-flex' } }}>Shop all</Button>
+                      <Button component={Link} href={`/${d.url_key}`} endIcon={<ArrowRightIcon />} color="primary" sx={{ flexShrink: 0, display: { xs: 'none', sm: 'inline-flex' } }}>Shop all</Button>
                     </Box>
                     <Box component="ul" sx={{ listStyle: 'none', m: 0, p: 0, display: 'grid', gap: 1, gridTemplateColumns: { xs: 'minmax(0,1fr) minmax(0,1fr)', md: 'repeat(3, minmax(0,1fr))', xl: 'repeat(4, minmax(0,1fr))' } }}>
                       {d.subs.map((s) => (
@@ -82,7 +80,7 @@ export default function AllCategories() {
                         </li>
                       ))}
                       <Box component="li" sx={{ display: { sm: 'none' } }}>
-                        <Box component={Link} href={`/${d.url_key}`} sx={{ display: 'flex', alignItems: 'center', gap: 0.5, px: 1.75, minHeight: 48, color: colors.redText, fontWeight: 600, fontSize: 14.5, textDecoration: 'none' }}>Shop all <EastRoundedIcon sx={{ fontSize: 18 }} /></Box>
+                        <Box component={Link} href={`/${d.url_key}`} sx={{ display: 'flex', alignItems: 'center', gap: 0.5, px: 1.75, minHeight: 48, color: colors.redText, fontWeight: 600, fontSize: 14.5, textDecoration: 'none' }}>Shop all <ArrowRightIcon sx={{ fontSize: 18 }} /></Box>
                       </Box>
                     </Box>
                   </Box>

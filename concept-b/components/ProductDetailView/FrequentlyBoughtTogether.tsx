@@ -1,13 +1,12 @@
 import { Fragment, useState } from 'react'
 import Link from 'next/link'
 import { Box, Button, Checkbox, Typography } from '@mui/material'
-import AddRoundedIcon from '@mui/icons-material/AddRounded'
-import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded'
 import { finalPrice, money, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { colors, focusRing, motion, radius } from '../../lib/theme'
 import ProductImage from '../ui/ProductImage'
 import { PackChip } from '../ui/ProductMeta'
+import { CartPlusIcon, PlusIcon } from '../ui/icons'
 
 /**
  * "Frequently bought together": this item + two companions with checkboxes, running total and one add.
@@ -32,7 +31,7 @@ export default function FrequentlyBoughtTogether({ product, companions }: { prod
             const isThis = i === 0
             return (
               <Fragment key={p.sku}>
-                {i > 0 && <Box aria-hidden sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', color: colors.ink400 }}><AddRoundedIcon /></Box>}
+                {i > 0 && <Box aria-hidden sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', color: colors.ink400 }}><PlusIcon /></Box>}
                 <Box
                   component="label"
                   sx={{
@@ -71,7 +70,7 @@ export default function FrequentlyBoughtTogether({ product, companions }: { prod
             <Typography sx={{ fontSize: 13.5, color: colors.ink600 }}>Total for {selected.length} item{selected.length === 1 ? '' : 's'}</Typography>
             <Typography aria-live="polite" sx={{ fontSize: { xs: 20, md: 24 }, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{money(total)}</Typography>
           </Box>
-          <Button variant="contained" disabled={!selected.length} startIcon={<AddShoppingCartRoundedIcon />} onClick={() => addMany(selected.map((p) => ({ sku: p.sku, qty: 1 })), `${selected.length} product${selected.length === 1 ? '' : 's'} added to cart`)}>
+          <Button variant="contained" disabled={!selected.length} startIcon={<CartPlusIcon />} onClick={() => addMany(selected.map((p) => ({ sku: p.sku, qty: 1 })), `${selected.length} product${selected.length === 1 ? '' : 's'} added to cart`)}>
             {selected.length ? `Add ${selected.length} to cart` : 'Select items'}
           </Button>
         </Box>

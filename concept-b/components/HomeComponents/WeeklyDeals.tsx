@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import { Box, Typography } from '@mui/material'
-import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded'
 import { money, regularPrice, type Product } from '../../lib/data'
 import { colors, focusRing, motion, radius, shadow } from '../../lib/theme'
 import ProductImage from '../ui/ProductImage'
 import { PackChip, Sku } from '../ui/ProductMeta'
 import CartControl from '../Product/CartControl'
+import { ClockIcon } from '../ui/icons'
 
 /*
  * This week's deals — real offers with validity dates and add to cart.
@@ -37,7 +37,7 @@ export function DealCard({ offer, product }: { offer: Offer; product: Product })
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 1, px: 2, py: 1.25, bgcolor: colors.redTint, borderBottom: `1px solid ${colors.redLine}` }}>
         <Typography sx={{ fontSize: 12.5, fontWeight: 700, color: colors.redText, letterSpacing: '.04em', textTransform: 'uppercase' }}>{offer.deal_type}</Typography>
         <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, color: colors.ink700, fontSize: 12.5, fontWeight: 500 }}>
-          <ScheduleRoundedIcon sx={{ fontSize: 16 }} /> Ends {shortDate(offer.valid_to)}
+          <ClockIcon sx={{ fontSize: 16 }} /> Ends {shortDate(offer.valid_to)}
         </Box>
       </Box>
       <Box sx={{ p: 2, display: 'flex', gap: 2, alignItems: 'flex-start', flex: 1 }}>

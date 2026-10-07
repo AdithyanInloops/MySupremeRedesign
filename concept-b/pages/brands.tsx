@@ -1,14 +1,13 @@
 import { useMemo, useState } from 'react'
 import Head from 'next/head'
 import { Box, Button, InputAdornment, InputBase, Typography } from '@mui/material'
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import { brands } from '../lib/data'
 import { colors, radius } from '../lib/theme'
 import PageHeader from '../components/ui/PageHeader'
 import { PageContainer } from '../components/ui/Section'
 import EmptyState from '../components/ui/EmptyState'
 import { BrandTile } from '../components/HomeComponents/BrandStrip'
+import { CloseIcon, SearchIcon } from '../components/ui/icons'
 
 const PAGE = 60
 
@@ -39,8 +38,8 @@ export default function BrandsPage() {
           onChange={(e) => { setQ(e.target.value); setLimit(PAGE) }}
           placeholder="Find a brand"
           inputProps={{ 'aria-label': 'Find a brand' }}
-          startAdornment={<InputAdornment position="start"><SearchRoundedIcon sx={{ color: colors.ink500 }} /></InputAdornment>}
-          endAdornment={q ? <InputAdornment position="end"><Button size="small" onClick={() => setQ('')} startIcon={<CloseRoundedIcon />}>Clear</Button></InputAdornment> : undefined}
+          startAdornment={<InputAdornment position="start"><SearchIcon sx={{ color: colors.ink500 }} /></InputAdornment>}
+          endAdornment={q ? <InputAdornment position="end"><Button size="small" onClick={() => setQ('')} startIcon={<CloseIcon />}>Clear</Button></InputAdornment> : undefined}
           sx={{ width: '100%', maxWidth: 520, height: 48, px: 1.75, border: `1px solid ${colors.line2}`, borderRadius: radius.md, fontSize: 15, '&.Mui-focused': { borderColor: colors.navy, boxShadow: `0 0 0 3px ${colors.navyTint}` } }}
         />
         <Box role="group" aria-label="Filter by first letter" sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 2, mb: 3 }}>

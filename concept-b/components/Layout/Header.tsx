@@ -2,23 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Avatar, Badge, Box, Button, Divider, Drawer, IconButton, ListItemIcon, Menu, MenuItem, Tooltip, Typography } from '@mui/material'
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
-import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded'
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'
-import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded'
-import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined'
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
-import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined'
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined'
-import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { departments, money, productByUrlKey, type Category } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { useSession } from '../../lib/session'
@@ -27,6 +10,7 @@ import { colors, focusRing, focusRingInverse, layout, motion, radius, srOnly, z 
 import CategoryMenu, { CategoryCircle, POPULAR, deptIcons, preloadCategoryImages, tilesFor } from './CategoryMenu'
 import SearchBox from './SearchBox'
 import { useQuickOrder } from '../QuickOrder/QuickOrder'
+import { BoltIcon, CartIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, CloseIcon, GridIcon, HeartIcon, LockIcon, LogOutIcon, MenuIcon, PhoneIcon, StoreIcon, TagIcon, TruckIcon, UserIcon, WhatsAppIcon } from '../ui/icons'
 
 export const PHONE = '+1 365-777-0999'
 export const PHONE_HREF = 'tel:+13657770999'
@@ -54,7 +38,7 @@ function UtilityBar() {
     <Box sx={{ display: { xs: 'none', lg: 'block' }, bgcolor: colors.subtle, borderBottom: `1px solid ${colors.line}` }}>
       <Box sx={{ maxWidth: layout.maxWidth, mx: 'auto', px: layout.gutter, height: 36, display: 'flex', alignItems: 'center', gap: 3, fontSize: 13 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: colors.ink700, minWidth: 0 }}>
-          <LocalShippingOutlinedIcon sx={{ fontSize: 18, color: colors.redText }} />
+          <TruckIcon sx={{ fontSize: 18, color: colors.redText }} />
           <Box component="span" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             <b>Same-day &amp; next-day delivery</b>
             <Box component="span" sx={{ display: 'none', '@media (min-width:1300px)': { display: 'inline' } }}> across the GTA, Hamilton &amp; Niagara</Box>
@@ -66,7 +50,7 @@ function UtilityBar() {
           <Box component={Link} href="/download-app" sx={link}>Get the app</Box>
           <Box component={Link} href="/service/contact-us" sx={link}>Help &amp; contact</Box>
           <Box component="a" href={PHONE_HREF} sx={{ ...link, display: 'inline-flex', alignItems: 'center', gap: 0.5, color: colors.ink, fontWeight: 600 }}>
-            <PhoneOutlinedIcon sx={{ fontSize: 16 }} /> {PHONE}
+            <PhoneIcon sx={{ fontSize: 16 }} /> {PHONE}
           </Box>
         </Box>
       </Box>
@@ -107,7 +91,7 @@ function CartButton({ compact = false }: { compact?: boolean }) {
         max={999}
         sx={{ '& .MuiBadge-badge': { transition: `transform ${motion.base}`, transform: pulse ? 'scale(1.25) translate(50%, -50%)' : undefined, border: '2px solid #fff' } }}
       >
-        <ShoppingCartOutlinedIcon sx={{ fontSize: 24 }} />
+        <CartIcon sx={{ fontSize: 24 }} />
       </Badge>
       {!compact && (
         <Box sx={{ display: { xs: 'none', lg: 'block' }, lineHeight: 1.15 }}>
@@ -138,10 +122,10 @@ function AccountButton({ compact = false }: { compact?: boolean | 'responsive' }
     }
     return compact ? (
       <Tooltip title="Sign in">
-        <IconButton component={Link} href="/account/signin" aria-label="Sign in"><PersonOutlineRoundedIcon /></IconButton>
+        <IconButton component={Link} href="/account/signin" aria-label="Sign in"><UserIcon /></IconButton>
       </Tooltip>
     ) : (
-      <Button component={Link} href="/account/signin" variant="outlined" startIcon={<PersonOutlineRoundedIcon />} sx={{ ml: 0.5 }}>
+      <Button component={Link} href="/account/signin" variant="outlined" startIcon={<UserIcon />} sx={{ ml: 0.5 }}>
         Sign in
       </Button>
     )
@@ -166,7 +150,7 @@ function AccountButton({ compact = false }: { compact?: boolean | 'responsive' }
             <Typography sx={{ fontSize: 14, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.business}</Typography>
           </Box>
         )}
-        {!compact && <KeyboardArrowDownRoundedIcon sx={{ fontSize: 20, color: colors.ink500, display: { xs: 'none', lg: 'block' } }} />}
+        {!compact && <ChevronDownIcon sx={{ fontSize: 20, color: colors.ink500, display: { xs: 'none', lg: 'block' } }} />}
       </Box>
       <Menu anchorEl={anchor} open={!!anchor} onClose={() => setAnchor(null)} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }} slotProps={{ paper: { sx: { minWidth: 260 } } }}>
         <Box sx={{ px: 1.5, py: 1.25 }}>
@@ -175,12 +159,12 @@ function AccountButton({ compact = false }: { compact?: boolean | 'responsive' }
           <Box sx={{ display: 'inline-flex', mt: 1, fontSize: 12, fontWeight: 600, color: colors.navy, bgcolor: colors.navyTint, px: 1, py: 0.25, borderRadius: radius.pill }}>Business account · {user.terms}</Box>
         </Box>
         <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={() => { setAnchor(null); quick.open() }}><ListItemIcon><BoltRoundedIcon fontSize="small" /></ListItemIcon>Quick order</MenuItem>
-        <MenuItem component={Link} href="/wishlist" onClick={() => setAnchor(null)}><ListItemIcon><FavoriteBorderRoundedIcon fontSize="small" /></ListItemIcon>Favorites</MenuItem>
-        <MenuItem component={Link} href="/cart" onClick={() => setAnchor(null)}><ListItemIcon><ShoppingCartOutlinedIcon fontSize="small" /></ListItemIcon>Cart</MenuItem>
+        <MenuItem onClick={() => { setAnchor(null); quick.open() }}><ListItemIcon><BoltIcon fontSize="small" /></ListItemIcon>Quick order</MenuItem>
+        <MenuItem component={Link} href="/wishlist" onClick={() => setAnchor(null)}><ListItemIcon><HeartIcon fontSize="small" /></ListItemIcon>Favorites</MenuItem>
+        <MenuItem component={Link} href="/cart" onClick={() => setAnchor(null)}><ListItemIcon><CartIcon fontSize="small" /></ListItemIcon>Cart</MenuItem>
         <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={() => { setAnchor(null); signOut(); notify('You’re signed out', 'info'); if (router.pathname.startsWith('/checkout')) router.push('/cart') }}>
-          <ListItemIcon><LogoutRoundedIcon fontSize="small" /></ListItemIcon>Sign out
+          <ListItemIcon><LogOutIcon fontSize="small" /></ListItemIcon>Sign out
         </MenuItem>
       </Menu>
     </>
@@ -198,7 +182,7 @@ function FavoritesLink({ compact = false }: { compact?: boolean }) {
         aria-label={n ? `Favorites, ${n} saved` : 'Favorites'}
         sx={{ display: 'flex', alignItems: 'center', gap: 0.75, height: 44, px: compact ? 1.25 : 1.5, borderRadius: radius.md, color: colors.ink, textDecoration: 'none', fontSize: 14.5, fontWeight: 500, '&:hover': { bgcolor: colors.sunken }, ...focusRing }}
       >
-        <Badge badgeContent={n} color="secondary" sx={{ '& .MuiBadge-badge': { border: '2px solid #fff' } }}><FavoriteBorderRoundedIcon sx={{ fontSize: 23 }} /></Badge>
+        <Badge badgeContent={n} color="secondary" sx={{ '& .MuiBadge-badge': { border: '2px solid #fff' } }}><HeartIcon sx={{ fontSize: 23 }} /></Badge>
         {!compact && <Box component="span" sx={{ display: { xs: 'none', xl: 'inline' } }}>Favorites</Box>}
       </Box>
     </Tooltip>
@@ -250,7 +234,7 @@ function CategoryBar() {
       aria-label={`Show ${name} categories`}
       sx={{ all: 'unset', cursor: 'pointer', display: 'grid', placeItems: 'center', width: { lg: 22, xl: 26 }, height: 32, color: '#fff', borderRadius: radius.xs, mr: { lg: 0.25, xl: 1 }, '@media (min-width:1300px)': { width: 26, mr: 0.5 }, ...focusRingInverse }}
     >
-      <KeyboardArrowDownRoundedIcon sx={{ fontSize: 20, transition: `transform ${motion.fast}`, transform: active === key ? 'rotate(180deg)' : 'none' }} />
+      <ChevronDownIcon sx={{ fontSize: 20, transition: `transform ${motion.fast}`, transform: active === key ? 'rotate(180deg)' : 'none' }} />
     </Box>
   )
 
@@ -274,7 +258,7 @@ function CategoryBar() {
             aria-controls="category-panel"
             sx={{ all: 'unset', boxSizing: 'border-box', cursor: 'pointer', ...linkSx, px: { lg: 1, xl: 1.75 } }}
           >
-            <GridViewRoundedIcon sx={{ fontSize: 19 }} />
+            <GridIcon sx={{ fontSize: 19 }} />
             <Box component="span" aria-hidden sx={{ '@media (min-width:1300px)': { display: 'none' } }}>All</Box>
             <Box component="span" sx={{ display: 'none', '@media (min-width:1300px)': { display: 'inline' } }}>All categories</Box>
             <Box component="span" sx={{ ...srOnly, '@media (min-width:1300px)': { display: 'none' } }}> categories</Box>
@@ -314,11 +298,11 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
     <Drawer open={open} onClose={onClose} PaperProps={{ sx: { width: 'min(88vw, 360px)', display: 'flex', flexDirection: 'column' } }}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 1.5, height: 60, borderBottom: `1px solid ${colors.line}`, flexShrink: 0 }}>
         {dept ? (
-          <Button startIcon={<ChevronLeftRoundedIcon />} onClick={() => setDept(null)} sx={{ color: colors.ink }}>All departments</Button>
+          <Button startIcon={<ChevronLeftIcon />} onClick={() => setDept(null)} sx={{ color: colors.ink }}>All departments</Button>
         ) : (
           <Box sx={{ pl: 0.5 }}><Logo height={38} /></Box>
         )}
-        <IconButton aria-label="Close menu" onClick={onClose}><CloseRoundedIcon /></IconButton>
+        <IconButton aria-label="Close menu" onClick={onClose}><CloseIcon /></IconButton>
       </Box>
       <Box sx={{ flex: 1, overflowY: 'auto' }}>
         {!dept ? (
@@ -327,9 +311,9 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               {user ? (
                 <Typography sx={{ fontSize: 14, color: colors.ink600 }}>Signed in as <b style={{ color: colors.ink }}>{user.business}</b></Typography>
               ) : (
-                <Button component={Link} href="/account/signin" onClick={onClose} variant="contained" fullWidth startIcon={<PersonOutlineRoundedIcon />}>Sign in or create account</Button>
+                <Button component={Link} href="/account/signin" onClick={onClose} variant="contained" fullWidth startIcon={<UserIcon />}>Sign in or create account</Button>
               )}
-              <Button variant="outlined" fullWidth startIcon={<BoltRoundedIcon />} onClick={() => { onClose(); quick.open() }}>Quick order by SKU</Button>
+              <Button variant="outlined" fullWidth startIcon={<BoltIcon />} onClick={() => { onClose(); quick.open() }}>Quick order by SKU</Button>
             </Box>
             <Typography sx={{ px: 2, pt: 2, pb: 0.5, fontSize: 12, fontWeight: 600, color: colors.ink500, letterSpacing: '.08em', textTransform: 'uppercase' }}>Departments</Typography>
             <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
@@ -341,17 +325,17 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                       {Icon && <Icon sx={{ fontSize: 22, color: current === d.url_key ? colors.redText : colors.ink500 }} />}
                       <Box sx={{ flex: 1 }}>{d.name}</Box>
                       <Typography component="span" sx={{ fontSize: 12.5, color: colors.ink500 }}>{d.product_count.toLocaleString()}</Typography>
-                      <ChevronRightRoundedIcon sx={{ color: colors.ink400 }} />
+                      <ChevronRightIcon sx={{ color: colors.ink400 }} />
                     </Box>
                   </li>
                 )
               })}
             </Box>
             <Divider sx={{ my: 1 }} />
-            <Box component={Link} href="/flyers-offers" onClick={onClose} sx={{ ...row, color: colors.redText, fontWeight: 600 }}><LocalOfferOutlinedIcon sx={{ fontSize: 22 }} /> Flyers &amp; Offers</Box>
-            <Box component={Link} href="/all-categories" onClick={onClose} sx={row}><GridViewRoundedIcon sx={{ fontSize: 22, color: colors.ink500 }} /> All categories</Box>
-            <Box component={Link} href="/brands" onClick={onClose} sx={row}><StorefrontOutlinedIcon sx={{ fontSize: 22, color: colors.ink500 }} /> Brands</Box>
-            <Box component={Link} href="/wishlist" onClick={onClose} sx={row}><FavoriteBorderRoundedIcon sx={{ fontSize: 22, color: colors.ink500 }} /> Favorites</Box>
+            <Box component={Link} href="/flyers-offers" onClick={onClose} sx={{ ...row, color: colors.redText, fontWeight: 600 }}><TagIcon sx={{ fontSize: 22 }} /> Flyers &amp; Offers</Box>
+            <Box component={Link} href="/all-categories" onClick={onClose} sx={row}><GridIcon sx={{ fontSize: 22, color: colors.ink500 }} /> All categories</Box>
+            <Box component={Link} href="/brands" onClick={onClose} sx={row}><StoreIcon sx={{ fontSize: 22, color: colors.ink500 }} /> Brands</Box>
+            <Box component={Link} href="/wishlist" onClick={onClose} sx={row}><HeartIcon sx={{ fontSize: 22, color: colors.ink500 }} /> Favorites</Box>
             <Divider sx={{ my: 1 }} />
             {[['Become a supplier', '/become-a-supplier'], ['Get the app', '/download-app'], ['About us', '/about-us'], ['Help & contact', '/service/contact-us']].map(([t, href]) => (
               <Box key={href} component={Link} href={href} onClick={onClose} sx={{ ...row, minHeight: 46, fontSize: 14.5, color: colors.ink700 }}>{t}</Box>
@@ -362,7 +346,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             <Box sx={{ px: 2, pt: 2 }}>
               <Typography variant="h3" component="p">{dept.name}</Typography>
               <Typography sx={{ fontSize: 13, color: colors.ink500 }}>{dept.product_count.toLocaleString()} products</Typography>
-              <Button component={Link} href={`/${dept.url_key}`} onClick={onClose} variant="outlined" color="primary" fullWidth sx={{ mt: 1.5 }} endIcon={<ChevronRightRoundedIcon />}>Shop all {dept.name}</Button>
+              <Button component={Link} href={`/${dept.url_key}`} onClick={onClose} variant="outlined" color="primary" fullWidth sx={{ mt: 1.5 }} endIcon={<ChevronRightIcon />}>Shop all {dept.name}</Button>
             </Box>
             <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', gap: 0.5, px: 1, py: 1.5 }}>
               {tilesFor(dept).map((t) => <CategoryCircle key={t.href} tile={t} size={72} onNavigate={onClose} />)}
@@ -373,7 +357,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
       <Box sx={{ borderTop: `1px solid ${colors.line}`, p: 2, bgcolor: colors.subtle, flexShrink: 0 }}>
         <Typography sx={{ fontSize: 13, color: colors.ink600, mb: 1 }}>Questions? Mon–Sat 9am–6pm</Typography>
         <Box sx={{ display: 'flex', gap: 1 }}>
-          <Button component="a" href={PHONE_HREF} variant="outlined" size="small" startIcon={<PhoneOutlinedIcon />} sx={{ flex: 1 }}>Call</Button>
+          <Button component="a" href={PHONE_HREF} variant="outlined" size="small" startIcon={<PhoneIcon />} sx={{ flex: 1 }}>Call</Button>
           <Button component="a" href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" variant="outlined" size="small" startIcon={<WhatsAppIcon />} sx={{ flex: 1 }}>WhatsApp</Button>
         </Box>
       </Box>
@@ -391,17 +375,17 @@ export function FocusedHeader({ variant }: { variant: 'signin' | 'checkout' }) {
         <Logo height={{ xs: 38, md: 46 }} />
         {variant === 'checkout' && (
           <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center', gap: 0.75, color: colors.ink600, fontSize: 14, pl: 2, borderLeft: `1px solid ${colors.line}` }}>
-            <LockOutlinedIcon sx={{ fontSize: 18, color: colors.success }} /> Secure checkout
+            <LockIcon sx={{ fontSize: 18, color: colors.success }} /> Secure checkout
           </Box>
         )}
         <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center', gap: 1 }}>
           <Box component="a" href={PHONE_HREF} sx={{ display: { xs: 'none', md: 'inline-flex' }, alignItems: 'center', gap: 0.75, color: colors.ink700, fontSize: 14, textDecoration: 'none', mr: 1, borderRadius: '4px', ...focusRing }}>
-            <PhoneOutlinedIcon sx={{ fontSize: 18 }} /> Need help? <b>{PHONE}</b>
+            <PhoneIcon sx={{ fontSize: 18 }} /> Need help? <b>{PHONE}</b>
           </Box>
           {variant === 'checkout' ? (
-            <Button component={Link} href="/cart" startIcon={<ChevronLeftRoundedIcon />}>Back to cart</Button>
+            <Button component={Link} href="/cart" startIcon={<ChevronLeftIcon />}>Back to cart</Button>
           ) : (
-            <Button component={Link} href="/" startIcon={<ChevronLeftRoundedIcon />}>Continue shopping</Button>
+            <Button component={Link} href="/" startIcon={<ChevronLeftIcon />}>Continue shopping</Button>
           )}
         </Box>
       </Box>
@@ -418,17 +402,17 @@ export default function Header() {
       <Box component="header" sx={{ position: 'sticky', top: 0, zIndex: z.header, bgcolor: '#fff', boxShadow: `0 1px 0 ${colors.line}` }}>
         {/* Tablet + desktop row */}
         <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: { md: 1.5, lg: 3 }, maxWidth: layout.maxWidth, mx: 'auto', px: layout.gutter, height: 76 }}>
-          <IconButton aria-label="Open menu" onClick={() => setDrawer(true)} sx={{ display: { md: 'inline-flex', lg: 'none' }, ml: -1 }}><MenuRoundedIcon /></IconButton>
+          <IconButton aria-label="Open menu" onClick={() => setDrawer(true)} sx={{ display: { md: 'inline-flex', lg: 'none' }, ml: -1 }}><MenuIcon /></IconButton>
           <Logo height={50} />
           <Box sx={{ flex: 1, minWidth: 0, maxWidth: 760, mx: 'auto' }}><SearchBox /></Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { md: 0, lg: 0.5 } }}>
             <Tooltip title="Order by SKU or paste a list">
-              <Button onClick={() => quick.open()} startIcon={<BoltRoundedIcon sx={{ color: colors.redText }} />} sx={{ display: { md: 'none', lg: 'inline-flex' }, color: colors.ink }}>
+              <Button onClick={() => quick.open()} startIcon={<BoltIcon sx={{ color: colors.redText }} />} sx={{ display: { md: 'none', lg: 'inline-flex' }, color: colors.ink }}>
                 Quick order
               </Button>
             </Tooltip>
             <Tooltip title="Quick order">
-              <IconButton aria-label="Quick order" onClick={() => quick.open()} sx={{ display: { md: 'inline-flex', lg: 'none' } }}><BoltRoundedIcon sx={{ color: colors.redText }} /></IconButton>
+              <IconButton aria-label="Quick order" onClick={() => quick.open()} sx={{ display: { md: 'inline-flex', lg: 'none' } }}><BoltIcon sx={{ color: colors.redText }} /></IconButton>
             </Tooltip>
             <FavoritesLink />
             <AccountButton compact="responsive" />
@@ -439,10 +423,10 @@ export default function Header() {
         {/* Phone rows */}
         <Box sx={{ display: { xs: 'block', md: 'none' }, px: 1.5, pt: 0.75, pb: 1.25 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.75 }}>
-            <IconButton aria-label="Open menu" onClick={() => setDrawer(true)} sx={{ ml: -0.5 }}><MenuRoundedIcon /></IconButton>
+            <IconButton aria-label="Open menu" onClick={() => setDrawer(true)} sx={{ ml: -0.5 }}><MenuIcon /></IconButton>
             <Logo height={38} />
             <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
-              <IconButton aria-label="Quick order" onClick={() => quick.open()}><BoltRoundedIcon sx={{ color: colors.redText }} /></IconButton>
+              <IconButton aria-label="Quick order" onClick={() => quick.open()}><BoltIcon sx={{ color: colors.redText }} /></IconButton>
               <AccountButton compact />
               <CartButton compact />
             </Box>

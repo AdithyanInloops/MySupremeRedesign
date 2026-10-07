@@ -1,11 +1,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Typography } from '@mui/material'
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
-import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { colors } from '../../lib/theme'
 import { PHONE, PHONE_HREF, WHATSAPP_HREF } from '../Layout/Header'
+import { ChevronDownIcon, PhoneIcon, WhatsAppIcon } from '../ui/icons'
 
 /*
  * Quick answers (CMS block). Cut-off, minimum and returns wording are prototype copy — confirm with operations.
@@ -31,7 +29,7 @@ export default function HomeFAQ({ faqs = defaultFaqs, contactLink = true }: { fa
         <Typography id="faq-title" component="h2" variant="h2" sx={{ mt: 0.5 }}>Quick answers</Typography>
         <Typography sx={{ color: colors.ink600, mt: 1, mb: 2.5 }}>Can’t find what you need? Our team answers Mon–Sat, 9am–6pm.</Typography>
         <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-          <Button component="a" href={PHONE_HREF} variant="outlined" startIcon={<PhoneOutlinedIcon />}>{PHONE}</Button>
+          <Button component="a" href={PHONE_HREF} variant="outlined" startIcon={<PhoneIcon />}>{PHONE}</Button>
           <Button component="a" href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" variant="outlined" startIcon={<WhatsAppIcon />}>WhatsApp</Button>
           {contactLink && <Button component={Link} href="/service/contact-us" color="primary">Contact us</Button>}
         </Box>
@@ -39,7 +37,7 @@ export default function HomeFAQ({ faqs = defaultFaqs, contactLink = true }: { fa
       <Box>
         {faqs.map((f, i) => (
           <Accordion key={f.q} expanded={open === i} onChange={(_, isOpen) => setOpen(isOpen ? i : false)}>
-            <AccordionSummary expandIcon={<ExpandMoreRoundedIcon />} id={`faq-${i}-header`} aria-controls={`faq-${i}-content`}>
+            <AccordionSummary expandIcon={<ChevronDownIcon />} id={`faq-${i}-header`} aria-controls={`faq-${i}-content`}>
               <Typography component="h3" sx={{ fontSize: 15, fontWeight: 600 }}>{f.q}</Typography>
             </AccordionSummary>
             <AccordionDetails>{f.a}</AccordionDetails>

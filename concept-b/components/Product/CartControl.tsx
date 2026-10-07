@@ -1,11 +1,9 @@
 import { Box, Button, IconButton, Tooltip } from '@mui/material'
-import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded'
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import { inStock, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { colors, motion } from '../../lib/theme'
 import QuantityStepper from '../ui/QuantityStepper'
+import { CartPlusIcon, HeartFilledIcon, HeartIcon } from '../ui/icons'
 
 /**
  * Add to cart ↔ in-cart quantity. Not in the cart: one "Add to cart" button. In the cart: the same space becomes a
@@ -35,7 +33,7 @@ export default function CartControl({ product, size = 'md', label = 'Add to cart
       color="primary"
       size={size === 'sm' ? 'small' : 'medium'}
       fullWidth={fullWidth}
-      startIcon={<AddShoppingCartRoundedIcon />}
+      startIcon={<CartPlusIcon />}
       onClick={() => add(product.sku, 1)}
       aria-label={`Add ${product.name} to cart`}
     >
@@ -49,7 +47,7 @@ export function FavoriteButton({ product, variant = 'overlay' }: { product: Prod
   const { wishlist, toggleWish, ready } = useCart()
   const on = ready && wishlist.includes(product.sku)
   const label = on ? `Remove ${product.name} from Favorites` : `Save ${product.name} to Favorites`
-  const icon = on ? <FavoriteRoundedIcon sx={{ fontSize: 20, color: colors.red }} /> : <FavoriteBorderRoundedIcon sx={{ fontSize: 20 }} />
+  const icon = on ? <HeartFilledIcon sx={{ fontSize: 20, color: colors.red }} /> : <HeartIcon sx={{ fontSize: 20 }} />
   if (variant === 'labelled') {
     return (
       <Button variant="outlined" onClick={() => toggleWish(product.sku)} aria-pressed={on} aria-label={label} startIcon={icon}>

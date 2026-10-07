@@ -1,26 +1,11 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { Box, Button, Typography } from '@mui/material'
-import RestaurantRoundedIcon from '@mui/icons-material/RestaurantRounded'
-import LocalCafeRoundedIcon from '@mui/icons-material/LocalCafeRounded'
-import BakeryDiningRoundedIcon from '@mui/icons-material/BakeryDiningRounded'
-import CelebrationRoundedIcon from '@mui/icons-material/CelebrationRounded'
-import LocalShippingRoundedIcon from '@mui/icons-material/LocalShippingRounded'
-import DeliveryDiningRoundedIcon from '@mui/icons-material/DeliveryDiningRounded'
-import HotelRoundedIcon from '@mui/icons-material/HotelRounded'
-import VerifiedOutlinedIcon from '@mui/icons-material/VerifiedOutlined'
-import SellOutlinedIcon from '@mui/icons-material/SellOutlined'
-import SupportAgentOutlinedIcon from '@mui/icons-material/SupportAgentOutlined'
-import BoltOutlinedIcon from '@mui/icons-material/BoltOutlined'
-import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined'
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
-import EastRoundedIcon from '@mui/icons-material/EastRounded'
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
-import type { SvgIconComponent } from '@mui/icons-material'
 import { colors, focusRing, motion, radius, shadow } from '../lib/theme'
 import Section, { PageContainer } from '../components/ui/Section'
 import { Breadcrumbs } from '../components/ui/PageHeader'
 import { PHONE, PHONE_HREF } from '../components/Layout/Header'
+import { type IconComponent, ArrowRightIcon, AwardIcon, BadgeCheckIcon, BedIcon, BoltIcon, BreadIcon, CheckIcon, CoffeeIcon, HeadsetIcon, PhoneIcon, ScooterIcon, SparklesIcon, TagIcon, TruckIcon, UtensilsIcon } from '../components/ui/icons'
 
 /*
  * About — the company story, reorganised around what a buyer wants to know: who you are, how I can buy, what you
@@ -41,14 +26,14 @@ const categories: [string, string, string][] = [
   ['Packaging & disposables', '/assets/packaging.png', '/packaging'], ['Dry groceries', '/assets/dry-groceries.png', '/grocery'], ['Cleaning supplies', '/assets/cleaning.png', '/janitorial'], ['Seafood', '/assets/sea-food.png', '/frozen'],
 ]
 
-const served: [string, SvgIconComponent][] = [['Restaurants', RestaurantRoundedIcon], ['Cafés', LocalCafeRoundedIcon], ['Bakeries', BakeryDiningRoundedIcon], ['Catering companies', CelebrationRoundedIcon], ['Food trucks', LocalShippingRoundedIcon], ['Ghost kitchens', DeliveryDiningRoundedIcon], ['Hospitality & event venues', HotelRoundedIcon]]
+const served: [string, IconComponent][] = [['Restaurants', UtensilsIcon], ['Cafés', CoffeeIcon], ['Bakeries', BreadIcon], ['Catering companies', SparklesIcon], ['Food trucks', TruckIcon], ['Ghost kitchens', ScooterIcon], ['Hospitality & event venues', BedIcon]]
 
-const commitments: [string, string, SvgIconComponent][] = [
-  ['Reliable supply', 'Stock you can plan a menu around.', VerifiedOutlinedIcon],
-  ['Competitive pricing', 'Wholesale prices and volume deals.', SellOutlinedIcon],
-  ['Professional service', 'A team that knows foodservice.', SupportAgentOutlinedIcon],
-  ['Fast delivery', 'Same-day and next-day routes.', BoltOutlinedIcon],
-  ['Consistent quality', 'The same product, every order.', WorkspacePremiumOutlinedIcon],
+const commitments: [string, string, IconComponent][] = [
+  ['Reliable supply', 'Stock you can plan a menu around.', BadgeCheckIcon],
+  ['Competitive pricing', 'Wholesale prices and volume deals.', TagIcon],
+  ['Professional service', 'A team that knows foodservice.', HeadsetIcon],
+  ['Fast delivery', 'Same-day and next-day routes.', BoltIcon],
+  ['Consistent quality', 'The same product, every order.', AwardIcon],
 ]
 
 export default function AboutUs() {
@@ -116,9 +101,9 @@ export default function AboutUs() {
                 <Typography component="h3" variant="h3">{c.title}</Typography>
                 <Typography sx={{ fontSize: 14.5, color: colors.ink700 }}>{c.text}</Typography>
                 <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                  {c.points.map((p) => <Box component="li" key={p} sx={{ display: 'flex', gap: 0.75, fontSize: 14, color: colors.ink700 }}><CheckRoundedIcon sx={{ fontSize: 18, color: colors.success, mt: '1px' }} />{p}</Box>)}
+                  {c.points.map((p) => <Box component="li" key={p} sx={{ display: 'flex', gap: 0.75, fontSize: 14, color: colors.ink700 }}><CheckIcon sx={{ fontSize: 18, color: colors.success, mt: '1px' }} />{p}</Box>)}
                 </Box>
-                <Button component={Link} href={c.cta[1]} endIcon={<EastRoundedIcon />} color="primary" sx={{ alignSelf: 'flex-start', ml: -1.5, mt: 'auto' }}>{c.cta[0]}</Button>
+                <Button component={Link} href={c.cta[1]} endIcon={<ArrowRightIcon />} color="primary" sx={{ alignSelf: 'flex-start', ml: -1.5, mt: 'auto' }}>{c.cta[0]}</Button>
               </Box>
             </Box>
           ))}
@@ -167,7 +152,7 @@ export default function AboutUs() {
           </Box>
           <Box sx={{ display: 'flex', gap: 1.25, flexWrap: 'wrap' }}>
             <Button component={Link} href="/account/signin?mode=register" size="large" sx={{ bgcolor: '#fff', color: colors.redText, '&:hover': { bgcolor: colors.redTint }, '&.Mui-focusVisible': { outline: '2px solid #fff', outlineOffset: 2 } }}>Open a business account</Button>
-            <Button component="a" href={PHONE_HREF} size="large" startIcon={<PhoneOutlinedIcon />} sx={{ color: '#fff', border: '1px solid rgba(255,255,255,.7)', '&:hover': { bgcolor: 'rgba(255,255,255,.12)' }, '&.Mui-focusVisible': { outline: '2px solid #fff', outlineOffset: 2 } }}>{PHONE}</Button>
+            <Button component="a" href={PHONE_HREF} size="large" startIcon={<PhoneIcon />} sx={{ color: '#fff', border: '1px solid rgba(255,255,255,.7)', '&:hover': { bgcolor: 'rgba(255,255,255,.12)' }, '&.Mui-focusVisible': { outline: '2px solid #fff', outlineOffset: 2 } }}>{PHONE}</Button>
           </Box>
         </Box>
       </PageContainer>

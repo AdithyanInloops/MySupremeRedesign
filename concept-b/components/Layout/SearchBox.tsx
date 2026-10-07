@@ -1,19 +1,11 @@
 import { Fragment, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Box, Button, ClickAwayListener, Dialog, DialogContent, DialogTitle, IconButton, InputBase, Skeleton, Tooltip, Typography } from '@mui/material'
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import MicNoneRoundedIcon from '@mui/icons-material/MicNoneRounded'
-import PhotoCameraOutlinedIcon from '@mui/icons-material/PhotoCameraOutlined'
-import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined'
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import UploadFileRoundedIcon from '@mui/icons-material/UploadFileRounded'
-import NorthWestRoundedIcon from '@mui/icons-material/NorthWestRounded'
 import { money, packSize, searchCategories, searchProducts, finalPrice, type Product } from '../../lib/data'
 import { useToast } from '../../lib/toast'
 import { colors, mono, motion, radius, shadow, srOnly, z } from '../../lib/theme'
 import ProductImage from '../ui/ProductImage'
+import { ArrowUpLeftIcon, CameraIcon, CloseIcon, HistoryIcon, MicIcon, SearchIcon, ShapesIcon, TrendingUpIcon, UploadIcon } from '../ui/icons'
 
 const POPULAR = ['basmati rice', 'canola oil', 'takeout containers', 'nitrile gloves', 'coffee', 'french fries']
 const RECENT_KEY = 'ms-b-recent-searches'
@@ -131,7 +123,7 @@ export default function SearchBox({ size = 'md', autoFocus = false, onNavigate }
             '&:focus-within': { bgcolor: '#fff', borderColor: colors.navy, boxShadow: `0 0 0 3px ${colors.navyTint}` },
           }}
         >
-          <SearchRoundedIcon sx={{ color: colors.ink500, fontSize: 22, flexShrink: 0 }} />
+          <SearchIcon sx={{ color: colors.ink500, fontSize: 22, flexShrink: 0 }} />
           <InputBase
             inputRef={inputRef}
             value={q}
@@ -152,17 +144,17 @@ export default function SearchBox({ size = 'md', autoFocus = false, onNavigate }
           />
           {q && (
             <IconButton aria-label="Clear search" onClick={() => { setQ(''); inputRef.current?.focus() }} sx={{ ...iconBtn, width: 34, height: 34 }}>
-              <CloseRoundedIcon sx={{ fontSize: 18 }} />
+              <CloseIcon sx={{ fontSize: 18 }} />
             </IconButton>
           )}
           <Tooltip title="Search by voice">
             <IconButton aria-label="Search by voice" onClick={() => toast({ message: 'Voice search', description: 'Speak a product name or SKU — available on the live site and app.', severity: 'info' })} sx={{ ...iconBtn, display: { xs: q ? 'none' : 'inline-flex', sm: 'inline-flex' } }}>
-              <MicNoneRoundedIcon sx={{ fontSize: 21 }} />
+              <MicIcon sx={{ fontSize: 21 }} />
             </IconButton>
           </Tooltip>
           <Tooltip title="Search with a photo">
             <IconButton aria-label="Search with a photo" onClick={() => setPhoto(true)} sx={{ ...iconBtn, display: { xs: q ? 'none' : 'inline-flex', sm: 'inline-flex' } }}>
-              <PhotoCameraOutlinedIcon sx={{ fontSize: 21 }} />
+              <CameraIcon sx={{ fontSize: 21 }} />
             </IconButton>
           </Tooltip>
           <Button type="submit" variant="contained" aria-label="Search" sx={{ display: { xs: 'none', md: 'inline-flex' }, minWidth: 0, minHeight: h - 10, height: h - 10, px: 2, borderRadius: radius.sm, ml: 0.25 }}>
@@ -187,9 +179,9 @@ export default function SearchBox({ size = 'md', autoFocus = false, onNavigate }
                   <Fragment key={o.id}>
                     {i === recent.length && <GroupLabel>Popular searches</GroupLabel>}
                     <OptionRow id={optId(i)} active={i === active} onHover={() => setActive(i)} onPick={() => go(o.href, o.label)}>
-                      {o.id.startsWith('r-') ? <HistoryRoundedIcon sx={{ color: colors.ink400, fontSize: 20 }} /> : <TrendingUpRoundedIcon sx={{ color: colors.ink400, fontSize: 20 }} />}
+                      {o.id.startsWith('r-') ? <HistoryIcon sx={{ color: colors.ink400, fontSize: 20 }} /> : <TrendingUpIcon sx={{ color: colors.ink400, fontSize: 20 }} />}
                       <Typography sx={{ flex: 1, fontSize: 14.5 }}>{o.label}</Typography>
-                      <NorthWestRoundedIcon sx={{ color: colors.ink400, fontSize: 16 }} />
+                      <ArrowUpLeftIcon sx={{ color: colors.ink400, fontSize: 16 }} />
                     </OptionRow>
                   </Fragment>
                 ))}
@@ -235,7 +227,7 @@ export default function SearchBox({ size = 'md', autoFocus = false, onNavigate }
                   const i = products.length + k
                   return (
                     <OptionRow key={c.href} id={optId(i)} active={i === active} onHover={() => setActive(i)} onPick={() => go(c.href)}>
-                      <Box sx={{ width: 44, height: 44, borderRadius: radius.sm, bgcolor: colors.sunken, display: 'grid', placeItems: 'center', flexShrink: 0 }}><CategoryOutlinedIcon sx={{ color: colors.ink500, fontSize: 20 }} /></Box>
+                      <Box sx={{ width: 44, height: 44, borderRadius: radius.sm, bgcolor: colors.sunken, display: 'grid', placeItems: 'center', flexShrink: 0 }}><ShapesIcon sx={{ color: colors.ink500, fontSize: 20 }} /></Box>
                       <Box sx={{ minWidth: 0, flex: 1 }}>
                         <Typography sx={{ fontSize: 14 }}><Highlight text={c.name} q={term} /></Typography>
                         <Typography sx={{ fontSize: 12, color: colors.ink500 }}>{c.parent ? `in ${c.parent} · ` : 'Department · '}{c.count?.toLocaleString()} products</Typography>
@@ -245,7 +237,7 @@ export default function SearchBox({ size = 'md', autoFocus = false, onNavigate }
                 })}
                 <Box sx={{ borderTop: `1px solid ${colors.line}`, mt: 1, pt: 1 }}>
                   <OptionRow id={optId(options.length - 1)} active={active === options.length - 1} onHover={() => setActive(options.length - 1)} onPick={() => go(`/search/${encodeURIComponent(term)}`, term)}>
-                    <SearchRoundedIcon sx={{ color: colors.redText, fontSize: 20 }} />
+                    <SearchIcon sx={{ color: colors.redText, fontSize: 20 }} />
                     <Typography sx={{ fontSize: 14.5, fontWeight: 600, color: colors.redText }}>See all {total > 0 ? `${total} ` : ''}results for “{term}”</Typography>
                   </OptionRow>
                 </Box>
@@ -299,7 +291,7 @@ function PhotoSearchDialog({ open, onClose }: { open: boolean; onClose: () => vo
     <Dialog open={open} onClose={close} maxWidth="xs" fullWidth aria-labelledby="photo-search-title">
       <DialogTitle id="photo-search-title" sx={{ pr: 7 }}>
         Search with a photo
-        <IconButton aria-label="Close" onClick={close} sx={{ position: 'absolute', right: 12, top: 12 }}><CloseRoundedIcon /></IconButton>
+        <IconButton aria-label="Close" onClick={close} sx={{ position: 'absolute', right: 12, top: 12 }}><CloseIcon /></IconButton>
       </DialogTitle>
       <DialogContent>
         <Typography sx={{ color: colors.ink600, fontSize: 14.5, mb: 2 }}>Snap a product label or an empty box from your shelf and we’ll find matching items.</Typography>
@@ -318,7 +310,7 @@ function PhotoSearchDialog({ open, onClose }: { open: boolean; onClose: () => vo
               '&:hover, &:focus-within': { borderColor: colors.navy, bgcolor: colors.navyTint },
             }}
           >
-            <UploadFileRoundedIcon sx={{ fontSize: 36, color: colors.ink500 }} />
+            <UploadIcon sx={{ fontSize: 36, color: colors.ink500 }} />
             <Typography sx={{ fontWeight: 600 }}>Upload or take a photo</Typography>
             <Typography sx={{ fontSize: 13, color: colors.ink500 }}>JPG or PNG, up to 10 MB</Typography>
             <Box component="input" type="file" accept="image/*" capture="environment" sx={srOnly}

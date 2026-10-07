@@ -3,28 +3,20 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Box, Button, Checkbox, CircularProgress, FormControlLabel, IconButton, InputAdornment, MenuItem, Tab, Tabs, Typography } from '@mui/material'
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined'
-import SellOutlinedIcon from '@mui/icons-material/SellOutlined'
-import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined'
-import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded'
-import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined'
-import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined'
-import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined'
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import { useSession } from '../../lib/session'
 import { useToast } from '../../lib/toast'
 import { emailError, phoneError } from '../../lib/validate'
 import { colors, focusRing, layout, radius } from '../../lib/theme'
 import Field from '../../components/ui/Field'
+import { AlertCircleIcon, BankIcon, EyeIcon, EyeOffIcon, MailCheckIcon, MapPinIcon, RotateCcwIcon, TagIcon, UserCheckIcon } from '../../components/ui/icons'
 
 type Mode = 'signin' | 'register' | 'reset'
 
 const benefits = [
-  { icon: SellOutlinedIcon, title: 'Business pricing', text: 'Customer-group prices on 4,300+ products' },
-  { icon: AccountBalanceOutlinedIcon, title: 'Credit terms', text: 'Pay on account — Net 30 for approved businesses' },
-  { icon: ReplayRoundedIcon, title: 'Reorder in one tap', text: 'Favorites, history and quick order by SKU' },
-  { icon: PlaceOutlinedIcon, title: 'Faster checkout', text: 'Saved delivery addresses and contacts' },
+  { icon: TagIcon, title: 'Business pricing', text: 'Customer-group prices on 4,300+ products' },
+  { icon: BankIcon, title: 'Credit terms', text: 'Pay on account — Net 30 for approved businesses' },
+  { icon: RotateCcwIcon, title: 'Reorder in one tap', text: 'Favorites, history and quick order by SKU' },
+  { icon: MapPinIcon, title: 'Faster checkout', text: 'Saved delivery addresses and contacts' },
 ]
 
 const BUSINESS_TYPES = ['Restaurant', 'Café or bakery', 'Caterer or events', 'Food truck', 'Ghost kitchen', 'Grocery or retail', 'Other']
@@ -34,7 +26,7 @@ function PasswordField({ id, label, value, onChange, error, hint, autoComplete }
   return (
     <Field
       id={id} label={label} type={show ? 'text' : 'password'} value={value} onChange={(e) => onChange(e.target.value)} error={error} hint={hint} autoComplete={autoComplete}
-      InputProps={{ endAdornment: <InputAdornment position="end"><IconButton aria-label={show ? 'Hide password' : 'Show password'} aria-pressed={show} onClick={() => setShow((s) => !s)} edge="end">{show ? <VisibilityOffOutlinedIcon /> : <VisibilityOutlinedIcon />}</IconButton></InputAdornment> }}
+      InputProps={{ endAdornment: <InputAdornment position="end"><IconButton aria-label={show ? 'Hide password' : 'Show password'} aria-pressed={show} onClick={() => setShow((s) => !s)} edge="end">{show ? <EyeOffIcon /> : <EyeIcon />}</IconButton></InputAdornment> }}
     />
   )
 }
@@ -67,7 +59,7 @@ function SignInForm({ onReset, next }: { onReset: (email: string) => void; next:
     <Box component="form" noValidate onSubmit={submit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
       {failed && (
         <Box role="alert" sx={{ display: 'flex', gap: 1, p: 1.5, borderRadius: radius.md, bgcolor: colors.errorTint, border: `1px solid ${colors.errorLine}`, color: '#7F1D1D', fontSize: 14 }}>
-          <ErrorOutlineRoundedIcon sx={{ color: colors.error, fontSize: 20 }} />
+          <AlertCircleIcon sx={{ color: colors.error, fontSize: 20 }} />
           <span>That email and password don’t match. Check for typos, or <Box component="button" type="button" onClick={() => onReset(email)} sx={{ all: 'unset', cursor: 'pointer', color: colors.error, fontWeight: 600, textDecoration: 'underline', ...focusRing }}>reset your password</Box>.</span>
         </Box>
       )}
@@ -116,7 +108,7 @@ function RegisterForm({ initialEmail }: { initialEmail: string }) {
   if (done) {
     return (
       <Box ref={doneRef} tabIndex={-1} role="status" sx={{ textAlign: 'center', py: 2, outline: 'none' }}>
-        <Box sx={{ width: 64, height: 64, borderRadius: '50%', bgcolor: colors.successTint, color: colors.success, display: 'grid', placeItems: 'center', mx: 'auto', mb: 2 }}><HowToRegOutlinedIcon sx={{ fontSize: 32 }} /></Box>
+        <Box sx={{ width: 64, height: 64, borderRadius: '50%', bgcolor: colors.successTint, color: colors.success, display: 'grid', placeItems: 'center', mx: 'auto', mb: 2 }}><UserCheckIcon sx={{ fontSize: 32 }} /></Box>
         <Typography variant="h2" component="h2">Application received</Typography>
         <Typography sx={{ color: colors.ink600, mt: 1 }}>Thanks, {f.contact.split(' ')[0]}. We’ll verify <b>{f.business}</b> within one business day and email {f.email} when business pricing is on. You can shop with guest prices in the meantime.</Typography>
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', flexWrap: 'wrap', mt: 3 }}>
@@ -142,7 +134,7 @@ function RegisterForm({ initialEmail }: { initialEmail: string }) {
       <PasswordField id="rg-password" label="Password" value={f.password} onChange={(v) => setF({ ...f, password: v })} error={err('password')} hint="At least 8 characters" autoComplete="new-password" />
       <Box sx={{ gridColumn: '1 / -1' }}>
         <FormControlLabel control={<Checkbox id="rg-agree" checked={agree} onChange={(e) => setAgree(e.target.checked)} />} label={<Typography sx={{ fontSize: 14 }}>I agree to the <Box component={Link} href="/terms-uses" sx={{ color: colors.redText, fontWeight: 500 }}>Terms &amp; Uses</Box> and <Box component={Link} href="/privacy-policy" sx={{ color: colors.redText, fontWeight: 500 }}>Privacy Policy</Box>.</Typography>} />
-        {err('agree') && <Typography sx={{ display: 'flex', gap: 0.5, fontSize: 13, color: colors.error, ml: 4 }}><ErrorOutlineRoundedIcon sx={{ fontSize: 16, mt: '1px' }} /> {err('agree')}</Typography>}
+        {err('agree') && <Typography sx={{ display: 'flex', gap: 0.5, fontSize: 13, color: colors.error, ml: 4 }}><AlertCircleIcon sx={{ fontSize: 16, mt: '1px' }} /> {err('agree')}</Typography>}
       </Box>
       <Button type="submit" variant="contained" size="large" disabled={busy} startIcon={busy ? <CircularProgress size={18} sx={{ color: 'inherit' }} /> : undefined} sx={{ gridColumn: '1 / -1' }}>
         {busy ? 'Creating your account…' : 'Create business account'}
@@ -159,7 +151,7 @@ function ResetForm({ initialEmail, onBack }: { initialEmail: string; onBack: () 
   if (sent) {
     return (
       <Box role="status" sx={{ textAlign: 'center', py: 2 }}>
-        <Box sx={{ width: 64, height: 64, borderRadius: '50%', bgcolor: colors.infoTint, color: colors.info, display: 'grid', placeItems: 'center', mx: 'auto', mb: 2 }}><MarkEmailReadOutlinedIcon sx={{ fontSize: 30 }} /></Box>
+        <Box sx={{ width: 64, height: 64, borderRadius: '50%', bgcolor: colors.infoTint, color: colors.info, display: 'grid', placeItems: 'center', mx: 'auto', mb: 2 }}><MailCheckIcon sx={{ fontSize: 30 }} /></Box>
         <Typography variant="h2" component="h2">Check your inbox</Typography>
         <Typography sx={{ color: colors.ink600, mt: 1 }}>If there’s an account for <b>{email}</b>, we’ve sent a link to reset your password. It expires in 1 hour.</Typography>
         <Button onClick={onBack} variant="outlined" sx={{ mt: 3 }}>Back to sign in</Button>

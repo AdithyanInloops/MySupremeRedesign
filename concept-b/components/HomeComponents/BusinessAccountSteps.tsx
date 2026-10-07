@@ -1,24 +1,20 @@
 import Link from 'next/link'
 import { Box, Button, Typography } from '@mui/material'
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined'
-import SellOutlinedIcon from '@mui/icons-material/SellOutlined'
-import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined'
-import StarRoundedIcon from '@mui/icons-material/StarRounded'
-import type { SvgIconComponent } from '@mui/icons-material'
 import { colors, radius, srOnly } from '../../lib/theme'
+import { type IconComponent, CartCheckIcon, StarIcon, StoreIcon, TagIcon } from '../ui/icons'
 
 /*
  * Business account + social proof in one block: three steps and the CTA on the left, customer quotes on the right.
  * CMS content. The quotes are dummy copy — replace with real testimonials before go-live.
  */
 
-export type Step = { title: string; body: string; icon: SvgIconComponent }
+export type Step = { title: string; body: string; icon: IconComponent }
 export type Testimonial = { quote: string; name: string; business: string; city: string }
 
 export const defaultSteps: Step[] = [
-  { title: 'Register your business', body: 'Business name, category and HST number — about two minutes.', icon: StorefrontOutlinedIcon },
-  { title: 'Get business pricing & terms', body: 'Customer-group prices, and credit terms through your rep.', icon: SellOutlinedIcon },
-  { title: 'Order your way', body: 'Online, in the app, by phone or at the warehouse.', icon: ShoppingCartCheckoutOutlinedIcon },
+  { title: 'Register your business', body: 'Business name, category and HST number — about two minutes.', icon: StoreIcon },
+  { title: 'Get business pricing & terms', body: 'Customer-group prices, and credit terms through your rep.', icon: TagIcon },
+  { title: 'Order your way', body: 'Online, in the app, by phone or at the warehouse.', icon: CartCheckIcon },
 ]
 
 export const defaultTestimonials: Testimonial[] = [
@@ -64,7 +60,7 @@ export default function BusinessAccountSteps({ steps = defaultSteps, testimonial
           {testimonials.map((t) => (
             <Box component="figure" key={t.business} sx={{ m: 0, bgcolor: '#fff', border: `1px solid ${colors.line}`, borderRadius: radius.lg, p: 2.25 }}>
               <Box sx={{ display: 'flex', color: '#B45309', mb: 1 }} role="img" aria-label="Rated 5 out of 5">
-                {[0, 1, 2, 3, 4].map((i) => <StarRoundedIcon key={i} sx={{ fontSize: 18 }} />)}
+                {[0, 1, 2, 3, 4].map((i) => <StarIcon key={i} sx={{ fontSize: 18 }} />)}
               </Box>
               <Box component="blockquote" sx={{ m: 0, fontSize: 14.5, lineHeight: 1.6, color: colors.ink }}>“{t.quote}”</Box>
               <Box component="figcaption" sx={{ mt: 1.5, display: 'flex', alignItems: 'center', gap: 1.25 }}>

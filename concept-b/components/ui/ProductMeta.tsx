@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { Box, IconButton, Tooltip, Typography, type SxProps, type Theme } from '@mui/material'
-import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
 import { finalPrice, money, packSize, percentOff, regularPrice, type Product } from '../../lib/data'
 import { colors, mono, radius, srOnly } from '../../lib/theme'
+import { CheckIcon, CopyIcon } from './icons'
 
 /** SKU in small mono text — never wraps the layout, even for 17-digit barcodes. Optional copy button (product page). */
 export function Sku({ sku, copyable = false, sx }: { sku: string; copyable?: boolean; sx?: SxProps<Theme> }) {
@@ -21,7 +20,7 @@ export function Sku({ sku, copyable = false, sx }: { sku: string; copyable?: boo
       {copyable && (
         <Tooltip title={copied ? 'Copied' : 'Copy SKU'}>
           <IconButton size="small" onClick={copy} aria-label={copied ? 'SKU copied' : `Copy SKU ${sku}`} sx={{ width: 32, height: 32, color: copied ? colors.success : colors.ink500 }}>
-            {copied ? <CheckRoundedIcon sx={{ fontSize: 16 }} /> : <ContentCopyRoundedIcon sx={{ fontSize: 15 }} />}
+            {copied ? <CheckIcon sx={{ fontSize: 16 }} /> : <CopyIcon sx={{ fontSize: 15 }} />}
           </IconButton>
         </Tooltip>
       )}

@@ -2,15 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { Box, Button, Chip, InputBase, Typography } from '@mui/material'
-import WarehouseOutlinedIcon from '@mui/icons-material/WarehouseOutlined'
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined'
-import WhatshotOutlinedIcon from '@mui/icons-material/WhatshotOutlined'
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined'
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined'
-import RestaurantMenuOutlinedIcon from '@mui/icons-material/RestaurantMenuOutlined'
-import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded'
-import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined'
-import type { SvgIconComponent } from '@mui/icons-material'
 import offersJson from '../data/offers.json'
 import { products } from '../lib/data'
 import { emailError } from '../lib/validate'
@@ -20,6 +11,7 @@ import Section, { PageContainer, SectionHeading } from '../components/ui/Section
 import EmptyState from '../components/ui/EmptyState'
 import { DealCard, type Offer } from '../components/HomeComponents/WeeklyDeals'
 import { dealTypes, offers as teasers, warehouses, type DealTypeId } from '../components/Pages/FlyersOffers/flyersOffersData'
+import { type IconComponent, BoxIcon, CalendarIcon, ClockIcon, FlameIcon, MailCheckIcon, TagIcon, UtensilsIcon, WarehouseIcon } from '../components/ui/icons'
 
 /*
  * Flyers & Offers — the "live" version the design brief asks for: real prices, validity dates and add to cart,
@@ -28,7 +20,7 @@ import { dealTypes, offers as teasers, warehouses, type DealTypeId } from '../co
  */
 
 const TYPE_OF: Record<string, DealTypeId> = { 'Monthly Flyer': 'monthly', 'Weekly Hot Pick': 'weekly', 'Bulk Saver': 'bulk', 'Restaurant Bundle': 'bundle' }
-const ICON: Record<DealTypeId, SvgIconComponent> = { monthly: CalendarMonthOutlinedIcon, weekly: WhatshotOutlinedIcon, bulk: Inventory2OutlinedIcon, bundle: RestaurantMenuOutlinedIcon }
+const ICON: Record<DealTypeId, IconComponent> = { monthly: CalendarIcon, weekly: FlameIcon, bulk: BoxIcon, bundle: UtensilsIcon }
 const allOffers = offersJson.offers as Offer[]
 
 function Subscribe({ warehouse }: { warehouse: string }) {
@@ -39,7 +31,7 @@ function Subscribe({ warehouse }: { warehouse: string }) {
   if (done) {
     return (
       <Box role="status" sx={{ display: 'flex', gap: 1.25, alignItems: 'center' }}>
-        <MarkEmailReadOutlinedIcon sx={{ color: '#86EFAC' }} />
+        <MailCheckIcon sx={{ color: '#86EFAC' }} />
         <Typography sx={{ color: '#fff' }}>You’re in. The {warehouse} deals arrive at {email} every Monday morning.</Typography>
       </Box>
     )
@@ -118,7 +110,7 @@ export default function FlyersOffers() {
                   transition: `border-color ${motion.fast}`, '&:hover': { borderColor: on ? colors.ink : colors.ink400 }, ...focusRing,
                 }}
               >
-                <WarehouseOutlinedIcon sx={{ color: on ? colors.redText : colors.ink500 }} />
+                <WarehouseIcon sx={{ color: on ? colors.redText : colors.ink500 }} />
                 <Box sx={{ minWidth: 0 }}>
                   <Typography sx={{ fontWeight: 600, fontSize: 15 }}>{w.name}</Typography>
                   <Typography sx={{ fontSize: 13, color: colors.ink600 }}>{w.area}</Typography>
@@ -140,7 +132,7 @@ export default function FlyersOffers() {
         {activeType && <Typography sx={{ color: colors.ink600, mb: 2 }}>{activeType.description}</Typography>}
 
         <Box role="status" aria-live="polite" sx={{ fontSize: 14, color: colors.ink600, mb: 2, display: 'flex', alignItems: 'center', gap: 0.75 }}>
-          <LocalOfferOutlinedIcon sx={{ fontSize: 18 }} /> {shown.length} deal{shown.length === 1 ? '' : 's'} at {warehouse.name} · prices valid while stock lasts
+          <TagIcon sx={{ fontSize: 18 }} /> {shown.length} deal{shown.length === 1 ? '' : 's'} at {warehouse.name} · prices valid while stock lasts
         </Box>
         {shown.length ? (
           <Box component="ul" aria-label={`Deals at ${warehouse.name}`} sx={{ listStyle: 'none', p: 0, m: 0, display: 'grid', gap: { xs: 1.5, md: 2 }, gridTemplateColumns: { xs: 'minmax(0,1fr)', md: 'repeat(2, minmax(0,1fr))', lg: 'repeat(3, minmax(0,1fr))' } }}>
@@ -149,7 +141,7 @@ export default function FlyersOffers() {
         ) : (
           <EmptyState
             size="inline"
-            icon={<LocalOfferOutlinedIcon />}
+            icon={<TagIcon />}
             title={`No ${activeType?.label ?? 'deals'} at ${warehouse.name} right now`}
             actions={<Button variant="contained" onClick={() => setType('all')}>See all {warehouse.name} deals</Button>}
           >
@@ -166,7 +158,7 @@ export default function FlyersOffers() {
                 <Box sx={{ position: 'relative', aspectRatio: '16 / 10', bgcolor: colors.sunken }}>
                   <Box component="img" src={t.image} alt="" loading="lazy" sx={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                   <Box sx={{ position: 'absolute', top: 10, left: 10, display: 'inline-flex', alignItems: 'center', gap: 0.5, bgcolor: 'rgba(17,24,39,.78)', color: '#fff', fontSize: 12, fontWeight: 600, px: 1, py: 0.25, borderRadius: radius.pill }}>
-                    <ScheduleRoundedIcon sx={{ fontSize: 14 }} /> Prices Monday
+                    <ClockIcon sx={{ fontSize: 14 }} /> Prices Monday
                   </Box>
                 </Box>
                 <Box sx={{ p: 1.75 }}>

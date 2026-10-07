@@ -1,19 +1,11 @@
 import Link from 'next/link'
 import { Box, Button, Typography } from '@mui/material'
-import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
-import PlaylistAddRoundedIcon from '@mui/icons-material/PlaylistAddRounded'
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined'
-import SellOutlinedIcon from '@mui/icons-material/SellOutlined'
-import AssignmentReturnOutlinedIcon from '@mui/icons-material/AssignmentReturnOutlined'
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined'
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'
-import EastRoundedIcon from '@mui/icons-material/EastRounded'
-import type { SvgIconComponent } from '@mui/icons-material'
 import { useCart } from '../../lib/cart'
 import { useSession } from '../../lib/session'
 import { colors, layout, radius } from '../../lib/theme'
 import { QuickOrderForm, POPULAR_SKUS, useQuickOrder } from '../QuickOrder/QuickOrder'
 import Supremebanner, { type HeroSlide } from './Supremebanner'
+import { type IconComponent, ArrowRightIcon, BoltIcon, HeartIcon, ListPlusIcon, ReturnIcon, TagIcon, TimerIcon, TruckIcon } from '../ui/icons'
 
 /**
  * Top of the home page = marketing + the most common task side by side. Desktop: banner left, Quick order and
@@ -26,12 +18,12 @@ function QuickOrderCard() {
   return (
     <Box component="section" aria-labelledby="hero-qo-title" sx={{ bgcolor: '#fff', border: `1px solid ${colors.line}`, borderRadius: radius.xl, p: { xs: 2, md: 2.5 }, display: 'flex', flexDirection: 'column', gap: 1.75 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-        <Box sx={{ width: 40, height: 40, borderRadius: radius.md, bgcolor: colors.redTint, color: colors.redText, display: 'grid', placeItems: 'center', flexShrink: 0 }}><BoltRoundedIcon /></Box>
+        <Box sx={{ width: 40, height: 40, borderRadius: radius.md, bgcolor: colors.redTint, color: colors.redText, display: 'grid', placeItems: 'center', flexShrink: 0 }}><BoltIcon /></Box>
         <Box sx={{ flex: 1, minWidth: 0 }}>
           <Typography id="hero-qo-title" component="h2" variant="h3" sx={{ fontSize: 18 }}>Quick order</Typography>
           <Typography sx={{ fontSize: 13.5, color: colors.ink600, display: { xs: 'none', sm: 'block' } }}>Know the SKU? Add it straight to your cart.</Typography>
         </Box>
-        <Button size="small" startIcon={<PlaylistAddRoundedIcon />} onClick={() => quick.open('paste')} sx={{ color: colors.redText, flexShrink: 0 }}>Paste a list</Button>
+        <Button size="small" startIcon={<ListPlusIcon />} onClick={() => quick.open('paste')} sx={{ color: colors.redText, flexShrink: 0 }}>Paste a list</Button>
       </Box>
       <QuickOrderForm layout="stacked" popularSkus={POPULAR_SKUS.slice(0, 4)} />
     </Box>
@@ -49,10 +41,10 @@ function AccountCard() {
         <Typography component="p" variant="h3" sx={{ color: '#fff', fontSize: 18 }}>{user.business}</Typography>
         <Typography sx={{ fontSize: 13, opacity: 0.8, mt: 0.25 }}>Business pricing applied · Terms: {user.terms}</Typography>
         <Box sx={{ display: 'flex', gap: 1, mt: 1.75, flexWrap: 'wrap' }}>
-          <Button component={Link} href="/wishlist" size="small" startIcon={<FavoriteBorderRoundedIcon />} sx={{ color: '#fff', bgcolor: 'rgba(255,255,255,.12)', '&:hover': { bgcolor: 'rgba(255,255,255,.2)' }, '&.Mui-focusVisible': { outline: '2px solid #fff' } }}>
+          <Button component={Link} href="/wishlist" size="small" startIcon={<HeartIcon />} sx={{ color: '#fff', bgcolor: 'rgba(255,255,255,.12)', '&:hover': { bgcolor: 'rgba(255,255,255,.2)' }, '&.Mui-focusVisible': { outline: '2px solid #fff' } }}>
             Favorites{cartReady && wishlist.length ? ` (${wishlist.length})` : ''}
           </Button>
-          <Button component={Link} href="/cart" size="small" endIcon={<EastRoundedIcon />} sx={{ color: '#fff', '&:hover': { bgcolor: 'rgba(255,255,255,.12)' }, '&.Mui-focusVisible': { outline: '2px solid #fff' } }}>Go to cart</Button>
+          <Button component={Link} href="/cart" size="small" endIcon={<ArrowRightIcon />} sx={{ color: '#fff', '&:hover': { bgcolor: 'rgba(255,255,255,.12)' }, '&.Mui-focusVisible': { outline: '2px solid #fff' } }}>Go to cart</Button>
         </Box>
       </Box>
     )
@@ -69,11 +61,11 @@ function AccountCard() {
   )
 }
 
-const values: { icon: SvgIconComponent; title: string; text: string }[] = [
-  { icon: TimerOutlinedIcon, title: 'Order in 10 minutes', text: 'Quick order by SKU, paste a list, reorder' },
-  { icon: LocalShippingOutlinedIcon, title: 'Same / next-day delivery', text: 'GTA, Hamilton & Niagara routes' },
-  { icon: SellOutlinedIcon, title: 'Wholesale pricing', text: 'Volume deals and weekly specials' },
-  { icon: AssignmentReturnOutlinedIcon, title: 'Easy returns', text: 'Damaged or wrong? We replace it' },
+const values: { icon: IconComponent; title: string; text: string }[] = [
+  { icon: TimerIcon, title: 'Order in 10 minutes', text: 'Quick order by SKU, paste a list, reorder' },
+  { icon: TruckIcon, title: 'Same / next-day delivery', text: 'GTA, Hamilton & Niagara routes' },
+  { icon: TagIcon, title: 'Wholesale pricing', text: 'Volume deals and weekly specials' },
+  { icon: ReturnIcon, title: 'Easy returns', text: 'Damaged or wrong? We replace it' },
 ]
 
 export function ValueStrip() {

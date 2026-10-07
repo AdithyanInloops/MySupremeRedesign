@@ -1,14 +1,10 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Box, Button, InputBase, Typography } from '@mui/material'
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined'
-import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined'
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import { colors, radius, srOnly } from '../../lib/theme'
 import { DELIVERY_MINIMUM } from '../../lib/pricing'
 import { checkPostal, type DeliveryZone, type DeliveryZones, type PostalResult } from '../../lib/delivery'
+import { AlertCircleIcon, CheckCircleIcon, MapPinIcon, StoreIcon, TruckIcon } from '../ui/icons'
 
 /*
  * Delivery check: postal code → next delivery window, or pickup when outside the routes.
@@ -24,7 +20,7 @@ export function PostalResultNote({ result, data }: { result: PostalResult; data:
   if (result.kind === 'invalid') {
     return (
       <Box sx={{ display: 'flex', gap: 1, color: colors.error }}>
-        <ErrorOutlineRoundedIcon sx={{ fontSize: 20, mt: '1px' }} />
+        <AlertCircleIcon sx={{ fontSize: 20, mt: '1px' }} />
         <Typography sx={{ fontSize: 14 }}>That doesn’t look like a Canadian postal code. Use the format L5L 0A2 — the first 3 characters are enough.</Typography>
       </Box>
     )
@@ -32,7 +28,7 @@ export function PostalResultNote({ result, data }: { result: PostalResult; data:
   if (result.kind === 'in') {
     return (
       <Box sx={{ display: 'flex', gap: 1.25, p: 1.5, borderRadius: radius.md, bgcolor: colors.successTint, border: `1px solid ${colors.successLine}` }}>
-        <CheckCircleRoundedIcon sx={{ color: colors.success, mt: '1px' }} />
+        <CheckCircleIcon sx={{ color: colors.success, mt: '1px' }} />
         <Box>
           <Typography sx={{ fontSize: 14.5, fontWeight: 600 }}>We deliver to {result.postal} ({result.zone.name})</Typography>
           <Typography sx={{ fontSize: 13.5, color: colors.ink700 }}>Next delivery <b>{result.zone.next_delivery}, {result.zone.window}</b> · order by {result.zone.cutoff}. Minimum order {`$${DELIVERY_MINIMUM}`}.</Typography>
@@ -42,7 +38,7 @@ export function PostalResultNote({ result, data }: { result: PostalResult; data:
   }
   return (
     <Box sx={{ display: 'flex', gap: 1.25, p: 1.5, borderRadius: radius.md, bgcolor: colors.warningTint, border: `1px solid ${colors.warningLine}` }}>
-      <StorefrontOutlinedIcon sx={{ color: colors.warning, mt: '1px' }} />
+      <StoreIcon sx={{ color: colors.warning, mt: '1px' }} />
       <Box>
         <Typography sx={{ fontSize: 14.5, fontWeight: 600 }}>{result.postal} is outside our delivery routes</Typography>
         <Typography sx={{ fontSize: 13.5, color: colors.ink700 }}>Pick up at {data.pickup.name}, {data.pickup.address} · {data.pickup.hours}.</Typography>
@@ -89,7 +85,7 @@ export default function DeliveryCheckBanner({ data, image = '/assets/stickydeliv
         </Box>
         <Box sx={{ p: { xs: 2.5, md: 3.5 }, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 1.5 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: colors.redText }}>
-            <LocalShippingOutlinedIcon sx={{ fontSize: 20 }} />
+            <TruckIcon sx={{ fontSize: 20 }} />
             <Typography variant="overline">Same-day &amp; next-day delivery</Typography>
           </Box>
           <Typography id="delivery-title" component="h2" variant="h2">Do we deliver to you?</Typography>
@@ -97,7 +93,7 @@ export default function DeliveryCheckBanner({ data, image = '/assets/stickydeliv
           <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
             {regions.map((r) => (
               <Box key={r} sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, px: 1.25, height: 28, borderRadius: radius.pill, bgcolor: colors.sunken, color: colors.ink700, fontSize: 12.5, fontWeight: 600 }}>
-                <PlaceOutlinedIcon sx={{ fontSize: 15 }} /> {r}
+                <MapPinIcon sx={{ fontSize: 15 }} /> {r}
               </Box>
             ))}
           </Box>

@@ -1,20 +1,9 @@
 import Link from 'next/link'
 import { Box, Typography } from '@mui/material'
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined'
-import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined'
-import AcUnitOutlinedIcon from '@mui/icons-material/AcUnitOutlined'
-import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined'
-import LocalDrinkOutlinedIcon from '@mui/icons-material/LocalDrinkOutlined'
-import EggOutlinedIcon from '@mui/icons-material/EggOutlined'
-import KebabDiningOutlinedIcon from '@mui/icons-material/KebabDiningOutlined'
-import CleaningServicesOutlinedIcon from '@mui/icons-material/CleaningServicesOutlined'
-import BlenderOutlinedIcon from '@mui/icons-material/BlenderOutlined'
-import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined'
-import EastRoundedIcon from '@mui/icons-material/EastRounded'
-import type { SvgIconComponent } from '@mui/icons-material'
 import subImagesJson from '../../data/subcategory-images.json'
 import { departments, type Category } from '../../lib/data'
 import { colors, focusRing, layout, motion, radius, shadow, z } from '../../lib/theme'
+import { type IconComponent, ArrowRightIcon, BasketIcon, BoxIcon, CupIcon, DrumstickIcon, EggIcon, LeafIcon, PotIcon, ShapesIcon, SnowflakeIcon, SprayIcon } from '../ui/icons'
 
 /**
  * Category dropdown (Alibaba-style "All categories"). The red bar is the department selector; the panel shows
@@ -24,16 +13,16 @@ import { colors, focusRing, layout, motion, radius, shadow, z } from '../../lib/
 
 const subImages = subImagesJson as Record<string, string>
 
-export const deptIcons: Record<string, SvgIconComponent> = {
-  packaging: Inventory2OutlinedIcon,
-  grocery: ShoppingBasketOutlinedIcon,
-  frozen: AcUnitOutlinedIcon,
-  produce: SpaOutlinedIcon,
-  beverage: LocalDrinkOutlinedIcon,
-  'dairy-eggs': EggOutlinedIcon,
-  'meat-poultry': KebabDiningOutlinedIcon,
-  janitorial: CleaningServicesOutlinedIcon,
-  'ware-equipment': BlenderOutlinedIcon,
+export const deptIcons: Record<string, IconComponent> = {
+  packaging: BoxIcon,
+  grocery: BasketIcon,
+  frozen: SnowflakeIcon,
+  produce: LeafIcon,
+  beverage: CupIcon,
+  'dairy-eggs': EggIcon,
+  'meat-poultry': DrumstickIcon,
+  janitorial: SprayIcon,
+  'ware-equipment': PotIcon,
 }
 
 export const POPULAR = 'popular'
@@ -52,7 +41,7 @@ export const tilesFor = (d: Category): Tile[] =>
 
 /** Round picture tile; falls back to the department icon on a soft tint when there is no photo. */
 export function CategoryCircle({ tile, size = 96, cover = false, onNavigate }: { tile: Tile; size?: number; cover?: boolean; onNavigate?: () => void }) {
-  const Icon = deptIcons[tile.dept] ?? CategoryOutlinedIcon
+  const Icon = deptIcons[tile.dept] ?? ShapesIcon
   return (
     <Box
       component={Link}
@@ -101,7 +90,7 @@ function PanelHeader({ id, title, subtitle, href, cta, onClose }: { id: string; 
         onClick={onClose}
         sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.75, color: colors.redText, fontWeight: 600, fontSize: 14.5, textDecoration: 'none', whiteSpace: 'nowrap', borderRadius: '4px', '&:hover': { textDecoration: 'underline' }, ...focusRing }}
       >
-        {cta} <EastRoundedIcon sx={{ fontSize: 18 }} />
+        {cta} <ArrowRightIcon sx={{ fontSize: 18 }} />
       </Box>
     </Box>
   )

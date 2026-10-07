@@ -1,13 +1,10 @@
 import { useId, useState, type ReactNode } from 'react'
 import { Box, Button, Collapse, Divider, IconButton, InputBase, Tooltip, Typography } from '@mui/material'
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined'
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import { money } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { checkCoupon, totals, type Method } from '../../lib/pricing'
 import { colors, radius } from '../../lib/theme'
+import { AlertCircleIcon, CloseIcon, InfoIcon, TagIcon } from '../ui/icons'
 
 /** Coupon entry: collapsed link → field + Apply; applied state shows the code with a remove button. */
 export function CouponField() {
@@ -19,10 +16,10 @@ export function CouponField() {
   if (coupon) {
     return (
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, p: 1.25, pl: 1.5, borderRadius: radius.md, bgcolor: colors.successTint, border: `1px solid ${colors.successLine}` }}>
-        <LocalOfferOutlinedIcon sx={{ fontSize: 18, color: colors.success }} />
+        <TagIcon sx={{ fontSize: 18, color: colors.success }} />
         <Typography sx={{ fontSize: 14, flex: 1 }}><b>{coupon.code}</b> applied · {coupon.label}</Typography>
         <Tooltip title="Remove coupon">
-          <IconButton size="small" aria-label={`Remove coupon ${coupon.code}`} onClick={() => { setCoupon(null); notify('Coupon removed', 'info') }}><CloseRoundedIcon fontSize="small" /></IconButton>
+          <IconButton size="small" aria-label={`Remove coupon ${coupon.code}`} onClick={() => { setCoupon(null); notify('Coupon removed', 'info') }}><CloseIcon fontSize="small" /></IconButton>
         </Tooltip>
       </Box>
     )
@@ -38,7 +35,7 @@ export function CouponField() {
   return (
     <Box>
       {!open ? (
-        <Button size="small" startIcon={<LocalOfferOutlinedIcon />} onClick={() => setOpen(true)} sx={{ ml: -1, color: colors.ink700 }}>Have a coupon code?</Button>
+        <Button size="small" startIcon={<TagIcon />} onClick={() => setOpen(true)} sx={{ ml: -1, color: colors.ink700 }}>Have a coupon code?</Button>
       ) : null}
       <Collapse in={open} unmountOnExit>
         <Box component="form" noValidate onSubmit={(e) => { e.preventDefault(); apply() }}>
@@ -57,7 +54,7 @@ export function CouponField() {
           </Box>
           {error && (
             <Typography id={`${id}-error`} role="alert" sx={{ display: 'flex', gap: 0.5, mt: 0.75, fontSize: 13, color: colors.error }}>
-              <ErrorOutlineRoundedIcon sx={{ fontSize: 16, mt: '1px' }} /> {error}
+              <AlertCircleIcon sx={{ fontSize: 16, mt: '1px' }} /> {error}
             </Typography>
           )}
         </Box>
@@ -71,7 +68,7 @@ function Row({ label, value, strong = false, tone, hint }: { label: ReactNode; v
     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 2 }}>
       <Typography sx={{ fontSize: strong ? 16 : 14.5, fontWeight: strong ? 600 : 400, color: strong ? colors.ink : colors.ink700, display: 'flex', alignItems: 'center', gap: 0.5 }}>
         {label}
-        {hint && <Tooltip title={hint}><InfoOutlinedIcon tabIndex={0} aria-label={hint} sx={{ fontSize: 16, color: colors.ink400, outline: 'none', '&:focus-visible': { outline: `2px solid ${colors.navy}`, borderRadius: '50%' } }} /></Tooltip>}
+        {hint && <Tooltip title={hint}><InfoIcon tabIndex={0} aria-label={hint} sx={{ fontSize: 16, color: colors.ink400, outline: 'none', '&:focus-visible': { outline: `2px solid ${colors.navy}`, borderRadius: '50%' } }} /></Tooltip>}
       </Typography>
       <Typography sx={{ fontSize: strong ? 20 : 14.5, fontWeight: strong ? 700 : 500, color: tone === 'success' ? colors.success : colors.ink, fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap' }}>{value}</Typography>
     </Box>

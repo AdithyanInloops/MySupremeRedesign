@@ -2,23 +2,18 @@ import { useRef, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { Box, Button, Checkbox, CircularProgress, FormControlLabel, Typography } from '@mui/material'
-import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined'
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined'
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined'
-import InsightsOutlinedIcon from '@mui/icons-material/InsightsOutlined'
-import TaskAltRoundedIcon from '@mui/icons-material/TaskAltRounded'
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import { departments } from '../../lib/data'
 import { emailError, phoneError } from '../../lib/validate'
 import { colors, radius } from '../../lib/theme'
 import PageHeader from '../ui/PageHeader'
 import { PageContainer } from '../ui/Section'
 import Field from '../ui/Field'
+import { AlertCircleIcon, ChartIcon, CheckCircleIcon, HandshakeIcon, StoreIcon, TruckIcon } from '../ui/icons'
 
 const perks = [
-  { icon: StorefrontOutlinedIcon, title: 'Reach 1,000s of kitchens', text: 'Restaurants, cafés, caterers and retailers across Ontario' },
-  { icon: LocalShippingOutlinedIcon, title: 'We handle delivery', text: 'Daily cold-chain routes across the GTA, Hamilton & Niagara' },
-  { icon: InsightsOutlinedIcon, title: 'Online, in-app and in-store', text: 'Listed on mysupreme.ca, the app and at our cash & carry' },
+  { icon: StoreIcon, title: 'Reach 1,000s of kitchens', text: 'Restaurants, cafés, caterers and retailers across Ontario' },
+  { icon: TruckIcon, title: 'We handle delivery', text: 'Daily cold-chain routes across the GTA, Hamilton & Niagara' },
+  { icon: ChartIcon, title: 'Online, in-app and in-store', text: 'Listed on mysupreme.ca, the app and at our cash & carry' },
 ]
 
 /** Become a supplier — a short application form (production: Magento contact/supplier form or CRM endpoint). */
@@ -66,7 +61,7 @@ export default function SupplierPage() {
             )
           })}
           <Box component="li" sx={{ p: 2.5, borderRadius: radius.lg, bgcolor: colors.subtle, display: 'flex', gap: 1.5 }}>
-            <HandshakeOutlinedIcon sx={{ color: colors.ink600 }} />
+            <HandshakeIcon sx={{ color: colors.ink600 }} />
             <Typography sx={{ fontSize: 14.5, color: colors.ink700 }}>Our purchasing team reviews every application and replies within <b>3 business days</b>.</Typography>
           </Box>
         </Box>
@@ -74,7 +69,7 @@ export default function SupplierPage() {
         <Box sx={{ border: `1px solid ${colors.line}`, borderRadius: radius.xl, p: { xs: 2, md: 3.5 } }}>
           {done ? (
             <Box ref={doneRef} tabIndex={-1} role="status" sx={{ textAlign: 'center', py: 3, outline: 'none' }}>
-              <TaskAltRoundedIcon sx={{ fontSize: 56, color: colors.success }} />
+              <CheckCircleIcon sx={{ fontSize: 56, color: colors.success }} />
               <Typography variant="h2" component="h2" sx={{ mt: 1 }}>Application sent</Typography>
               <Typography sx={{ color: colors.ink600, mt: 1 }}>Thanks, {f.contact.split(' ')[0]}. Our purchasing team will contact you at {f.email} within 3 business days.</Typography>
               <Button component={Link} href="/" variant="outlined" sx={{ mt: 3 }}>Back to the store</Button>
@@ -94,7 +89,7 @@ export default function SupplierPage() {
                     <FormControlLabel key={d.uid} control={<Checkbox size="small" checked={cats.includes(d.url_key)} onChange={() => setCats((c) => (c.includes(d.url_key) ? c.filter((x) => x !== d.url_key) : [...c, d.url_key]))} />} label={<Typography sx={{ fontSize: 14 }}>{d.name}</Typography>} />
                   ))}
                 </Box>
-                {err('cats') && <Typography id="sp-cats-error" sx={{ display: 'flex', gap: 0.5, fontSize: 13, color: colors.error }}><ErrorOutlineRoundedIcon sx={{ fontSize: 16, mt: '1px' }} /> {err('cats')}</Typography>}
+                {err('cats') && <Typography id="sp-cats-error" sx={{ display: 'flex', gap: 0.5, fontSize: 13, color: colors.error }}><AlertCircleIcon sx={{ fontSize: 16, mt: '1px' }} /> {err('cats')}</Typography>}
               </Box>
               <Box sx={{ gridColumn: '1 / -1' }}><Field id="sp-message" label="Products and brands" optional multiline minRows={3} value={f.message} onChange={set('message')} placeholder="What you make or distribute, pack sizes, certifications…" /></Box>
               <Button type="submit" variant="contained" size="large" disabled={busy} startIcon={busy ? <CircularProgress size={18} sx={{ color: 'inherit' }} /> : undefined} sx={{ gridColumn: '1 / -1' }}>

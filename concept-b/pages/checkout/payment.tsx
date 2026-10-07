@@ -3,11 +3,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Box, Button, Checkbox, CircularProgress, FormControlLabel, Typography } from '@mui/material'
-import CreditCardRoundedIcon from '@mui/icons-material/CreditCardRounded'
-import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined'
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
 import { finalPrice, money, productBySku } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { useSession, type Order, type Payment } from '../../lib/session'
@@ -20,6 +15,7 @@ import CheckoutLayout, { CheckoutCard, ErrorSummary } from '../../components/Che
 import { AddressBlock, AddressForm, RadioCard } from '../../components/Checkout/CheckoutParts'
 import Field from '../../components/ui/Field'
 import { StickyBottomBar } from '../../components/ui/Feedback'
+import { AlertCircleIcon, BankIcon, CreditCardIcon, LockIcon, StoreIcon } from '../../components/ui/icons'
 
 type Card = { number: string; expiry: string; cvc: string; name: string }
 const DECLINE = '4000000000000002'
@@ -128,7 +124,7 @@ export default function CheckoutPayment() {
           {submitted && <ErrorSummary errors={errors} />}
           {declined && (
             <Box ref={declinedRef} tabIndex={-1} role="alert" sx={{ display: 'flex', gap: 1.25, p: 2, borderRadius: radius.lg, bgcolor: colors.errorTint, border: `1px solid ${colors.errorLine}`, outline: 'none' }}>
-              <ErrorOutlineRoundedIcon sx={{ color: colors.error, mt: '1px' }} />
+              <AlertCircleIcon sx={{ color: colors.error, mt: '1px' }} />
               <Box>
                 <Typography sx={{ fontWeight: 600, color: '#7F1D1D' }}>Payment didn’t go through</Typography>
                 <Typography sx={{ fontSize: 14, color: '#7F1D1D' }}>{declined}</Typography>
@@ -154,7 +150,7 @@ export default function CheckoutPayment() {
 
           <CheckoutCard id="pay" step={1} title="Payment method">
             <Box role="radiogroup" aria-labelledby="pay-title" sx={{ display: 'flex', flexDirection: 'column', gap: 1.25 }}>
-              <RadioCard name="payment" value="card" checked={payment === 'card'} onChange={() => updateDraft({ payment: 'card' })} icon={<CreditCardRoundedIcon />} title="Credit or debit card" description="Visa, Mastercard — processed securely by Stripe">
+              <RadioCard name="payment" value="card" checked={payment === 'card'} onChange={() => updateDraft({ payment: 'card' })} icon={<CreditCardIcon />} title="Credit or debit card" description="Visa, Mastercard — processed securely by Stripe">
                 {/* TODO(Stripe): replace these fields with Stripe Elements (CardElement / saved cards) — same layout. */}
                 <Box sx={{ display: 'grid', gap: 2, gridTemplateColumns: { xs: 'minmax(0,1fr) minmax(0,1fr)', sm: '2fr minmax(0,1fr) minmax(0,1fr)' }, pt: 1 }}>
                   <Box sx={{ gridColumn: { xs: '1 / -1', sm: 'auto' } }}>{cardField('number', 'Card number', { autoComplete: 'cc-number', placeholder: '1234 1234 1234 1234', inputProps: { inputMode: 'numeric', style: { fontFamily: mono } } })}</Box>
@@ -165,12 +161,12 @@ export default function CheckoutPayment() {
                 <Typography sx={{ mt: 1.5, fontSize: 12.5, color: colors.ink500 }}>Prototype: use 4242 4242 4242 4242 to succeed, or 4000 0000 0000 0002 to see a declined card.</Typography>
               </RadioCard>
               <RadioCard
-                name="payment" value="account" checked={payment === 'account'} onChange={() => updateDraft({ payment: 'account' })} icon={<AccountBalanceOutlinedIcon />}
+                name="payment" value="account" checked={payment === 'account'} onChange={() => updateDraft({ payment: 'account' })} icon={<BankIcon />}
                 title="Pay on account" description={user ? `Invoiced on your ${user.terms} terms · Available credit $7,450.00` : undefined}
                 disabled={!canAccount} disabledReason={<>For business accounts with credit terms. <Box component={Link} href="/account/signin?next=/checkout/payment" sx={{ color: colors.redText, fontWeight: 600 }}>Sign in</Box></>}
               />
               <RadioCard
-                name="payment" value="on-pickup" checked={payment === 'on-pickup'} onChange={() => updateDraft({ payment: 'on-pickup' })} icon={<StorefrontOutlinedIcon />}
+                name="payment" value="on-pickup" checked={payment === 'on-pickup'} onChange={() => updateDraft({ payment: 'on-pickup' })} icon={<StoreIcon />}
                 title="Pay at pickup" description="Cash, debit or card at the warehouse counter"
                 disabled={!canOnPickup} disabledReason="Available when you choose warehouse pickup."
               />
@@ -191,18 +187,18 @@ export default function CheckoutPayment() {
               control={<Checkbox id="terms" checked={terms} onChange={(e) => setTerms(e.target.checked)} inputProps={{ 'aria-invalid': !!fieldErr('terms'), 'aria-describedby': fieldErr('terms') ? 'terms-error' : undefined }} />}
               label={<Typography sx={{ fontSize: 14.5 }}>I agree to the <Box component={Link} href="/terms-uses" target="_blank" sx={{ color: colors.redText, fontWeight: 500, borderRadius: '4px', ...focusRing }}>Terms &amp; Uses</Box> and the returns policy.</Typography>}
             />
-            {fieldErr('terms') && <Typography id="terms-error" sx={{ display: 'flex', gap: 0.5, fontSize: 13, color: colors.error, ml: 4 }}><ErrorOutlineRoundedIcon sx={{ fontSize: 16, mt: '1px' }} /> {fieldErr('terms')}</Typography>}
+            {fieldErr('terms') && <Typography id="terms-error" sx={{ display: 'flex', gap: 0.5, fontSize: 13, color: colors.error, ml: 4 }}><AlertCircleIcon sx={{ fontSize: 16, mt: '1px' }} /> {fieldErr('terms')}</Typography>}
           </Box>
 
           <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'space-between', alignItems: 'center', gap: 2, mt: 1 }}>
             <Button component={Link} href="/checkout">Back to delivery</Button>
-            <Button type="submit" variant="contained" size="large" disabled={placing} startIcon={placing ? <CircularProgress size={18} sx={{ color: 'inherit' }} /> : <LockOutlinedIcon />} sx={{ minWidth: 260 }}>
+            <Button type="submit" variant="contained" size="large" disabled={placing} startIcon={placing ? <CircularProgress size={18} sx={{ color: 'inherit' }} /> : <LockIcon />} sx={{ minWidth: 260 }}>
               {placing ? 'Placing your order…' : `Place order · ${money(t.total)}`}
             </Button>
           </Box>
           <Typography sx={{ display: { xs: 'none', md: 'block' }, textAlign: 'right', fontSize: 12.5, color: colors.ink500, mt: -1 }}>You’ll get an email confirmation and invoice right away.</Typography>
           <StickyBottomBar>
-            <Button type="button" onClick={place} variant="contained" size="large" fullWidth disabled={placing} startIcon={placing ? <CircularProgress size={18} sx={{ color: 'inherit' }} /> : <LockOutlinedIcon />}>
+            <Button type="button" onClick={place} variant="contained" size="large" fullWidth disabled={placing} startIcon={placing ? <CircularProgress size={18} sx={{ color: 'inherit' }} /> : <LockIcon />}>
               {placing ? 'Placing your order…' : `Place order · ${money(t.total)}`}
             </Button>
           </StickyBottomBar>

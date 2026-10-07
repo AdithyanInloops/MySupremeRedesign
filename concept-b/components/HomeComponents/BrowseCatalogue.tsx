@@ -1,16 +1,10 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Box, Tab, Tabs, Typography } from '@mui/material'
-import RestaurantRoundedIcon from '@mui/icons-material/RestaurantRounded'
-import BakeryDiningRoundedIcon from '@mui/icons-material/BakeryDiningRounded'
-import CelebrationRoundedIcon from '@mui/icons-material/CelebrationRounded'
-import LocalShippingRoundedIcon from '@mui/icons-material/LocalShippingRounded'
-import DeliveryDiningRoundedIcon from '@mui/icons-material/DeliveryDiningRounded'
-import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded'
-import type { SvgIconComponent } from '@mui/icons-material'
 import type { Category } from '../../lib/data'
 import { colors, focusRing, motion, radius, shadow } from '../../lib/theme'
 import Section from '../ui/Section'
+import { type IconComponent, BreadIcon, ScooterIcon, SparklesIcon, StoreIcon, TruckIcon, UtensilsIcon } from '../ui/icons'
 
 /**
  * One "Browse" block with two ways in: by department (the 9 Magento departments with photos and counts) or by
@@ -18,15 +12,15 @@ import Section from '../ui/Section'
  * away without stacking two more sections on the page.
  */
 
-export type BusinessType = { id: string; title: string; blurb: string; icon: SvgIconComponent; departments: { label: string; href: string }[] }
+export type BusinessType = { id: string; title: string; blurb: string; icon: IconComponent; departments: { label: string; href: string }[] }
 
 export const defaultBusinessTypes: BusinessType[] = [
-  { id: 'restaurant', title: 'Restaurant', blurb: 'For the line and the pass', icon: RestaurantRoundedIcon, departments: [{ label: 'Meat & Poultry', href: '/meat-poultry' }, { label: 'Produce', href: '/produce' }, { label: 'Grocery', href: '/grocery' }] },
-  { id: 'cafe-bakery', title: 'Café & Bakery', blurb: 'For the counter and the oven', icon: BakeryDiningRoundedIcon, departments: [{ label: 'Beverage', href: '/beverage' }, { label: 'Dairy & Eggs', href: '/dairy-eggs' }, { label: 'Packaging', href: '/packaging' }] },
-  { id: 'caterer', title: 'Caterer & Events', blurb: 'For trays, buffets and banquets', icon: CelebrationRoundedIcon, departments: [{ label: 'Packaging', href: '/packaging' }, { label: 'Ware & Equipment', href: '/ware-equipment' }, { label: 'Frozen', href: '/frozen' }] },
-  { id: 'food-truck', title: 'Food Truck', blurb: 'For service in a small space', icon: LocalShippingRoundedIcon, departments: [{ label: 'Frozen', href: '/frozen' }, { label: 'Packaging', href: '/packaging' }, { label: 'Beverage', href: '/beverage' }] },
-  { id: 'ghost-kitchen', title: 'Ghost Kitchen', blurb: 'For delivery-only menus', icon: DeliveryDiningRoundedIcon, departments: [{ label: 'Packaging', href: '/packaging' }, { label: 'Grocery', href: '/grocery' }, { label: 'Meat & Poultry', href: '/meat-poultry' }] },
-  { id: 'retail', title: 'Grocery & Retail', blurb: 'For shelves and coolers', icon: StorefrontRoundedIcon, departments: [{ label: 'Grocery', href: '/grocery' }, { label: 'Beverage', href: '/beverage' }, { label: 'Janitorial', href: '/janitorial' }] },
+  { id: 'restaurant', title: 'Restaurant', blurb: 'For the line and the pass', icon: UtensilsIcon, departments: [{ label: 'Meat & Poultry', href: '/meat-poultry' }, { label: 'Produce', href: '/produce' }, { label: 'Grocery', href: '/grocery' }] },
+  { id: 'cafe-bakery', title: 'Café & Bakery', blurb: 'For the counter and the oven', icon: BreadIcon, departments: [{ label: 'Beverage', href: '/beverage' }, { label: 'Dairy & Eggs', href: '/dairy-eggs' }, { label: 'Packaging', href: '/packaging' }] },
+  { id: 'caterer', title: 'Caterer & Events', blurb: 'For trays, buffets and banquets', icon: SparklesIcon, departments: [{ label: 'Packaging', href: '/packaging' }, { label: 'Ware & Equipment', href: '/ware-equipment' }, { label: 'Frozen', href: '/frozen' }] },
+  { id: 'food-truck', title: 'Food Truck', blurb: 'For service in a small space', icon: TruckIcon, departments: [{ label: 'Frozen', href: '/frozen' }, { label: 'Packaging', href: '/packaging' }, { label: 'Beverage', href: '/beverage' }] },
+  { id: 'ghost-kitchen', title: 'Ghost Kitchen', blurb: 'For delivery-only menus', icon: ScooterIcon, departments: [{ label: 'Packaging', href: '/packaging' }, { label: 'Grocery', href: '/grocery' }, { label: 'Meat & Poultry', href: '/meat-poultry' }] },
+  { id: 'retail', title: 'Grocery & Retail', blurb: 'For shelves and coolers', icon: StoreIcon, departments: [{ label: 'Grocery', href: '/grocery' }, { label: 'Beverage', href: '/beverage' }, { label: 'Janitorial', href: '/janitorial' }] },
 ]
 
 function DepartmentTile({ d }: { d: Category }) {

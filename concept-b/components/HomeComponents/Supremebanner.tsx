@@ -1,14 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Box, IconButton, Tooltip } from '@mui/material'
-import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded'
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
-import PauseRoundedIcon from '@mui/icons-material/PauseRounded'
-import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { A11y, Autoplay, Keyboard } from 'swiper/modules'
 import type { Swiper as SwiperType } from 'swiper'
 import { colors, focusRing, radius, shadow } from '../../lib/theme'
+import { ChevronLeftIcon, ChevronRightIcon, PauseIcon, PlayIcon } from '../ui/icons'
 
 /**
  * Hero banner slider (Magento Page Builder banners: desktop image, mobile image, link).
@@ -71,8 +68,8 @@ export default function Supremebanner({ slides, interval = 6000 }: { slides: Her
         ))}
       </Swiper>
 
-      <IconButton className="hero-nav" aria-label="Previous slide" onClick={() => swiper.current?.slidePrev()} sx={nav('left')}><ChevronLeftRoundedIcon /></IconButton>
-      <IconButton className="hero-nav" aria-label="Next slide" onClick={() => swiper.current?.slideNext()} sx={nav('right')}><ChevronRightRoundedIcon /></IconButton>
+      <IconButton className="hero-nav" aria-label="Previous slide" onClick={() => swiper.current?.slidePrev()} sx={nav('left')}><ChevronLeftIcon /></IconButton>
+      <IconButton className="hero-nav" aria-label="Next slide" onClick={() => swiper.current?.slideNext()} sx={nav('right')}><ChevronRightIcon /></IconButton>
 
       {/* Dots + pause on a soft pill so they read on light and dark banners */}
       <Box sx={{ position: 'absolute', zIndex: 2, bottom: { xs: 8, md: 14 }, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: 0.25, bgcolor: 'rgba(17,24,39,.55)', backdropFilter: 'blur(4px)', borderRadius: radius.pill, px: 0.5, py: 0.25 }}>
@@ -90,7 +87,7 @@ export default function Supremebanner({ slides, interval = 6000 }: { slides: Her
         ))}
         <Tooltip title={playing ? 'Pause slideshow' : 'Play slideshow'}>
           <IconButton size="small" aria-label={playing ? 'Pause slideshow' : 'Play slideshow'} onClick={() => setPlaying((p) => !p)} sx={{ width: 28, height: 28, color: '#fff', '&:hover': { bgcolor: 'rgba(255,255,255,.15)' }, '&.Mui-focusVisible': { outline: '2px solid #fff' } }}>
-            {playing ? <PauseRoundedIcon sx={{ fontSize: 16 }} /> : <PlayArrowRoundedIcon sx={{ fontSize: 16 }} />}
+            {playing ? <PauseIcon sx={{ fontSize: 16 }} /> : <PlayIcon sx={{ fontSize: 16 }} />}
           </IconButton>
         </Tooltip>
       </Box>

@@ -3,9 +3,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Box, Button, Typography } from '@mui/material'
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined'
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined'
-import EastRoundedIcon from '@mui/icons-material/EastRounded'
 import { money } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { useSession, type Address } from '../../lib/session'
@@ -18,6 +15,7 @@ import { PostalResultNote } from '../../components/HomeComponents/DeliveryCheckB
 import { checkPostal, slotsFor, zones } from '../../lib/delivery'
 import Field from '../../components/ui/Field'
 import { StickyBottomBar } from '../../components/ui/Feedback'
+import { ArrowRightIcon, StoreIcon, TruckIcon } from '../../components/ui/icons'
 
 /**
  * Checkout step 1 — contact, delivery or pickup, address and delivery window.
@@ -98,14 +96,14 @@ export default function CheckoutDelivery() {
             <Box role="radiogroup" aria-labelledby="method-title" sx={{ display: 'grid', gap: 1.25, gridTemplateColumns: { xs: 'minmax(0,1fr)', sm: 'minmax(0,1fr) minmax(0,1fr)' } }}>
               <RadioCard
                 name="method" value="delivery" checked={method === 'delivery'} onChange={() => updateDraft({ method: 'delivery' })}
-                icon={<LocalShippingOutlinedIcon />} title="Delivery" aside="Free"
+                icon={<TruckIcon />} title="Delivery" aside="Free"
                 description="Scheduled routes across the GTA, Hamilton & Niagara"
                 disabled={!t.deliveryEligible}
                 disabledReason={<>Add {money(t.remaining)} more to unlock delivery (minimum $350). <Box component={Link} href="/cart" sx={{ color: colors.redText, fontWeight: 600 }}>Back to cart</Box></>}
               />
               <RadioCard
                 name="method" value="pickup" checked={method === 'pickup'} onChange={() => updateDraft({ method: 'pickup' })}
-                icon={<StorefrontOutlinedIcon />} title="Pick up at the warehouse" aside="Free"
+                icon={<StoreIcon />} title="Pick up at the warehouse" aside="Free"
                 description="Ready in about 2 hours · 3750A Laird Road, Mississauga"
               />
             </Box>
@@ -142,7 +140,7 @@ export default function CheckoutDelivery() {
           ) : (
             <CheckoutCard id="pickup" step={3} title="Pickup details">
               <Box sx={{ p: 2, borderRadius: radius.lg, bgcolor: colors.subtle, mb: 2.5, display: 'flex', gap: 1.5 }}>
-                <StorefrontOutlinedIcon sx={{ color: colors.ink600, mt: '2px' }} />
+                <StoreIcon sx={{ color: colors.ink600, mt: '2px' }} />
                 <Box>
                   <Typography sx={{ fontWeight: 600 }}>{zones.pickup.name}</Typography>
                   <Typography sx={{ fontSize: 14, color: colors.ink700 }}>{zones.pickup.address}</Typography>
@@ -161,10 +159,10 @@ export default function CheckoutDelivery() {
 
           <Box sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'space-between', alignItems: 'center', gap: 2, mt: 1 }}>
             <Button component={Link} href="/cart">Back to cart</Button>
-            <Button type="submit" variant="contained" size="large" endIcon={<EastRoundedIcon />}>Continue to payment</Button>
+            <Button type="submit" variant="contained" size="large" endIcon={<ArrowRightIcon />}>Continue to payment</Button>
           </Box>
           <StickyBottomBar>
-            <Button type="button" onClick={next} variant="contained" size="large" fullWidth endIcon={<EastRoundedIcon />}>Continue to payment</Button>
+            <Button type="button" onClick={next} variant="contained" size="large" fullWidth endIcon={<ArrowRightIcon />}>Continue to payment</Button>
           </StickyBottomBar>
         </Box>
       </CheckoutLayout>

@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { Box, Button, Typography } from '@mui/material'
-import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded'
 import { finalPrice, money, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { colors, focusRing, motion, radius, shadow } from '../../lib/theme'
 import ProductImage from '../ui/ProductImage'
 import { PackChip } from '../ui/ProductMeta'
 import Section from '../ui/Section'
+import { CartPlusIcon } from '../ui/icons'
 
 /*
  * Ready-to-order kits.
@@ -52,7 +52,7 @@ function KitCard({ kit, products }: { kit: Kit; products: Product[] }) {
         <Typography sx={{ fontSize: 13, color: colors.ink600 }}>{lines.length} products · {units} units</Typography>
         <Typography sx={{ fontSize: 20, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{money(total)}</Typography>
       </Box>
-      <Button fullWidth variant="contained" startIcon={<AddShoppingCartRoundedIcon />} onClick={() => addMany(lines.map(({ sku, qty }) => ({ sku, qty })), `${kit.name} kit added to cart`)}>
+      <Button fullWidth variant="contained" startIcon={<CartPlusIcon />} onClick={() => addMany(lines.map(({ sku, qty }) => ({ sku, qty })), `${kit.name} kit added to cart`)}>
         Add kit · {units} items
       </Button>
     </Box>

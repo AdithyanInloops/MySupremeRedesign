@@ -1,11 +1,8 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import { Box, Button, IconButton, Slide, Snackbar, Typography } from '@mui/material'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import { colors, radius, shadow, z } from './theme'
+import { AlertCircleIcon, CheckCircleIcon, CloseIcon, InfoIcon } from '../components/ui/icons'
 
 /**
  * One toast at a time, always answering "what happened → what changed → what can I do now".
@@ -21,9 +18,9 @@ type Ctx = { toast: (t: ToastOptions) => void; notify: (message: string, severit
 const ToastCtx = createContext<Ctx | null>(null)
 
 const icons = {
-  success: <CheckCircleRoundedIcon sx={{ color: '#34D399', fontSize: 22 }} />,
-  info: <InfoRoundedIcon sx={{ color: '#93C5FD', fontSize: 22 }} />,
-  error: <ErrorRoundedIcon sx={{ color: '#FCA5A5', fontSize: 22 }} />,
+  success: <CheckCircleIcon sx={{ color: '#34D399', fontSize: 22 }} />,
+  info: <InfoIcon sx={{ color: '#93C5FD', fontSize: 22 }} />,
+  error: <AlertCircleIcon sx={{ color: '#FCA5A5', fontSize: 22 }} />,
 }
 
 export function ToastProvider({ children }: { children: ReactNode }) {
@@ -86,7 +83,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             </Button>
           )}
           <IconButton aria-label="Dismiss notification" onClick={() => setOpen(false)} size="small" sx={{ flexShrink: 0, color: 'rgba(255,255,255,.7)', '&:hover': { bgcolor: 'rgba(255,255,255,.1)', color: '#fff' }, '&.Mui-focusVisible': { outline: '2px solid #fff' } }}>
-            <CloseRoundedIcon fontSize="small" />
+            <CloseIcon fontSize="small" />
           </IconButton>
         </Box>
       </Snackbar>

@@ -1,15 +1,8 @@
 import Link from 'next/link'
 import { Box, Typography } from '@mui/material'
-import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded'
-import InstagramIcon from '@mui/icons-material/Instagram'
-import LinkedInIcon from '@mui/icons-material/LinkedIn'
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
-import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded'
-import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded'
-import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined'
 import { colors, focusRingInverse, layout, radius } from '../../lib/theme'
 import { PHONE, PHONE_HREF, WHATSAPP_HREF } from './Header'
+import { ClockIcon, FacebookIcon, InstagramIcon, LinkedInIcon, MailIcon, MapPinIcon, PhoneIcon, WhatsAppIcon } from '../ui/icons'
 
 const columns = [
   { title: 'Shop', links: [['Packaging', '/packaging'], ['Grocery', '/grocery'], ['Frozen', '/frozen'], ['Produce', '/produce'], ['Beverage', '/beverage'], ['Dairy & Eggs', '/dairy-eggs'], ['Janitorial', '/janitorial'], ['All categories', '/all-categories'], ['Brands', '/brands'], ['Flyers & Offers', '/flyers-offers']] },
@@ -43,11 +36,11 @@ export default function Footer() {
           <Box sx={{ gridColumn: { xs: '1 / -1', md: '1 / -1', lg: 'auto' } }}>
             <Typography component="h2" sx={heading}>Talk to us</Typography>
             <Box component="address" sx={{ fontStyle: 'normal', display: 'grid', gap: 1.25, gridTemplateColumns: { xs: 'minmax(0,1fr)', sm: 'minmax(0,1fr) minmax(0,1fr)', lg: 'minmax(0,1fr)' }, fontSize: 14 }}>
-              <Box component="a" href={PHONE_HREF} sx={{ ...linkSx, display: 'flex', gap: 1, alignItems: 'center', color: '#fff', fontWeight: 600 }}><PhoneOutlinedIcon sx={{ fontSize: 19 }} /> {PHONE}</Box>
+              <Box component="a" href={PHONE_HREF} sx={{ ...linkSx, display: 'flex', gap: 1, alignItems: 'center', color: '#fff', fontWeight: 600 }}><PhoneIcon sx={{ fontSize: 19 }} /> {PHONE}</Box>
               <Box component="a" href={WHATSAPP_HREF} target="_blank" rel="noopener noreferrer" sx={{ ...linkSx, display: 'flex', gap: 1, alignItems: 'center' }}><WhatsAppIcon sx={{ fontSize: 19 }} /> WhatsApp us</Box>
-              <Box component="a" href="mailto:sales@mysupreme.ca" sx={{ ...linkSx, display: 'flex', gap: 1, alignItems: 'center' }}><MailOutlineRoundedIcon sx={{ fontSize: 19 }} /> sales@mysupreme.ca</Box>
-              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}><ScheduleRoundedIcon sx={{ fontSize: 19 }} /> Mon–Sat, 9am–6pm</Box>
-              <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-start', gridColumn: { sm: '1 / -1', lg: 'auto' } }}><PlaceOutlinedIcon sx={{ fontSize: 19, mt: '2px' }} /> Cash &amp; carry: 3750A Laird Road, Unit 9, Mississauga</Box>
+              <Box component="a" href="mailto:sales@mysupreme.ca" sx={{ ...linkSx, display: 'flex', gap: 1, alignItems: 'center' }}><MailIcon sx={{ fontSize: 19 }} /> sales@mysupreme.ca</Box>
+              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}><ClockIcon sx={{ fontSize: 19 }} /> Mon–Sat, 9am–6pm</Box>
+              <Box sx={{ display: 'flex', gap: 1, alignItems: 'flex-start', gridColumn: { sm: '1 / -1', lg: 'auto' } }}><MapPinIcon sx={{ fontSize: 19, mt: '2px' }} /> Cash &amp; carry: 3750A Laird Road, Unit 9, Mississauga</Box>
             </Box>
           </Box>
         </Box>
@@ -67,7 +60,7 @@ export default function Footer() {
             <Typography sx={{ fontSize: 12.5, mb: 1 }}>Follow us</Typography>
             <Box sx={{ display: 'flex', gap: 0.5 }}>
               {[
-                ['https://www.facebook.com/profile.php?id=61586940912561', 'MySupreme on Facebook', <FacebookRoundedIcon key="f" />],
+                ['https://www.facebook.com/profile.php?id=61586940912561', 'MySupreme on Facebook', <FacebookIcon key="f" />],
                 ['https://www.instagram.com/supremecashandcarry', 'MySupreme on Instagram', <InstagramIcon key="i" />],
                 ['https://www.linkedin.com/company/111794954/', 'MySupreme on LinkedIn', <LinkedInIcon key="l" />],
               ].map(([href, label, icon]) => (

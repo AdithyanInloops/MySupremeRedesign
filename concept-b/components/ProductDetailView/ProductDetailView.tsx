@@ -1,15 +1,6 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Box, Button, IconButton, Tab, Tabs, Typography } from '@mui/material'
-import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded'
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
-import AddShoppingCartRoundedIcon from '@mui/icons-material/AddShoppingCartRounded'
-import CheckRoundedIcon from '@mui/icons-material/CheckRounded'
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined'
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined'
-import AssignmentReturnOutlinedIcon from '@mui/icons-material/AssignmentReturnOutlined'
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined'
-import EastRoundedIcon from '@mui/icons-material/EastRounded'
 import { departmentOf, finalPrice, hasImage, inStock, money, packSize, type Product } from '../../lib/data'
 import { useCart } from '../../lib/cart'
 import { CUTOFF, DELIVERY_MINIMUM } from '../../lib/pricing'
@@ -19,6 +10,7 @@ import { PackChip, Price, SaleBadge, Sku } from '../ui/ProductMeta'
 import QuantityStepper from '../ui/QuantityStepper'
 import { StickyBottomBar } from '../ui/Feedback'
 import { FavoriteButton } from '../Product/CartControl'
+import { ArrowRightIcon, CartIcon, CartPlusIcon, CheckIcon, ChevronLeftIcon, ChevronRightIcon, ReturnIcon, StoreIcon, TruckIcon } from '../ui/icons'
 
 /** Brand label from Magento's `brand` attribute, as the live PDP reads it; null hides every brand element. */
 export const brandOf = (p: Product) => p.brand_label
@@ -52,8 +44,8 @@ function Gallery({ product }: { product: Product }) {
         <SaleBadge product={product} sx={{ position: 'absolute', top: 14, left: 14, fontSize: 13 }} />
         {imgs.length > 1 && (
           <>
-            <IconButton aria-label="Previous image" onClick={() => go(i - 1)} sx={arrow('left')}><ChevronLeftRoundedIcon /></IconButton>
-            <IconButton aria-label="Next image" onClick={() => go(i + 1)} sx={arrow('right')}><ChevronRightRoundedIcon /></IconButton>
+            <IconButton aria-label="Previous image" onClick={() => go(i - 1)} sx={arrow('left')}><ChevronLeftIcon /></IconButton>
+            <IconButton aria-label="Next image" onClick={() => go(i + 1)} sx={arrow('right')}><ChevronRightIcon /></IconButton>
           </>
         )}
       </Box>
@@ -95,7 +87,7 @@ function AddButton({ added, onClick, product, size = 'large' }: { added: boolean
       variant="contained"
       size={size}
       onClick={onClick}
-      startIcon={added ? <CheckRoundedIcon /> : <AddShoppingCartRoundedIcon />}
+      startIcon={added ? <CheckIcon /> : <CartPlusIcon />}
       aria-label={`Add ${product.name} to cart`}
       sx={{ flex: 1, minWidth: 0, ...(added ? { bgcolor: colors.success, '&:hover': { bgcolor: colors.success } } : {}) }}
     >
@@ -121,9 +113,9 @@ export default function ProductDetailView({ product }: { product: Product }) {
   const addNow = () => { add(product.sku, qty); flash(); setQty(1) }
 
   const info = [
-    { icon: LocalShippingOutlinedIcon, title: 'Delivery', text: <>Order by {CUTOFF} for next-day delivery across the GTA, Hamilton &amp; Niagara (orders over ${DELIVERY_MINIMUM}). <Box component={Link} href="/#delivery" sx={{ color: colors.redText, fontWeight: 500, borderRadius: '4px', ...focusRing }}>Check your postal code</Box></> },
-    { icon: StorefrontOutlinedIcon, title: 'Pickup', text: <>Free at our cash &amp; carry, 3750A Laird Road, Mississauga · Mon–Sat 9am–6pm</> },
-    { icon: AssignmentReturnOutlinedIcon, title: 'Easy returns', text: <>Damaged or not right? Tell us within 48 hours for a replacement or credit.</> },
+    { icon: TruckIcon, title: 'Delivery', text: <>Order by {CUTOFF} for next-day delivery across the GTA, Hamilton &amp; Niagara (orders over ${DELIVERY_MINIMUM}). <Box component={Link} href="/#delivery" sx={{ color: colors.redText, fontWeight: 500, borderRadius: '4px', ...focusRing }}>Check your postal code</Box></> },
+    { icon: StoreIcon, title: 'Pickup', text: <>Free at our cash &amp; carry, 3750A Laird Road, Mississauga · Mon–Sat 9am–6pm</> },
+    { icon: ReturnIcon, title: 'Easy returns', text: <>Damaged or not right? Tell us within 48 hours for a replacement or credit.</> },
   ]
 
   return (
@@ -169,7 +161,7 @@ export default function ProductDetailView({ product }: { product: Product }) {
               <Box role="status" aria-live="polite" sx={{ fontSize: 14, color: colors.ink700, display: 'flex', alignItems: 'center', gap: 1 }}>
                 {inCart > 0 && (
                   <>
-                    <ShoppingCartOutlinedIcon sx={{ fontSize: 19, color: colors.success }} />
+                    <CartIcon sx={{ fontSize: 19, color: colors.success }} />
                     <span><b>{inCart}</b> in your cart · {money(finalPrice(product) * inCart)}</span>
                     <Box component={Link} href="/cart" sx={{ color: colors.redText, fontWeight: 600, borderRadius: '4px', ...focusRing }}>View cart</Box>
                   </>
@@ -193,12 +185,12 @@ export default function ProductDetailView({ product }: { product: Product }) {
 
           {brand && (
             <Box component={Link} href={`/search/${encodeURIComponent(brand)}`} sx={{ display: 'flex', alignItems: 'center', gap: 1.5, p: 1.75, borderRadius: radius.lg, bgcolor: colors.subtle, textDecoration: 'none', color: colors.ink, transition: `background-color ${motion.fast}`, '&:hover': { bgcolor: colors.sunken }, ...focusRing }}>
-              <StorefrontOutlinedIcon sx={{ color: colors.ink500 }} />
+              <StoreIcon sx={{ color: colors.ink500 }} />
               <Box sx={{ flex: 1 }}>
                 <Typography sx={{ fontSize: 13, color: colors.ink600 }}>Explore more from</Typography>
                 <Typography sx={{ fontSize: 15, fontWeight: 600 }}>{brand}</Typography>
               </Box>
-              <EastRoundedIcon sx={{ color: colors.redText }} />
+              <ArrowRightIcon sx={{ color: colors.redText }} />
             </Box>
           )}
         </Box>

@@ -1,14 +1,13 @@
 import type { ReactNode } from 'react'
 import { useRouter } from 'next/router'
 import { Box, Fab, Tooltip } from '@mui/material'
-import MicRoundedIcon from '@mui/icons-material/MicRounded'
-import ChatRoundedIcon from '@mui/icons-material/ChatRounded'
 import { useToast } from '../../lib/toast'
 import { colors, z } from '../../lib/theme'
 import { RouteProgress, SkipLink } from '../ui/Feedback'
 import Header, { FocusedHeader } from './Header'
 import Footer from './Footer'
 import DeliveryMinimumBar from './DeliveryMinimumBar'
+import { ChatIcon, MicIcon } from '../ui/icons'
 
 /**
  * Voice assistant (bottom-left) and chat (bottom-right), on every page. They rise above sticky mobile bars via
@@ -25,12 +24,12 @@ function FloatingButtons() {
     <>
       <Tooltip title="Voice assistant" placement="right">
         <Fab aria-label="Voice assistant" onClick={() => toast({ message: 'Voice assistant', description: 'Ask about products, orders or delivery by voice — runs on the live site.', severity: 'info' })} sx={{ ...fab, left: { xs: 12, md: 24 } }}>
-          <MicRoundedIcon />
+          <MicIcon />
         </Fab>
       </Tooltip>
       <Tooltip title="Chat with us" placement="left">
         <Fab aria-label="Chat with us" onClick={() => toast({ message: 'Live chat', description: 'Our team replies Mon–Sat, 9am–6pm. The chat window opens here on the live site.', severity: 'info' })} sx={{ ...fab, right: { xs: 12, md: 24 } }}>
-          <ChatRoundedIcon />
+          <ChatIcon />
         </Fab>
       </Tooltip>
     </>

@@ -2,12 +2,11 @@ import type { ReactNode } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { Box, Button, Typography } from '@mui/material'
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
-import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded'
 import { colors, radius } from '../../lib/theme'
 import PageHeader from '../ui/PageHeader'
 import { PageContainer } from '../ui/Section'
 import { PHONE, PHONE_HREF } from '../Layout/Header'
+import { MailIcon, PhoneIcon } from '../ui/icons'
 
 /**
  * Long-form content template (CMS pages, policies, blog index). Readable measure, a help card alongside, and the
@@ -32,8 +31,8 @@ export default function InfoPage({ eyebrow, title, lead, children, aside }: { ey
             <Typography component="h2" variant="h4">Questions?</Typography>
             <Typography sx={{ fontSize: 14, color: colors.ink600, mt: 0.5, mb: 2 }}>Our team answers Mon–Sat, 9am–6pm.</Typography>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              <Button component="a" href={PHONE_HREF} variant="outlined" startIcon={<PhoneOutlinedIcon />} fullWidth>{PHONE}</Button>
-              <Button component={Link} href="/service/contact-us" variant="outlined" startIcon={<MailOutlineRoundedIcon />} fullWidth>Contact us</Button>
+              <Button component="a" href={PHONE_HREF} variant="outlined" startIcon={<PhoneIcon />} fullWidth>{PHONE}</Button>
+              <Button component={Link} href="/service/contact-us" variant="outlined" startIcon={<MailIcon />} fullWidth>Contact us</Button>
             </Box>
           </Box>
         </Box>

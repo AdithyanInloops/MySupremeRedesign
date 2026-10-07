@@ -1,13 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { Box, Button, Divider, Skeleton, Typography } from '@mui/material'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined'
-import PrintOutlinedIcon from '@mui/icons-material/PrintOutlined'
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined'
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined'
-import StorefrontOutlinedIcon from '@mui/icons-material/StorefrontOutlined'
-import MarkEmailReadOutlinedIcon from '@mui/icons-material/MarkEmailReadOutlined'
 import { money, productBySku } from '../../lib/data'
 import { useSession } from '../../lib/session'
 import { zones } from '../../lib/delivery'
@@ -18,6 +11,7 @@ import ProductImage from '../../components/ui/ProductImage'
 import { CheckoutSteps } from '../../components/Checkout/CheckoutLayout'
 import { AddressBlock } from '../../components/Checkout/CheckoutParts'
 import { PHONE, PHONE_HREF } from '../../components/Layout/Header'
+import { BoxIcon, CheckCircleIcon, MailCheckIcon, PrinterIcon, ReceiptIcon, StoreIcon, TruckIcon } from '../../components/ui/icons'
 
 /** Order confirmation: what happened (order number), what happens next (timeline), what you can do now. */
 export default function CheckoutSuccess() {
@@ -27,7 +21,7 @@ export default function CheckoutSuccess() {
     return (
       <PageContainer>
         <Head><title>Order confirmation | MySupreme</title></Head>
-        <EmptyState icon={<ReceiptLongOutlinedIcon />} title="No recent order to show" headingLevel="h1" actions={<Button component={Link} href="/" variant="contained" size="large">Start shopping</Button>}>
+        <EmptyState icon={<ReceiptIcon />} title="No recent order to show" headingLevel="h1" actions={<Button component={Link} href="/" variant="contained" size="large">Start shopping</Button>}>
           Order confirmations appear here right after checkout. Your emailed confirmation has every order’s details.
         </EmptyState>
       </PageContainer>
@@ -35,11 +29,11 @@ export default function CheckoutSuccess() {
   }
   const pickup = o.method === 'pickup'
   const steps = [
-    { icon: CheckCircleRoundedIcon, title: 'Order confirmed', text: 'Just now', done: true },
-    { icon: Inventory2OutlinedIcon, title: 'Packed at the warehouse', text: pickup ? 'Within 2 hours' : 'Before your route leaves', done: false },
+    { icon: CheckCircleIcon, title: 'Order confirmed', text: 'Just now', done: true },
+    { icon: BoxIcon, title: 'Packed at the warehouse', text: pickup ? 'Within 2 hours' : 'Before your route leaves', done: false },
     pickup
-      ? { icon: StorefrontOutlinedIcon, title: 'Ready for pickup', text: 'We’ll text you when it’s ready', done: false }
-      : { icon: LocalShippingOutlinedIcon, title: 'Out for delivery', text: o.slotLabel, done: false },
+      ? { icon: StoreIcon, title: 'Ready for pickup', text: 'We’ll text you when it’s ready', done: false }
+      : { icon: TruckIcon, title: 'Out for delivery', text: o.slotLabel, done: false },
   ]
   const units = o.lines.reduce((a, l) => a + l.qty, 0)
 
@@ -50,21 +44,21 @@ export default function CheckoutSuccess() {
         <Box sx={{ '@media print': { display: 'none' } }}><CheckoutSteps current="done" /></Box>
 
         <Box sx={{ mt: { xs: 3, md: 4 }, display: 'flex', gap: 2, alignItems: 'flex-start' }}>
-          <CheckCircleRoundedIcon sx={{ fontSize: { xs: 40, md: 52 }, color: colors.success, flexShrink: 0, animation: 'pop .35s ease-out', '@keyframes pop': { from: { transform: 'scale(.6)', opacity: 0 }, to: { transform: 'none', opacity: 1 } } }} />
+          <CheckCircleIcon sx={{ fontSize: { xs: 40, md: 52 }, color: colors.success, flexShrink: 0, animation: 'pop .35s ease-out', '@keyframes pop': { from: { transform: 'scale(.6)', opacity: 0 }, to: { transform: 'none', opacity: 1 } } }} />
           <Box>
             <Typography variant="h1">Thanks — your order is confirmed</Typography>
             <Typography sx={{ mt: 0.75, color: colors.ink700, fontSize: 16 }}>
               Order <b style={{ color: colors.ink }}>#{o.number}</b> · {units} items · {money(o.total)}
             </Typography>
             <Typography sx={{ mt: 0.5, color: colors.ink600, display: 'flex', alignItems: 'center', gap: 0.75, fontSize: 14.5 }}>
-              <MarkEmailReadOutlinedIcon sx={{ fontSize: 19 }} /> Confirmation and invoice sent to {o.email}
+              <MailCheckIcon sx={{ fontSize: 19 }} /> Confirmation and invoice sent to {o.email}
             </Typography>
           </Box>
         </Box>
 
         <Box sx={{ display: 'flex', gap: 1.25, flexWrap: 'wrap', mt: 3, '@media print': { display: 'none' } }}>
           <Button component={Link} href="/" variant="contained" size="large">Continue shopping</Button>
-          <Button variant="outlined" size="large" startIcon={<PrintOutlinedIcon />} onClick={() => window.print()}>Print or save as PDF</Button>
+          <Button variant="outlined" size="large" startIcon={<PrinterIcon />} onClick={() => window.print()}>Print or save as PDF</Button>
         </Box>
 
         <Box component="ol" aria-label="What happens next" sx={{ listStyle: 'none', p: 0, m: 0, mt: 4, display: 'grid', gridTemplateColumns: { xs: 'minmax(0,1fr)', md: 'repeat(3, minmax(0,1fr))' }, gap: { xs: 1.5, md: 2 } }}>

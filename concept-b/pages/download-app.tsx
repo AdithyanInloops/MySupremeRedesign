@@ -1,19 +1,15 @@
 import Head from 'next/head'
 import { Box, Typography } from '@mui/material'
-import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
-import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded'
-import QrCodeScannerRoundedIcon from '@mui/icons-material/QrCodeScannerRounded'
-import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined'
-import QrCode2RoundedIcon from '@mui/icons-material/QrCode2Rounded'
 import { colors, radius } from '../lib/theme'
 import PageHeader from '../components/ui/PageHeader'
 import { PageContainer } from '../components/ui/Section'
+import { BellIcon, BoltIcon, QrCodeIcon, RotateCcwIcon, ScanIcon } from '../components/ui/icons'
 
 const features = [
-  { icon: BoltRoundedIcon, title: 'Search by name or SKU', text: 'Real-time pricing and stock as you type' },
-  { icon: ReplayRoundedIcon, title: '1-tap reordering', text: 'Your full order history in your pocket' },
-  { icon: QrCodeScannerRoundedIcon, title: 'Click & Collect', text: 'Order on the way, pick up at Laird Road' },
-  { icon: NotificationsActiveOutlinedIcon, title: 'Delivery updates', text: 'Know when your order is packed and on the road' },
+  { icon: BoltIcon, title: 'Search by name or SKU', text: 'Real-time pricing and stock as you type' },
+  { icon: RotateCcwIcon, title: '1-tap reordering', text: 'Your full order history in your pocket' },
+  { icon: ScanIcon, title: 'Click & Collect', text: 'Order on the way, pick up at Laird Road' },
+  { icon: BellIcon, title: 'Delivery updates', text: 'Know when your order is packed and on the road' },
 ]
 
 /** App download page: what the app does, store badges, and a QR code for desktop visitors. */
@@ -43,7 +39,7 @@ export default function DownloadApp() {
             <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1.5 }}>
               {/* TODO(asset): replace with a real QR code that deep-links to the right store (e.g. via a smart link). */}
               <Box role="img" aria-label="QR code to download the app (placeholder)" sx={{ width: 96, height: 96, borderRadius: radius.md, border: `1px dashed ${colors.line2}`, display: 'grid', placeItems: 'center', bgcolor: colors.subtle }}>
-                <QrCode2RoundedIcon sx={{ fontSize: 64, color: colors.ink400 }} />
+                <QrCodeIcon sx={{ fontSize: 64, color: colors.ink400 }} />
               </Box>
               <Typography sx={{ fontSize: 13.5, color: colors.ink600, maxWidth: 140 }}>On a computer? Scan with your phone’s camera.</Typography>
             </Box>

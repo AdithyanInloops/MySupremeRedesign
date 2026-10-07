@@ -5,17 +5,13 @@ import {
   Accordion, AccordionDetails, AccordionSummary, Badge, Box, Button, Checkbox, Chip, Drawer, FormControlLabel, IconButton, InputAdornment, InputBase,
   MenuItem, Pagination, Select, Slider, Typography, useMediaQuery,
 } from '@mui/material'
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
-import TuneRoundedIcon from '@mui/icons-material/TuneRounded'
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import FilterAltOffOutlinedIcon from '@mui/icons-material/FilterAltOffOutlined'
 import { finalPrice, money, type Aggregation, type Product } from '../../lib/data'
 import { colors, focusRing, radius, z } from '../../lib/theme'
 import ProductGrid from '../Product/ProductGrid'
 import EmptyState from '../ui/EmptyState'
 import PageHeader, { type Crumb } from '../ui/PageHeader'
 import { PageContainer } from '../ui/Section'
+import { ChevronDownIcon, CloseIcon, FilterXIcon, SearchIcon, SlidersIcon } from '../ui/icons'
 
 /*
  * Category + search listing. Filters come from Magento aggregations (with counts); applied filters show as removable
@@ -70,7 +66,7 @@ function OptionList({ group, selected, onToggle }: { group: FilterGroup; selecte
           onChange={(e) => setQ(e.target.value)}
           placeholder={`Search ${group.label.toLowerCase()}`}
           inputProps={{ 'aria-label': `Search ${group.label}` }}
-          startAdornment={<InputAdornment position="start"><SearchRoundedIcon sx={{ fontSize: 18, color: colors.ink500 }} /></InputAdornment>}
+          startAdornment={<InputAdornment position="start"><SearchIcon sx={{ fontSize: 18, color: colors.ink500 }} /></InputAdornment>}
           sx={{ width: '100%', height: 38, px: 1.25, mb: 1, border: `1px solid ${colors.line2}`, borderRadius: radius.sm, fontSize: 14, '&.Mui-focused': { borderColor: colors.navy } }}
         />
       )}
@@ -128,7 +124,7 @@ function PriceFilter({ max, value, onChange }: { max: number; value: [number, nu
 function FilterSection({ title, children, defaultOpen = true, count }: { title: string; children: ReactNode; defaultOpen?: boolean; count?: number }) {
   return (
     <Accordion defaultExpanded={defaultOpen} sx={{ border: 0, borderBottom: `1px solid ${colors.line}`, borderRadius: '0 !important', '& + &': { mt: 0 } }}>
-      <AccordionSummary expandIcon={<ExpandMoreRoundedIcon />} sx={{ px: 0, minHeight: 52 }}>
+      <AccordionSummary expandIcon={<ChevronDownIcon />} sx={{ px: 0, minHeight: 52 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           {title}
           {!!count && <Box component="span" sx={{ fontSize: 12, fontWeight: 700, color: '#fff', bgcolor: colors.ink, borderRadius: radius.pill, minWidth: 20, height: 20, px: 0.75, display: 'grid', placeItems: 'center' }}>{count}</Box>}
@@ -289,7 +285,7 @@ export default function ProductListLayout(cfg: ListingConfig) {
           {/* Toolbar */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap', pb: 1.5, mb: 2, borderBottom: `1px solid ${colors.line}` }}>
             <Badge badgeContent={activeCount} color="primary" sx={{ display: { lg: 'none' } }}>
-              <Button variant="outlined" startIcon={<TuneRoundedIcon />} onClick={() => setDrawer(true)}>Filters</Button>
+              <Button variant="outlined" startIcon={<SlidersIcon />} onClick={() => setDrawer(true)}>Filters</Button>
             </Badge>
             <Typography role="status" aria-live="polite" sx={{ fontSize: 14, color: colors.ink600, mr: 'auto', display: { xs: 'none', sm: 'block' } }}>
               {total ? <>Showing <b style={{ color: colors.ink }}>{from}–{to}</b> of {total.toLocaleString()}</> : 'No matches'}
@@ -304,7 +300,7 @@ export default function ProductListLayout(cfg: ListingConfig) {
 
           {chips.length > 0 && (
             <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center', mb: 2 }} aria-label="Applied filters" role="group">
-              {chips.map((c) => <Chip key={c.key} label={c.label} onDelete={c.onDelete} variant="outlined" deleteIcon={<CloseRoundedIcon aria-label={`Remove filter ${c.label}`} />} />)}
+              {chips.map((c) => <Chip key={c.key} label={c.label} onDelete={c.onDelete} variant="outlined" deleteIcon={<CloseIcon aria-label={`Remove filter ${c.label}`} />} />)}
               <Button size="small" onClick={clearAll} sx={{ color: colors.redText }}>Clear all</Button>
             </Box>
           )}
@@ -317,7 +313,7 @@ export default function ProductListLayout(cfg: ListingConfig) {
             ) : isFiltered ? (
               <EmptyState
                 size="inline"
-                icon={<FilterAltOffOutlinedIcon />}
+                icon={<FilterXIcon />}
                 title="No products match these filters"
                 actions={<><Button variant="contained" onClick={clearAll}>Clear all filters</Button>{chips[chips.length - 1] && <Button variant="outlined" onClick={chips[chips.length - 1].onDelete}>Undo last filter</Button>}</>}
               >
@@ -355,7 +351,7 @@ export default function ProductListLayout(cfg: ListingConfig) {
       <Drawer anchor="right" open={drawer} onClose={() => setDrawer(false)} sx={{ zIndex: z.modal }} PaperProps={{ sx: { width: { xs: '100%', sm: 400 }, display: 'flex', flexDirection: 'column' } }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', px: 2, height: 60, borderBottom: `1px solid ${colors.line}`, flexShrink: 0 }}>
           <Typography component="h2" variant="h3">Filters</Typography>
-          <IconButton aria-label="Close filters" onClick={() => setDrawer(false)}><CloseRoundedIcon /></IconButton>
+          <IconButton aria-label="Close filters" onClick={() => setDrawer(false)}><CloseIcon /></IconButton>
         </Box>
         <Box sx={{ flex: 1, overflowY: 'auto', px: 2 }}>
           {categoryList}

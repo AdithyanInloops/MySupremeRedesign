@@ -2,16 +2,6 @@ import { useRef, useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { Box, Button, Checkbox, CircularProgress, FormControlLabel, MenuItem, Typography } from '@mui/material'
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
-import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded'
-import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined'
-import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded'
-import TaskAltRoundedIcon from '@mui/icons-material/TaskAltRounded'
-import DirectionsOutlinedIcon from '@mui/icons-material/DirectionsOutlined'
-import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
-import MapOutlinedIcon from '@mui/icons-material/MapOutlined'
-import type { SvgIconComponent } from '@mui/icons-material'
 import { departments } from '../../lib/data'
 import { emailError, phoneError } from '../../lib/validate'
 import { colors, focusRing, layout, radius, shadow } from '../../lib/theme'
@@ -20,6 +10,7 @@ import Section, { PageContainer } from '../../components/ui/Section'
 import Field from '../../components/ui/Field'
 import HomeFAQ, { type Faq } from '../../components/HomeComponents/HomeFAQ'
 import { PHONE, PHONE_HREF, WHATSAPP_HREF } from '../../components/Layout/Header'
+import { type IconComponent, AlertCircleIcon, CheckCircleIcon, ClockIcon, DirectionsIcon, MailIcon, MapIcon, MapPinIcon, PhoneIcon, WhatsAppIcon } from '../../components/ui/icons'
 
 /*
  * Contact — the ways to reach us first (call, WhatsApp, email, visit), then the "Request pricing & supply
@@ -29,11 +20,11 @@ import { PHONE, PHONE_HREF, WHATSAPP_HREF } from '../../components/Layout/Header
 
 const MAPS = 'https://www.google.com/maps/search/?api=1&query=3750A+Laird+Road+Unit+9+Mississauga+ON'
 
-const methods: { icon: SvgIconComponent; title: string; value: string; note: string; href: string; external?: boolean }[] = [
-  { icon: PhoneOutlinedIcon, title: 'Call sales & support', value: PHONE, note: 'Mon–Sat, 9am–6pm', href: PHONE_HREF },
+const methods: { icon: IconComponent; title: string; value: string; note: string; href: string; external?: boolean }[] = [
+  { icon: PhoneIcon, title: 'Call sales & support', value: PHONE, note: 'Mon–Sat, 9am–6pm', href: PHONE_HREF },
   { icon: WhatsAppIcon, title: 'WhatsApp', value: 'Message us', note: 'Photos of labels welcome', href: WHATSAPP_HREF, external: true },
-  { icon: MailOutlineRoundedIcon, title: 'Email', value: 'sales@mysupreme.ca', note: 'We reply within 1 business day', href: 'mailto:sales@mysupreme.ca' },
-  { icon: PlaceOutlinedIcon, title: 'Visit the warehouse', value: '3750A Laird Rd, Unit 9', note: 'Mississauga · Get directions', href: MAPS, external: true },
+  { icon: MailIcon, title: 'Email', value: 'sales@mysupreme.ca', note: 'We reply within 1 business day', href: 'mailto:sales@mysupreme.ca' },
+  { icon: MapPinIcon, title: 'Visit the warehouse', value: '3750A Laird Rd, Unit 9', note: 'Mississauga · Get directions', href: MAPS, external: true },
 ]
 
 const SPEND = [['under1k', 'Under $1K'], ['1k-5k', '$1K – $5K'], ['5k-15k', '$5K – $15K'], ['15k-30k', '$15K – $30K'], ['30k-60k', '$30K – $60K'], ['60k-100k', '$60K – $100K']]
@@ -89,7 +80,7 @@ function PricingForm() {
   if (sent) {
     return (
       <Box ref={doneRef} tabIndex={-1} role="status" sx={{ textAlign: 'center', py: { xs: 3, md: 6 }, outline: 'none' }}>
-        <TaskAltRoundedIcon sx={{ fontSize: 56, color: colors.success }} />
+        <CheckCircleIcon sx={{ fontSize: 56, color: colors.success }} />
         <Typography variant="h2" component="h2" sx={{ mt: 1 }}>Request sent — thank you</Typography>
         <Typography sx={{ color: colors.ink600, mt: 1, maxWidth: 440, mx: 'auto' }}>
           Our B2B team will call {sent.contact.split(' ')[0]} at {sent.phone} or email {sent.email} within 24 hours with pricing for {sent.business}.
@@ -154,7 +145,7 @@ function PricingForm() {
       </>)}
       {touched && Object.values(errors).some(Boolean) && (
         <Box role="alert" sx={{ display: 'flex', gap: 1, p: 1.5, borderRadius: radius.md, bgcolor: colors.errorTint, color: '#7F1D1D', fontSize: 14 }}>
-          <ErrorOutlineRoundedIcon sx={{ color: colors.error, fontSize: 20 }} /> Please fix the highlighted fields to send your request.
+          <AlertCircleIcon sx={{ color: colors.error, fontSize: 20 }} /> Please fix the highlighted fields to send your request.
         </Box>
       )}
       <Box>
@@ -215,20 +206,20 @@ export default function ContactUs() {
               {/* TODO(asset): static map of 3750A Laird Road (Google Static Maps or a designed map illustration), 16:9. */}
               <Box role="img" aria-label="Map placeholder: Supreme Cash & Carry, 3750A Laird Road, Mississauga" sx={{ aspectRatio: '16 / 9', bgcolor: colors.sunken, display: 'grid', placeItems: 'center', backgroundImage: `linear-gradient(${colors.line} 1px, transparent 1px), linear-gradient(90deg, ${colors.line} 1px, transparent 1px)`, backgroundSize: '32px 32px' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.5, bgcolor: '#fff', px: 2, py: 1.25, borderRadius: radius.md, boxShadow: shadow.md }}>
-                  <MapOutlinedIcon sx={{ color: colors.redText }} />
+                  <MapIcon sx={{ color: colors.redText }} />
                   <Typography sx={{ fontSize: 13, fontWeight: 600 }}>Supreme Cash &amp; Carry</Typography>
                 </Box>
               </Box>
               <Box sx={{ p: { xs: 2, md: 2.5 } }}>
                 <Typography component="h2" variant="h3">Visit our cash &amp; carry</Typography>
-                <Typography sx={{ color: colors.ink700, mt: 0.75, display: 'flex', gap: 1 }}><PlaceOutlinedIcon sx={{ fontSize: 20, color: colors.ink500 }} /> 3750A Laird Road, Unit 9, Mississauga, ON L5L 0A2</Typography>
-                <Typography sx={{ color: colors.ink700, mt: 0.5, display: 'flex', gap: 1 }}><ScheduleRoundedIcon sx={{ fontSize: 20, color: colors.ink500 }} /> Mon–Sat, 9am–6pm</Typography>
+                <Typography sx={{ color: colors.ink700, mt: 0.75, display: 'flex', gap: 1 }}><MapPinIcon sx={{ fontSize: 20, color: colors.ink500 }} /> 3750A Laird Road, Unit 9, Mississauga, ON L5L 0A2</Typography>
+                <Typography sx={{ color: colors.ink700, mt: 0.5, display: 'flex', gap: 1 }}><ClockIcon sx={{ fontSize: 20, color: colors.ink500 }} /> Mon–Sat, 9am–6pm</Typography>
                 <Box component="ol" sx={{ m: 0, mt: 2, pl: 2.5, color: colors.ink700, fontSize: 14.5, '& li': { mb: 0.5 } }}>
                   <li>Walk in and explore thousands of products</li>
                   <li>Pick what your business needs, at wholesale prices</li>
                   <li>Check out and take it with you — ideal for urgent restocks</li>
                 </Box>
-                <Button component="a" href={MAPS} target="_blank" rel="noopener noreferrer" variant="outlined" startIcon={<DirectionsOutlinedIcon />} sx={{ mt: 2 }}>Get directions</Button>
+                <Button component="a" href={MAPS} target="_blank" rel="noopener noreferrer" variant="outlined" startIcon={<DirectionsIcon />} sx={{ mt: 2 }}>Get directions</Button>
               </Box>
             </Box>
             <Box sx={{ p: { xs: 2, md: 2.5 }, borderRadius: radius.xl, bgcolor: colors.subtle }}>
