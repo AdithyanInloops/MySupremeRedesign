@@ -7,6 +7,8 @@ import { Box } from '@mui/material'
  */
 type Tone = { bg: string; ink: string; fill: string; light: string }
 export const CATEGORY_TONES: Record<string, Tone> = {
+  'for-you': { bg: '#FFECEA', ink: '#B93A32', fill: '#FFCFC9', light: '#FFF7F6' },
+  offers: { bg: '#E3EFE6', ink: '#2F6B48', fill: '#C5DFCD', light: '#F4FAF6' },
   packaging: { bg: '#FBF1E6', ink: '#8A5A2B', fill: '#F1D3AE', light: '#FFF8EF' },
   grocery: { bg: '#FAF4DE', ink: '#7A5E12', fill: '#EFDB94', light: '#FFFBEA' },
   frozen: { bg: '#E7F2FA', ink: '#2B6A94', fill: '#BCDCF1', light: '#F4FAFE' },
@@ -19,6 +21,15 @@ export const CATEGORY_TONES: Record<string, Tone> = {
 }
 
 const ART: Record<string, (t: Tone) => ReactNode> = {
+  // home — the "For You" item
+  'for-you': (t) => <path d="M9.5 39.5V22.3c0-1.9.9-3.6 2.4-4.8l9-7.2a5 5 0 0 1 6.2 0l9 7.2c1.5 1.2 2.4 2.9 2.4 4.8v17.2a2.5 2.5 0 0 1-2.5 2.5H30v-8.5a6 6 0 0 0-12 0V42h-6a2.5 2.5 0 0 1-2.5-2.5z" fill={t.fill} />,
+  // price tag — Offers
+  offers: (t) => (
+    <>
+      <path d="M7 24.6V9.5A2.5 2.5 0 0 1 9.5 7h15.1a2.5 2.5 0 0 1 1.8.7l14.9 14.9a2.5 2.5 0 0 1 0 3.6L26.2 41.3a2.5 2.5 0 0 1-3.6 0L7.7 26.4a2.5 2.5 0 0 1-.7-1.8z" fill={t.fill} />
+      <circle cx="16" cy="16" r="3" />
+    </>
+  ),
   // take-out box with wire handle
   packaging: (t) => (
     <>
@@ -106,12 +117,17 @@ const ART: Record<string, (t: Tone) => ReactNode> = {
   ),
 }
 
-export default function CategoryArt({ slug, size = 38 }: { slug: string; size?: number }) {
-  const t = CATEGORY_TONES[slug] ?? CATEGORY_TONES['ware-equipment']
+/** `mono` draws the same art as a single-colour outline in currentColor (shapes filled white so overlaps stay clean). */
+const MONO: Tone = { bg: 'transparent', ink: 'currentColor', fill: '#fff', light: '#fff' }
+
+/** `outline` = the mono line drawing, stroked in the department's own colour. */
+export default function CategoryArt({ slug, size = 38, mono = false, outline = false, strokeWidth = 2 }: { slug: string; size?: number; mono?: boolean; outline?: boolean; strokeWidth?: number }) {
+  const tone = CATEGORY_TONES[slug] ?? CATEGORY_TONES['ware-equipment']
+  const t = mono ? MONO : outline ? { ...MONO, ink: tone.ink } : tone
   const draw = ART[slug] ?? ART['ware-equipment']
   return (
     <Box component="svg" viewBox="0 0 48 48" aria-hidden sx={{ width: size, height: size, display: 'block', flexShrink: 0 }}
-      fill="none" stroke={t.ink} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+      fill="none" stroke={t.ink} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
       {draw(t)}
     </Box>
   )

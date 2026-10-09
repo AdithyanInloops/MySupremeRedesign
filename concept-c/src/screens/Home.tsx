@@ -1,7 +1,7 @@
-import { useMemo, type ReactNode } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
+import { useMemo, useState, type MouseEvent } from 'react'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { Box, Typography } from '@mui/material'
-import { tokens, focusRing, pressable, srOnly } from '../theme'
+import { tokens, focusRing, srOnly } from '../theme'
 import { deptBySlug, newArrivals, products, recommended } from '../data/catalog'
 import AppHeader from '../components/AppHeader'
 import BannerCarousel from '../components/BannerCarousel'
@@ -12,49 +12,71 @@ import { homeOfferBlocks } from '../cms/home'
 import { HScroll } from '../components/ui'
 import { useDragScroll } from '../components/useDragScroll'
 import CategoryArt, { CATEGORY_TONES } from '../components/CategoryArt'
-import { CategoryIcon, ChevronRightIcon } from '../components/icons'
+import { ChevronRightIcon } from '../components/icons'
 
 const c = tokens.color
 const asset = (f: string) => `${import.meta.env.BASE_URL}${f}`
 
 /*
  * Home — the current MySupreme app home (header, categories, banners, Recommended Products, Our Brands, New Arrivals,
- * Discover Products for you, tabs) with three changes: illustrated category tiles, round brand badges, and the
+ * Discover Products for you, tabs) with three changes: a floating category icon bar, round brand badges, and the
  * Offers & Flyers area under the banners, drawn from CMS blocks (src/cms) so it's managed in Magento.
  */
 
-/* ------------------------------------------------------------------ Categories: our own two-tone illustrations */
+/* ------------------------------------------------------------------ Categories: floating icon bar */
 
 const CATEGORY_ORDER = ['packaging', 'grocery', 'frozen', 'produce', 'dairy-eggs', 'beverage', 'meat-poultry', 'janitorial', 'ware-equipment']
+const reducedMotion = () => window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
-function CategoryRow() {
+/**
+ * A floating white card of thin outline icons, each stroked in its department's colour, with labels — each category in its own soft colour. "For You"
+ * (this page) is selected (bold label + a short bar in its colour). Tapping an item selects it with a small squash-and-bounce, then opens it.
+ */
+function CategoryBar() {
+  const navigate = useNavigate()
   const drag = useDragScroll<HTMLUListElement>()
-  const tile = (bg: string, child: ReactNode) => (
-    <Box sx={{ width: 64, height: 64, borderRadius: '18px', bgcolor: bg, display: 'grid', placeItems: 'center', boxShadow: 'inset 0 0 0 1px rgba(17,24,39,.04)', transition: `transform ${tokens.motion.fast}` }}>{child}</Box>
-  )
-  const label = { mt: 0.75, width: '100%', fontSize: 12, fontWeight: 500, lineHeight: 1.25, textAlign: 'center', minHeight: '2.5em', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as const
-  const link = { display: 'flex', flexDirection: 'column', alignItems: 'center', width: 70, color: c.ink, textDecoration: 'none', borderRadius: '16px', ...pressable, ...focusRing } as const
+  const [active, setActive] = useState('for-you')
+  const [tick, setTick] = useState(0)
+  const items = [
+    { slug: 'for-you', name: 'For You', to: '/' },
+    { slug: 'offers', name: 'Offers', to: '/deals' },
+    ...CATEGORY_ORDER.map((slug) => ({ slug, name: deptBySlug(slug)?.name ?? slug, to: `/shop/${slug}` })),
+  ]
+  const pick = (e: MouseEvent, slug: string, to: string) => {
+    e.preventDefault()
+    setActive(slug)
+    setTick((t) => t + 1)
+    if (to !== '/') window.setTimeout(() => navigate(to), reducedMotion() ? 0 : 340)
+  }
   return (
-    <Box component="ul" aria-label="Categories" className="no-scrollbar" {...drag}
-      sx={{ listStyle: 'none', m: 0, display: 'flex', gap: 1, overflowX: 'auto', px: 2, pt: 1.75, pb: 0.25, scrollSnapType: 'x mandatory', scrollPaddingInline: '16px', '& > li': { scrollSnapAlign: 'start', flexShrink: 0 } }}>
-      {CATEGORY_ORDER.map((slug) => {
-        const d = deptBySlug(slug)
-        if (!d) return null
-        return (
-          <li key={slug}>
-            <Box component={RouterLink} to={`/shop/${slug}`} draggable={false} sx={link}>
-              {tile(CATEGORY_TONES[slug].bg, <CategoryArt slug={slug} size={40} />)}
-              <Typography sx={label}>{d.name}</Typography>
-            </Box>
-          </li>
-        )
-      })}
-      <li>
-        <Box component={RouterLink} to="/shop" draggable={false} aria-label="All categories" sx={link}>
-          {tile('#FFF1F1', <CategoryIcon sx={{ fontSize: 30, color: c.red }} />)}
-          <Typography aria-hidden sx={label}>All</Typography>
-        </Box>
-      </li>
+    <Box sx={{ mx: 2, mt: 1.5, borderRadius: '24px', bgcolor: '#fff', border: '1px solid #EEF0F3', boxShadow: '0 12px 28px -16px rgba(17,24,39,.28)', overflow: 'hidden', position: 'relative',
+      // fade on the right edge hints that the row scrolls
+      '&::after': { content: '""', position: 'absolute', top: 0, right: 0, bottom: 0, width: 28, pointerEvents: 'none', background: 'linear-gradient(90deg, rgba(255,255,255,0), #fff)' } }}>
+      <Box component="ul" aria-label="Categories" className="no-scrollbar" {...drag}
+        sx={{ listStyle: 'none', m: 0, display: 'flex', overflowX: 'auto', px: 0.75, py: 1.5, scrollSnapType: 'x mandatory', scrollPaddingInline: '6px', '& > li': { flexShrink: 0, scrollSnapAlign: 'start' } }}>
+        {items.map((it, i) => {
+          const on = it.slug === active
+          return (
+            <li key={it.slug}>
+              <Box component={RouterLink} to={it.to} draggable={false} aria-current={it.slug === 'for-you' ? 'page' : undefined} onClick={(e: MouseEvent) => pick(e, it.slug, it.to)}
+                sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.5, minWidth: 68, px: 0.75, py: 0.25, borderRadius: '14px', textDecoration: 'none', color: on ? c.ink : '#6B7280', transition: `color ${tokens.motion.fast}`, ...focusRing }}>
+                <Box sx={{ width: 40, height: 40, display: 'grid', placeItems: 'center' }}>
+                  <Box key={on ? `${it.slug}-${tick}` : it.slug} sx={{ display: 'grid', placeItems: 'center', width: 32, height: 32, transformOrigin: '50% 100%',
+                    animation: on && tick ? `catPop${i % 2} .42s cubic-bezier(.3,.7,.4,1.2)` : 'none',
+                    '@keyframes catPop0': { '0%': { transform: 'none' }, '30%': { transform: 'scale(1.12, .8)' }, '62%': { transform: 'translateY(-4px) scale(.94, 1.08) rotate(-7deg)' }, '100%': { transform: 'none' } },
+                    '@keyframes catPop1': { '0%': { transform: 'none' }, '30%': { transform: 'scale(1.12, .8)' }, '62%': { transform: 'translateY(-4px) scale(.94, 1.08) rotate(7deg)' }, '100%': { transform: 'none' } },
+                    '@media (prefers-reduced-motion: reduce)': { animation: 'none' } }}>
+                    <CategoryArt slug={it.slug} size={32} outline strokeWidth={on ? 3 : 2.6} />
+                  </Box>
+                </Box>
+                <Typography component="span" sx={{ fontSize: 12.5, fontWeight: on ? 600 : 500, lineHeight: 1.2, whiteSpace: 'nowrap', color: 'inherit' }}>{it.name}</Typography>
+                {/* selected marker in the item's own colour */}
+                <Box aria-hidden sx={{ width: on ? 22 : 0, height: 3, borderRadius: 2, bgcolor: CATEGORY_TONES[it.slug].ink, transition: `width ${tokens.motion.base}` }} />
+              </Box>
+            </li>
+          )
+        })}
+      </Box>
     </Box>
   )
 }
@@ -96,7 +118,7 @@ export default function Home() {
     <Box sx={{ bgcolor: '#fff', pb: 3 }}>
       <AppHeader />
       <Typography component="h1" sx={srOnly}>Supreme Cash &amp; Carry — home</Typography>
-      <CategoryRow />
+      <CategoryBar />
       <Box sx={{ mt: 2.25 }}><BannerCarousel /></Box>
       <CmsSections blocks={homeOfferBlocks} />
 
