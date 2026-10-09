@@ -1,4 +1,4 @@
-import { useMemo, useState, type MouseEvent } from 'react'
+import { useEffect, useMemo, useRef, useState, type MouseEvent, type PointerEvent } from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import { Box, Typography } from '@mui/material'
 import { tokens, focusRing, srOnly } from '../theme'
@@ -19,7 +19,7 @@ const asset = (f: string) => `${import.meta.env.BASE_URL}${f}`
 
 /*
  * Home — the current MySupreme app home (header, categories, banners, Recommended Products, Our Brands, New Arrivals,
- * Discover Products for you, tabs) with three changes: a floating category icon bar, round brand badges, and the
+ * Discover Products for you, tabs) with three changes: a floating category icon bar, a monochrome brand logofolio, and the
  * Offers & Flyers area under the banners, drawn from CMS blocks (src/cms) so it's managed in Magento.
  */
 
@@ -81,30 +81,75 @@ function CategoryBar() {
   )
 }
 
-/* ------------------------------------------------------------------ Our Brands: round logo badges */
+/* ------------------------------------------------------------------ Our Brands: monochrome logofolio grid */
 
 const BRANDS: [file: string, name: string][] = [
   ['ecogate', 'Ecogate'], ['morning-dew', 'Morning Dew'], ['mayfair', 'MayFair'], ['golden-maple', 'Golden Maple'], ['value-plus', 'Value+'],
-  ['chartland', 'Chartland'], ['rhino', 'Rhino'], ['tropical-delight', 'Tropical Delight'], ['dispose', 'Dispose'], ['spartano', 'Spartano'],
+  ['chartland', 'Chartland'], ['rhino', 'Rhino'], ['tropical-delight', 'Tropical Delight'], ['spartano', 'Spartano'],
 ]
 
-/** One swipe row of round logo badges with the name underneath (prototype: brand pages need live brand data). */
+type Touch = { file: string; x: number; y: number }
+
+/**
+ * Logofolio for touch: a 3×3 grid of monochrome logos on a soft grey band. Pressing a logo spreads its real colours
+ * out from the fingertip; a quick tap keeps them for a moment, holding keeps them while the finger stays down and pops
+ * up the brand name with a light haptic tick. Starting a scroll cancels it. No hover state — this is a phone app.
+ */
 function Brands() {
-  const drag = useDragScroll<HTMLUListElement>()
+  const [touch, setTouch] = useState<Touch | null>(null)
+  const [named, setNamed] = useState<string | null>(null)
+  const last = useRef<Record<string, { x: number; y: number }>>({})
+  const timers = useRef<{ hold?: number; linger?: number; down?: number }>({})
+  const clear = () => { window.clearTimeout(timers.current.hold); window.clearTimeout(timers.current.linger) }
+  useEffect(() => clear, [])
+
+  const press = (e: PointerEvent<HTMLLIElement>, file: string) => {
+    clear()
+    const r = e.currentTarget.getBoundingClientRect()
+    // relative to the logo image (inset 7% left, 20px top) so the circle starts under the fingertip
+    const at = { x: e.clientX - r.left - 0.07 * r.width, y: e.clientY - r.top - 20 }
+    last.current[file] = at
+    timers.current.down = Date.now()
+    setNamed(null)
+    setTouch({ file, ...at })
+    timers.current.hold = window.setTimeout(() => { setNamed(file); try { navigator.vibrate?.(12) } catch { /* unsupported */ } }, 380)
+  }
+  const lift = () => {
+    window.clearTimeout(timers.current.hold)
+    const quick = Date.now() - (timers.current.down ?? 0) < 380
+    // a quick tap would vanish before it's seen, so its colour lingers briefly
+    timers.current.linger = window.setTimeout(() => { setTouch(null); setNamed(null) }, quick ? 900 : 0)
+  }
+  const cancel = () => { clear(); setTouch(null); setNamed(null) }
+
   return (
-    <Section id="h-brands" title="Our Brands" to="/shop">
-      <Box component="ul" aria-label="Brands" className="no-scrollbar" {...drag}
-        sx={{ listStyle: 'none', m: 0, display: 'flex', gap: 1.5, overflowX: 'auto', px: 2, pt: 0.5, pb: 0.5, scrollSnapType: 'x mandatory', scrollPaddingInline: '16px', '& > li': { flexShrink: 0, width: 76, scrollSnapAlign: 'start' } }}>
-        {BRANDS.map(([file, name]) => (
-          <li key={file}>
-            <Box sx={{ width: 72, height: 72, mx: 'auto', borderRadius: '50%', bgcolor: '#fff', border: `1px solid ${live.border}`, boxShadow: '0 6px 14px -10px rgba(17,24,39,.35)', display: 'grid', placeItems: 'center', overflow: 'hidden' }}>
-              <Box component="img" src={asset(`brands/${file}.jpg`)} alt="" loading="lazy" draggable={false} sx={{ display: 'block', width: '100%', height: '76%', objectFit: 'contain' }} />
-            </Box>
-            <Typography sx={{ mt: 0.75, fontSize: 12, fontWeight: 500, lineHeight: 1.25, textAlign: 'center', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{name}</Typography>
-          </li>
-        ))}
-      </Box>
-    </Section>
+    <Box sx={{ mt: 3.5, py: 2.5, bgcolor: '#ECECEE' }}>
+      <Section id="h-brands" title="Our Brands" to="/shop" mt={0}>
+        <Box component="ul" aria-label="Brands" sx={{ listStyle: 'none', m: 0, px: 2, display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', columnGap: 1.5 }}>
+          {BRANDS.map(([file, name]) => {
+            const on = touch?.file === file
+            const at = on ? touch! : last.current[file] ?? { x: 50, y: 26 }
+            const img = { position: 'absolute', left: '7%', top: 20, width: '86%', height: 52, objectFit: 'contain', mixBlendMode: 'multiply', pointerEvents: 'none' } as const
+            return (
+              <Box component="li" key={file} onPointerDown={(e: PointerEvent<HTMLLIElement>) => press(e, file)} onPointerUp={lift} onPointerCancel={cancel} onPointerLeave={() => on && lift()} onContextMenu={(e) => e.preventDefault()}
+                sx={{ position: 'relative', borderTop: '1px solid #CFCFD3', height: 92, cursor: 'pointer', userSelect: 'none', WebkitUserSelect: 'none', WebkitTouchCallout: 'none', WebkitTapHighlightColor: 'transparent', touchAction: 'pan-y' }}>
+                {/* the press "lights up" the cell a touch */}
+                <Box aria-hidden sx={{ position: 'absolute', inset: '6px 0', borderRadius: '12px', bgcolor: '#fff', opacity: on ? 0.55 : 0, transform: on ? 'scale(1)' : 'scale(.92)', transition: 'opacity .25s ease, transform .25s ease' }} />
+                <Box component="img" src={asset(`brands/${file}.jpg`)} alt={name} loading="lazy" draggable={false} sx={{ ...img, filter: 'grayscale(1) contrast(1.6)', opacity: on ? 0 : 0.9, transition: 'opacity .3s ease' }} />
+                {/* colour layer, revealed as a circle growing from the fingertip */}
+                <Box component="img" src={asset(`brands/${file}.jpg`)} alt="" aria-hidden loading="lazy" draggable={false}
+                  sx={{ ...img, transform: on ? 'scale(1.05)' : 'none', clipPath: `circle(${on ? '140%' : '0%'} at ${at.x}px ${at.y}px)`, transition: 'clip-path .45s cubic-bezier(.2,.7,.2,1), transform .3s ease', '@media (prefers-reduced-motion: reduce)': { transition: 'none', transform: 'none' } }} />
+                {named === file && (
+                  <Box aria-hidden sx={{ position: 'absolute', left: '50%', top: -14, zIndex: 2, transform: 'translateX(-50%)', px: 1.25, py: 0.5, borderRadius: 999, bgcolor: c.ink, color: '#fff', fontSize: 12, fontWeight: 600, whiteSpace: 'nowrap', boxShadow: '0 8px 18px -8px rgba(17,24,39,.6)', animation: 'namePop .22s cubic-bezier(.3,.7,.4,1.3)', '@keyframes namePop': { from: { opacity: 0, transform: 'translate(-50%, 6px) scale(.85)' }, to: { opacity: 1, transform: 'translate(-50%, 0) scale(1)' } } }}>
+                    {name}
+                  </Box>
+                )}
+              </Box>
+            )
+          })}
+        </Box>
+      </Section>
+    </Box>
   )
 }
 
