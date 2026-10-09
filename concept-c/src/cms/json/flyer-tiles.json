@@ -1,0 +1,39 @@
+{
+  "type": "grid",
+  "variant": "flyer-tiles",
+  "title": "Browse the flyers",
+  "columns": 2,
+  "items": [
+    {
+      "title": "Weekly Hot Picks",
+      "subtitle": "October 5 to 11",
+      "src": "cms/tile-weekly.svg",
+      "link": "category/weekly-hot-picks",
+      "ends_at": "2026-10-11T23:59:59-04:00"
+    },
+    {
+      "title": "Monthly Flyer",
+      "subtitle": "October prices",
+      "src": "cms/tile-monthly.svg",
+      "link": "category/monthly-flyer",
+      "ends_at": "2026-10-31T23:59:59-04:00"
+    },
+    {
+      "title": "Bulk Saver",
+      "subtitle": "5+ cases, lower price",
+      "accent": "pistachio",
+      "icon": "box",
+      "sticker": "UP TO 58%",
+      "link": "category/bulk-saver",
+      "ends_at": "2026-10-31T23:59:59-04:00"
+    },
+    {
+      "title": "Restaurant Bundles",
+      "subtitle": "Ready-made kits",
+      "accent": "sage",
+      "icon": "utensils",
+      "link": "category/restaurant-bundles",
+      "warehouses": ["mis", "nia"]
+    }
+  ]
+}

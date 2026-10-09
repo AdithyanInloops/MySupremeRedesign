@@ -158,7 +158,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const toggleWish = useCallback((sku: string) => {
     const has = wishlist.includes(sku)
     setWishlist((w) => (has ? w.filter((x) => x !== sku) : [sku, ...w]))
-    notify(has ? { message: 'Removed from Favorites', detail: nameOf(sku), tone: 'info' } : { message: 'Saved to Favorites', detail: nameOf(sku) })
+    notify(has ? { message: 'Removed from Favourites', detail: nameOf(sku), tone: 'info' } : { message: 'Saved to Favourites', detail: nameOf(sku) })
   }, [wishlist, notify])
 
   const markViewed = useCallback((sku: string) => setViewed((v) => [sku, ...v.filter((x) => x !== sku)].slice(0, 12)), [])

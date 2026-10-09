@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EDF7F0"/><stop offset=".6" stop-color="#DFF0E5"/><stop offset="1" stop-color="#CFE7D8"/></linearGradient>
+    <pattern id="s" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="20" height="40" fill="#24563D" opacity=".04"/></pattern>
+  </defs>
+  <rect width="800" height="1000" fill="url(#g)"/><rect width="800" height="1000" fill="url(#s)"/>
+  <g font-family="Poppins, 'Arial Black', Arial, Helvetica, sans-serif" fill="#24563D">
+    <text x="64" y="150" font-size="44" font-weight="800" fill="#3B7A57" letter-spacing="6">THIS WEEK</text>
+    <text x="58" y="290" font-size="118" font-weight="900" letter-spacing="-2">WEEKLY</text>
+    <text x="58" y="410" font-size="118" font-weight="900" letter-spacing="-2">HOT</text>
+    <text x="58" y="530" font-size="118" font-weight="900" letter-spacing="-2">PICKS</text>
+  </g>
+  <circle cx="610" cy="790" r="140" fill="#FFFFFF"/>
+  <g font-family="Poppins, 'Arial Black', Arial, sans-serif" fill="#24563D" text-anchor="middle">
+    <text x="610" y="760" font-size="40" font-weight="800">UP TO</text><text x="610" y="850" font-size="96" font-weight="900">28%</text>
+  </g>
+</svg>

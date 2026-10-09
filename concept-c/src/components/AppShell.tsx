@@ -4,20 +4,20 @@ import { Badge, Box, Button, IconButton, Typography } from '@mui/material'
 import { tokens, focusRing } from '../theme'
 import { useApp } from '../state/app'
 import {
-  CartFilledIcon, CartIcon, CheckCircleIcon, CloseIcon, GridFilledIcon, GridIcon, HomeFilledIcon, HomeIcon, InfoIcon, TagFilledIcon, TagIcon, UserFilledIcon,
-  UserIcon, type IconComponent,
+  CartFilledIcon, CartIcon, CategoryFilledIcon, CategoryIcon, CheckCircleIcon, CloseIcon, HomeFilledIcon, HomeIcon, InfoIcon, MoreCircleFilledIcon, MoreCircleIcon,
+  StarIcon, StarOutlineIcon, type IconComponent,
 } from './icons'
 
 const c = tokens.color
 
 type Tab = { to: string; label: string; icon: IconComponent; active: IconComponent; match: string[] }
+/** The current MySupreme app's tabs. Orders, flyers, invoices and settings live under More. */
 const TABS: Tab[] = [
   { to: '/', label: 'Home', icon: HomeIcon, active: HomeFilledIcon, match: ['/', '/notifications'] },
-  { to: '/shop', label: 'Shop', icon: GridIcon, active: GridFilledIcon, match: ['/shop', '/shop/:dept', '/search'] },
-  { to: '/deals', label: 'Deals', icon: TagIcon, active: TagFilledIcon, match: ['/deals'] },
+  { to: '/shop', label: 'Category', icon: CategoryIcon, active: CategoryFilledIcon, match: ['/shop', '/shop/:dept', '/search'] },
   { to: '/cart', label: 'Cart', icon: CartIcon, active: CartFilledIcon, match: ['/cart'] },
-  // Orders live under Account (and on Home: live tracking card + Orders shortcut) so the cart can have its own tab.
-  { to: '/account', label: 'Account', icon: UserIcon, active: UserFilledIcon, match: ['/account', '/account/*', '/favorites', '/help', '/orders'] },
+  { to: '/favorites', label: 'Favourites', icon: StarOutlineIcon, active: StarIcon, match: ['/favorites'] },
+  { to: '/account', label: 'More', icon: MoreCircleIcon, active: MoreCircleFilledIcon, match: ['/account', '/account/*', '/help', '/orders', '/deals', '/cms'] },
 ]
 /** Full-screen flows hide the tab bar; these screens carry their own bottom action bar. */
 const NO_TABS = ['/p/:slug', '/orders/:number', '/checkout', '/order-placed/:number', '/scan', '/quick-order', '/welcome', '/signin']
@@ -37,11 +37,11 @@ function TabBar({ path }: { path: string }) {
           return (
             <li key={t.to}>
               <Box component={RouterLink} to={t.to} aria-current={on ? 'page' : undefined} aria-label={cart && count ? `Cart, ${count} items` : undefined}
-                sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 0.375, textDecoration: 'none', color: on ? c.red : c.text3, fontSize: 11, fontWeight: on ? 700 : 500, position: 'relative', ...focusRing, '&:active svg': { transform: 'scale(.88)' } }}>
+                sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 0.375, textDecoration: 'none', color: on ? c.red : c.text3, fontSize: 12, fontWeight: on ? 600 : 500, position: 'relative', ...focusRing, '&:active svg': { transform: 'scale(.88)' } }}>
                 {/* keyed on the count so the badge pops each time something is added */}
                 <Badge key={cart ? count : undefined} badgeContent={cart ? count : 0} max={99}
                   sx={{ '& .MuiBadge-badge': { bgcolor: c.red, color: '#fff', fontWeight: 800, fontSize: 10.5, minWidth: 18, height: 18, px: 0.5, border: '2px solid #fff', animation: cart && count ? 'bump .35s ease-out' : 'none', '@keyframes bump': { '0%': { transform: 'scale(1) translate(50%,-50%)' }, '40%': { transform: 'scale(1.35) translate(40%,-40%)' }, '100%': { transform: 'scale(1) translate(50%,-50%)' } }, '@media (prefers-reduced-motion: reduce)': { animation: 'none' } } }}>
-                  <Icon sx={{ fontSize: 24, transition: `transform ${tokens.motion.fast}` }} />
+                  <Icon sx={{ fontSize: 25, transition: `transform ${tokens.motion.fast}` }} />
                 </Badge>
                 {t.label}
               </Box>

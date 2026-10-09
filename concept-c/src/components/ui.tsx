@@ -293,10 +293,11 @@ export function Segmented<T extends string>({ value, onChange, options, label }:
 }
 
 /** Filter / sort chips. */
-export function Pill({ active, onClick, children, icon: Icon }: { active?: boolean; onClick: () => void; children: ReactNode; icon?: IconComponent }) {
+export function Pill({ active, onClick, children, icon: Icon, tone = 'navy' }: { active?: boolean; onClick: () => void; children: ReactNode; icon?: IconComponent; tone?: 'navy' | 'green' }) {
+  const on = tone === 'green' ? '#3B7A57' : c.navy
   return (
     <Box component="button" onClick={onClick} aria-pressed={!!active}
-      sx={{ all: 'unset', boxSizing: 'border-box', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 0.75, minHeight: 36, px: 1.75, borderRadius: `${tokens.radius.pill}px`, whiteSpace: 'nowrap', fontSize: 13.5, fontWeight: 600, border: `1.5px solid ${active ? c.navy : c.line2}`, bgcolor: active ? c.navy : '#fff', color: active ? '#fff' : c.ink, ...pressable, transition: `background-color ${tokens.motion.fast}, transform ${tokens.motion.fast}`, ...focusRing }}>
+      sx={{ all: 'unset', boxSizing: 'border-box', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 0.75, minHeight: 36, px: 1.75, borderRadius: `${tokens.radius.pill}px`, whiteSpace: 'nowrap', fontSize: 13.5, fontWeight: 600, border: `1.5px solid ${active ? on : c.line2}`, bgcolor: active ? on : '#fff', color: active ? '#fff' : c.ink, ...pressable, transition: `background-color ${tokens.motion.fast}, transform ${tokens.motion.fast}`, ...focusRing }}>
       {Icon && <Icon sx={{ fontSize: 17 }} />}{children}
     </Box>
   )

@@ -3,17 +3,19 @@ import { Box, IconButton, Typography } from '@mui/material'
 import { tokens, focusRing, pressable } from '../theme'
 import { brands, departments } from '../data/catalog'
 import { Crown, HScroll, Pill } from '../components/ui'
+import AppHeader from '../components/AppHeader'
 import { BarcodeIcon, ChevronRightIcon, SearchIcon } from '../components/icons'
 
 const c = tokens.color
 
-/** Shop tab: search entry, every department as a photo tile, and brands. */
+/** Category tab: search entry, every department as a photo tile, and brands. */
 export default function Shop() {
   const navigate = useNavigate()
   return (
     <Box>
-      <Box sx={{ position: 'sticky', top: 0, zIndex: 20, bgcolor: 'rgba(244,244,246,.96)', backdropFilter: 'blur(12px)', px: 2, pt: 'calc(16px + env(safe-area-inset-top))', pb: 1.5 }}>
-        <Typography component="h1" sx={{ fontSize: 26, fontWeight: 800, letterSpacing: '-.02em', mb: 1.5 }}>Shop</Typography>
+      <AppHeader />
+      <Box sx={{ px: 2, pt: 2, pb: 1.5 }}>
+        <Typography component="h1" sx={{ fontSize: 22, fontWeight: 700, letterSpacing: '-.01em', mb: 1.25 }}>Categories</Typography>
         <Box sx={{ display: 'flex', gap: 1 }}>
           <Box component="button" onClick={() => navigate('/search')} aria-label="Search products, brands or SKU" sx={{ all: 'unset', boxSizing: 'border-box', cursor: 'text', flex: 1, display: 'flex', alignItems: 'center', gap: 1.25, height: 48, px: 1.75, borderRadius: `${tokens.radius.md}px`, bgcolor: '#fff', border: `1px solid ${c.line}`, color: c.text3, fontSize: 15, ...focusRing }}>
             <SearchIcon sx={{ color: c.navy }} /> Search 4,300+ products

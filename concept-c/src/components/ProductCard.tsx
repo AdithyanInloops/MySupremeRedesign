@@ -4,7 +4,7 @@ import { tokens, focusRing, pressable } from '../theme'
 import { useApp } from '../state/app'
 import { pctOff, type Product } from '../data/catalog'
 import { PackChip, Price, ProductImage, QtyStepper, Sku } from './ui'
-import { CartPlusIcon, ChevronRightIcon, HeartFilledIcon, HeartIcon, MinusIcon, PlusIcon, TrashIcon } from './icons'
+import { CartPlusIcon, ChevronRightIcon, MinusIcon, PlusIcon, StarIcon, StarOutlineIcon, TrashIcon } from './icons'
 
 const c = tokens.color
 export const productPath = (p: Product) => `/p/${p.slug}`
@@ -42,11 +42,11 @@ export function Heart({ product, sx }: { product: Product; sx?: SxProps<Theme> }
   return (
     <IconButton
       aria-pressed={on}
-      aria-label={on ? `Remove ${product.name} from Favorites` : `Save ${product.name} to Favorites`}
+      aria-label={on ? `Remove ${product.name} from Favourites` : `Save ${product.name} to Favourites`}
       onClick={(e) => { e.preventDefault(); toggleWish(product.sku) }}
       sx={{ width: 34, height: 34, bgcolor: 'rgba(255,255,255,.94)', color: on ? c.red : c.text2, boxShadow: tokens.shadow.card, '&:hover': { bgcolor: '#fff' }, ...pressable, ...((sx as object) ?? {}) }}
     >
-      {on ? <HeartFilledIcon sx={{ fontSize: 18 }} /> : <HeartIcon sx={{ fontSize: 18 }} />}
+      {on ? <StarIcon sx={{ fontSize: 19 }} /> : <StarOutlineIcon sx={{ fontSize: 19 }} />}
     </IconButton>
   )
 }

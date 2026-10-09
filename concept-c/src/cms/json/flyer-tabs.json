@@ -1,0 +1,46 @@
+{
+  "type": "rail",
+  "variant": "flyer-tabs",
+  "title": "Offers & Flyers",
+  "show_all_link": "page/flyers",
+  "all_tab": "All offers",
+  "all_accent": "sage",
+  "show_tabs": false,
+  "tabs": [
+    {
+      "label": "Weekly Hot Picks",
+      "accent": "mint",
+      "icon": "flame",
+      "body": "Fresh deep-cuts every Monday, while stock lasts.",
+      "source": { "category": "weekly-hot-picks" },
+      "starts_at": "2026-10-05T00:00:00-04:00",
+      "ends_at": "2026-10-11T23:59:59-04:00"
+    },
+    {
+      "label": "Monthly Flyer",
+      "accent": "seafoam",
+      "icon": "calendar",
+      "body": "30 days of locked-in pricing on 120+ staples.",
+      "source": { "category": "monthly-flyer" },
+      "ends_at": "2026-10-31T23:59:59-04:00"
+    },
+    {
+      "label": "Bulk Saver",
+      "accent": "pistachio",
+      "icon": "box",
+      "headline": "5+ cases, up to {max_off}% off",
+      "body": "The price drops automatically at 5 cases.",
+      "source": { "category": "bulk-saver" },
+      "ends_at": "2026-10-31T23:59:59-04:00"
+    },
+    {
+      "label": "Bundles",
+      "accent": "sage",
+      "icon": "utensils",
+      "body": "Ready-made kits: Pizza Night, Biryani Station.",
+      "source": { "category": "restaurant-bundles" },
+      "warehouses": ["mis", "nia"],
+      "ends_at": "2026-10-15T23:59:59-04:00"
+    }
+  ]
+}

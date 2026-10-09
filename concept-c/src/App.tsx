@@ -20,6 +20,7 @@ import Account from './screens/Account'
 import Credit from './screens/Credit'
 import Addresses from './screens/Addresses'
 import Favorites from './screens/Favorites'
+import CmsShowcase from './screens/CmsShowcase'
 import QuickOrder from './screens/QuickOrder'
 import Scan from './screens/Scan'
 import Notifications from './screens/Notifications'
@@ -52,6 +53,7 @@ export default function App() {
               <Route path="/account/credit" element={<Credit />} />
               <Route path="/account/addresses" element={<Addresses />} />
               <Route path="/favorites" element={<Favorites />} />
+              <Route path="/cms" element={<CmsShowcase />} />
               <Route path="/quick-order" element={<QuickOrder />} />
               <Route path="/scan" element={<Scan />} />
               <Route path="/notifications" element={<Notifications />} />

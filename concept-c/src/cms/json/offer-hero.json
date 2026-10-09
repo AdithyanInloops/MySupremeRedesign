@@ -1,0 +1,34 @@
+{
+  "type": "banner",
+  "variant": "offer-hero",
+  "title": "This week's flyers",
+  "show_all_link": "page/flyers",
+  "items": [
+    {
+      "src": "cms/hero-weekly.svg",
+      "title": "Weekly Hot Picks, October 5 to 11, while stock lasts",
+      "link": "category/weekly-hot-picks",
+      "sticker": "UP TO 28% OFF",
+      "starts_at": "2026-10-05T00:00:00-04:00",
+      "ends_at": "2026-10-11T23:59:59-04:00"
+    },
+    {
+      "src": "cms/hero-monthly.svg",
+      "title": "October Monthly Flyer, locked-in prices on 120+ staples",
+      "link": "category/monthly-flyer",
+      "ends_at": "2026-10-31T23:59:59-04:00"
+    },
+    {
+      "src": "banners/fresh-produce.jpg",
+      "title": "Fresh produce, best price guaranteed",
+      "link": "category/produce",
+      "countdown": false
+    },
+    {
+      "src": "cms/hero-monthly.svg",
+      "title": "September Monthly Flyer",
+      "link": "category/monthly-flyer",
+      "ends_at": "2026-09-30T23:59:59-04:00"
+    }
+  ]
+}

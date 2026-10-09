@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://mysupreme.ca/schemas/app/offers-blocks.json",
+  "title": "MySupreme app: Offers & Flyers CMS block",
+  "description": "The JSON stored in one CMS entry's variant field. Validate on save in Magento admin so a typo never reaches the app. Prices are never in this JSON; they come from the products (special price + dates).",
+  "definitions": {
+    "link": {
+      "type": "string",
+      "description": "category/<url_key> | product/<sku> | search/<term> | page/<flyers|quick-order|help|cart> | https://...",
+      "pattern": "^(category/[a-z0-9-]+|product/[A-Za-z0-9._-]+|search/.+|page/[a-z-]+|https?://.+)$"
+    },
+    "accent": { "enum": ["sage", "mint", "seafoam", "pistachio"] },
+    "icon": { "enum": ["tag", "flame", "calendar", "box", "utensils"] },
+    "date": { "type": "string", "format": "date-time", "description": "ISO 8601 with offset, e.g. 2026-10-11T23:59:59-04:00" },
+    "warehouses": { "type": "array", "items": { "enum": ["mis", "ham", "nia"] }, "uniqueItems": true, "minItems": 1 },
+    "title": { "type": "string", "minLength": 1, "maxLength": 40 },
+    "source": {
+      "type": "object",
+      "properties": {
+        "category": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Category url_key (e.g. a hidden flyer category)" },
+        "skus": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1, "maxItems": 30 },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 30 }
+      },
+      "anyOf": [{ "required": ["category"] }, { "required": ["skus"] }],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "title": "banner · offer-hero",
+      "type": "object",
+      "required": ["type", "variant", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "banner" },
+        "variant": { "const": "offer-hero" },
+        "title": { "$ref": "#/definitions/title" },
+        "show_all_link": { "$ref": "#/definitions/link" },
+        "starts_at": { "$ref": "#/definitions/date" },
+        "ends_at": { "$ref": "#/definitions/date" },
+        "warehouses": { "$ref": "#/definitions/warehouses" },
+        "items": {
+          "type": "array", "minItems": 1, "maxItems": 10,
+          "items": {
+            "type": "object",
+            "required": ["src", "title"],
+            "additionalProperties": false,
+            "properties": {
+              "src": { "type": "string", "minLength": 1, "description": "16:9 artwork, 1600x900; keep top-right and bottom-left free" },
+              "title": { "type": "string", "minLength": 1, "maxLength": 160, "description": "Alt text" },
+              "link": { "$ref": "#/definitions/link" },
+              "sticker": { "type": "string", "maxLength": 14 },
+              "countdown": { "type": "boolean" },
+              "starts_at": { "$ref": "#/definitions/date" },
+              "ends_at": { "$ref": "#/definitions/date" },
+              "warehouses": { "$ref": "#/definitions/warehouses" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "grid · flyer-tiles",
+      "type": "object",
+      "required": ["type", "variant", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "grid" },
+        "variant": { "const": "flyer-tiles" },
+        "title": { "$ref": "#/definitions/title" },
+        "show_all_link": { "$ref": "#/definitions/link" },
+        "starts_at": { "$ref": "#/definitions/date" },
+        "ends_at": { "$ref": "#/definitions/date" },
+        "warehouses": { "$ref": "#/definitions/warehouses" },
+        "columns": { "enum": [2, 3] },
+        "items": {
+          "type": "array", "minItems": 1, "maxItems": 12,
+          "items": {
+            "type": "object",
+            "required": ["title", "link"],
+            "additionalProperties": false,
+            "properties": {
+              "title": { "$ref": "#/definitions/title" },
+              "subtitle": { "type": "string", "maxLength": 60 },
+              "src": { "type": "string", "minLength": 1, "description": "4:5 cover, 800x1000; keep bottom-left free. Omit for an app-drawn tile" },
+              "accent": { "$ref": "#/definitions/accent" },
+              "icon": { "$ref": "#/definitions/icon" },
+              "link": { "$ref": "#/definitions/link" },
+              "sticker": { "type": "string", "maxLength": 14 },
+              "starts_at": { "$ref": "#/definitions/date" },
+              "ends_at": { "$ref": "#/definitions/date" },
+              "warehouses": { "$ref": "#/definitions/warehouses" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "rail · deal-products",
+      "type": "object",
+      "required": ["type", "variant", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "rail" },
+        "variant": { "const": "deal-products" },
+        "title": { "$ref": "#/definitions/title" },
+        "show_all_link": { "$ref": "#/definitions/link" },
+        "starts_at": { "$ref": "#/definitions/date" },
+        "ends_at": { "$ref": "#/definitions/date" },
+        "warehouses": { "$ref": "#/definitions/warehouses" },
+        "source": { "$ref": "#/definitions/source" }
+      }
+    },
+    {
+      "title": "rail · flyer-tabs",
+      "type": "object",
+      "required": ["type", "variant", "tabs"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "rail" },
+        "variant": { "const": "flyer-tabs" },
+        "title": { "$ref": "#/definitions/title" },
+        "show_all_link": { "$ref": "#/definitions/link" },
+        "starts_at": { "$ref": "#/definitions/date" },
+        "ends_at": { "$ref": "#/definitions/date" },
+        "warehouses": { "$ref": "#/definitions/warehouses" },
+        "all_tab": { "oneOf": [{ "type": "string", "minLength": 1, "maxLength": 24 }, { "const": false }] },
+        "all_accent": { "$ref": "#/definitions/accent" },
+        "show_tabs": { "type": "boolean", "description": "false = one poster merging every tab, no tab row" },
+        "tabs": {
+          "type": "array", "minItems": 1, "maxItems": 8,
+          "items": {
+            "type": "object",
+            "required": ["label", "source"],
+            "additionalProperties": false,
+            "properties": {
+              "label": { "type": "string", "minLength": 1, "maxLength": 24 },
+              "accent": { "$ref": "#/definitions/accent" },
+              "icon": { "$ref": "#/definitions/icon" },
+              "headline": { "type": "string", "maxLength": 48, "description": "May contain {max_off}" },
+              "body": { "type": "string", "maxLength": 90 },
+              "source": { "$ref": "#/definitions/source" },
+              "link": { "$ref": "#/definitions/link" },
+              "starts_at": { "$ref": "#/definitions/date" },
+              "ends_at": { "$ref": "#/definitions/date" },
+              "warehouses": { "$ref": "#/definitions/warehouses" }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

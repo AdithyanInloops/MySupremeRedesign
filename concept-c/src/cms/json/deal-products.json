@@ -1,0 +1,10 @@
+{
+  "type": "rail",
+  "variant": "deal-products",
+  "title": "Deals picked for you",
+  "show_all_link": "page/flyers",
+  "source": {
+    "skus": ["FZ0101", "59620000008252936", "GR2210", "A905", "DA0044", "MT0011"],
+    "limit": 10
+  }
+}

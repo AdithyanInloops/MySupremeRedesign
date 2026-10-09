@@ -7,8 +7,8 @@ import { money, warehouses } from '../data/catalog'
 import { addresses, credit, customer, invoices } from '../data/account'
 import { Crown, Group, ListRow, Sheet } from '../components/ui'
 import {
-  BarcodeIcon, BellIcon, BoltIcon, CheckIcon, ChevronRightIcon, EditIcon, FileTextIcon, HeartIcon, HelpCircleIcon, LogOutIcon, MapPinIcon, ReceiptIcon,
-  ShieldIcon, StoreIcon, WalletIcon,
+  BarcodeIcon, BellIcon, BoltIcon, CheckIcon, ChevronRightIcon, EditIcon, FileTextIcon, HelpCircleIcon, LogOutIcon, MapPinIcon, ReceiptIcon,
+  ShieldIcon, StoreIcon, TagIcon, WalletIcon,
 } from '../components/icons'
 
 const c = tokens.color
@@ -42,13 +42,13 @@ function CreditCard() {
   )
 }
 
-/** Shortcut tiles for the three places buyers go most from Account (Orders moved here from the tab bar). */
+/** Shortcut tiles for the places buyers go most from More (orders and flyers live here, not on the tab bar). */
 function Shortcuts() {
-  const { orders, wishlist } = useApp()
+  const { orders } = useApp()
   const live = orders.filter((o) => o.status === 'On the way' || o.status === 'Confirmed' || o.status === 'Pending').length
   const tiles = [
     { to: '/orders', icon: ReceiptIcon, title: 'Orders', sub: live ? `${live} active` : `${orders.length} past`, dot: live > 0 },
-    { to: '/favorites', icon: HeartIcon, title: 'Favorites', sub: `${wishlist.length} saved` },
+    { to: '/deals', icon: TagIcon, title: 'Offers', sub: 'Flyers & deals' },
     { to: '/account/addresses', icon: MapPinIcon, title: 'Addresses', sub: `${addresses.length} saved` },
   ]
   return (
@@ -73,7 +73,7 @@ function Shortcuts() {
 }
 
 export default function Account() {
-  const { signedIn, signOut, wishlist, warehouse, setWarehouse, notify } = useApp()
+  const { signedIn, signOut, warehouse, setWarehouse, notify } = useApp()
   const navigate = useNavigate()
   const [push, setPush] = useState(true)
   const [faceId, setFaceId] = useState(true)
@@ -84,7 +84,7 @@ export default function Account() {
   return (
     <Box sx={{ pb: 3 }}>
       <Box sx={{ px: 2, pt: 'calc(16px + env(safe-area-inset-top))', pb: 1.75 }}>
-        <Typography component="h1" sx={{ fontSize: 26, fontWeight: 800, letterSpacing: '-.02em' }}>Account</Typography>
+        <Typography component="h1" sx={{ fontSize: 26, fontWeight: 800, letterSpacing: '-.02em' }}>More</Typography>
         {signedIn ? (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mt: 1.5 }}>
             <Box sx={{ width: 56, height: 56, borderRadius: '50%', bgcolor: c.navy, color: '#fff', display: 'grid', placeItems: 'center', fontWeight: 700, fontSize: 19, flexShrink: 0 }}>SR</Box>
@@ -119,7 +119,7 @@ export default function Account() {
           </Group>
         )}
         <Group title="Shopping">
-          {!signedIn && <ListRow icon={HeartIcon} title="Favorites" subtitle={`${wishlist.length} saved products`} to="/favorites" tone="red" />}
+          {!signedIn && <ListRow icon={TagIcon} title="Flyers & offers" subtitle="This week’s deals at your warehouse" to="/deals" tone="red" />}
           <ListRow icon={BoltIcon} title="Quick order" subtitle="Order by SKU or paste a list" to="/quick-order" tone="saffron" />
           <ListRow icon={BarcodeIcon} title="Scan a barcode" subtitle="Add items straight from your shelf" to="/scan" tone="saffron" />
           <ListRow icon={StoreIcon} title="Your warehouse" subtitle={`${wh.name} · ${wh.area}`} onClick={() => setWhSheet(true)} tone="green" />
@@ -130,6 +130,7 @@ export default function Account() {
         </Group>
         <Group title="Help">
           <ListRow icon={HelpCircleIcon} title="Help & contact" subtitle="Call, WhatsApp or chat with us" to="/help" />
+          <ListRow icon={FileTextIcon} title="Offers: CMS blocks" subtitle="For the team: how Offers & Flyers is managed in Magento" to="/cms" />
         </Group>
         {signedIn && (
           <Group>

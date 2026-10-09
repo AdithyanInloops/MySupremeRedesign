@@ -17,10 +17,10 @@ screen and can be added to the home screen. Swipe rails, slides and galleries ca
 
 1. First visit opens the **welcome** slides → **Sign in** (the demo business account is pre-filled) → Home.
    “Browse as a guest” shows the guest version (no business prices, orders or credit).
-2. Suggested walk-through: Home (banner slider, quick actions, live delivery card, pick up where you left off, buy it
-   again, credit) → Scan item → Quick order (paste the sample list) → Shop → a department → product → Cart tab (promo
-   `SUPREME10`, top-up suggestions) → Checkout (delivery window, pay on account) → Order placed → Track order → Deals
-   (switch warehouse, tap a flyer) → Account → Orders / Invoices → Pay.
+2. Suggested walk-through: Home (the current app's home + the new Offers & Flyers section: add a deal)
+   → Category → a department → product → Cart tab (promo `SUPREME10`, top-up suggestions) → Checkout (delivery window,
+   pay on account) → Order placed → Track order → More → Offers (switch warehouse, tap a flyer) → Orders / Invoices →
+   Pay. Quick order and Scan are in More and the cart.
 3. **Account › Reset demo** clears everything and starts again from the welcome screen.
 
 ## Screens
@@ -28,20 +28,21 @@ screen and can be added to the home screen. Swipe rails, slides and galleries ca
 | Tab / flow | Screens |
 | --- | --- |
 | Onboarding | Welcome slides, Sign in, Open a business account |
-| Home | Deliver-to picker, notifications, search + scan (sticky once you scroll), hero banner slider (the client's own mobile banners, `public/banners/`), Reorder / Quick order / Scan / Orders, live order tracking, pick up where you left off (open cart → checkout, recently viewed), Buy it again, credit snapshot, weekly hot picks, departments, promos, recommended, new arrivals, rep contact |
-| Shop | Departments, brands → department listing (sub-category pills, sort + filter sheets, grid / list) → product (gallery, business price, offer, options, delivery estimate, details / specs / reviews) |
+| Home | **Kept as the current MySupreme app** (client screenshots, 2026-10-08): logo header with search and Log in, banner slider (the client's mobile banners), Recommended Products (3-up), New Arrivals, Discover Products for you (Add to cart). **Redesigned:** the category row (our own two-tone SVG illustrations, `src/components/CategoryArt.tsx`) and Our Brands (a swipe row of round logo badges). **One addition: Offers & Flyers** under the banners — one pastel "All offers" flyer poster merging every flyer at your warehouse (headline saving, time left, deals with Add to cart; per-flyer tabs can be switched on from the CMS). It's drawn from CMS blocks (banner / rail / grid + JSON), so it's managed in Magento — see [docs/OFFERS-CMS.md](docs/OFFERS-CMS.md) and **More › Offers: CMS blocks**. Brand logos and the header crown are in `public/brands` and `public/logo-crown.png` |
+| Category | Departments, brands → department listing (sub-category pills, sort + filter sheets, grid / list) → product (gallery, business price, offer, options, delivery estimate, details / specs / reviews) |
 | Search | Recent + trending, live product and category results |
 | Cart & checkout | Cart tab with live count (steppers, undo, delivery-minimum meter with top-up suggestions, promo, add by SKU / scan; empty cart suggests usuals), one-page checkout (delivery or pickup, windows, on account / card / Apple Pay / pay at pickup, PO number), order placed |
-| Orders (Account / Home) | Online + in-store orders, status filters, one-tap reorder → order detail (status timeline, driver, items, invoice PDF, reorder all) |
-| Deals | Warehouse picker, countdown, flyer posters per deal type, deal grid, Monday deal alerts |
-| Account | Business profile, Orders / Favorites / Addresses shortcuts, credit card (available / outstanding / overdue), invoices, payments, statements, quotes with pay flow, favorites, addresses, warehouse, settings, help |
+| Orders (More) | Online + in-store orders, status filters, one-tap reorder → order detail (status timeline, driver, items, invoice PDF, reorder all) |
+| Offers (More / Home) | Warehouse picker, countdown, flyer posters per deal type, deal grid, Monday deal alerts |
+| More | Business profile, Orders / Offers / Addresses shortcuts, credit card (available / outstanding / overdue), invoices, payments, statements, quotes with pay flow, favorites, addresses, warehouse, settings, help |
 | Tools | Barcode scanner (camera simulated), Quick order (type SKUs or paste a list), notifications |
 
 ## Prototype-only
 
 - Sign in accepts the pre-filled demo account; Face ID, Apple Pay, push notifications and the camera are simulated.
 - `SUPREME10` = 10% off. HST is estimated at 13%.
-- Tabs: Home · Shop · Deals · Cart · Account. Orders sit under Account and on Home, so the cart is always one tap away.
+- Tabs match the current app: Home · Category · Cart · Favourites · More. Orders, offers, invoices and settings are
+  under More; favourites use the app's star.
 - Data: `src/data/catalog.ts` and `src/data/account.ts` are Concept A's dummy data; `src/data/app.ts` adds delivery
   windows and notifications. State lives in `localStorage` (`ms-c-*`).
 - New backend features, as in Concepts A/B: offers/flyers per warehouse, delivery zones and windows, per-unit prices.
