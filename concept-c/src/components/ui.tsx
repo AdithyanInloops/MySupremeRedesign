@@ -15,29 +15,16 @@ const c = tokens.color
 
 /* ------------------------------------------------------------------ Brand (Concept A lock-up) */
 
+/** The real Supreme crown (cut from the live site's header logo), as a mask so it takes any colour. */
 export function Crown({ size = 32, color = c.brandRed, fluid = false }: { size?: number; color?: string; fluid?: boolean }) {
-  return (
-    <Box component="svg" viewBox="0 0 48 40" sx={fluid ? { width: '100%', height: 'auto', display: 'block' } : { width: size, height: size * (40 / 48), flexShrink: 0, display: 'block' }} aria-hidden>
-      <path d="M4 30 1.5 8.5 14 18 24 3l10 15 12.5-9.5L44 30Z" fill={color} />
-      <circle cx="1.8" cy="7.5" r="1.8" fill={color} />
-      <circle cx="24" cy="2.4" r="2.2" fill={color} />
-      <circle cx="46.2" cy="7.5" r="1.8" fill={color} />
-      <rect x="4" y="33" width="40" height="5.5" rx="1.5" fill={color} />
-    </Box>
-  )
+  const mask = `url(${import.meta.env.BASE_URL}logo-crown.png) center / contain no-repeat`
+  return <Box aria-hidden sx={{ width: fluid ? '100%' : size, aspectRatio: '213 / 120', flexShrink: 0, display: 'block', bgcolor: color, mask, WebkitMask: mask }} />
 }
 
+/** The real Supreme Cash & Carry logo from the live site; `inverse` keeps the red crown and turns the wordmark white. */
 export function Logo({ inverse = false, size = 'md' }: { inverse?: boolean; size?: 'sm' | 'md' | 'lg' }) {
-  const s = { sm: [24, 15, 7.5], md: [32, 19, 8.5], lg: [46, 27, 11] }[size]
-  return (
-    <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.875 }} aria-label="MySupreme Cash & Carry">
-      <Crown size={s[0]} color={inverse ? '#fff' : c.brandRed} />
-      <Box sx={{ lineHeight: 1 }}>
-        <Box component="span" sx={{ display: 'block', fontWeight: 800, letterSpacing: '.06em', fontSize: s[1], color: inverse ? '#fff' : c.navy }}>SUPREME</Box>
-        <Box component="span" sx={{ display: 'block', fontWeight: 600, letterSpacing: '.22em', fontSize: s[2], color: inverse ? 'rgba(255,255,255,.82)' : c.red, mt: 0.4, textTransform: 'uppercase' }}>Cash &amp; Carry</Box>
-      </Box>
-    </Box>
-  )
+  const h = { sm: 40, md: 56, lg: 80 }[size]
+  return <Box component="img" src={`${import.meta.env.BASE_URL}${inverse ? 'logo-inverse.png' : 'logo.png'}`} alt="Supreme Cash & Carry" sx={{ display: 'block', height: h, width: 'auto' }} />
 }
 
 /* ------------------------------------------------------------------ Product imagery */

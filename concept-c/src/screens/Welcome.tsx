@@ -30,7 +30,7 @@ export default function Welcome() {
       <Box sx={{ position: 'relative', height: { xs: '46dvh' }, minHeight: 280, maxHeight: 420, flexShrink: 0 }}>
         <Box component="img" src={photo('chef', 900)} alt="" sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
         <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, rgba(27,25,80,.55) 0%, rgba(27,25,80,.1) 35%, ${c.navyDark} 100%)` }} />
-        <Box sx={{ position: 'absolute', top: 'calc(20px + env(safe-area-inset-top))', left: 20 }}><Logo inverse /></Box>
+        <Box sx={{ position: 'absolute', top: 'calc(20px + env(safe-area-inset-top))', left: 20 }}><Logo inverse size="lg" /></Box>
         <Box sx={{ position: 'absolute', left: 20, bottom: 12, display: 'inline-flex', alignItems: 'center', gap: 0.75, px: 1.25, py: 0.5, borderRadius: 999, bgcolor: 'rgba(255,255,255,.14)', backdropFilter: 'blur(6px)', fontSize: 12, fontWeight: 600 }}>
           <Box sx={{ width: 7, height: 7, borderRadius: '50%', bgcolor: c.success }} /> 4,300+ products · Same & next-day delivery
         </Box>
