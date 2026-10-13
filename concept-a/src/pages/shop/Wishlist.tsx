@@ -24,7 +24,7 @@ export default function Wishlist() {
   if (!review.signedIn) {
     return (
       <Container>
-        <PageTitle title="Favorites" crumbs={[{ label: 'Favorites' }]} />
+        <PageTitle title="Favorites" />
         <Panel sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0,1fr)', md: 'minmax(0,1fr) minmax(0,1fr)' }, gap: 4, alignItems: 'center', p: { xs: 3, md: 5 } }}>
           <Box>
             <Box sx={{ width: 64, height: 64, borderRadius: '50%', bgcolor: c.redTint, color: c.red, display: 'grid', placeItems: 'center', mb: 2 }}><LockOutlined /></Box>
@@ -49,7 +49,6 @@ export default function Wishlist() {
     <Container>
       <PageTitle
         title="Favorites"
-        crumbs={[{ label: 'My account', to: '/account' }, { label: 'Favorites' }]}
         subtitle={items.length ? `${items.length} saved products · shared with everyone on the Spice Route Kitchen account` : undefined}
         action={
           items.length > 0 && (

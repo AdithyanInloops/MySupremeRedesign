@@ -1,0 +1,48 @@
+{
+  "_note": "NEW FEATURE — prototype data. Production needs curated bundles (kit id, name, blurb, items {sku, qty}) managed in Magento (e.g. a bundle/kit entity or a CMS block of SKUs). Prices come from the existing product prices.",
+  "kits": [
+    {
+      "id": "takeout-starter",
+      "name": "Takeout Starter",
+      "blurb": "Containers, cutlery kits and wrap for a busy dinner rush.",
+      "items": [
+        { "sku": "TC00906", "qty": 2 },
+        { "sku": "CUT00110", "qty": 2 },
+        { "sku": "59620000008252094", "qty": 1 }
+      ]
+    },
+    {
+      "id": "cafe-counter",
+      "name": "Café Counter",
+      "blurb": "Whitener, chai sticks and syrups for the coffee bar.",
+      "items": [
+        { "sku": "HD0031", "qty": 2 },
+        { "sku": "HD0028", "qty": 4 },
+        { "sku": "59620000008478349", "qty": 2 },
+        { "sku": "BM00091", "qty": 2 }
+      ]
+    },
+    {
+      "id": "pizza-night",
+      "name": "Pizza Night",
+      "blurb": "Cheese, toppings and the tools to get pies out the door.",
+      "items": [
+        { "sku": "CH0022", "qty": 2 },
+        { "sku": "VGT00027", "qty": 2 },
+        { "sku": "SUP033", "qty": 1 },
+        { "sku": "SUP029", "qty": 1 }
+      ]
+    },
+    {
+      "id": "cleaning-day",
+      "name": "Cleaning Day",
+      "blurb": "Degreaser, dish liquid and grill cleaner for close-down.",
+      "items": [
+        { "sku": "CS0159", "qty": 3 },
+        { "sku": "CS0158", "qty": 2 },
+        { "sku": "CS0157", "qty": 2 },
+        { "sku": "CE0015", "qty": 1 }
+      ]
+    }
+  ]
+}

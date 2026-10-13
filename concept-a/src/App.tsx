@@ -8,6 +8,7 @@ import Home from './pages/shop/Home'
 import Listing from './pages/shop/Listing'
 import ProductPage from './pages/shop/ProductPage'
 import AllCategories from './pages/shop/AllCategories'
+import DepartmentListing from './pages/shop/DepartmentListing'
 import Brands from './pages/shop/Brands'
 import Flyers from './pages/shop/Flyers'
 import Wishlist from './pages/shop/Wishlist'
@@ -62,6 +63,7 @@ export default function App() {
               <Route path="search/:term" element={<Listing />} />
               <Route path="p/:slug" element={<ProductPage />} />
               <Route path="all-categories" element={<AllCategories />} />
+              <Route path="shop/:dept" element={<DepartmentListing />} />
               <Route path="brands" element={<Brands />} />
               <Route path="flyers-offers" element={<Flyers />} />
               <Route path="wishlist" element={<Wishlist />} />

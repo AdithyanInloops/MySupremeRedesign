@@ -15,20 +15,15 @@ export function Crown({ size = 32, color = c.brandRed }: { size?: number; color?
   )
 }
 
-/** Logo lock-up: red crown + navy "SUPREME" + "Cash & Carry". `inverse` for navy backgrounds. */
+/**
+ * MySupreme logo — the same artwork as Concept B: header_logo.svg on light backgrounds, footerLogo.png (white) for
+ * `inverse` on navy. `compact` for the mobile header and drawer.
+ */
 export function Logo({ inverse = false, compact = false, sx }: { inverse?: boolean; compact?: boolean; sx?: SxProps<Theme> }) {
-  return (
-    <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 1, ...((sx as object) ?? {}) }} aria-label="MySupreme Cash & Carry — home">
-      <Crown size={compact ? 30 : 38} color={inverse ? '#fff' : c.brandRed} />
-      <Box sx={{ lineHeight: 1 }}>
-        <Box component="span" sx={{ display: 'block', fontWeight: 800, letterSpacing: '.06em', fontSize: compact ? 18 : 22, color: inverse ? '#fff' : c.navy }}>
-          SUPREME
-        </Box>
-        <Box component="span" sx={{ display: 'block', fontWeight: 600, letterSpacing: '.22em', fontSize: compact ? 8.5 : 9.5, color: inverse ? 'rgba(255,255,255,.8)' : c.red, mt: 0.4, textTransform: 'uppercase' }}>
-          Cash &amp; Carry
-        </Box>
-      </Box>
-    </Box>
+  return inverse ? (
+    <Box component="img" src="/assets/footerLogo.png" alt="MySupreme Cash & Carry" sx={{ width: 128, height: 'auto', display: 'block', ...((sx as object) ?? {}) }} />
+  ) : (
+    <Box component="img" src="/assets/header_logo.svg" alt="MySupreme Cash & Carry" sx={{ height: compact ? 38 : 46, width: 'auto', display: 'block', ...((sx as object) ?? {}) }} />
   )
 }
 

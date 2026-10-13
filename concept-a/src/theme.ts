@@ -44,6 +44,12 @@ export const tokens = {
     mono: '"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace',
   },
   container: 1500,
+  /** Vertical gap between a section heading block and the content under it (12px mobile, 16px desktop). */
+  space: {
+    headingGap: { xs: 1.5, md: 2 },
+    /** Vertical rhythm between home / landing sections (32px mobile, 48px desktop). */
+    section: { xs: 4, md: 6 },
+  },
 }
 
 const c = tokens.color

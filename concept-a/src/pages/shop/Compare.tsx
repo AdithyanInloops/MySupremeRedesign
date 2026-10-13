@@ -27,7 +27,7 @@ const rows: [string, (p: Product) => React.ReactNode][] = [
 export default function Compare() {
   return (
     <Container>
-      <PageTitle title="Compare products" crumbs={[{ label: 'Compare' }]} subtitle="Up to 4 products side by side." />
+      <PageTitle title="Compare products" subtitle="Up to 4 products side by side." />
       <Alert severity="info" sx={{ mb: 3, borderRadius: `${tokens.radius.md}px` }}>
         Product compare is switched off on mysupreme.ca today. This template shows how it would look if it is turned back on in Magento.
       </Alert>

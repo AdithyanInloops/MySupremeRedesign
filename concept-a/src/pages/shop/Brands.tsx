@@ -23,7 +23,6 @@ export default function Brands() {
   return (
     <Container>
       <PageTitle
-        crumbs={[{ label: 'Brands' }]}
         title="Brands"
         subtitle={`${brands.length} food-service brands, from Monin to McCain. Tap a brand to see everything we stock.`}
         action={

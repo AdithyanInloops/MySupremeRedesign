@@ -43,19 +43,20 @@ export function NewFeatureTag({ label = 'New feature', note, sx }: { label?: str
 
 /** Section header used above every rail / grid. */
 export function SectionHeader({
-  eyebrow, title, action, href, sx,
-}: { eyebrow?: ReactNode; title: ReactNode; action?: string; href?: string; sx?: SxProps<Theme> }) {
+  eyebrow, title, subtitle, action, href, id, sx,
+}: { eyebrow?: ReactNode; title: ReactNode; subtitle?: ReactNode; action?: string; href?: string; id?: string; sx?: SxProps<Theme> }) {
   return (
-    <Stack direction="row" alignItems="flex-end" justifyContent="space-between" spacing={2} sx={{ mb: { xs: 2, md: 3 }, ...((sx as object) ?? {}) }}>
+    <Stack direction="row" alignItems="flex-end" justifyContent="space-between" spacing={2} sx={{ mb: tokens.space.headingGap, ...((sx as object) ?? {}) }}>
       <Box sx={{ minWidth: 0 }}>
         {eyebrow && (
           <Typography variant="overline" sx={{ color: c.red, display: 'block', mb: 0.5 }}>
             {eyebrow}
           </Typography>
         )}
-        <Typography variant="h2" component="h2" sx={{ color: c.ink }}>
+        <Typography id={id} variant="h2" component="h2" sx={{ color: c.ink }}>
           {title}
         </Typography>
+        {subtitle && <Typography sx={{ mt: 0.5, fontSize: 14.5, color: c.text2 }}>{subtitle}</Typography>}
       </Box>
       {action && href && (
         <Button component={RouterLink} to={href} endIcon={<ArrowForwardRounded />} sx={{ color: c.navy, flexShrink: 0, fontWeight: 600 }}>

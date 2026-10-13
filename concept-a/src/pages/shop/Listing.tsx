@@ -19,7 +19,6 @@ import {
 import { useApp } from '../../state/AppState'
 import { Container, Panel, SectionHeader } from '../../components/ui'
 import { ProductCard, ProductCardSkeleton, ProductRail } from '../../components/Commerce'
-import { Breadcrumbs } from '../../components/Shared'
 import NotFound from '../company/NotFound'
 import { AppliedChips, FilterPanel, PRICE_MAX, activeCount, emptyFilters, type Facet, type FilterState } from './listing/Filters'
 
@@ -284,7 +283,6 @@ function CategoryHero({ deptSlug, total, activeSub, onSub }: { deptSlug: string;
   return (
     <Box sx={{ bgcolor: '#fff', borderBottom: `1px solid ${c.line}` }}>
       <Container sx={{ pt: { xs: 2, md: 2.5 }, pb: { xs: 2, md: 3 } }}>
-        <Breadcrumbs items={[{ label: 'All categories', to: '/all-categories' }, { label: d.name }]} sx={{ mb: { xs: 1.5, md: 2 } }} />
         <Box
           sx={{
             position: 'relative', overflow: 'hidden', borderRadius: `${tokens.radius.lg}px`, bgcolor: c.navy, color: '#fff',
@@ -336,7 +334,6 @@ function SearchHeader({ q, imageMode, count }: { q: string; imageMode: boolean; 
   return (
     <Box sx={{ bgcolor: '#fff', borderBottom: `1px solid ${c.line}` }}>
       <Container sx={{ pt: { xs: 2, md: 2.5 }, pb: { xs: 2, md: 3 } }}>
-        <Breadcrumbs items={[{ label: 'Search' }, { label: imageMode ? 'Photo search' : q }]} sx={{ mb: 1.5 }} />
         {imageMode ? (
           <Stack direction="row" spacing={2.5} alignItems="center">
             <Box sx={{ position: 'relative', flexShrink: 0 }}>

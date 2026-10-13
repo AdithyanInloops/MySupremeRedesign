@@ -3,6 +3,8 @@
  * except items explicitly flagged `newFeature` (warehouses, offers, per-unit price, delivery cut-off).
  */
 
+import { magentoAsShopProducts } from './magento'
+
 const u = (id: string, w = 800, h?: number) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}${h ? `&h=${h}` : ''}&q=70`
 
@@ -249,8 +251,9 @@ export const products: Product[] = [
   p('WE0144', 'Rubbermaid - Commercial Cutting Board 18x24', 'Rubbermaid', '1 ea', 42.0, 'ware-equipment', 'Smallwares', { type: 'configurable' }),
 ]
 
-export const productBySlug = (slug?: string) => products.find((x) => x.slug === slug)
-export const productBySku = (sku: string) => products.find((x) => x.sku === sku)
+// Falls back to the Magento snapshot (department listing from All categories) so its products work in cart & PDP.
+export const productBySlug = (slug?: string) => products.find((x) => x.slug === slug) ?? magentoAsShopProducts.find((x) => x.slug === slug)
+export const productBySku = (sku: string) => products.find((x) => x.sku === sku) ?? magentoAsShopProducts.find((x) => x.sku === sku)
 export const productsInDept = (slug: string) => products.filter((x) => x.dept === slug)
 export const recommended = products.filter((x) => x.recommended)
 export const newArrivals = products.filter((x) => x.isNew)

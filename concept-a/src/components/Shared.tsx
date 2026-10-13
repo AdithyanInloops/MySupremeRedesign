@@ -194,15 +194,16 @@ export function DataTable<T>({
   )
 }
 
-/** Page title block used at the top of most inner pages. */
-export function PageTitle({ title, subtitle, crumbs, action }: { title: ReactNode; subtitle?: ReactNode; crumbs?: Crumb[]; action?: ReactNode }) {
+/** Page title block used at the top of most inner pages. `dense`: tighter top space and the smaller Concept B title. */
+export function PageTitle({ title, subtitle, crumbs, action, dense = false }: { title: ReactNode; subtitle?: ReactNode; crumbs?: Crumb[]; action?: ReactNode; dense?: boolean }) {
   return (
-    <Box sx={{ pt: { xs: 2, md: 3 }, pb: { xs: 2, md: 3 } }}>
+    <Box sx={{ pt: dense ? { xs: 1.5, md: 2 } : { xs: 2, md: 3 }, pb: { xs: 2, md: 3 } }}>
       {crumbs && <Breadcrumbs items={crumbs} sx={{ mb: 1.5 }} />}
       <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems={{ md: 'flex-end' }} spacing={2}>
         <Box>
-          <Typography variant="h1" component="h1" sx={{ fontSize: { xs: 28, md: 40 } }}>{title}</Typography>
-          {subtitle && <Typography color="text.secondary" sx={{ mt: 0.75 }}>{subtitle}</Typography>}
+          {/* `dense` = Concept B's page title: 26 / 32px semibold with a 14.5px meta line. */}
+          <Typography variant="h1" component="h1" sx={dense ? { fontSize: { xs: 26, md: 32 }, fontWeight: 600, lineHeight: 1.2, letterSpacing: '-0.015em' } : { fontSize: { xs: 28, md: 40 } }}>{title}</Typography>
+          {subtitle && <Typography color="text.secondary" sx={dense ? { mt: 0.5, fontSize: 14.5 } : { mt: 0.75 }}>{subtitle}</Typography>}
         </Box>
         {action}
       </Stack>

@@ -15,7 +15,6 @@ import { deptBySlug, money, productBySku, productBySlug, productDescriptionHtml,
 import { useApp } from '../../state/AppState'
 import { Container, EmptyState, NewFeatureTag, PackChip, SectionHeader } from '../../components/ui'
 import { Price, ProductRail, QtyStepper, Rating, StockLabel, WishlistButton } from '../../components/Commerce'
-import { Breadcrumbs } from '../../components/Shared'
 import Gallery from './pdp/Gallery'
 import Reviews from './pdp/Reviews'
 import SearchOffRounded from '@mui/icons-material/SearchOffRounded'
@@ -66,14 +65,6 @@ export default function ProductPage() {
   return (
     <Box key={product.sku}>
       <Container sx={{ pt: { xs: 2, md: 3 } }}>
-        <Breadcrumbs
-          items={[
-            { label: dept?.name ?? '', to: `/c/${product.dept}` },
-            { label: product.sub, to: `/c/${product.dept}?sub=${encodeURIComponent(product.sub)}` },
-            { label: product.name },
-          ]}
-          sx={{ mb: { xs: 2, md: 3 } }}
-        />
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0,1fr)', md: 'repeat(2,minmax(0,1fr))', lg: 'minmax(0,1.05fr) minmax(0,1fr)' }, gap: { xs: 3, md: 5, xl: 7 }, alignItems: 'start' }}>
           <Box sx={{ position: { md: 'sticky' }, top: { md: 120, lg: 190 } }}>
             {review.loading ? <Skeleton variant="rounded" sx={{ aspectRatio: '1/1', height: 'auto', borderRadius: `${tokens.radius.lg}px` }} /> : <Gallery product={product} />}

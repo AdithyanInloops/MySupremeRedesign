@@ -19,7 +19,6 @@ import { useApp } from '../../state/AppState'
 import { Container, EmptyState, NewFeatureTag, PackChip, SectionHeader, Sku } from '../../components/ui'
 import { AddToCart, ProductCardSkeleton } from '../../components/Commerce'
 import { ProductImage } from '../../components/Brand'
-import { Breadcrumbs } from '../../components/Shared'
 import { FlipText } from './home/FlipBoard'
 
 const c = tokens.color
@@ -375,7 +374,6 @@ export default function Flyers() {
   return (
     <Container>
       <Box sx={{ pt: { xs: 2, md: 3 }, pb: { xs: 2, md: 2.5 } }}>
-        <Breadcrumbs items={[{ label: 'Flyers & Offers' }]} sx={{ mb: 1.5 }} />
         <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems={{ md: 'flex-end' }} spacing={2}>
           <Box>
             <Typography variant="h1" sx={{ fontSize: { xs: 28, md: 40 } }}>Flyers &amp; Offers</Typography>
