@@ -11,6 +11,8 @@ import AllCategories from './pages/shop/AllCategories'
 import DepartmentListing from './pages/shop/DepartmentListing'
 import Brands from './pages/shop/Brands'
 import Flyers from './pages/shop/Flyers'
+import FlyerBrochure from './pages/shop/FlyerBrochure'
+import FlyerMenuCards from './pages/shop/FlyerMenuCards'
 import Wishlist from './pages/shop/Wishlist'
 import Compare from './pages/shop/Compare'
 
@@ -66,6 +68,8 @@ export default function App() {
               <Route path="shop/:dept" element={<DepartmentListing />} />
               <Route path="brands" element={<Brands />} />
               <Route path="flyers-offers" element={<Flyers />} />
+              <Route path="flyers-offers/brochure" element={<FlyerBrochure />} />
+              <Route path="flyers-offers/menu-cards" element={<FlyerMenuCards />} />
               <Route path="wishlist" element={<Wishlist />} />
               <Route path="compare" element={<Compare />} />
 

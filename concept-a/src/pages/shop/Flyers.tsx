@@ -13,6 +13,8 @@ import LocalOfferRounded from '@mui/icons-material/LocalOfferRounded'
 import PictureAsPdfOutlined from '@mui/icons-material/PictureAsPdfOutlined'
 import LockClockRounded from '@mui/icons-material/LockClockRounded'
 import SearchOffRounded from '@mui/icons-material/SearchOffRounded'
+import AutoStoriesRounded from '@mui/icons-material/AutoStoriesRounded'
+import ViewCarouselRounded from '@mui/icons-material/ViewCarouselRounded'
 import { tokens } from '../../theme'
 import { dealTypes, money, offers, productBySku, warehouses, type Offer } from '../../data/catalog'
 import { useApp } from '../../state/AppState'
@@ -379,6 +381,13 @@ export default function Flyers() {
             <Typography variant="h1" sx={{ fontSize: { xs: 28, md: 40 } }}>Flyers &amp; Offers</Typography>
             <Typography color="text.secondary" sx={{ mt: 0.75 }}>Warehouse deals for restaurants across the GTA, Hamilton &amp; Niagara</Typography>
           </Box>
+          <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
+          <Button component={RouterLink} to="/flyers-offers/brochure" variant="outlined" color="secondary" startIcon={<AutoStoriesRounded />} sx={{ borderRadius: 999, minHeight: 44, bgcolor: '#fff' }}>
+            Brochure view
+          </Button>
+          <Button component={RouterLink} to="/flyers-offers/menu-cards" variant="outlined" color="secondary" startIcon={<ViewCarouselRounded />} sx={{ borderRadius: 999, minHeight: 44, bgcolor: '#fff' }}>
+            Menu cards
+          </Button>
           <Tabs value={tab} onChange={(_, v) => setTab(v)} aria-label="Flyer version" sx={{ bgcolor: '#fff', border: `1px solid ${c.line}`, borderRadius: 999, p: 0.5, minHeight: 0, '& .MuiTabs-indicator': { display: 'none' } }}>
             {[
               <Stack key="l" direction="row" spacing={1} alignItems="center" component="span"><span>Live flyer</span><NewFeatureTag label="New" note="offer & warehouse data" /></Stack>,
@@ -391,6 +400,7 @@ export default function Flyers() {
               />
             ))}
           </Tabs>
+          </Stack>
         </Stack>
       </Box>
       {tab === 0 ? <LiveFlyer wh={wh} setWh={setWh} /> : <ComingSoon wh={wh} setWh={setWh} />}
