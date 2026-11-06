@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Alert, Box, Button, InputAdornment, Skeleton, Stack, TextField, Typography } from '@mui/material'
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router-dom'
 import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined'
 import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded'
 import LocalShippingOutlined from '@mui/icons-material/LocalShippingOutlined'
@@ -9,11 +9,13 @@ import WarningAmberRounded from '@mui/icons-material/WarningAmberRounded'
 import ReplayRounded from '@mui/icons-material/ReplayRounded'
 import LockOutlined from '@mui/icons-material/LockOutlined'
 import StorefrontOutlined from '@mui/icons-material/StorefrontOutlined'
+import PlaylistAddRounded from '@mui/icons-material/PlaylistAddRounded'
+import SyncRounded from '@mui/icons-material/SyncRounded'
 import { tokens } from '../../theme'
 import { departments, money, recommended } from '../../data/catalog'
 import { orders } from '../../data/account'
 import { useApp } from '../../state/AppState'
-import { Container, EmptyState, Panel, SectionHeader } from '../../components/ui'
+import { Container, EmptyState, NameDialog, Panel, SectionHeader } from '../../components/ui'
 import { ProductRail } from '../../components/Commerce'
 import { Breadcrumbs } from '../../components/Shared'
 import { CartLineItem, CheckoutStepper, OrderSummary, cartTotals } from '../../components/CheckoutParts'
@@ -83,8 +85,18 @@ function CartSkeleton() {
 }
 
 export default function Cart() {
-  const { cart, cartCount, review, clearCart, addToCart, priceFor, toast } = useApp()
+  const { cart, cartCount, review, clearCart, addToCart, priceFor, toast, lists, createList, updateList, cartFromList } = useApp()
   const nav = useNavigate()
+  const [params] = useSearchParams()
+  const [saving, setSaving] = useState(params.get('open') === 'save')
+  const fromList = lists.find((l) => l.id === cartFromList)
+  const cartItems = () => cart.map((l) => ({ sku: l.sku, qty: l.qty }))
+  const updateFromList = () => {
+    if (!fromList) return
+    const before = fromList.items
+    updateList(fromList.id, cartItems)
+    toast(`${fromList.name} updated · ${cart.length} items`, 'success', { label: 'Undo', onClick: () => updateList(fromList.id, () => before) })
+  }
   const [updating, setUpdating] = useState<string | null>(null)
   const prev = useRef(cart)
 
@@ -167,10 +179,21 @@ export default function Cart() {
                 <span>Product</span><span /><span>Quantity</span><Box component="span" sx={{ textAlign: 'right' }}>Total</Box><span />
               </Box>
               {cart.map((l) => <CartLineItem key={l.sku} line={l} state={updating === l.sku ? 'updating' : l.error ? 'error' : 'idle'} />)}
+              {review.signedIn && (
+                <Stack direction="row" flexWrap="wrap" alignItems="center" gap={1} sx={{ py: 1.5, borderTop: `1px solid ${c.line}` }}>
+                  <Button variant="outlined" color="secondary" startIcon={<PlaylistAddRounded />} onClick={() => setSaving(true)}>Save cart as list</Button>
+                  {fromList && <Button startIcon={<SyncRounded />} onClick={updateFromList} sx={{ color: c.navy }}>Update {fromList.name}</Button>}
+                </Stack>
+              )}
               <Stack direction="row" justifyContent="space-between" sx={{ py: 1.5, borderTop: `1px solid ${c.line}` }}>
                 <Button component={RouterLink} to="/" sx={{ color: c.navy }}>Continue shopping</Button>
                 <Button color="inherit" onClick={() => { clearCart(); toast('Cart cleared', 'info') }} sx={{ color: c.text2 }}>Clear cart</Button>
               </Stack>
+              <NameDialog open={saving} onClose={() => setSaving(false)} title="Save cart as list" placeholder="e.g. Friday Restock" taken={lists.map((l) => l.name)}
+                onSave={(name) => {
+                  const id = createList(name, cartItems())
+                  toast(`Saved “${name}” · ${cart.length} items`, 'success', { label: 'View list', href: `/my-lists?list=${id}` })
+                }} />
             </Panel>
             <DeliveryAreaCheck />
           </Box>
@@ -198,7 +221,7 @@ export default function Cart() {
 
       {/* Mobile sticky checkout bar — inset 76px each side to clear the voice + chat buttons */}
       {!review.loading && cart.length > 0 && (
-        <Box sx={{ display: { md: 'none' }, position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 1140, bgcolor: '#fff', borderTop: `1px solid ${c.line}`, boxShadow: '0 -10px 30px -12px rgba(17,24,39,.25)', py: 1.25, px: '80px' }}>
+        <Box sx={{ display: { md: 'none' }, position: 'fixed', left: 0, right: 0, bottom: 'var(--nav-h, 0px)', zIndex: 1140, bgcolor: '#fff', borderTop: `1px solid ${c.line}`, boxShadow: '0 -10px 30px -12px rgba(17,24,39,.25)', py: 1.25, px: '80px' }}>
           <Typography sx={{ fontSize: 12, color: c.text2, textAlign: 'center', lineHeight: 1.2, mb: 0.75 }}>
             Total <b style={{ color: c.ink, fontSize: 15 }}>{money(totals.total)}</b> incl. HST
           </Typography>

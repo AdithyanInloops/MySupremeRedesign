@@ -250,7 +250,7 @@ function BuyBox({ product }: { product: Product }) {
       {/* Sticky mobile add-to-cart bar — inset 80px each side to clear the voice + chat buttons */}
       <Box
         sx={{
-          display: { xs: 'flex', md: 'none' }, position: 'fixed', left: 80, right: 80, bottom: 16, zIndex: 1140, alignItems: 'center',
+          display: { xs: 'flex', md: 'none' }, position: 'fixed', left: 80, right: 80, bottom: 'calc(var(--nav-h, 0px) + 16px)', zIndex: 1140, alignItems: 'center',
           bgcolor: '#fff', borderRadius: `${tokens.radius.md}px`, boxShadow: tokens.shadow.pop, border: `1px solid ${c.line}`, p: 0.75, gap: 0.75,
         }}
       >

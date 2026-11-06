@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@mui/material'
-import { HashRouter, Route, Routes } from 'react-router-dom'
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
 import theme from './theme'
 import { AppStateProvider } from './state/AppState'
 import Layout from './components/Layout'
@@ -13,7 +13,7 @@ import Brands from './pages/shop/Brands'
 import Flyers from './pages/shop/Flyers'
 import FlyerBrochure from './pages/shop/FlyerBrochure'
 import FlyerMenuCards from './pages/shop/FlyerMenuCards'
-import Wishlist from './pages/shop/Wishlist'
+import MyLists from './pages/shop/MyLists'
 import Compare from './pages/shop/Compare'
 
 import Cart from './pages/checkout/Cart'
@@ -45,6 +45,7 @@ import NotFound from './pages/company/NotFound'
 import Summary from './pages/review/Summary'
 import Components from './pages/review/Components'
 import Preview from './pages/review/Preview'
+import ListsBoard from './pages/review/ListsBoard'
 
 /**
  * Routes mirror the production GraphCommerce routes (see brief "Page inventory").
@@ -70,7 +71,8 @@ export default function App() {
               <Route path="flyers-offers" element={<Flyers />} />
               <Route path="flyers-offers/brochure" element={<FlyerBrochure />} />
               <Route path="flyers-offers/menu-cards" element={<FlyerMenuCards />} />
-              <Route path="wishlist" element={<Wishlist />} />
+              <Route path="my-lists" element={<MyLists />} />
+              <Route path="wishlist" element={<Navigate to="/my-lists" replace />} />
               <Route path="compare" element={<Compare />} />
 
               <Route path="cart" element={<Cart />} />
@@ -104,6 +106,7 @@ export default function App() {
 
               <Route path="review/summary" element={<Summary />} />
               <Route path="review/components" element={<Components />} />
+              <Route path="review/my-lists" element={<ListsBoard />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

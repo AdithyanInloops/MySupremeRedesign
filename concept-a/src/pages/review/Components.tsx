@@ -330,8 +330,8 @@ export default function Components() {
         <Box sx={{ minWidth: 0 }}>
           <LibSection id="tokens" title="Design tokens"><Tokens /></LibSection>
 
-          <LibSection id="product-card" n={1} title="Product card" usedOn="Home, listings, PDP carousels, wishlist, flyers"
-            note="Square image, brand, 2-line clamped name (full name on hover tooltip and PDP), mono SKU that never breaks the layout, pack-size chip, price, wishlist heart and quantity + Add to cart. Try Add on the first card to see adding → added.">
+          <LibSection id="product-card" n={1} title="Product card" usedOn="Home, listings, PDP carousels, flyers"
+            note="Square image, brand, 2-line clamped name (full name on hover tooltip and PDP), mono SKU that never breaks the layout, pack-size chip, price, save-to-list heart and quantity + Add to cart. Try Add on the first card to see adding → added.">
             <DemoGrid min={210}>
               <Demo label="Photo · live add" bg={c.bg}><ProductCard product={P('GR1001')} /></Demo>
               <Demo label="Placeholder image" bg={c.bg}><ProductCard product={P('HD0031')} /></Demo>
@@ -393,7 +393,7 @@ export default function Components() {
                   <Button variant="contained">Primary</Button>
                   <Button variant="outlined" color="secondary">Secondary</Button>
                   <Button sx={{ color: c.navy }} endIcon={<ArrowForwardRounded />}>Text</Button>
-                  <IconButton aria-label="Favourite" sx={{ border: `1px solid ${c.line}`, width: 44, height: 44 }}><FavoriteBorderRounded /></IconButton>
+                  <IconButton aria-label="Save to list" sx={{ border: `1px solid ${c.line}`, width: 44, height: 44 }}><FavoriteBorderRounded /></IconButton>
                   <Button variant="contained" color="secondary" sx={{ borderRadius: 999 }}>Pill</Button>
                   <Button variant="outlined" color="inherit" sx={{ borderRadius: 999, borderColor: c.line, fontWeight: 500 }}>Filter pill</Button>
                 </Stack>
@@ -634,7 +634,7 @@ export default function Components() {
               <Demo label="Toast / snackbar (live)">
                 <Stack spacing={1}>
                   <Button variant="contained" color="success" onClick={() => toast('Added 4 × Eco-Craze clamshells to cart')}>Success toast</Button>
-                  <Button variant="contained" color="info" onClick={() => toast('Removed from Favorites', 'info')}>Info toast</Button>
+                  <Button variant="contained" color="info" onClick={() => toast('Removed from Favourites', 'info')}>Info toast</Button>
                   <Button variant="contained" color="warning" onClick={() => toast('Only 3 cases left — order soon', 'warning')}>Warning toast</Button>
                   <Button variant="contained" color="error" onClick={() => toast('Payment declined — try another card', 'error')}>Error toast</Button>
                 </Stack>

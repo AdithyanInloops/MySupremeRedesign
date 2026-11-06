@@ -24,7 +24,7 @@ const pdp = '/p/' + (productBySku('A905')?.slug ?? '')
 const principles = [
   { icon: <SearchRounded />, t: 'Search & SKU first', b: 'A wide search bar with mic and camera on every screen; SKUs and barcodes match instantly with highlighted hits.' },
   { icon: <Inventory2Outlined />, t: 'Pack size always visible', b: 'One consistent pack-size chip on every card, row, cart line and order — “24x1L in a case” is never hidden.' },
-  { icon: <ReplayRounded />, t: 'Reorder-first', b: 'Buy-again rail on home, one-tap reorder from any order, Favorites in the header, quick-add quantities on every card.' },
+  { icon: <ReplayRounded />, t: 'Reorder-first', b: 'Buy-again rail on home, one-tap reorder from any order, My Lists in the header and bottom nav, quick-add quantities on every card.' },
   { icon: <LocalShippingOutlined />, t: 'Delivery promise everywhere', b: 'Next-day cut-off in the header, delivery-area checks in cart and checkout, and order ETAs in the account.' },
   { icon: <PhotoCameraBackOutlined />, t: 'Warm, brand-true', b: 'MySupreme red and navy with warm food photography, bento promo tiles and a placeholder that looks intentional in a grid.' },
   { icon: <AccessibilityNewRounded />, t: 'Accessible by default', b: 'Deeper red #D50000 for every text-bearing button (5.5:1), 44px targets, icon + text status chips, reduced-motion.' },
@@ -35,7 +35,7 @@ const beforeAfter: [string, string][] = [
   ['Grey “SUPREME” box for 7 of 8 products', 'Branded placeholder with brand monogram — a full grid of them still looks designed'],
   ['Pack size buried in the product name', 'Dedicated pack-size chip on every card, list row, cart line and order'],
   ['Long names and 17-digit SKUs break cards', '2-line clamp + full name on hover/PDP; mono SKU that ellipsizes, never wraps'],
-  ['Reordering means searching again', 'Buy again on home, reorder on every order, Favorites one click away'],
+  ['Reordering means searching again', 'Buy again on home, reorder on every order, My Lists one tap away'],
   ['Same price for everyone until checkout', 'Business price shown after sign-in; guests see “Sign in for business price”'],
   ['No sense of when it arrives', 'Cut-off in the header, delivery-area checks, order ETAs and tracking'],
   ['Grid only', 'Grid + dense list view for pros ordering 40 lines at a time'],
@@ -51,7 +51,7 @@ const inventory: Row[] = [
   { area: 'Shopping', page: 'Brands', route: '/brands', p: 2, link: '/brands', status: 'Designed' },
   { area: 'Shopping', page: 'Flyers & Offers (coming soon + live)', route: '/flyers-offers', p: 2, link: '/flyers-offers', status: 'Designed' },
   { area: 'Shopping', page: 'Compare', route: '/compare', p: 3, link: '/compare', status: 'Template' },
-  { area: 'Shopping', page: 'Wishlist / Favorites', route: '/wishlist', p: 2, link: '/wishlist', status: 'Designed' },
+  { area: 'Shopping', page: 'My Lists (replaces Favourites)', route: '/my-lists', p: 2, link: '/my-lists', status: 'Designed' },
   { area: 'Cart & checkout', page: 'Cart', route: '/cart', p: 1, link: '/cart', status: 'Designed' },
   { area: 'Cart & checkout', page: 'Checkout: shipping', route: '/checkout', p: 1, link: '/checkout', status: 'Designed' },
   { area: 'Cart & checkout', page: 'Checkout: payment', route: '/checkout/payment', p: 1, link: '/checkout/payment', status: 'Designed' },
@@ -137,7 +137,7 @@ export default function Summary() {
             <Typography variant="h5">How to review</Typography>
           </Stack>
           <Typography color="text.secondary">
-            Use the black bar at the very top of every screen: <b>Signed in</b> switches between guest and business-customer views (header, prices, checkout), <b>Loading</b> shows the skeletons for personalised blocks, <b>Empty</b> shows the empty states (cart, favourites, orders, invoices), and <b>Jump to page</b> opens any screen. Everything is clickable with dummy data — add to cart, check out, reorder.
+            Use the black bar at the very top of every screen: <b>Signed in</b> switches between guest and business-customer views (header, prices, checkout), <b>Loading</b> shows the skeletons for personalised blocks, <b>Empty</b> shows the empty states (cart, lists, orders, invoices), and <b>Jump to page</b> opens any screen. Everything is clickable with dummy data — add to cart, check out, reorder.
           </Typography>
         </Panel>
       </Container>

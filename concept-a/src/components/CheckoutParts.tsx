@@ -82,7 +82,7 @@ export function CartLineItem({ line, state = 'idle', compact = false }: { line: 
             <Box sx={{ minWidth: 0, flex: 1 }}><Sku sku={p.sku} /></Box>
           </Stack>
           <Typography sx={{ fontSize: 12.5, color: c.text2, mt: 0.75 }}>
-            {money(unit)} <Box component="span" sx={{ color: c.text3 }}>/ {p.pack.includes('case') ? 'case' : 'pack'}</Box>
+            {money(unit)} <Box component="span" sx={{ color: c.text3 }}>/ {p.uom?.toLowerCase() ?? (p.pack.includes('case') ? 'case' : 'pack')}</Box>
             {p.regular && <Box component="span" sx={{ ml: 1, color: c.red, fontWeight: 600 }}>Sale</Box>}
           </Typography>
           {/* Mobile controls */}

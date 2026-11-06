@@ -1,11 +1,15 @@
 import { useState, type ReactNode } from 'react'
 import {
-  Badge, Box, Button, Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem,
+  Badge, Box, Button, Divider, Drawer, GlobalStyles, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem,
   Stack, Typography, Avatar, Skeleton, useMediaQuery, useTheme,
 } from '@mui/material'
 import { Link as RouterLink, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import MenuRounded from '@mui/icons-material/MenuRounded'
 import FavoriteBorderRounded from '@mui/icons-material/FavoriteBorderRounded'
+import FavoriteRounded from '@mui/icons-material/FavoriteRounded'
+import HomeRounded from '@mui/icons-material/HomeRounded'
+import StorefrontRounded from '@mui/icons-material/StorefrontRounded'
+import ShoppingCartRounded from '@mui/icons-material/ShoppingCartRounded'
 import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined'
 import PersonOutlineRounded from '@mui/icons-material/PersonOutlineRounded'
 import KeyboardArrowDownRounded from '@mui/icons-material/KeyboardArrowDownRounded'
@@ -101,7 +105,7 @@ function AccountMenu({ showLabel }: { showLabel: boolean }) {
     { t: 'My Profile', i: <BadgeOutlined />, to: '/account' },
     { t: 'Orders', i: <ReceiptLongOutlined />, to: '/account/orders' },
     { t: 'Saved Addresses', i: <PlaceOutlined />, to: '/account/addresses' },
-    { t: 'Favorites', i: <FavoriteBorderRounded />, to: '/wishlist' },
+    { t: 'My Lists', i: <FavoriteBorderRounded />, to: '/my-lists' },
   ]
   return (
     <>
@@ -366,13 +370,61 @@ function MobileDrawer({ open, onClose }: { open: boolean; onClose: () => void })
   )
 }
 
+/* ------------------------------------------------------------------ Mobile bottom nav */
+
+const NAV_H = 64
+const shopPaths = /^\/(all-categories|c\/|shop\/|p\/|search\/|brands|flyers-offers|compare)/
+
+/** Below 800px: Home | Shop | Cart | My Lists | More. Publishes --nav-h so sticky bars, FABs and toasts sit above it. */
+function BottomNav({ onMore }: { onMore: () => void }) {
+  const { pathname } = useLocation()
+  const { cartCount } = useApp()
+  const tabs = [
+    { label: 'Home', to: '/', on: pathname === '/', icon: [HomeOutlined, HomeRounded] },
+    { label: 'Shop', to: '/all-categories', on: shopPaths.test(pathname), icon: [StorefrontOutlined, StorefrontRounded] },
+    { label: 'Cart', to: '/cart', on: pathname === '/cart', icon: [ShoppingCartOutlined, ShoppingCartRounded], badge: cartCount },
+    { label: 'My Lists', to: '/my-lists', on: pathname === '/my-lists', icon: [FavoriteBorderRounded, FavoriteRounded] },
+  ]
+  const tab = (on: boolean) => ({
+    display: 'flex', flexDirection: 'column' as const, alignItems: 'center', justifyContent: 'center', gap: 0.25, minWidth: 0, height: NAV_H,
+    color: on ? c.red : c.text2, textDecoration: 'none', fontSize: 11.5, fontWeight: on ? 700 : 500, border: 0, bgcolor: 'transparent', font: 'inherit', cursor: 'pointer',
+    position: 'relative' as const, '&::before': { content: '""', position: 'absolute', top: 0, left: '28%', right: '28%', height: 3, borderRadius: '0 0 3px 3px', bgcolor: on ? c.red : 'transparent' },
+    '& svg': { fontSize: 24 },
+  })
+  return (
+    <>
+      <GlobalStyles styles={(t) => ({ ':root': { '--nav-h': `${NAV_H}px` }, [t.breakpoints.up('md')]: { ':root': { '--nav-h': '0px' } } })} />
+      <Box component="nav" aria-label="Main" sx={{
+        display: { xs: 'grid', md: 'none' }, gridTemplateColumns: 'repeat(5, minmax(0,1fr))', position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 1145,
+        bgcolor: '#fff', borderTop: `1px solid ${c.line}`, boxShadow: '0 -4px 16px -8px rgba(17,24,39,.12)', pb: 'env(safe-area-inset-bottom)',
+      }}>
+        {tabs.map((t) => {
+          const Icon = t.icon[t.on ? 1 : 0]
+          return (
+            <Box key={t.label} component={RouterLink} to={t.to} aria-current={t.on ? 'page' : undefined} sx={tab(t.on)}>
+              <Badge badgeContent={t.badge || undefined} color="primary" max={99} sx={{ '& .MuiBadge-badge': { fontWeight: 700, border: '2px solid #fff', fontSize: 10.5, minWidth: 20, height: 20 } }}>
+                <Icon />
+              </Badge>
+              <span>{t.label}</span>
+            </Box>
+          )
+        })}
+        <Box component="button" onClick={onMore} aria-label="More: departments, account and help" sx={tab(false)}>
+          <MenuRounded /><span>More</span>
+        </Box>
+      </Box>
+    </>
+  )
+}
+
 /* ------------------------------------------------------------------ Header */
 
 export default function Header() {
   const theme = useTheme()
   const desktop = useMediaQuery(theme.breakpoints.up('lg'))
-  const { cartCount, wishlist, review } = useApp()
+  const { cartCount, lists, review } = useApp()
   const [drawer, setDrawer] = useState(false)
+  const { pathname } = useLocation()
 
   return (
     <Box component="header" sx={{ position: 'sticky', top: 0, zIndex: 1200, bgcolor: '#fff', boxShadow: '0 1px 0 rgba(17,24,39,.06)' }}>
@@ -389,7 +441,7 @@ export default function Header() {
         {desktop && <Box sx={{ flex: 1, maxWidth: 760 }}><SearchBar /></Box>}
         <Stack direction="row" alignItems="center" spacing={{ xs: 0, lg: 0.5 }} sx={{ ml: 'auto' }}>
           {desktop && <MoreMenu />}
-          <HeaderIcon to="/wishlist" label="Favorites" icon={<FavoriteBorderRounded />} badge={wishlist.length || undefined} showLabel={desktop} />
+          <HeaderIcon to="/my-lists" label="My Lists" icon={<FavoriteBorderRounded />} badge={lists[0]?.items.length || undefined} showLabel={desktop} />
           <HeaderIcon to="/cart" label="Cart" icon={review.loading ? <Skeleton variant="circular" width={24} height={24} /> : <ShoppingCartOutlined />} badge={cartCount || undefined} showLabel={desktop} />
           <AccountMenu showLabel={desktop} />
         </Stack>
@@ -401,6 +453,8 @@ export default function Header() {
       )}
       {desktop && <CategoryBar />}
       <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
+      {/* Checkout keeps its own sticky pay bar, so no bottom nav there. */}
+      {!(pathname.startsWith('/checkout') && !pathname.includes('success')) && <BottomNav onMore={() => setDrawer(true)} />}
     </Box>
   )
 }

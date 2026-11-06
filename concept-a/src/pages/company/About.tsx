@@ -30,7 +30,7 @@ const stats = [
 const ways = [
   { icon: <StorefrontOutlined />, title: 'Cash & carry walk-in', body: 'Load up at our Mississauga warehouse — 3750A Laird Road, Unit 9. Business pricing at the till.' },
   { icon: <LanguageRounded />, title: 'Website', body: 'Search by product or SKU, reorder in a tap and track delivery to your back door.' },
-  { icon: <PhoneIphoneOutlined />, title: 'iOS & Android app', body: 'Scan an empty case, reorder favourites and get delivery alerts on the go.' },
+  { icon: <PhoneIphoneOutlined />, title: 'iOS & Android app', body: 'Scan an empty case, reorder from your lists and get delivery alerts on the go.' },
   { icon: <BadgeOutlined />, title: 'Field sales rep', body: 'A named rep who knows your menu, your volumes and your delivery window.' },
 ]
 

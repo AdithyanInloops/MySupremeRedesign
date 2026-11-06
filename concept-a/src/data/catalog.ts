@@ -165,6 +165,9 @@ export type Product = {
   isNew?: boolean
   recommended?: boolean
   unit?: string // NEW FEATURE — per-unit price label e.g. "$0.66 / can"
+  uom?: 'Case' | 'Each' // selling unit, shown as "Case · 4 × 2 kg"
+  alt?: string // SKU of the same product in the other unit (Case ↔ Each)
+  left?: number // units left when LOW_STOCK
 }
 
 let n = 0
@@ -249,6 +252,14 @@ export const products: Product[] = [
   // Ware
   p('WE0101', 'Cambro - Camwear Food Pan 1/3 Size 4" Clear', 'Cambro', '6 ct', 81.5, 'ware-equipment', 'Food Storage', { isNew: true }),
   p('WE0144', 'Rubbermaid - Commercial Cutting Board 18x24', 'Rubbermaid', '1 ea', 42.0, 'ware-equipment', 'Smallwares', { type: 'configurable' }),
+
+  // My Lists sample (Favourites). Case and Each are separate SKUs, as in Magento.
+  p('100231', 'Saputo Mozzarella Shredded', 'Saputo', '4 × 2 kg', 46.5, 'dairy-eggs', 'Cheese', { uom: 'Case', regular: 49.99 }),
+  p('200118', 'Chicken Breast Fillets', 'Fresh Halal', '5 kg', 58.2, 'meat-poultry', 'Chicken', { uom: 'Case', images: [photo('meat', 700, 700)] }),
+  p('300542', 'Monin Vanilla Syrup', 'Monin', '1 L', 14.95, 'beverage', 'Syrups & Mixers', { uom: 'Each', stock: 'LOW_STOCK', left: 3, images: [photo('shake', 700, 700)] }),
+  p('400077', 'Dole Pineapple Juice', 'Dole', '12 × 1.36 L', 38.9, 'beverage', 'Juices', { uom: 'Case', alt: '400077-EA', images: [photo('fruit', 700, 700)] }),
+  p('400077-EA', 'Dole Pineapple Juice', 'Dole', '1.36 L', 3.4, 'beverage', 'Juices', { uom: 'Each', alt: '400077', images: [photo('fruit', 700, 700)] }),
+  p('500610', 'Pizza Box 12"', 'Royal Chef', '100', 32.0, 'packaging', 'Bags', { uom: 'Case', stock: 'OUT_OF_STOCK' }),
 ]
 
 // Falls back to the Magento snapshot (department listing from All categories) so its products work in cart & PDP.
@@ -260,6 +271,8 @@ export const newArrivals = products.filter((x) => x.isNew)
 export const onSale = products.filter((x) => x.regular)
 
 export const pctOff = (pr: Product) => (pr.regular ? Math.round((1 - pr.price / pr.regular) * 100) : 0)
+/** "Case · 4 × 2 kg" when the selling unit is known, else the raw pack text. */
+export const packLine = (pr: Product) => (pr.uom ? `${pr.uom} · ${pr.pack}` : pr.pack)
 export const money = (v: number) => v.toLocaleString('en-CA', { style: 'currency', currency: 'CAD', currencyDisplay: 'narrowSymbol' })
 
 export const productDescriptionHtml = (pr: Product) => `

@@ -16,12 +16,12 @@ import { Breadcrumbs } from '../../components/Shared'
 const c = tokens.color
 
 const features = [
-  { icon: <ReplayRounded />, title: 'Reorder in two taps', body: 'Your last order and favourites sit on the home screen, quantities pre-filled.' },
+  { icon: <ReplayRounded />, title: 'Reorder in two taps', body: 'Your last order and your lists sit on the home screen, quantities pre-filled.' },
   { icon: <QrCodeScannerRounded />, title: 'Scan an empty case', body: 'Point the camera at a barcode or label and we find the exact SKU.' },
   { icon: <MicRounded />, title: 'Order by voice', body: '“Add four cases of Coke cans” — hands-free while you prep.' },
   { icon: <NotificationsActiveOutlined />, title: 'Delivery alerts', body: 'Know when the truck leaves the warehouse and when it’s 15 minutes out.' },
   { icon: <ReceiptLongOutlined />, title: 'Invoices & statements', body: 'Download invoice PDFs and check available credit anywhere.' },
-  { icon: <FavoriteBorderRounded />, title: 'Shared favourites', body: 'Same Favorites list on web, app and with your sales rep.' },
+  { icon: <FavoriteBorderRounded />, title: 'Shared lists', body: 'Same lists on web, app and with your sales rep.' },
 ]
 
 /** CSS-drawn phone with a miniature app screen. */
@@ -89,7 +89,7 @@ export default function DownloadApp() {
             <Box>
               <Typography variant="overline" sx={{ color: c.saffron }}>MySupreme for iOS &amp; Android</Typography>
               <Typography variant="h1" sx={{ color: '#fff', mt: 1 }}>Your whole order list, in your apron pocket.</Typography>
-              <Typography sx={{ mt: 2, opacity: 0.88, fontSize: 17, maxWidth: 560 }}>Reorder last week’s delivery between lunch and dinner service. Same account, prices and favourites as the website.</Typography>
+              <Typography sx={{ mt: 2, opacity: 0.88, fontSize: 17, maxWidth: 560 }}>Reorder last week’s delivery between lunch and dinner service. Same account, prices and lists as the website.</Typography>
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={3} alignItems={{ sm: 'center' }} sx={{ mt: 4 }}>
                 <Stack direction="row" spacing={1.5} flexWrap="wrap" useFlexGap><StoreBadge store="apple" /><StoreBadge store="google" /></Stack>
                 <Stack direction="row" spacing={1.5} alignItems="center" sx={{ display: { xs: 'none', md: 'flex' } }}>

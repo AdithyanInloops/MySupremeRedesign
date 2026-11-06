@@ -58,7 +58,7 @@ export const accountMenu: Group[] = [
       { label: 'Account statement', to: '/account/customerdashbord/statement', icon: <DescriptionOutlined /> },
     ],
   },
-  { title: 'Wishlist & Favorites', items: [{ label: 'Wishlist & Favorites', to: '/wishlist', icon: <FavoriteBorderRounded /> }] },
+  { title: 'My Lists', items: [{ label: 'My Lists', to: '/my-lists', icon: <FavoriteBorderRounded /> }] },
 ]
 
 function useIsActive() {

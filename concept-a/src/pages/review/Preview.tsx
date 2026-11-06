@@ -21,8 +21,19 @@ const pages: [string, string][] = [
   ['All categories', '/all-categories'],
   ['Brands', '/brands'],
   ['Flyers & Offers', '/flyers-offers'],
-  ['Favorites', '/wishlist'],
+  ['My Lists — Favourites', '/my-lists'],
+  ['My Lists — list selector open', '/my-lists?open=lists'],
+  ['My Lists — create new list', '/my-lists?open=create'],
+  ['My Lists — delete list', '/my-lists?list=weekly&open=delete'],
+  ['My Lists — replace or add to cart', '/my-lists?open=replace'],
+  ['My Lists — Case / Each picker', '/my-lists?open=unit'],
+  ['My Lists — rows, variant B', '/my-lists?row=b'],
+  ['My Lists — add all result', '/my-lists?open=added'],
+  ['My Lists — long list + search', '/my-lists?list=weekly'],
+  ['My Lists — Favourites empty', '/my-lists?empty=1'],
+  ['My Lists — new list empty', '/my-lists?list=weekly&empty=1'],
   ['Cart', '/cart'],
+  ['Cart — save cart as list', '/cart?open=save'],
   ['Checkout — shipping', '/checkout'],
   ['Checkout — payment', '/checkout/payment'],
   ['Order success', '/checkout/success'],
@@ -42,6 +53,7 @@ const pages: [string, string][] = [
   ['404', '/this-page-does-not-exist'],
   ['Concept summary', '/review/summary'],
   ['Component library', '/review/components'],
+  ['My Lists — design board', '/review/my-lists'],
 ]
 
 /** Presentation view: the same route at 390 px (phone) and 1440 px (scaled desktop), side by side. */

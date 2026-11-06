@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { Box, Button, CircularProgress, IconButton, InputBase, Stack, Typography, Link, Skeleton, type SxProps, type Theme } from '@mui/material'
+import {
+  Box, Button, ButtonBase, Checkbox, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Divider, IconButton, InputBase, MenuItem,
+  Stack, TextField, Typography, Link, Skeleton, type SxProps, type Theme,
+} from '@mui/material'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import AddRounded from '@mui/icons-material/AddRounded'
 import RemoveRounded from '@mui/icons-material/RemoveRounded'
@@ -17,7 +20,7 @@ import { tokens } from '../theme'
 import { money, pctOff, type Product } from '../data/catalog'
 import { useApp } from '../state/AppState'
 import { ProductImage } from './Brand'
-import { PackChip, Sku } from './ui'
+import { NameDialog, PackChip, Sheet, Sku } from './ui'
 
 const c = tokens.color
 
@@ -87,18 +90,49 @@ export function Rating({ value, count, size = 15 }: { value: number; count: numb
 
 /* ------------------------------------------------------------------ Quantity stepper */
 
-export function QtyStepper({ value, onChange, size = 'md', disabled, label = 'Quantity' }: { value: number; onChange: (v: number) => void; size?: 'sm' | 'md'; disabled?: boolean; label?: string }) {
+/** Tap-to-type quantity: a small dialog with a numeric field, so "20" is typed once instead of tapped 16 times. */
+function QtyDialog({ value, label, onClose, onConfirm }: { value: number; label: string; onClose: () => void; onConfirm: (v: number) => void }) {
+  const [v, setV] = useState(String(value))
+  const n = parseInt(v, 10)
+  const ok = n >= 1 && n <= 99
+  return (
+    <Dialog open onClose={onClose} maxWidth="xs" fullWidth>
+      <Box component="form" noValidate onSubmit={(e) => { e.preventDefault(); if (ok) { onConfirm(n); onClose() } }}>
+        <DialogTitle sx={{ fontWeight: 700, pb: 0.5 }}>Enter quantity</DialogTitle>
+        <DialogContent>
+          <Typography sx={{ fontSize: 13.5, color: c.text2, mb: 2 }}>{label}</Typography>
+          <TextField autoFocus fullWidth value={v} onChange={(e) => setV(e.target.value.replace(/\D/g, '').slice(0, 3))} onFocus={(e) => e.target.select()}
+            error={v !== '' && !ok} helperText={v !== '' && !ok ? 'Enter 1–99. For more, call us for a quote.' : ' '}
+            inputProps={{ inputMode: 'numeric', 'aria-label': label, style: { fontSize: 22, fontWeight: 700, textAlign: 'center' } }} />
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2.5, pt: 0, gap: 1 }}>
+          <Button onClick={onClose} sx={{ color: c.text2 }}>Cancel</Button>
+          <Button type="submit" variant="contained" disabled={!ok}>Confirm</Button>
+        </DialogActions>
+      </Box>
+    </Dialog>
+  )
+}
+
+/** `typeIn`: the number is a button that opens a numeric dialog. `min={0}` lets − reach 0 (caller removes the line). */
+export function QtyStepper({ value, onChange, size = 'md', disabled, label = 'Quantity', typeIn = false, min = 1 }: { value: number; onChange: (v: number) => void; size?: 'sm' | 'md'; disabled?: boolean; label?: string; typeIn?: boolean; min?: number }) {
   const h = size === 'sm' ? 40 : 48
+  const [typing, setTyping] = useState(false)
   return (
     <Stack
       direction="row"
       alignItems="center"
       sx={{ border: `1.5px solid ${c.line2}`, borderRadius: `${tokens.radius.sm}px`, height: h, bgcolor: disabled ? c.surface2 : '#fff', flexShrink: 0, '&:focus-within': { borderColor: c.navy } }}
     >
-      <IconButton aria-label="Decrease quantity" disabled={disabled || value <= 1} onClick={() => onChange(value - 1)} sx={{ width: 44, height: h - 3, borderRadius: `${tokens.radius.sm}px 0 0 ${tokens.radius.sm}px` }}>
+      <IconButton aria-label="Decrease quantity" disabled={disabled || value <= min} onClick={() => onChange(value - 1)} sx={{ width: 44, height: h - 3, borderRadius: `${tokens.radius.sm}px 0 0 ${tokens.radius.sm}px` }}>
         <RemoveRounded fontSize="small" />
       </IconButton>
-      <InputBase
+      {typeIn ? (
+        <ButtonBase disabled={disabled} onClick={() => setTyping(true)} aria-label={`${label}: ${value}. Tap to type a quantity`}
+          sx={{ minWidth: size === 'sm' ? 30 : 40, height: h - 3, fontFamily: 'inherit', fontWeight: 600, fontSize: 15, color: c.ink, '&:hover': { color: c.navy, textDecoration: 'underline' } }}>
+          {value}
+        </ButtonBase>
+      ) : <InputBase
         value={value}
         disabled={disabled}
         onChange={(e) => {
@@ -107,10 +141,11 @@ export function QtyStepper({ value, onChange, size = 'md', disabled, label = 'Qu
         }}
         inputProps={{ 'aria-label': label, inputMode: 'numeric', style: { textAlign: 'center', fontWeight: 600, padding: 0 } }}
         sx={{ width: size === 'sm' ? 30 : 40, fontSize: 15 }}
-      />
+      />}
       <IconButton aria-label="Increase quantity" disabled={disabled} onClick={() => onChange(value + 1)} sx={{ width: 44, height: h - 3, borderRadius: `0 ${tokens.radius.sm}px ${tokens.radius.sm}px 0` }}>
         <AddRounded fontSize="small" />
       </IconButton>
+      {typing && <QtyDialog value={value} label={label} onClose={() => setTyping(false)} onConfirm={onChange} />}
     </Stack>
   )
 }
@@ -187,27 +222,79 @@ export function AddToCart({ product, size = 'md', fullWidth = true, compact = fa
   )
 }
 
-/* ------------------------------------------------------------------ Wishlist toggle */
+/* ------------------------------------------------------------------ Save to list (heart) */
 
-export function WishlistButton({ sku, sx, size = 'md' }: { sku: string; sx?: SxProps<Theme>; size?: 'sm' | 'md' }) {
-  const { wishlist, toggleWishlist } = useApp()
-  const on = wishlist.includes(sku)
+const inList = (items: { sku: string }[], sku: string) => items.some((i) => i.sku === sku)
+
+/** "Save to:" checklist of the customer's lists, used in the heart's sheet / popover. */
+export function SaveToPanel({ sku, onNew }: { sku: string; onNew: () => void }) {
+  const { lists, updateList } = useApp()
   return (
-    <IconButton
-      aria-label={on ? 'Remove from Favorites' : 'Save to Favorites'}
-      aria-pressed={on}
-      onClick={(e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        toggleWishlist(sku)
-      }}
-      sx={{
-        width: 44, height: 44, bgcolor: 'rgba(255,255,255,.92)', backdropFilter: 'blur(4px)', color: on ? c.red : c.text2,
-        border: `1px solid ${c.line}`, '&:hover': { bgcolor: '#fff', color: c.red }, ...((sx as object) ?? {}),
-      }}
-    >
-      {on ? <FavoriteRounded sx={{ fontSize: size === 'sm' ? 20 : 22 }} /> : <FavoriteBorderRounded sx={{ fontSize: size === 'sm' ? 20 : 22 }} />}
-    </IconButton>
+    <Box role="group" aria-label="Save to list">
+      {lists.map((l) => {
+        const on = inList(l.items, sku)
+        return (
+          <MenuItem key={l.id} onClick={() => updateList(l.id, (items) => (on ? items.filter((i) => i.sku !== sku) : [...items, { sku, qty: 1 }]))}
+            role="menuitemcheckbox" aria-checked={on} sx={{ minHeight: 48, px: 1.5, gap: 0.5 }}>
+            <Checkbox checked={on} tabIndex={-1} disableRipple sx={{ p: 0.75, color: c.line2 }} inputProps={{ 'aria-hidden': true }} />
+            <Box component="span" sx={{ fontSize: 14.5, fontWeight: on ? 600 : 500 }}>{l.name}</Box>
+          </MenuItem>
+        )
+      })}
+      <Divider sx={{ my: 0.5 }} />
+      <MenuItem onClick={onNew} sx={{ minHeight: 48, px: 2.25, gap: 1.25, color: c.red, fontWeight: 600, fontSize: 14.5 }}>
+        <AddRounded sx={{ fontSize: 20 }} /> New list
+      </MenuItem>
+    </Box>
+  )
+}
+
+/** Save heart. Saves to Favourites with the snackbar "Saved to Favourites"; with several lists the snackbar has "Change",
+ *  which (like tapping a filled heart) opens the "Save to:" checklist. */
+export function WishlistButton({ sku, sx, size = 'md' }: { sku: string; sx?: SxProps<Theme>; size?: 'sm' | 'md' }) {
+  const { lists, updateList, createList, review, toast } = useApp()
+  const [anchor, setAnchor] = useState<HTMLElement | null>(null)
+  const [naming, setNaming] = useState(false)
+  const btn = useRef<HTMLButtonElement>(null)
+  const on = lists.some((l) => inList(l.items, sku))
+  const many = lists.length > 1
+  const click = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (!review.signedIn) return toast('Sign in to save products to your lists', 'info', { label: 'Sign in', href: '/account/signin' })
+    const fav = lists[0]
+    if (many) {
+      if (on) return setAnchor(e.currentTarget)
+      updateList(fav.id, (items) => [...items, { sku, qty: 1 }])
+      return toast(`Saved to ${fav.name}`, 'success', { label: 'Change', onClick: () => setAnchor(btn.current) }, { sku })
+    }
+    updateList(fav.id, (items) => (on ? items.filter((i) => i.sku !== sku) : [...items, { sku, qty: 1 }]))
+    toast(on ? `Removed from ${fav.name}` : `Saved to ${fav.name}`, on ? 'info' : 'success', undefined, { sku })
+  }
+  const fs = size === 'sm' ? 22 : 24
+  return (
+    <>
+      <IconButton
+        ref={btn}
+        aria-label={many && on ? 'Change lists' : on ? 'Remove from Favourites' : 'Save to Favourites'}
+        aria-pressed={many ? undefined : on}
+        aria-haspopup={many ? 'dialog' : undefined}
+        onClick={click}
+        sx={{
+          width: 44, height: 44, bgcolor: 'rgba(255,255,255,.92)', backdropFilter: 'blur(4px)', color: on ? c.red : c.text2,
+          border: `1px solid ${c.line}`, '&:hover': { bgcolor: '#fff', color: c.red }, ...((sx as object) ?? {}),
+        }}
+      >
+        {on ? <FavoriteRounded sx={{ fontSize: fs }} /> : <FavoriteBorderRounded sx={{ fontSize: fs }} />}
+      </IconButton>
+      {many && (
+        <Sheet anchor={anchor} open={!!anchor} onClose={() => setAnchor(null)} title="Save to:">
+          <SaveToPanel sku={sku} onNew={() => { setAnchor(null); setNaming(true) }} />
+        </Sheet>
+      )}
+      <NameDialog open={naming} onClose={() => setNaming(false)} title="Create new list" placeholder="e.g. Weekly Order" taken={lists.map((l) => l.name)}
+        onSave={(name) => { createList(name, [{ sku, qty: 1 }]); toast(`Saved to ${name}`, 'success', undefined, { sku }) }} />
+    </>
   )
 }
 
