@@ -197,7 +197,7 @@ export function AddToCart({ product, size = 'md', fullWidth = true, compact = fa
     <Stack
       direction={stackXs ? { xs: 'column', sm: 'row' } : 'row'}
       spacing={1}
-      sx={{ width: fullWidth ? '100%' : 'auto', ...(stackXs ? { '& > :first-of-type': { width: { xs: '100%', sm: 'auto' }, justifyContent: 'space-between' } } : {}) }}
+      sx={{ width: fullWidth ? '100%' : 'auto', ...(stackXs ? { '& > div:first-of-type': { width: { xs: '100%', sm: 'auto' }, justifyContent: 'space-between' } } : {}) }}
     >
       <QtyStepper value={qty} onChange={setQty} size={size === 'lg' ? 'md' : 'sm'} disabled={oos} label={`Quantity for ${product.name}`} />
       <Button
@@ -211,12 +211,12 @@ export function AddToCart({ product, size = 'md', fullWidth = true, compact = fa
           '&.Mui-disabled': oos ? { bgcolor: c.surface2, color: c.text3 } : { bgcolor: c.red, color: '#fff', opacity: 0.85 },
         }}
         startIcon={
-          compact ? undefined : state === 'adding' ? <CircularProgress size={16} sx={{ color: '#fff' }} /> : state === 'added' ? <CheckRounded /> : <AddShoppingCartRounded />
+          state === 'adding' ? <CircularProgress size={16} sx={{ color: '#fff' }} /> : state === 'added' ? <CheckRounded /> : <AddShoppingCartRounded />
         }
         aria-label={oos ? `${product.name} out of stock` : `Add ${qty} ${product.name} to cart`}
       >
-        {compact && state === 'adding' ? <CircularProgress size={16} sx={{ color: '#fff' }} /> : null}
-        {oos ? (compact ? 'Sold out' : 'Out of stock') : state === 'adding' ? (compact ? '' : 'Adding…') : state === 'added' ? 'Added' : compact ? <AddShoppingCartRounded /> : 'Add'}
+        {/* Compact keeps "Add" while adding so the narrow button doesn't change width. */}
+        {oos ? (compact ? 'Sold out' : 'Out of stock') : state === 'adding' && !compact ? 'Adding…' : state === 'added' ? 'Added' : 'Add'}
       </Button>
     </Stack>
   )

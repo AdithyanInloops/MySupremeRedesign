@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
-  Alert, Box, Button, Checkbox, CircularProgress, Divider, FormControlLabel, FormHelperText, Grid, IconButton, InputAdornment, LinearProgress, Link, MenuItem,
+  Alert, Box, Button, Checkbox, CircularProgress, Divider, FormControlLabel, IconButton, InputAdornment, LinearProgress, Link, MenuItem,
   Stack, TextField, Typography,
 } from '@mui/material'
 import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router-dom'
@@ -20,8 +20,19 @@ const c = tokens.color
 type Step = 'email' | 'password' | 'create'
 const knownEmail = (e: string) => /@spiceroutekitchen\.ca$/i.test(e.trim()) || e.trim().toLowerCase() === 'demo@mysupreme.ca'
 
-export const categories = ['Restaurant', 'Café', 'Caterer', 'Bakery', 'Food truck', 'Ghost kitchen', 'Hospitality / Event venue']
+// Business category → its sub-categories
+const businessTypes: Record<string, string[]> = {
+  Restaurant: ['Indian', 'Chinese', 'Italian', 'Middle Eastern', 'Caribbean', 'Fast food', 'Fine dining'],
+  Café: ['Coffee shop', 'Bubble tea', 'Juice bar', 'Dessert'],
+  Caterer: ['Corporate', 'Weddings & events', 'Institutional'],
+  Bakery: ['Retail bakery', 'Wholesale bakery', 'Pastry shop'],
+  'Food truck': ['Street food', 'Desserts', 'Beverages'],
+  'Ghost kitchen': ['Single brand', 'Multi-brand'],
+  'Hospitality / Event venue': ['Hotel', 'Banquet hall', 'Bar & pub'],
+  'Non Profit Organization': ['Community kitchen', 'School', 'Shelter', 'Place of worship'],
+}
 const structures = ['Sole proprietorship', 'Partnership', 'Corporation', 'Franchise', 'Non-profit']
+const titles = ['Mr', 'Mrs', 'Ms', 'Mx', 'Dr']
 
 export function passwordScore(pw: string) {
   let s = 0
@@ -32,8 +43,8 @@ export function passwordScore(pw: string) {
   return s
 }
 
-export function PasswordField({ value, onChange, label = 'Password', error, helperText, strength, autoComplete = 'current-password' }: {
-  value: string; onChange: (v: string) => void; label?: string; error?: boolean; helperText?: string; strength?: boolean; autoComplete?: string
+export function PasswordField({ value, onChange, label = 'Password', error, helperText, strength, autoComplete = 'current-password', size, required }: {
+  value: string; onChange: (v: string) => void; label?: string; error?: boolean; helperText?: string; strength?: boolean; autoComplete?: string; size?: 'small'; required?: boolean
 }) {
   const [show, setShow] = useState(false)
   const score = passwordScore(value)
@@ -47,7 +58,7 @@ export function PasswordField({ value, onChange, label = 'Password', error, help
   return (
     <Box>
       <TextField
-        fullWidth label={label} type={show ? 'text' : 'password'} value={value} onChange={(e) => onChange(e.target.value)} error={error}
+        fullWidth size={size} required={required} label={label} type={show ? 'text' : 'password'} value={value} onChange={(e) => onChange(e.target.value)} error={error}
         helperText={strength ? undefined : helperText} autoComplete={autoComplete}
         InputProps={{
           endAdornment: (
@@ -73,11 +84,11 @@ export function PasswordField({ value, onChange, label = 'Password', error, help
   )
 }
 
-function StepHeader({ eyebrow, title, body }: { eyebrow: string; title: string; body?: React.ReactNode }) {
+function StepHeader({ eyebrow, title, body, compact }: { eyebrow: string; title: string; body?: React.ReactNode; compact?: boolean }) {
   return (
     <Box sx={{ mb: 3 }}>
       <Typography variant="overline" sx={{ color: c.red }}>{eyebrow}</Typography>
-      <Typography variant="h1" sx={{ fontSize: { xs: 28, md: 36 }, mt: 0.5 }}>{title}</Typography>
+      <Typography variant="h1" sx={{ fontSize: compact ? { xs: 24, md: 28 } : { xs: 28, md: 36 }, mt: 0.5 }}>{title}</Typography>
       {body && <Typography color="text.secondary" sx={{ mt: 1 }}>{body}</Typography>}
     </Box>
   )
@@ -93,7 +104,8 @@ export default function SignIn() {
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
   const [tried, setTried] = useState(false)
-  const [f, setF] = useState({ first: '', last: '', business: '', category: '', structure: '', hst: '', phone: '', terms: false, news: true })
+  const [pw2, setPw2] = useState('')
+  const [f, setF] = useState({ business: '', category: '', structure: '', sub: '', phone: '', hst: '', mFirst: '', mLast: '', title: '', first: '', last: '', mobile: '' })
 
   useEffect(() => { if (params.get('mode') === 'create') setStep('create') }, [params])
 
@@ -126,7 +138,6 @@ export default function SignIn() {
   const submitCreate = (e: React.FormEvent) => {
     e.preventDefault()
     setTried(true)
-    const missing = !f.first || !f.last || !f.business || !f.category || !f.phone || !emailOk || passwordScore(pw) < 2 || !f.terms
     if (missing) return
     wait(() => {
       setReview({ signedIn: true })
@@ -137,9 +148,12 @@ export default function SignIn() {
 
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement>) => setF((s) => ({ ...s, [k]: e.target.value }))
   const req = (v: string) => tried && !v
+  const missing = !f.business || !f.category || !f.hst || !f.first || !f.last || !emailOk || passwordScore(pw) < 2 || pw !== pw2
+  const two = { display: 'grid', gap: 2, gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' } }
+  const full = { gridColumn: '1 / -1' }
 
   return (
-    <AuthShell panelTitle={step === 'create' ? 'Open a business account in 2 minutes.' : 'Your kitchen’s single supplier.'}>
+    <AuthShell signup={step === 'create'} panelTitle={step === 'create' ? 'Everything your kitchen needs, in one place.' : 'Your kitchen’s single supplier.'}>
       {step === 'email' && (
         <Box component="form" onSubmit={submitEmail} noValidate>
           <StepHeader eyebrow="Sign in or create an account" title="Let’s get your kitchen stocked" body="Enter your business email — we’ll check whether you already have an account." />
@@ -188,45 +202,50 @@ export default function SignIn() {
       {step === 'create' && (
         <Box component="form" onSubmit={submitCreate} noValidate>
           <Button startIcon={<ArrowBackRounded />} onClick={() => setStep('email')} sx={{ ml: -1, mb: 1, color: c.text2 }}>Back</Button>
-          <StepHeader eyebrow="New to MySupreme" title="Open a business account" body={<>Already have one? <Link component="button" type="button" onClick={() => setStep('email')} sx={{ color: c.navy, fontWeight: 600, verticalAlign: 'baseline' }}>Sign in</Link></>} />
-          {tried && (!f.terms || !f.first || !f.business) && (
+          <StepHeader compact eyebrow="New to MySupreme" title="Get Started with MySupreme" body={<>Already have one? <Link component="button" type="button" onClick={() => setStep('email')} sx={{ color: c.navy, fontWeight: 600, verticalAlign: 'baseline' }}>Sign in</Link></>} />
+          {tried && missing && (
             <Alert severity="error" sx={{ mb: 2, borderRadius: `${tokens.radius.sm}px` }}>Please complete the highlighted fields.</Alert>
           )}
-          <Typography variant="overline" sx={{ color: c.text3 }}>Your business</Typography>
-          <Grid container spacing={2} sx={{ mt: 0, mb: 2 }}>
-            <Grid item xs={12}><TextField fullWidth required label="Business name" value={f.business} onChange={set('business')} error={req(f.business)} helperText={req(f.business) ? 'Required — as it appears on invoices' : undefined} autoComplete="organization" placeholder="e.g. Spice Route Kitchen" /></Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField select fullWidth required label="Business category" value={f.category} onChange={set('category')} error={req(f.category)} helperText={req(f.category) ? 'Choose one' : undefined}>
-                {categories.map((x) => <MenuItem key={x} value={x}>{x}</MenuItem>)}
+          <Typography variant="overline" component="h2" sx={{ color: c.text3, display: 'block', mb: 1.5 }}>Your business</Typography>
+          <Box sx={{ ...two, mb: 3 }}>
+            <TextField size="small" sx={full} required label="Business name" value={f.business} onChange={set('business')} error={req(f.business)} helperText={req(f.business) ? 'Required — as it appears on invoices' : undefined} autoComplete="organization" />
+            <TextField size="small" select required label="Business category" value={f.category} onChange={(e) => setF((s) => ({ ...s, category: e.target.value, sub: '' }))} error={req(f.category)} helperText={req(f.category) ? 'Choose one' : undefined}>
+              {Object.keys(businessTypes).map((x) => <MenuItem key={x} value={x}>{x}</MenuItem>)}
+            </TextField>
+            <TextField size="small" select label="Business structure" value={f.structure} onChange={set('structure')}>
+              {structures.map((x) => <MenuItem key={x} value={x}>{x}</MenuItem>)}
+            </TextField>
+            <TextField size="small" sx={full} select label="Business sub-category" value={f.sub} onChange={set('sub')} disabled={!f.category} helperText={f.category ? undefined : 'Choose a category first'}>
+              {(businessTypes[f.category] ?? []).map((x) => <MenuItem key={x} value={x}>{x}</MenuItem>)}
+            </TextField>
+            <TextField size="small" type="tel" label="Business phone" value={f.phone} onChange={set('phone')} autoComplete="tel" />
+            <TextField size="small" required label="HST / Tax ID" value={f.hst} onChange={set('hst')} error={req(f.hst)} helperText={req(f.hst) ? 'Required' : undefined} inputProps={{ style: { fontFamily: tokens.font.mono } }} />
+            <TextField size="small" label="Manager first name" value={f.mFirst} onChange={set('mFirst')} />
+            <TextField size="small" label="Manager last name" value={f.mLast} onChange={set('mLast')} />
+          </Box>
+          <Typography variant="overline" component="h2" sx={{ color: c.text3, display: 'block', mb: 1.5 }}>Your details</Typography>
+          <Box sx={two}>
+            <Box sx={{ ...full, display: 'grid', gap: 2, gridTemplateColumns: { xs: '92px 1fr', sm: '92px 1fr 1fr' } }}>
+              <TextField size="small" select label="Title" value={f.title} onChange={set('title')} autoComplete="honorific-prefix">
+                {titles.map((x) => <MenuItem key={x} value={x}>{x}</MenuItem>)}
               </TextField>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField select fullWidth label="Business structure" value={f.structure} onChange={set('structure')}>
-                {structures.map((x) => <MenuItem key={x} value={x}>{x}</MenuItem>)}
-              </TextField>
-            </Grid>
-            <Grid item xs={12}><TextField fullWidth label="HST number" value={f.hst} onChange={set('hst')} placeholder="12345 6789 RT0001" helperText="Optional — needed for credit terms and tax-exempt items" inputProps={{ style: { fontFamily: tokens.font.mono } }} /></Grid>
-          </Grid>
-          <Typography variant="overline" sx={{ color: c.text3 }}>Your details</Typography>
-          <Grid container spacing={2} sx={{ mt: 0, mb: 2 }}>
-            <Grid item xs={12} sm={6}><TextField fullWidth required label="First name" value={f.first} onChange={set('first')} error={req(f.first)} helperText={req(f.first) ? 'Required' : undefined} autoComplete="given-name" /></Grid>
-            <Grid item xs={12} sm={6}><TextField fullWidth required label="Last name" value={f.last} onChange={set('last')} error={req(f.last)} helperText={req(f.last) ? 'Required' : undefined} autoComplete="family-name" /></Grid>
-            <Grid item xs={12} sm={6}><TextField fullWidth required type="email" label="Email" value={email} onChange={(e) => setEmail(e.target.value)} error={tried && !emailOk} helperText={tried && !emailOk ? 'Enter a valid email' : undefined} autoComplete="email" /></Grid>
-            <Grid item xs={12} sm={6}><TextField fullWidth required type="tel" label="Phone" value={f.phone} onChange={set('phone')} error={req(f.phone)} helperText={req(f.phone) ? 'Required' : undefined} autoComplete="tel" placeholder="+1 905-555-0182" /></Grid>
-            <Grid item xs={12}>
-              <PasswordField label="Create password" value={pw} onChange={setPw} strength autoComplete="new-password"
-                error={tried && passwordScore(pw) < 2} helperText={tried && passwordScore(pw) < 2 ? 'Use 8+ characters with a number and a capital letter' : undefined} />
-            </Grid>
-          </Grid>
-          <FormControlLabel control={<Checkbox checked={f.terms} onChange={(e) => setF((s) => ({ ...s, terms: e.target.checked }))} sx={{ color: tried && !f.terms ? c.error : undefined }} />}
-            label={<Typography sx={{ fontSize: 14 }}>I agree to the <Link component={RouterLink} to="/page/terms" sx={{ color: c.navy, fontWeight: 600 }}>Terms &amp; Uses</Link> and <Link component={RouterLink} to="/page/privacy-policy" sx={{ color: c.navy, fontWeight: 600 }}>Privacy Policy</Link></Typography>} />
-          {tried && !f.terms && <FormHelperText error sx={{ ml: 4, mt: -0.5 }}>Please accept the terms</FormHelperText>}
-          <FormControlLabel control={<Checkbox checked={f.news} onChange={(e) => setF((s) => ({ ...s, news: e.target.checked }))} />} label={<Typography sx={{ fontSize: 14 }}>Send me the monthly flyer and weekly hot picks</Typography>} />
+              <TextField size="small" required label="First name" value={f.first} onChange={set('first')} error={req(f.first)} helperText={req(f.first) ? 'Required' : undefined} autoComplete="given-name" />
+              <TextField size="small" sx={{ gridColumn: { xs: '1 / -1', sm: 'auto' } }} required label="Last name" value={f.last} onChange={set('last')} error={req(f.last)} helperText={req(f.last) ? 'Required' : undefined} autoComplete="family-name" />
+            </Box>
+            <TextField size="small" required type="email" label="Email address" value={email} onChange={(e) => setEmail(e.target.value)} error={tried && !emailOk} helperText={tried && !emailOk ? 'Enter a valid email' : undefined} autoComplete="email" />
+            <TextField size="small" type="tel" label="Mobile number" value={f.mobile} onChange={set('mobile')} autoComplete="tel" />
+            <PasswordField size="small" required label="Create password" value={pw} onChange={setPw} autoComplete="new-password"
+              error={tried && passwordScore(pw) < 2} helperText={tried && passwordScore(pw) < 2 ? '8+ characters with a number and a capital letter' : undefined} />
+            <PasswordField size="small" required label="Confirm password" value={pw2} onChange={setPw2} autoComplete="new-password"
+              error={tried && pw !== pw2} helperText={tried && pw !== pw2 ? 'Passwords don’t match' : undefined} />
+          </Box>
+          <Typography sx={{ fontSize: 13, color: c.text2, mt: 3 }}>
+            By creating an account you agree to the <Link component={RouterLink} to="/page/terms" sx={{ color: c.navy, fontWeight: 600 }}>Terms &amp; Uses</Link> and <Link component={RouterLink} to="/page/privacy-policy" sx={{ color: c.navy, fontWeight: 600 }}>Privacy Policy</Link>.
+          </Typography>
           <Button type="submit" fullWidth variant="contained" size="large" disabled={busy} sx={{ mt: 2, '&.Mui-disabled': { bgcolor: c.red, color: '#fff', opacity: 0.85 } }}
             startIcon={busy ? <CircularProgress size={18} sx={{ color: '#fff' }} /> : undefined}>
-            {busy ? 'Creating account…' : 'Create business account'}
+            {busy ? 'Creating account…' : 'Sign up'}
           </Button>
-          <Typography sx={{ fontSize: 12.5, color: c.text3, mt: 1.5, textAlign: 'center' }}>Credit terms are reviewed by our team within 1 business day.</Typography>
         </Box>
       )}
     </AuthShell>

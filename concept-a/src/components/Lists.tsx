@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { Box, Button, ButtonBase, IconButton, Link, MenuItem, Stack, Typography } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 import CheckRounded from '@mui/icons-material/CheckRounded'
-import AddRounded from '@mui/icons-material/AddRounded'
+import FavoriteRounded from '@mui/icons-material/FavoriteRounded'
+import ChevronRightRounded from '@mui/icons-material/ChevronRightRounded'
 import KeyboardArrowDownRounded from '@mui/icons-material/KeyboardArrowDownRounded'
 import DeleteOutlineRounded from '@mui/icons-material/DeleteOutlineRounded'
 import { tokens } from '../theme'
@@ -19,26 +20,64 @@ const rowAdd = { minHeight: 40, borderColor: c.line2, color: c.ink, bgcolor: '#f
 /** A: the stepper is the saved list quantity + a small Add. B: Add, then the stepper is the cart quantity (rest of the app). */
 export type RowVariant = 'A' | 'B'
 
-/* ------------------------------------------------------------------ Panels (used in sheets / popovers and on the review board) */
+/* ------------------------------------------------------------------ List card (My Lists overview) */
 
-/** List selector: ✓ current list, item counts, then "+ Create New List". */
-export function ListPickerPanel({ lists, current, onPick, onCreate }: { lists: SavedList[]; current: string; onPick: (id: string) => void; onCreate: () => void }) {
+/** One list on the overview: its first products (the 4th shows "+N" when there are more), name, count and reorder total; the whole card opens the list.
+ *  Stacked (photos on top) in a narrow container; one row (photos left, total right) once the container is 560px+. The parent sets containerType. */
+export function ListCard({ list, fav }: { list: SavedList; fav?: boolean }) {
+  const { priceFor } = useApp()
+  const products = list.items.map((i) => ({ i, p: productBySku(i.sku) })).filter((r): r is { i: ListItem; p: Product } => !!r.p)
+  const total = products.filter((r) => r.p.stock !== 'OUT_OF_STOCK').reduce((a, r) => a + priceFor(r.p) * r.i.qty, 0)
+  const n = list.items.length
+  const more = n > 4 ? n - 3 : 0
+  const count = n ? `${n} item${n === 1 ? '' : 's'}` : 'No items yet'
+  const wide = '@container (min-width: 560px)'
   return (
-    <Box role="menu" aria-label="Your lists">
-      {lists.map((l) => (
-        <MenuItem key={l.id} role="menuitemradio" aria-checked={l.id === current} onClick={() => onPick(l.id)} sx={{ minHeight: 48, px: 2, gap: 1 }}>
-          <Box sx={{ width: 22, display: 'grid', color: c.red }}>{l.id === current && <CheckRounded sx={{ fontSize: 20 }} />}</Box>
-          <Box component="span" sx={{ flex: 1, fontSize: 14.5, fontWeight: l.id === current ? 700 : 500 }}>{l.name}</Box>
-          <Box component="span" sx={{ fontSize: 13, color: c.text3, minWidth: 24, textAlign: 'right' }}>{l.items.length}</Box>
-        </MenuItem>
-      ))}
-      <Box sx={{ borderTop: `1px solid ${c.line}`, my: 0.5 }} />
-      <MenuItem onClick={onCreate} sx={{ minHeight: 48, px: 2, gap: 1, color: c.red, fontWeight: 600, fontSize: 14.5 }}>
-        <AddRounded sx={{ fontSize: 22 }} /> Create New List
-      </MenuItem>
+    <Box component={RouterLink} to={`/my-lists?list=${list.id}`} aria-label={n ? `${list.name}, ${count}, ${money(total)}` : `${list.name}, ${count}`}
+      sx={{
+        display: 'grid', gridTemplateColumns: 'minmax(0,1fr)', textDecoration: 'none', color: c.ink, bgcolor: '#fff', border: `1px solid ${c.line}`, borderRadius: `${tokens.radius.lg}px`, overflow: 'hidden',
+        transition: 'border-color .15s', '&:hover': { borderColor: c.text3 }, '&:hover .go': { color: c.ink, transform: 'translateX(2px)' },
+        '&:focus-visible': { outline: `3px solid ${c.navy}`, outlineOffset: 2 },
+        [wide]: { gridTemplateColumns: 'auto minmax(0,1fr)', alignItems: 'center' },
+      }}>
+      {/* Favourites gets the pale brand-red strip to match its heart; other lists sit on the page grey. */}
+      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0,1fr))', gap: 1, p: 1.25, bgcolor: fav ? c.redTint : c.bg, [wide]: { gridTemplateColumns: 'repeat(4, 64px)', alignSelf: 'stretch', alignContent: 'center' } }}>
+        {[0, 1, 2, 3].map((k) => {
+          const r = products[k]
+          return (
+            <Box key={k} sx={{ position: 'relative' }}>
+              {r ? <ProductImage src={r.p.images[0]} alt="" brand={r.p.brand} sx={{ bgcolor: '#fff' }} /> : <Box sx={{ aspectRatio: '1 / 1', borderRadius: `${tokens.radius.sm}px`, bgcolor: '#fff' }} />}
+              {k === 3 && more > 0 && (
+                <Box sx={{ position: 'absolute', inset: 0, borderRadius: `${tokens.radius.sm}px`, bgcolor: 'rgba(17,24,39,.6)', color: '#fff', display: 'grid', placeItems: 'center', fontWeight: 700, fontSize: 15 }}>+{more}</Box>
+              )}
+            </Box>
+          )
+        })}
+      </Box>
+      <Stack direction="row" alignItems="center" spacing={2} sx={{ px: 2, py: 1.75, [wide]: { px: 2.5 } }}>
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Stack direction="row" alignItems="center" spacing={0.75}>
+            {fav && <FavoriteRounded sx={{ fontSize: 18, color: c.red }} />}
+            <Typography sx={{ fontWeight: 700, fontSize: 16, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{list.name}</Typography>
+          </Stack>
+          <Typography sx={{ fontSize: 13.5, color: c.text2, mt: 0.25 }}>
+            {count}
+            {n > 0 && <Box component="span" sx={{ [wide]: { display: 'none' } }}> · {money(total)}</Box>}
+          </Typography>
+        </Box>
+        {n > 0 && (
+          <Box sx={{ display: 'none', textAlign: 'right', flexShrink: 0, [wide]: { display: 'block' } }}>
+            <Typography sx={{ fontWeight: 700, fontSize: 17, fontVariantNumeric: 'tabular-nums' }}>{money(total)}</Typography>
+            <Typography sx={{ fontSize: 12.5, color: c.text3 }}>Reorder total</Typography>
+          </Box>
+        )}
+        <ChevronRightRounded className="go" sx={{ color: c.text3, transition: 'transform .15s, color .15s' }} />
+      </Stack>
     </Box>
   )
 }
+
+/* ------------------------------------------------------------------ Panels (used in sheets / popovers and on the review board) */
 
 /** Case / Each choice for a product sold both ways. Each unit is its own SKU, so picking swaps the SKU in the list. */
 export function UnitOptions({ product, onPick }: { product: Product; onPick: (sku: string) => void }) {

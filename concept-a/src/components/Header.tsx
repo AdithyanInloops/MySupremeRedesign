@@ -34,7 +34,7 @@ import { customer } from '../data/account'
 import { useApp } from '../state/AppState'
 import { Logo } from './Brand'
 import SearchBar from './SearchBar'
-import { Container, NewFeatureTag } from './ui'
+import { Container } from './ui'
 
 const c = tokens.color
 
@@ -48,15 +48,18 @@ const NewBadge = () => (
 
 function UtilityStrip() {
   return (
-    <Box sx={{ bgcolor: c.navyDark, color: '#fff', fontSize: 12.5 }}>
-      <Container sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: 36, gap: 2 }}>
-        <Stack direction="row" alignItems="center" spacing={1} sx={{ minWidth: 0 }}>
-          <LocalShippingOutlined sx={{ fontSize: 17, color: c.saffron }} />
-          <Box component="span" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            Delivering daily across the GTA, Hamilton &amp; Niagara
-            <Box component="span" sx={{ display: { xs: 'none', md: 'inline' } }}> · <b>Order by 2 PM for next-day</b></Box>
+    // Brand blue bar; the 2 PM cut-off sits in a brand-red pill so the deadline is read first.
+    <Box sx={{ bgcolor: c.navy, color: '#fff', fontSize: 12.5 }}>
+      <Container sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', minHeight: 40, gap: 2 }}>
+        <Stack direction="row" alignItems="center" spacing={{ xs: 1, sm: 1.25 }} sx={{ minWidth: 0 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75, flexShrink: 0, bgcolor: c.red, color: '#fff', fontWeight: 700, px: { xs: 1, sm: 1.25 }, py: 0.5, borderRadius: `${tokens.radius.pill}px`, whiteSpace: 'nowrap' }}>
+            {/* Icon drops on small phones so the area name fits on one line. */}
+            <LocalShippingOutlined sx={{ fontSize: 16, display: { xs: 'none', sm: 'inline-block' } }} />
+            Order by 2 PM for next-day
           </Box>
-          <Box sx={{ display: { xs: 'none', md: 'block' } }}><NewFeatureTag label="Cut-off" note="per-route order cut-off time" sx={{ bgcolor: 'rgba(255,255,255,.12)', color: '#fff', borderColor: 'rgba(255,255,255,.4)' }} /></Box>
+          <Box component="span" sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'rgba(255,255,255,.9)' }}>
+            <Box component="span" sx={{ display: { xs: 'none', md: 'inline' } }}>Delivering daily across the </Box>GTA, Hamilton &amp; Niagara
+          </Box>
         </Stack>
         <Stack direction="row" spacing={2.5} alignItems="center" sx={{ display: { xs: 'none', lg: 'flex' }, flexShrink: 0 }}>
           <Box component="a" href="https://wa.me/13657770999" sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#fff', textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>

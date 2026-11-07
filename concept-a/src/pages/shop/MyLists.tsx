@@ -4,7 +4,8 @@ import { Link as RouterLink, useSearchParams } from 'react-router-dom'
 import FavoriteBorderRounded from '@mui/icons-material/FavoriteBorderRounded'
 import PlaylistAddRounded from '@mui/icons-material/PlaylistAddRounded'
 import AddShoppingCartRounded from '@mui/icons-material/AddShoppingCartRounded'
-import KeyboardArrowDownRounded from '@mui/icons-material/KeyboardArrowDownRounded'
+import ChevronLeftRounded from '@mui/icons-material/ChevronLeftRounded'
+import AddRounded from '@mui/icons-material/AddRounded'
 import SearchRounded from '@mui/icons-material/SearchRounded'
 import CloseRounded from '@mui/icons-material/CloseRounded'
 import MoreHorizRounded from '@mui/icons-material/MoreHorizRounded'
@@ -13,17 +14,18 @@ import LockOutlined from '@mui/icons-material/LockOutlined'
 import { tokens } from '../../theme'
 import { money, productBySku, recommended, type Product } from '../../data/catalog'
 import { useApp, type ListItem } from '../../state/AppState'
-import { Container, EmptyState, NameDialog, NewFeatureTag, Panel, Sheet } from '../../components/ui'
+import { Container, EmptyState, NameDialog, Panel } from '../../components/ui'
 import { ProductCard } from '../../components/Commerce'
 import { Breadcrumbs } from '../../components/Shared'
-import { ListPickerPanel, ListRow, type RowVariant } from '../../components/Lists'
+import { ListCard, ListRow, type RowVariant } from '../../components/Lists'
 
 const c = tokens.color
 const LONG_LIST = 6 // the search icon only appears above this many items
 
 /**
  * My Lists — "Save your regular products once and reorder them quickly."
- * Review deep links: ?list=<id>  ?row=b  ?empty=1  ?open=lists|create|unit|added|delete|replace
+ * /my-lists is the overview (every list as a card); /my-lists?list=<id> is one list.
+ * Review deep links: ?open=create on the overview; with ?list=<id>: ?row=b  ?empty=1  ?open=unit|added|delete|replace
  */
 export default function MyLists() {
   const { lists, review, addToCart, clearCart, cartCount, priceFor, toast, createList, deleteList, setCartFromList } = useApp()
@@ -31,17 +33,14 @@ export default function MyLists() {
   // Review deep links (?open=…) apply once, when the page first loads.
   const [deep] = useState(() => params.get('open'))
   const variant: RowVariant = params.get('row') === 'b' ? 'B' : 'A'
-  const list = lists.find((l) => l.id === params.get('list')) ?? lists[0]
+  const list = lists.find((l) => l.id === params.get('list'))
 
-  const selBtn = useRef<HTMLButtonElement>(null)
-  const [selAnchor, setSelAnchor] = useState<HTMLElement | null>(null)
   const [creating, setCreating] = useState(deep === 'create')
   const [moreAnchor, setMoreAnchor] = useState<HTMLElement | null>(null)
   const [deleting, setDeleting] = useState(deep === 'delete')
   const [replacing, setReplacing] = useState(deep === 'replace')
   const [searching, setSearching] = useState(false)
   const [q, setQ] = useState('')
-  useEffect(() => { if (deep === 'lists') setSelAnchor(selBtn.current) }, [deep])
 
   const items: ListItem[] = params.has('empty') || !list ? [] : list.items
   const rows = items.map((i) => ({ i, p: productBySku(i.sku) })).filter((r): r is { i: ListItem; p: Product } => !!r.p)
@@ -53,12 +52,8 @@ export default function MyLists() {
   // Captured once so picking "Each" (a new SKU, a new row) doesn't reopen the picker.
   const [unitSku] = useState(() => (deep === 'unit' ? rows.find((r) => r.p.alt)?.p.sku : undefined))
 
-  const pick = (id: string) => {
-    setSelAnchor(null)
-    setSearching(false)
-    setQ('')
-    setParams((p) => { p.set('list', id); p.delete('open'); p.delete('empty'); return p }, { replace: true })
-  }
+  // Opening a list pushes a history entry, so the phone's back button returns to the overview.
+  const open = (id: string) => { setSearching(false); setQ(''); setParams({ list: id }) }
   /** Adds the list's in-stock items; `replace` empties the cart first so the list is ordered and invoiced on its own. */
   const addAll = (replace = false) => {
     if (!list) return
@@ -85,7 +80,7 @@ export default function MyLists() {
   if (!review.signedIn) {
     return (
       <Container>
-        <Typography variant="h1" sx={{ fontSize: { xs: 28, md: 40 }, pt: { xs: 2, md: 3 }, pb: { xs: 2, md: 3 } }}>My Lists</Typography>
+        <Typography variant="h1" sx={{ fontSize: { xs: 24, md: 32 }, pt: { xs: 2, md: 3 }, pb: { xs: 2, md: 3 } }}>My Lists</Typography>
         <Panel sx={{ display: 'grid', gridTemplateColumns: { xs: 'minmax(0,1fr)', md: 'minmax(0,1fr) minmax(0,1fr)' }, gap: 4, alignItems: 'center', p: { xs: 3, md: 5 }, mb: 6 }}>
           <Box>
             <Box sx={{ width: 64, height: 64, borderRadius: '50%', bgcolor: c.redTint, color: c.red, display: 'grid', placeItems: 'center', mb: 2 }}><LockOutlined /></Box>
@@ -104,6 +99,39 @@ export default function MyLists() {
     )
   }
 
+  const nameDialog = (
+    <NameDialog open={creating} onClose={() => setCreating(false)} title="Create new list" placeholder="e.g. Weekly Order" taken={lists.map((l) => l.name)}
+      onSave={(name) => open(createList(name))} />
+  )
+  const createBtn = (
+    <Button variant="outlined" color="secondary" startIcon={<AddRounded />} onClick={() => setCreating(true)} sx={{ flexShrink: 0, whiteSpace: 'nowrap', bgcolor: '#fff' }}>
+      Create new list
+    </Button>
+  )
+
+  if (!list) {
+    return (
+      <Container>
+        <Box sx={{ maxWidth: 1120, mx: 'auto', pb: { xs: 4, md: 6 } }}>
+          <Box sx={{ pt: { xs: 2, md: 3 }, pb: { xs: 2, md: 2.5 } }}>
+            <Breadcrumbs items={[{ label: 'My Lists' }]} sx={{ mb: 1.5, display: { xs: 'none', md: 'flex' } }} />
+            <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
+              <Typography variant="h1" sx={{ fontSize: { xs: 24, md: 32 } }}>My Lists</Typography>
+              {createBtn}
+            </Stack>
+          </Box>
+          {/* One list per line; each card lays itself out by this column's width. */}
+          <Stack spacing={1.5} sx={{ containerType: 'inline-size' }}>
+            {review.loading
+              ? [0, 1, 2].map((k) => <Skeleton key={k} variant="rounded" height={104} sx={{ borderRadius: `${tokens.radius.lg}px` }} />)
+              : lists.map((l, k) => <ListCard key={l.id} list={l} fav={k === 0} />)}
+          </Stack>
+        </Box>
+        {nameDialog}
+      </Container>
+    )
+  }
+
   const addAllBtn = (
     <Button variant="contained" size="large" fullWidth startIcon={<AddShoppingCartRounded />} disabled={!ready.length} onClick={askAddAll}
       // The mobile bar is inset 80px each side for the voice + chat buttons, so the icon goes there to keep the total readable.
@@ -112,7 +140,7 @@ export default function MyLists() {
     </Button>
   )
   const fav = list?.id === lists[0]?.id
-  // Beside the title on mobile (no room next to the selector), in the selector row on desktop.
+  // Beside the title on mobile, in the count row on desktop.
   const tools = (
     <>
       {long && (
@@ -133,22 +161,18 @@ export default function MyLists() {
     <Container>
       <Box sx={{ maxWidth: 1120, mx: 'auto', pb: { xs: rows.length ? 12 : 4, md: 6 } }}>
         <Box sx={{ pt: { xs: 2, md: 3 }, pb: { xs: 2, md: 2.5 } }}>
-          <Breadcrumbs items={[{ label: 'My Lists' }]} sx={{ mb: 1.5, display: { xs: 'none', md: 'flex' } }} />
+          <Breadcrumbs items={[{ label: 'My Lists', to: '/my-lists' }, { label: list.name }]} sx={{ mb: 1.5, display: { xs: 'none', md: 'flex' } }} />
+          <Button component={RouterLink} to="/my-lists" startIcon={<ChevronLeftRounded />} sx={{ display: { md: 'none' }, ml: -1, mb: 0.5, minHeight: 36, px: 1, color: c.navy, fontWeight: 600, '& .MuiButton-startIcon': { mr: 0.25 } }}>
+            My Lists
+          </Button>
           <Stack direction="row" justifyContent="space-between" alignItems="flex-end" spacing={3}>
             <Box sx={{ minWidth: 0, flex: 1 }}>
               <Stack direction="row" alignItems="center">
-                <Typography variant="h1" sx={{ fontSize: { xs: 28, md: 40 } }}>My Lists</Typography>
+                <Typography variant="h1" sx={{ fontSize: { xs: 24, md: 32 }, minWidth: 0, overflowWrap: 'anywhere' }}>{list.name}</Typography>
                 <Box sx={{ display: { xs: 'flex', md: 'none' }, ml: 'auto', mr: -1 }}>{tools}</Box>
               </Stack>
-              <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mt: 1.25 }}>
-                <Button ref={selBtn} variant="outlined" color="inherit" endIcon={<KeyboardArrowDownRounded />} aria-haspopup="menu" aria-expanded={!!selAnchor}
-                  onClick={(e) => setSelAnchor(e.currentTarget)} sx={{ borderColor: c.line2, fontWeight: 600, color: c.ink, bgcolor: '#fff', maxWidth: 220, '& .MuiButton-endIcon': { ml: 0.5 } }}>
-                  <Box component="span" sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{list?.name}</Box>
-                </Button>
+              <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mt: 0.75, minHeight: { md: 44 } }}>
                 <Typography sx={{ fontSize: 14, color: c.text2, whiteSpace: 'nowrap' }}>{items.length} saved item{items.length === 1 ? '' : 's'}</Typography>
-                <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-                  <NewFeatureTag label="Named lists" note="several named lists with saved quantities per customer (Magento Open Source has one wishlist)" />
-                </Box>
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 'auto !important' }}>{tools}</Box>
               </Stack>
             </Box>
@@ -194,9 +218,6 @@ export default function MyLists() {
         </Box>
       )}
 
-      <Sheet anchor={selAnchor} open={!!selAnchor} onClose={() => setSelAnchor(null)} title="Your lists">
-        {list && <ListPickerPanel lists={lists} current={list.id} onPick={pick} onCreate={() => { setSelAnchor(null); setCreating(true) }} />}
-      </Sheet>
       <Menu anchorEl={moreAnchor} open={!!moreAnchor} onClose={() => setMoreAnchor(null)} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
         <MenuItem onClick={() => { setMoreAnchor(null); setDeleting(true) }} sx={{ color: c.error, gap: 1.25, minHeight: 44 }}>
           <DeleteOutlineRounded fontSize="small" /> Delete list
@@ -209,7 +230,7 @@ export default function MyLists() {
         </DialogContent>
         <DialogActions sx={{ px: 3, pb: 2.5, gap: 1 }}>
           <Button onClick={() => setDeleting(false)} sx={{ color: c.text2 }}>Keep it</Button>
-          <Button variant="contained" onClick={() => { setDeleting(false); pick(lists[0].id); deleteList(list!.id); toast(`${list!.name} deleted`, 'info') }}>Delete list</Button>
+          <Button variant="contained" onClick={() => { setDeleting(false); setParams({}, { replace: true }); deleteList(list.id); toast(`${list.name} deleted`, 'info') }}>Delete list</Button>
         </DialogActions>
       </Dialog>
       <Dialog open={replacing && !!list} onClose={() => setReplacing(false)} maxWidth="xs" fullWidth>
@@ -225,8 +246,7 @@ export default function MyLists() {
           <Button onClick={() => setReplacing(false)} sx={{ color: c.text2 }}>Cancel</Button>
         </DialogActions>
       </Dialog>
-      <NameDialog open={creating} onClose={() => setCreating(false)} title="Create new list" placeholder="e.g. Weekly Order" taken={lists.map((l) => l.name)}
-        onSave={(name) => pick(createList(name))} />
+      {nameDialog}
     </Container>
   )
 }

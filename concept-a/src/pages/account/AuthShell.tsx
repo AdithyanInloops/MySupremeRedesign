@@ -4,6 +4,8 @@ import LocalOfferOutlined from '@mui/icons-material/LocalOfferOutlined'
 import ReceiptLongOutlined from '@mui/icons-material/ReceiptLongOutlined'
 import ReplayRounded from '@mui/icons-material/ReplayRounded'
 import LocalShippingOutlined from '@mui/icons-material/LocalShippingOutlined'
+import DevicesOutlined from '@mui/icons-material/DevicesOutlined'
+import Inventory2Outlined from '@mui/icons-material/Inventory2Outlined'
 import { tokens } from '../../theme'
 import { photo } from '../../data/catalog'
 import { Container } from '../../components/ui'
@@ -18,8 +20,16 @@ const benefits = [
   { icon: <LocalShippingOutlined />, title: 'Same / next-day delivery', body: 'Cold-chain routes across the GTA, Hamilton & Niagara.' },
 ]
 
+const signupBenefits = [
+  { icon: <LocalOfferOutlined />, title: 'Competitive wholesale pricing', body: 'Bulk pricing on thousands of foodservice products.' },
+  { icon: <DevicesOutlined />, title: 'Order anytime, 24/7', body: 'Shop online or through our app with real-time pricing.' },
+  { icon: <LocalShippingOutlined />, title: 'Reliable delivery', body: 'Same-day or next-day delivery across our service areas.' },
+  { icon: <Inventory2Outlined />, title: 'Everything in one place', body: 'Food, packaging, kitchen tools and cleaning supplies.' },
+]
+
 /** Split auth layout: form left, brand panel right (stacks to form-only on mobile with a slim benefits strip). */
-export default function AuthShell({ children, panelTitle = 'Your kitchen’s single supplier.' }: { children: ReactNode; panelTitle?: string }) {
+export default function AuthShell({ children, panelTitle = 'Your kitchen’s single supplier.', signup }: { children: ReactNode; panelTitle?: string; signup?: boolean }) {
+  const list = signup ? signupBenefits : benefits
   return (
     <Container sx={{ py: { xs: 3, md: 5 } }}>
       <Box sx={{
@@ -30,25 +40,27 @@ export default function AuthShell({ children, panelTitle = 'Your kitchen’s sin
           <Box sx={{ width: '100%', maxWidth: 480, mx: 'auto' }}>{children}</Box>
         </Box>
         <Box sx={{ position: 'relative', bgcolor: c.navy, color: '#fff', display: { xs: 'none', lg: 'block' } }}>
-          <Box component="img" src={photo('chef', 1000, 1100)} alt="" sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.45 }} />
+          <Box component="img" src={photo(signup ? 'aisle' : 'chef', 1000, 1100)} alt="" sx={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.45 }} />
           <Box sx={{ position: 'absolute', inset: 0, background: `linear-gradient(160deg, rgba(27,25,80,.55) 0%, ${c.navyDark} 78%)` }} />
-          <Box sx={{ position: 'relative', p: 6, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+          <Box sx={{ position: 'relative', p: 6, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: signup ? 'center' : 'flex-end' }}>
             <Crown size={48} />
-            <Typography variant="h2" sx={{ color: '#fff', mt: 2, mb: 3, maxWidth: 420 }}>{panelTitle}</Typography>
-            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2.5 }}>
-              {benefits.map((b) => (
-                <Box key={b.title}>
-                  <Box sx={{ width: 40, height: 40, borderRadius: `${tokens.radius.sm}px`, bgcolor: 'rgba(255,255,255,.12)', color: c.saffron, display: 'grid', placeItems: 'center', mb: 1 }}>{b.icon}</Box>
-                  <Typography sx={{ fontWeight: 700, fontSize: 14.5 }}>{b.title}</Typography>
-                  <Typography sx={{ fontSize: 13, opacity: 0.8 }}>{b.body}</Typography>
-                </Box>
+            <Typography variant="h2" sx={{ color: '#fff', mt: 2, mb: signup ? 4 : 3, maxWidth: 420 }}>{panelTitle}</Typography>
+            <Box sx={{ display: 'grid', gridTemplateColumns: signup ? '1fr' : '1fr 1fr', gap: 2.5, maxWidth: signup ? 400 : undefined }}>
+              {list.map((b) => (
+                <Stack key={b.title} direction={signup ? 'row' : 'column'} spacing={signup ? 2 : 1} alignItems="flex-start">
+                  <Box sx={{ width: 40, height: 40, flexShrink: 0, borderRadius: `${tokens.radius.sm}px`, bgcolor: 'rgba(255,255,255,.12)', color: c.saffron, display: 'grid', placeItems: 'center' }}>{b.icon}</Box>
+                  <Box>
+                    <Typography sx={{ fontWeight: 700, fontSize: 14.5 }}>{b.title}</Typography>
+                    <Typography sx={{ fontSize: 13, opacity: 0.8 }}>{b.body}</Typography>
+                  </Box>
+                </Stack>
               ))}
             </Box>
           </Box>
         </Box>
       </Box>
       <Stack direction="row" spacing={1} className="no-scrollbar" sx={{ display: { lg: 'none' }, mt: 2, overflowX: 'auto', mx: -2, px: 2 }}>
-        {benefits.map((b) => (
+        {list.map((b) => (
           <Stack key={b.title} direction="row" spacing={1} alignItems="center" sx={{ flexShrink: 0, bgcolor: c.navyTint, color: c.navy, px: 1.5, py: 1, borderRadius: 999, fontSize: 13, fontWeight: 600, '& svg': { fontSize: 18 } }}>
             {b.icon}<span>{b.title}</span>
           </Stack>

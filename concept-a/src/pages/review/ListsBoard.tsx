@@ -9,7 +9,7 @@ import { productBySku, type Product } from '../../data/catalog'
 import { AppStateProvider, useApp, type SavedList } from '../../state/AppState'
 import { Container, EmptyState, NameForm, Panel, ToastCard } from '../../components/ui'
 import { ProductCard, SaveToPanel } from '../../components/Commerce'
-import { ListPickerPanel, ListRow, UnitOptions, type RowVariant } from '../../components/Lists'
+import { ListCard, ListRow, UnitOptions, type RowVariant } from '../../components/Lists'
 import { PageTitle } from '../../components/Shared'
 import { Demo, DemoGrid, LibSection } from './parts/LibraryParts'
 
@@ -95,16 +95,16 @@ export default function ListsBoard() {
       <Panel sx={{ mb: 5 }}>
         <Typography sx={{ fontWeight: 700, mb: 1 }}>Full pages at 390 px and 1440 px</Typography>
         <Stack direction="row" flexWrap="wrap" gap={0.5}>
-          <Open route="/my-lists">My Lists page</Open>
-          <Open route="/my-lists?open=lists">List selector open</Open>
+          <Open route="/my-lists">All lists</Open>
+          <Open route="/my-lists?list=fav">Favourites</Open>
           <Open route="/my-lists?open=create">Create new list</Open>
           <Open route="/my-lists?list=weekly&open=delete">Delete list</Open>
-          <Open route="/my-lists?open=replace">Replace or add to cart</Open>
-          <Open route="/my-lists?open=unit">Case / Each picker</Open>
-          <Open route="/my-lists?row=b">Rows · variant B</Open>
-          <Open route="/my-lists?open=added">Add all → snackbar</Open>
+          <Open route="/my-lists?list=fav&open=replace">Replace or add to cart</Open>
+          <Open route="/my-lists?list=fav&open=unit">Case / Each picker</Open>
+          <Open route="/my-lists?list=fav&row=b">Rows · variant B</Open>
+          <Open route="/my-lists?list=fav&open=added">Add all → snackbar</Open>
           <Open route="/my-lists?list=weekly">Long list + search</Open>
-          <Open route="/my-lists?empty=1">Favourites empty</Open>
+          <Open route="/my-lists?list=fav&empty=1">Favourites empty</Open>
           <Open route="/my-lists?list=weekly&empty=1">New list empty</Open>
           <Open route="/cart?open=save">Cart · save as list</Open>
         </Stack>
@@ -151,12 +151,20 @@ export default function ListsBoard() {
         </DemoGrid>
       </LibSection>
 
-      <LibSection id="selector" n={4} title="List selector + create new list" note="One field only: no description, colour or category. Duplicate names are refused. Custom lists get a ••• menu with “Delete list” (confirm first); Favourites can’t be deleted.">
-        <DemoGrid min={300}>
-          <Demo label="Mobile · bottom sheet" bg={c.surface2}><SheetSpec title="Your lists"><ListPickerPanel lists={favLists} current="fav" onPick={noop} onCreate={noop} /></SheetSpec></Demo>
-          <Demo label="Desktop · dropdown" bg={c.surface2}><PopSpec title="Your lists"><ListPickerPanel lists={favLists} current="fav" onPick={noop} onCreate={noop} /></PopSpec></Demo>
-          <Demo label="Create new list dialog" bg={c.surface2}><DialogSpec title="Create new list" placeholder="e.g. Weekly Order" /></Demo>
-        </DemoGrid>
+      <LibSection id="lists" n={4} title="All lists + create new list" note="No dropdown: My Lists opens on every list, one per line — its first products (“+N” for the rest), the count and the reorder total; photos sit on top on a phone and on the left from 560px. Tap a card to open the list; back returns here. Creating a list asks for a name only (duplicates refused). Custom lists get a ••• menu with “Delete list” (confirm first); Favourites can’t be deleted.">
+        <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: { xs: 'minmax(0,1fr)', lg: '420px minmax(0,1fr)' }, alignItems: 'start' }}>
+          <Demo label="All lists · 390 px" bg={c.surface2}>
+            <Phone><Stack spacing={1.5} sx={{ containerType: 'inline-size' }}>{favLists.map((l, k) => <ListCard key={l.id} list={l} fav={k === 0} />)}</Stack></Phone>
+          </Demo>
+          <Stack spacing={3}>
+            <Demo label="All lists · desktop" bg={c.bg}>
+              <Stack spacing={1.5} sx={{ containerType: 'inline-size' }}>
+                {favLists.map((l, k) => <ListCard key={l.id} list={l} fav={k === 0} />)}
+              </Stack>
+            </Demo>
+            <Demo label="Create new list dialog" bg={c.surface2}><DialogSpec title="Create new list" placeholder="e.g. Weekly Order" /></Demo>
+          </Stack>
+        </Box>
       </LibSection>
 
       <LibSection id="save-to" n={5} title="Save to list — product card and product page" note="Only Favourites: the heart saves instantly with the toast “Saved to Favourites”. Several lists: the heart still saves to Favourites straight away, and the snackbar at the bottom of the page says “Saved to Favourites · Change”; Change (or tapping a filled heart) opens the “Save to:” checklist. The product page uses the same heart.">
