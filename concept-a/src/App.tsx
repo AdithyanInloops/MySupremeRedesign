@@ -22,6 +22,7 @@ import CheckoutPayment from './pages/checkout/CheckoutPayment'
 import Success from './pages/checkout/Success'
 
 import SignIn from './pages/account/SignIn'
+import SignUpWizard from './pages/account/SignUpWizard'
 import ForgotPassword from './pages/account/ForgotPassword'
 import AccountLayout from './pages/account/AccountLayout'
 import Dashboard from './pages/account/Dashboard'
@@ -82,6 +83,7 @@ export default function App() {
               <Route path="thank-you" element={<Success />} />
 
               <Route path="account/signin" element={<SignIn />} />
+              <Route path="account/signup-new" element={<SignUpWizard />} />
               <Route path="account/forgot-password" element={<ForgotPassword />} />
               <Route path="account" element={<AccountLayout />}>
                 <Route index element={<Dashboard />} />

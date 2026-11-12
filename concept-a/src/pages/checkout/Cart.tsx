@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Alert, Box, Button, InputAdornment, Skeleton, Stack, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, Skeleton, Stack, TextField, Typography } from '@mui/material'
 import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router-dom'
 import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined'
 import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded'
@@ -18,7 +18,7 @@ import { useApp } from '../../state/AppState'
 import { Container, EmptyState, NameDialog, Panel, SectionHeader } from '../../components/ui'
 import { ProductRail } from '../../components/Commerce'
 import { Breadcrumbs } from '../../components/Shared'
-import { CartLineItem, CheckoutStepper, OrderSummary, cartTotals } from '../../components/CheckoutParts'
+import { CartLineItem, CheckoutHeader, OrderSummary, cartTotals } from '../../components/CheckoutParts'
 
 const c = tokens.color
 
@@ -122,18 +122,13 @@ export default function Cart() {
 
   return (
     <Container sx={{ pb: { xs: 16, md: 4 } }}>
-      <Box sx={{ pt: { xs: 2, md: 3 }, pb: { xs: 2, md: 3 } }}>
+      <CheckoutHeader active={0} hideSteps={!cart.length}>
         <Breadcrumbs items={[{ label: 'Cart' }]} sx={{ mb: 1.5 }} />
-        <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems={{ md: 'center' }} spacing={2}>
-          <Box>
-            <Typography variant="h1" sx={{ fontSize: { xs: 28, md: 40 } }}>Your cart</Typography>
-            {!review.loading && cart.length > 0 && (
-              <Typography color="text.secondary" sx={{ mt: 0.5 }}>{cartCount} items · {cart.length} products</Typography>
-            )}
-          </Box>
-          {cart.length > 0 && <Box sx={{ width: { xs: '100%', md: 460 } }}><CheckoutStepper active={0} /></Box>}
-        </Stack>
-      </Box>
+        <Typography variant="h1" sx={{ fontSize: { xs: 28, md: 40 } }}>Your cart</Typography>
+        {!review.loading && cart.length > 0 && (
+          <Typography color="text.secondary" sx={{ mt: 0.5 }}>{cartCount} items · {cart.length} products</Typography>
+        )}
+      </CheckoutHeader>
 
       {review.loading ? (
         <CartSkeleton />
@@ -214,7 +209,7 @@ export default function Cart() {
 
       {!review.loading && (
         <Box sx={{ mt: { xs: 5, md: 7 } }}>
-          <SectionHeader eyebrow="Don’t run out mid-service" title="Kitchens also add" action="See all" href="/c/packaging" />
+          <SectionHeader title="Popular Picks for You" action="See all" href="/c/packaging" />
           <ProductRail items={recommended.filter((p) => !cart.some((l) => l.sku === p.sku))} />
         </Box>
       )}

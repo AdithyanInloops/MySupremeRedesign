@@ -15,7 +15,7 @@ import { credit, type Address } from '../../data/account'
 import { useApp } from '../../state/AppState'
 import { Container, Panel } from '../../components/ui'
 import { AddressCard } from '../../components/Shared'
-import { CheckoutStepper, cartTotals } from '../../components/CheckoutParts'
+import { CheckoutHeader, cartTotals } from '../../components/CheckoutParts'
 import { checkoutSession, currentMethod, currentShipping } from './checkoutStore'
 import { AddressDialog, CheckoutSidebar, MobileCta, MobileSummaryToggle, StepHeading } from './CheckoutShipping'
 
@@ -147,12 +147,11 @@ export default function CheckoutPayment() {
 
   return (
     <Container sx={{ pb: { xs: 18, md: 6 } }}>
-      <Box sx={{ py: { xs: 2, md: 3 }, maxWidth: 640 }}>
-        <CheckoutStepper active={2} />
-      </Box>
+      <CheckoutHeader active={2}>
+        <Typography variant="h1" sx={{ fontSize: { xs: 26, md: 36 } }}>How would you like to pay?</Typography>
+      </CheckoutHeader>
       <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: { xs: '1fr', lg: 'minmax(0,1fr) 420px' }, alignItems: 'start' }}>
         <Stack spacing={2.5} sx={{ minWidth: 0 }}>
-          <Typography variant="h1" sx={{ fontSize: { xs: 26, md: 36 } }}>How would you like to pay?</Typography>
           <MobileSummaryToggle deliveryFee={fee} />
 
           {declined && (

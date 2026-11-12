@@ -250,6 +250,16 @@ export function CheckoutStepper({ active }: { active: 0 | 1 | 2 }) {
   )
 }
 
+/** Checkout page header: the page heading on the left, the stepper top-right at a fixed width so it sits in the same spot on every step. */
+export function CheckoutHeader({ active, hideSteps = false, children }: { active: 0 | 1 | 2; hideSteps?: boolean; children: ReactNode }) {
+  return (
+    <Box sx={{ py: { xs: 2, md: 3 }, display: 'flex', flexDirection: { xs: 'column-reverse', md: 'row' }, justifyContent: 'space-between', alignItems: { md: 'flex-start' }, gap: 2 }}>
+      <Box sx={{ minWidth: 0 }}>{children}</Box>
+      {!hideSteps && <Box sx={{ width: { xs: '100%', md: 460 }, flexShrink: 0 }}><CheckoutStepper active={active} /></Box>}
+    </Box>
+  )
+}
+
 /* ------------------------------------------------------------------ Address form */
 
 const serviceCities = ['Mississauga', 'Brampton', 'Toronto', 'Etobicoke', 'North York', 'Scarborough', 'Vaughan', 'Markham', 'Oakville', 'Burlington', 'Milton', 'Hamilton', 'Stoney Creek', 'St. Catharines', 'Niagara Falls', 'Welland', 'Grimsby', 'Richmond Hill', 'Pickering', 'Ajax']

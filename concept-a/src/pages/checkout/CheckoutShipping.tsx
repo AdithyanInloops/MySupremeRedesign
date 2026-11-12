@@ -18,7 +18,7 @@ import type { Address } from '../../data/account'
 import { useApp } from '../../state/AppState'
 import { Container, NewFeatureTag, Panel } from '../../components/ui'
 import { AddressCard } from '../../components/Shared'
-import { AddressForm, CartLineItem, CheckoutStepper, OrderSummary, cartTotals } from '../../components/CheckoutParts'
+import { AddressForm, CartLineItem, CheckoutHeader, OrderSummary, cartTotals } from '../../components/CheckoutParts'
 import { checkoutSession, deliveryMethods, type DeliveryMethod } from './checkoutStore'
 
 const c = tokens.color
@@ -145,12 +145,11 @@ export default function CheckoutShipping() {
 
   return (
     <Container sx={{ pb: { xs: 16, md: 6 } }}>
-      <Box sx={{ py: { xs: 2, md: 3 }, maxWidth: 640 }}>
-        <CheckoutStepper active={1} />
-      </Box>
+      <CheckoutHeader active={1}>
+        <Typography variant="h1" sx={{ fontSize: { xs: 26, md: 36 } }}>Where should we deliver?</Typography>
+      </CheckoutHeader>
       <Box sx={{ display: 'grid', gap: 3, gridTemplateColumns: { xs: '1fr', lg: 'minmax(0,1fr) 420px' }, alignItems: 'start' }}>
         <Stack spacing={2.5} sx={{ minWidth: 0 }}>
-          <Typography variant="h1" sx={{ fontSize: { xs: 26, md: 36 } }}>Where should we deliver?</Typography>
           <MobileSummaryToggle deliveryFee={fee} />
 
           {tried && outOfArea && (
