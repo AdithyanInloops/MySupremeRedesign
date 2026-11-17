@@ -1,12 +1,11 @@
 import { Fragment, useRef, useState, type ReactElement, type ReactNode } from 'react'
-import { Alert, Box, Button, ButtonBase, Chip, CircularProgress, Link, MenuItem, Stack, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, ButtonBase, CircularProgress, Link, MenuItem, Stack, TextField, Typography } from '@mui/material'
 import { alpha, keyframes } from '@mui/material/styles'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
-import AddRounded from '@mui/icons-material/AddRounded'
 import ArrowBackRounded from '@mui/icons-material/ArrowBackRounded'
 import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded'
 import CheckRounded from '@mui/icons-material/CheckRounded'
-import CheckCircleRounded from '@mui/icons-material/CheckCircleRounded'
+import MoreHorizRounded from '@mui/icons-material/MoreHorizRounded'
 import RestaurantOutlined from '@mui/icons-material/RestaurantOutlined'
 import LocalCafeOutlined from '@mui/icons-material/LocalCafeOutlined'
 import RoomServiceOutlined from '@mui/icons-material/RoomServiceOutlined'
@@ -53,16 +52,19 @@ const fromGoogle: Record<string, { types?: string; cuisine?: string; sells?: str
   middle_eastern_restaurant: { cuisine: 'Middle Eastern', sells: 'Shawarma & wraps' },
 }
 
+// Only the business name, its type, the tax ID and the login are required (as on the live form); the Menu step can be skipped.
 const steps = [
-  { name: 'Business', title: 'Tell us about your business', fields: ['business', 'types', 'subs'] },
-  { name: 'Menu', title: 'What’s on your menu?', fields: ['cuisine', 'sells'] },
-  { name: 'Details', title: 'Business details', fields: ['hst', 'structure'] },
+  { name: 'Business', title: 'Tell us about your business', fields: ['business', 'types', 'types-other', 'subs-other'] },
+  { name: 'Menu', title: 'What’s on your menu?', fields: ['cuisine-other', 'sells-other', 'buys-other'] },
+  { name: 'Details', title: 'Business details', fields: ['hst', 'structure-other'] },
   { name: 'Login', title: 'Create your login', fields: ['first', 'last', 'email', 'pw', 'pw2'] },
 ]
 
+type OtherKey = 'types' | 'subs' | 'cuisine' | 'sells' | 'buys' | 'structure'
 const blank = {
   business: '', types: [] as string[], subs: [] as string[], cuisine: [] as string[], sells: [] as string[], buys: [] as string[],
   structure: '', phone: '', hst: '', mFirst: '', mLast: '', title: '', first: '', last: '', mobile: '',
+  other: { types: '', subs: '', cuisine: '', sells: '', buys: '', structure: '' } as Record<OtherKey, string>,
 }
 type Option = { value: string; label: string; group?: string; icon?: ReactElement }
 const opts = (xs: string[]): Option[] => xs.map((x) => ({ value: x, label: x }))
@@ -72,54 +74,132 @@ const pop = keyframes`from { transform: scale(.4); } to { transform: scale(1); }
 const focusRing = { '&.Mui-focusVisible': { outline: `3px solid ${alpha(c.navy, 0.45)}`, outlineOffset: 2 } }
 const two = { display: 'grid', gap: 2, gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' } }
 
-/** A required-or-optional set of toggles: icon tiles (`tiles`) or wrapping chips. `single` makes it pick-one. */
-function ChoiceGroup({ id, label, hint, error, required, options, value, onChange, single, tiles }: {
-  id: string; label: string; hint?: string; error?: string; required?: boolean
-  options: Option[]; value: string[]; onChange: (v: string[]) => void; single?: boolean; tiles?: boolean
-}) {
-  const toggle = (v: string) => onChange(single ? [v] : value.includes(v) ? value.filter((x) => x !== v) : [...value, v])
-  const describedBy = [hint && `${id}-hint`, error && `${id}-error`].filter(Boolean).join(' ') || undefined
+/** Checkbox (multi) or radio (single) mark, so every list says up front how many you can pick. */
+function Mark({ on, round }: { on: boolean; round?: boolean }) {
   return (
-    <Box id={id} role={single ? 'radiogroup' : 'group'} aria-labelledby={`${id}-label`} aria-describedby={describedBy}>
-      <Stack direction="row" justifyContent="space-between" alignItems="baseline" spacing={1}>
-        <Typography id={`${id}-label`} sx={{ fontWeight: 600, fontSize: 15 }}>{label}{required && ' *'}</Typography>
-        {!single && value.length > 0 && <Typography sx={{ fontSize: 13, color: c.text2, flexShrink: 0 }}>{value.length} selected</Typography>}
-      </Stack>
-      {hint && <Typography id={`${id}-hint`} sx={{ fontSize: 13, color: c.text2, mt: 0.25 }}>{hint}</Typography>}
+    <Box component="span" aria-hidden sx={{
+      width: 18, height: 18, flexShrink: 0, display: 'grid', placeItems: 'center', borderRadius: round ? '50%' : '5px',
+      border: `1.5px solid ${on ? c.navy : c.line2}`, bgcolor: on && !round ? c.navy : '#fff', transition: 'background-color .15s, border-color .15s',
+    }}>
+      {on && (round
+        ? <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: c.navy, animation: `${pop} .18s ease-out` }} />
+        : <CheckRounded sx={{ fontSize: 14, color: '#fff', animation: `${pop} .18s ease-out` }} />)}
+    </Box>
+  )
+}
+
+// Chip = a <label> around a real checkbox/radio, drawn with appearance:none so keyboard and screen readers get the native control.
+const svg = (body: string) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 13 13'>${body}</svg>`)}")`
+const ease = 'background-color 150ms ease-out, border-color 150ms ease-out'
+const tick = svg(`<path d='M3.25 6.75 5.5 9 9.75 4.25' fill='none' stroke='#000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/>`)
+// Selecting is slower than unselecting; the tick starts drawing once the box has begun to fill.
+const grow = (on: boolean, ms = 280, delay = 0) => (on ? `clip-path ${ms}ms cubic-bezier(.2,.7,.2,1) ${delay}ms` : `clip-path ${Math.round(ms * 0.6)}ms ease-in`)
+const chipSx = (on: boolean) => ({
+  position: 'relative', isolation: 'isolate', overflow: 'hidden',
+  '--x': '20px', '--y': '50%', // animation origin: the checkbox, unless the chip was pressed somewhere else (see pressOrigin)
+  display: 'inline-flex', alignItems: 'center', gap: 1, minHeight: 40, py: '6px', pl: '12px', pr: '14px',
+  borderRadius: `${tokens.radius.xs}px`, border: '1px solid', borderColor: on ? c.navy : c.line, bgcolor: c.surface,
+  color: c.ink, fontSize: 14, lineHeight: '20px', fontWeight: 500, letterSpacing: '-0.005em', cursor: 'pointer', userSelect: 'none', transition: ease,
+  '&:hover': on ? {} : { borderColor: c.text3, bgcolor: c.bg },
+  // The selected tint is a circle centred on the origin that scales out from it and back into it.
+  // Only transform animates, so moving the origin is instant. 640px covers any chip from any point.
+  '&::before': {
+    content: '""', position: 'absolute', left: 'var(--x)', top: 'var(--y)', width: 640, height: 640, ml: '-320px', mt: '-320px', borderRadius: '50%',
+    zIndex: -1, bgcolor: alpha(c.navy, 0.06), transform: `scale(${on ? 1 : 0})`,
+    transition: `${on ? 'transform 380ms cubic-bezier(.2,.7,.2,1)' : 'transform 220ms ease-in'}, background-color 150ms ease-out`,
+  },
+  '&:hover::before': on ? { bgcolor: alpha(c.navy, 0.1) } : {},
+  '&:has(input:focus-visible)': { outline: `2px solid ${c.navy}`, outlineOffset: '2px' },
+  '@supports selector(:has(*))': { '& input:focus-visible': { outline: 'none' } }, // the ring moves to the chip only where :has works
+  '@media (pointer: coarse)': { minHeight: 44 },
+  '& input': {
+    appearance: 'none', m: 0, flexShrink: 0, width: 16, height: 16, cursor: 'inherit', transition: ease,
+    display: 'grid', placeContent: 'center', border: `1.5px solid ${on ? c.navy : c.text3}`, borderRadius: '4px', bgcolor: c.surface,
+  },
+  '& input::before': { content: '""' },
+  '& input[type=checkbox]:checked': { bgcolor: c.navy },
+  // The tick draws left to right, short stroke first.
+  '& input[type=checkbox]::before': {
+    width: 13, height: 13, bgcolor: '#fff', WebkitMask: `${tick} center / contain no-repeat`, mask: `${tick} center / contain no-repeat`,
+    clipPath: on ? 'inset(0 0 0 0)' : 'inset(0 100% 0 0)', transition: grow(on, 200, 60),
+  },
+  '& input[type=radio]': { borderRadius: '50%' },
+  '& input[type=radio]::before': { width: 7, height: 7, borderRadius: '50%', bgcolor: c.navy, clipPath: `circle(${on ? '50%' : '0px'})`, transition: grow(on, 200) },
+  '@media (prefers-reduced-motion: reduce)': { '&, &::before, & input, & input::before': { transitionDuration: '1ms', transitionDelay: '0ms' } },
+})
+// Pointer presses move the origin to the press point; leaving the chip puts it back on the checkbox for keyboard use.
+const pressOrigin = (e: React.PointerEvent<HTMLElement>) => {
+  const r = e.currentTarget.getBoundingClientRect()
+  e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`)
+  e.currentTarget.style.setProperty('--y', `${e.clientY - r.top}px`)
+}
+const resetOrigin = (e: React.FocusEvent<HTMLElement>) => { e.currentTarget.style.removeProperty('--x'); e.currentTarget.style.removeProperty('--y') }
+
+type Other = { text: string; onText: (v: string) => void; label: string; placeholder: string; error?: string }
+
+/**
+ * A set of toggles: icon tiles (`tiles`) or wrapping chips; `single` makes it pick-one.
+ * `other` adds an "Other" choice that opens a short text field for anything the list doesn't cover.
+ */
+function ChoiceGroup({ id, label, hint, error, required, options, value, onChange, single, tiles, other }: {
+  id: string; label: string; hint?: string; error?: string; required?: boolean
+  options: Option[]; value: string[]; onChange: (v: string[]) => void; single?: boolean; tiles?: boolean; other?: Other
+}) {
+  const all: Option[] = other ? [...options, { value: 'Other', label: 'Other', icon: tiles ? <MoreHorizRounded /> : undefined }] : options
+  const toggle = (v: string) => onChange(single ? [v] : value.includes(v) ? value.filter((x) => x !== v) : [...value, v])
+  const help = hint ?? (single ? 'Choose one.' : 'Select all that apply.')
+  const describedBy = [`${id}-hint`, error && `${id}-error`].filter(Boolean).join(' ')
+  const ref = useRef<HTMLFieldSetElement>(null)
+  const clear = () => { onChange([]); ref.current?.querySelector<HTMLElement>('input, [aria-pressed]')?.focus() }
+  return (
+    <Box component="fieldset" ref={ref} id={id} aria-describedby={describedBy} sx={{ border: 0, m: 0, p: 0, minWidth: 0 }}>
+      {/* Floated so the count shares its line; a floated legend still names the fieldset. */}
+      <Box component="legend" sx={{ float: 'left', p: 0, mr: 1, fontWeight: 600, fontSize: 15, lineHeight: '22px', color: c.ink }}>
+        {label}{required ? ' *' : <Box component="span" sx={{ fontWeight: 400, color: c.text2 }}> (optional)</Box>}
+      </Box>
+      {!single && (
+        <Box sx={{ float: 'right', fontSize: 13, lineHeight: '22px', color: c.text2 }}>
+          <Box component="span" aria-live="polite" sx={{ fontVariantNumeric: 'tabular-nums' }}>{value.length ? `${value.length} selected` : ''}</Box>
+          {value.length > 0 && <> <span aria-hidden>·</span> <Link component="button" type="button" onClick={clear} sx={{ fontSize: 13, fontWeight: 600, color: c.navy, verticalAlign: 'baseline' }}>Clear</Link></>}
+        </Box>
+      )}
+      <Typography id={`${id}-hint`} sx={{ clear: 'both', pt: '4px', fontSize: 13, lineHeight: '20px', color: c.text2 }}>{help}</Typography>
       <Box sx={tiles ? { display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 1, mt: 1.5 } : { display: 'flex', flexWrap: 'wrap', gap: 1, mt: 1.5 }}>
-        {options.map((o, i) => {
+        {all.map((o, i) => {
           const on = value.includes(o.value)
           const a11y = single ? { role: 'radio', 'aria-checked': on } : { 'aria-pressed': on }
           return (
             <Fragment key={o.value}>
-              {o.group && o.group !== options[i - 1]?.group && (
+              {o.group && o.group !== all[i - 1]?.group && (
                 <Typography sx={{ flexBasis: '100%', gridColumn: '1 / -1', fontSize: 13, fontWeight: 600, color: c.text2, mt: i ? 1 : 0 }}>{o.group}</Typography>
               )}
               {tiles ? (
                 <ButtonBase {...a11y} onClick={() => toggle(o.value)} sx={{
-                  position: 'relative', justifyContent: 'flex-start', gap: 1.25, minHeight: 60, px: 1.5, py: 1.25, pr: 3.5, textAlign: 'left',
+                  position: 'relative', justifyContent: 'flex-start', gap: 1.25, minHeight: 60, px: 1.5, py: 1.25, pr: 5, textAlign: 'left',
+                  gridColumn: i === all.length - 1 && all.length % 2 ? '1 / -1' : undefined, // odd count: last tile takes the full row
                   borderRadius: `${tokens.radius.md}px`, border: `1.5px solid ${on ? c.navy : c.line2}`, bgcolor: on ? c.navyTint : c.surface,
                   transition: 'background-color .15s, border-color .15s', '&:hover': { borderColor: on ? c.navy : c.text3 }, ...focusRing,
                 }}>
                   <Box component="span" sx={{ display: 'flex', color: on ? c.navy : c.text2, '& svg': { fontSize: 22 } }}>{o.icon}</Box>
                   <Box component="span" sx={{ fontSize: 14, fontWeight: 600, lineHeight: 1.3, color: on ? c.navy : c.ink }}>{o.label}</Box>
-                  {on && <CheckCircleRounded aria-hidden sx={{ position: 'absolute', top: 8, right: 8, fontSize: 18, color: c.navy, animation: `${pop} .18s ease-out` }} />}
+                  <Box component="span" sx={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', display: 'flex' }}><Mark on={on} round={single} /></Box>
                 </ButtonBase>
               ) : (
-                <Chip {...a11y} component="button" type="button" variant="outlined" onClick={() => toggle(o.value)}
-                  icon={on ? <CheckRounded /> : o.icon ?? <AddRounded />} label={o.label}
-                  sx={{
-                    height: 44, pl: 0.5, pr: 0.5, fontSize: 14, fontWeight: 500, borderWidth: 1.5, cursor: 'pointer',
-                    borderColor: on ? c.navy : c.line2, bgcolor: on ? c.navyTint : c.surface, color: on ? c.navy : c.ink,
-                    transition: 'background-color .15s, border-color .15s, color .15s',
-                    '&&:hover': { bgcolor: on ? c.navyTint : c.surface2, borderColor: on ? c.navy : c.text3 },
-                    '& .MuiChip-icon': { color: on ? c.navy : c.text3, fontSize: 18, ml: 1 }, ...focusRing,
-                  }} />
+                <Box component="label" sx={chipSx(on)} onPointerDown={pressOrigin} onBlur={resetOrigin}>
+                  <input type={single ? 'radio' : 'checkbox'} name={id} value={o.value} checked={on} onChange={() => toggle(o.value)} />
+                  {o.icon && <Box component="span" aria-hidden sx={{ display: 'flex', color: c.text3, '& svg': { fontSize: 18 } }}>{o.icon}</Box>}
+                  {o.label}
+                </Box>
               )}
             </Fragment>
           )
         })}
       </Box>
+      {other && value.includes('Other') && (
+        <TextField id={`${id}-other`} size="small" fullWidth autoFocus label={other.label} placeholder={other.placeholder}
+          value={other.text} onChange={(e) => other.onText(e.target.value)} error={!!other.error} helperText={other.error}
+          inputProps={{ maxLength: 60 }} sx={{ mt: 1.5, animation: `${enter} .2s ease-out`, '@media (prefers-reduced-motion: reduce)': { animation: 'none' } }} />
+      )}
       {error && <Typography id={`${id}-error`} sx={{ fontSize: 12, color: c.error, mt: 1 }}>{error}</Typography>}
     </Box>
   )
@@ -148,15 +228,24 @@ export default function SignUpWizard() {
   const field = (k: 'phone' | 'hst' | 'mFirst' | 'mLast' | 'title' | 'first' | 'last' | 'mobile') =>
     ({ value: f[k], onChange: (e: React.ChangeEvent<HTMLInputElement>) => put({ [k]: e.target.value }) })
 
+  const picked = (k: OtherKey) => (k === 'structure' ? f.structure === 'Other' : f[k].includes('Other'))
+  const otherMissing = (k: OtherKey) => picked(k) && !f.other[k].trim() && 'Tell us in a few words, or unselect Other'
+  const otherOf = (k: OtherKey, label: string, placeholder: string): Other => ({
+    text: f.other[k], label, placeholder, error: err(`${k}-other`),
+    onText: (v) => setF((s) => ({ ...s, other: { ...s.other, [k]: v } })),
+  })
+  // Saved as "Other: <their words>" so the account team can file it.
+  const withOther = (k: OtherKey, v: string) => (v === 'Other' && f.other[k].trim() ? `Other: ${f.other[k].trim()}` : v)
+  const menuEmpty = !f.cuisine.length && !f.sells.length && !f.buys.length
+
   const problems: Record<string, string | false> = {
     business: !f.business.trim() && 'Required — as it appears on invoices',
-    types: !f.types.length && 'Choose at least one',
-    subs: !f.subs.length && 'Choose at least one',
-    cuisine: !f.cuisine.length && 'Choose at least one',
-    sells: !f.sells.length && 'Choose at least one',
+    types: !f.types.length && 'Choose at least one, or pick Other',
+    'types-other': otherMissing('types'), 'subs-other': otherMissing('subs'),
+    'cuisine-other': otherMissing('cuisine'), 'sells-other': otherMissing('sells'), 'buys-other': otherMissing('buys'),
     hst: !f.hst.trim() && 'Tax ID is required',
-    structure: !f.structure && 'Choose one',
-    first: !f.first.trim() && 'Required',
+    'structure-other': otherMissing('structure'),
+    first:!f.first.trim() && 'Required',
     last: !f.last.trim() && 'Required',
     email: !/^\S+@\S+\.\S+$/.test(email) && 'Enter a valid email',
     pw: passwordScore(pw) < 2 && '8+ characters with a number and a capital letter',
@@ -185,7 +274,9 @@ export default function SignUpWizard() {
       setBusy(false)
       toast(`Welcome to MySupreme, ${f.business}!`)
       setSent({
-        email, password: '•'.repeat(pw.length), ...f,
+        email, password: '•'.repeat(pw.length), ...f, other: undefined,
+        ...Object.fromEntries((['types', 'subs', 'cuisine', 'sells', 'buys'] as const).map((k) => [k, f[k].map((v) => withOther(k, v))])),
+        structure: withOther('structure', f.structure),
         google_place_id: place?.id ?? '', place_address: place?.address ?? '', place_lat: place?.lat ?? '', place_lng: place?.lng ?? '',
       })
     }, 700)
@@ -224,8 +315,8 @@ export default function SignUpWizard() {
   const subOptions = businessTypes.filter((t) => f.types.includes(t.name)).flatMap((t) => t.subs.map((s) => ({ value: `${t.name} - ${s}`, label: s, group: t.name })))
   const bodies: ReactNode[] = [
     <>Find your place on Google Maps and we’ll fill in what we can. Already have an account? <Link component="button" type="button" onClick={onExit} sx={{ color: c.navy, fontWeight: 600, verticalAlign: 'baseline' }}>Sign in</Link></>,
-    'Pick everything that applies. It helps us show you the right products first.',
-    'These appear on your invoices.',
+    <>Optional. It helps us show you the right products first. <Link component="button" type="button" onClick={() => go(2)} sx={{ color: c.navy, fontWeight: 600, verticalAlign: 'baseline' }}>Skip this step</Link></>,
+    'These appear on your invoices. Only the tax ID is required.',
     'You’ll sign in with this email and password.',
   ]
 
@@ -236,13 +327,15 @@ export default function SignUpWizard() {
         {steps.map((s, i) => {
           const done = i < step
           const now = i === step
+          const skipped = done && i === 1 && menuEmpty
           const inner = (
             <>
-              <Box sx={{ height: 4, borderRadius: 2, bgcolor: now ? c.red : done ? c.navy : c.line, transition: 'background-color .3s' }} />
+              <Box sx={{ height: 4, borderRadius: 2, bgcolor: now ? c.red : skipped ? c.line2 : done ? c.navy : c.line, transition: 'background-color .3s' }} />
               <Stack direction="row" alignItems="center" spacing={0.5} sx={{ mt: 1 }}>
-                {done && <CheckRounded sx={{ fontSize: 15, color: c.navy, display: { xs: 'none', sm: 'block' } }} />}
+                {done && !skipped && <CheckRounded sx={{ fontSize: 15, color: c.navy, display: { xs: 'none', sm: 'block' } }} />}
                 <Box component="span" sx={{ fontSize: 13, fontWeight: now ? 700 : 500, color: now ? c.ink : done ? c.navy : c.text3 }}>{s.name}</Box>
               </Stack>
+              {skipped && <Box component="span" sx={{ display: 'block', fontSize: 12, color: c.text2 }}>Skipped</Box>}
             </>
           )
           return (
@@ -266,22 +359,27 @@ export default function SignUpWizard() {
             <Box id="su-business">
               <OrgFinder key={formKey} value={f.business} onChange={(v) => put({ business: v })} place={place} onPick={setPlace} onDetails={applyDetails} errorText={err('business')} />
             </Box>
-            <ChoiceGroup id="su-types" tiles required label="What kind of business is it?" hint="Choose all that apply."
+            <ChoiceGroup id="su-types" tiles required label="What kind of business is it?"
               options={businessTypes.map((t) => ({ value: t.name, label: t.name, icon: <t.Icon /> }))} value={f.types} error={err('types')}
-              onChange={(types) => put({ types, subs: f.subs.filter((s) => types.some((t) => s.startsWith(`${t} - `))) })} />
-            {f.types.length > 0 && (
-              <ChoiceGroup id="su-subs" required label="What best describes it?" options={subOptions} value={f.subs} onChange={(subs) => put({ subs })} error={err('subs')} />
+              other={otherOf('types', 'Your type of business', 'e.g. Butcher shop, grocery store')}
+              // Specialties follow their type; their "Other" stays while any listed type is still picked.
+              onChange={(types) => put({ types, subs: f.subs.filter((s) => (s === 'Other' ? types.some((t) => t !== 'Other') : types.some((t) => s.startsWith(`${t} - `)))) })} />
+            {subOptions.length > 0 && (
+              <ChoiceGroup id="su-subs" label="What best describes it?" options={subOptions} value={f.subs} onChange={(subs) => put({ subs })}
+                other={otherOf('subs', 'Describe it', 'e.g. Food court stall')} />
             )}
           </Stack>
         )}
 
         {step === 1 && (
           <Stack spacing={3.5}>
-            <ChoiceGroup id="su-cuisine" required label="Cuisine" options={opts(cuisines)} value={f.cuisine} onChange={(cuisine) => put({ cuisine })} error={err('cuisine')} />
-            <ChoiceGroup id="su-sells" required label="What do you sell?" options={opts(sellOptions)} value={f.sells} onChange={(sells) => put({ sells })} error={err('sells')} />
-            <ChoiceGroup id="su-buys" label="What will you buy from us?" hint="Optional"
+            <ChoiceGroup id="su-cuisine" label="Cuisine" options={opts(cuisines)} value={f.cuisine} onChange={(cuisine) => put({ cuisine })}
+              other={otherOf('cuisine', 'Your cuisine', 'e.g. Ethiopian')} />
+            <ChoiceGroup id="su-sells" label="What do you sell?" options={opts(sellOptions)} value={f.sells} onChange={(sells) => put({ sells })}
+              other={otherOf('sells', 'What else do you sell?', 'e.g. Poutine')} />
+            <ChoiceGroup id="su-buys" label="What will you buy from us?"
               options={departments.map((d) => { const Icon = deptIcons[d.id]; return { value: d.name, label: d.name, icon: Icon && <Icon /> } })}
-              value={f.buys} onChange={(buys) => put({ buys })} />
+              value={f.buys} onChange={(buys) => put({ buys })} other={otherOf('buys', 'What else will you buy?', 'e.g. Uniforms')} />
           </Stack>
         )}
 
@@ -291,8 +389,9 @@ export default function SignUpWizard() {
               <TextField id="su-phone" size="small" type="tel" label="Business phone" autoComplete="tel" {...field('phone')} />
               <TextField id="su-hst" size="small" required label="HST / Tax ID" {...field('hst')} error={!!err('hst')} helperText={err('hst')} inputProps={{ style: { fontFamily: tokens.font.mono } }} />
             </Box>
-            <ChoiceGroup id="su-structure" single required label="Business structure" options={opts(structures)}
-              value={f.structure ? [f.structure] : []} onChange={([structure]) => put({ structure })} error={err('structure')} />
+            <ChoiceGroup id="su-structure" single label="Business structure" options={opts(structures)}
+              value={f.structure ? [f.structure] : []} onChange={([structure]) => put({ structure })}
+              other={otherOf('structure', 'Your business structure', 'e.g. Co-operative')} />
             <Box>
               <Typography sx={{ fontWeight: 600, fontSize: 15, mb: 1.5 }}>Manager <Box component="span" sx={{ fontWeight: 400, color: c.text2 }}>(optional)</Box></Typography>
               <Box sx={two}>
@@ -328,7 +427,7 @@ export default function SignUpWizard() {
         <Button type="submit" fullWidth variant="contained" size="large" disabled={busy}
           endIcon={busy ? <CircularProgress size={18} sx={{ color: '#fff' }} /> : step < steps.length - 1 ? <ArrowForwardRounded /> : undefined}
           sx={{ '&.Mui-disabled': { bgcolor: c.red, color: '#fff', opacity: 0.85 } }}>
-          {step < steps.length - 1 ? 'Continue' : busy ? 'Creating account…' : 'Sign up'}
+          {step === steps.length - 1 ? (busy ? 'Creating account…' : 'Sign up') : step === 1 && menuEmpty ? 'Skip for now' : 'Continue'}
         </Button>
       </Stack>
       <PrototypePanel onReset={reset} />

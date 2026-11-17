@@ -103,8 +103,9 @@ const reviewPages: [string, string][] = [
 function ReviewBar() {
   const { review, setReview } = useApp()
   const nav = useNavigate()
+  const testing = useLocation().pathname.startsWith('/review/')
   const [anchor, setAnchor] = useState<HTMLElement | null>(null)
-  const sw = (label: string, key: 'signedIn' | 'loading' | 'empty') => (
+  const sw =(label: string, key: 'signedIn' | 'loading' | 'empty') => (
     <FormControlLabel
       control={<Switch size="small" checked={review[key]} onChange={(e) => setReview({ [key]: e.target.checked })} color="warning" />}
       label={label}
@@ -117,6 +118,7 @@ function ReviewBar() {
         <Stack direction="row" alignItems="center" spacing={1} sx={{ flexShrink: 0 }}>
           <ViewQuiltOutlined sx={{ fontSize: 18, color: c.saffron }} />
           <Box component="span" sx={{ fontWeight: 700, whiteSpace: 'nowrap' }}>Concept A · “Pro Counter”</Box>
+          {testing && <Box component="span" sx={{ bgcolor: c.saffron, color: '#0B0B12', fontWeight: 700, px: 1, py: '2px', borderRadius: 999, whiteSpace: 'nowrap' }}>Test page only<Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}> — not live</Box></Box>}
           <Box component="span" sx={{ opacity: 0.6, whiteSpace: 'nowrap', display: { xs: 'none', md: 'inline' } }}>Design review prototype — dummy data</Box>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={2} sx={{ ml: 'auto', flexShrink: 0 }}>
