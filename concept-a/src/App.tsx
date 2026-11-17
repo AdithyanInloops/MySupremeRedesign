@@ -83,7 +83,7 @@ export default function App() {
               <Route path="thank-you" element={<Success />} />
 
               <Route path="account/signin" element={<SignIn />} />
-              <Route path="account/signup-new" element={<SignUpWizard />} />
+              <Route path="account/signup-new" element={<Navigate to="/review/signup" replace />} />
               <Route path="account/forgot-password" element={<ForgotPassword />} />
               <Route path="account" element={<AccountLayout />}>
                 <Route index element={<Dashboard />} />
@@ -109,6 +109,7 @@ export default function App() {
               <Route path="review/summary" element={<Summary />} />
               <Route path="review/components" element={<Components />} />
               <Route path="review/my-lists" element={<ListsBoard />} />
+              <Route path="review/signup" element={<SignUpWizard />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

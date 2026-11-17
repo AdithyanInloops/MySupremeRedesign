@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import {
-  Alert, Box, Button, Checkbox, CircularProgress, Divider, FormControlLabel, IconButton, InputAdornment, LinearProgress, Link, MenuItem,
+  Alert, Box, Button, CircularProgress, IconButton, InputAdornment, LinearProgress, Link, MenuItem,
   Stack, TextField, Typography,
 } from '@mui/material'
 import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router-dom'
@@ -9,7 +9,7 @@ import VisibilityOffOutlined from '@mui/icons-material/VisibilityOffOutlined'
 import ArrowBackRounded from '@mui/icons-material/ArrowBackRounded'
 import MailOutlineRounded from '@mui/icons-material/MailOutlineRounded'
 import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded'
-import StorefrontOutlined from '@mui/icons-material/StorefrontOutlined'
+import LockOutlined from '@mui/icons-material/LockOutlined'
 import { tokens } from '../../theme'
 import { customer } from '../../data/account'
 import { useApp } from '../../state/AppState'
@@ -17,8 +17,7 @@ import AuthShell from './AuthShell'
 
 const c = tokens.color
 
-type Step = 'email' | 'password' | 'create'
-const knownEmail = (e: string) => /@spiceroutekitchen\.ca$/i.test(e.trim()) || e.trim().toLowerCase() === 'demo@mysupreme.ca'
+type Step = 'login' | 'create'
 
 // Business category → its sub-categories
 const businessTypes: Record<string, string[]> = {
@@ -43,8 +42,20 @@ export function passwordScore(pw: string) {
   return s
 }
 
-export function PasswordField({ value, onChange, label = 'Password', error, helperText, strength, autoComplete = 'current-password', size, required }: {
-  value: string; onChange: (v: string) => void; label?: string; error?: boolean; helperText?: string; strength?: boolean; autoComplete?: string; size?: 'small'; required?: boolean
+// Login fields (stage site spec): 48px tall, 8px radius, the label sits inside as a placeholder next to the icon.
+export const loginField = {
+  '& .MuiOutlinedInput-root': { borderRadius: '8px' },
+  '& .MuiOutlinedInput-input': { py: '12.5px' },
+  '& .MuiOutlinedInput-input::placeholder': { color: c.text3, opacity: 1, fontSize: 15 },
+  '& .Mui-focused .MuiOutlinedInput-input::placeholder': { color: c.navy },
+  '& .Mui-error .MuiOutlinedInput-input::placeholder': { color: c.error },
+  '& .MuiInputAdornment-positionStart svg': { fontSize: 20, color: c.text3 },
+  '& .MuiInputAdornment-positionEnd .MuiIconButton-root': { width: 38, height: 38, mr: 0, '& svg': { fontSize: 22 } },
+  '& .MuiFormHelperText-root': { mx: 0, mt: '6px', fontSize: 13 },
+}
+
+export function PasswordField({ value, onChange, label = 'Password', placeholder, sx, error, helperText, strength, autoComplete = 'current-password', size, required, icon }: {
+  value: string; onChange: (v: string) => void; label?: string; placeholder?: string; sx?: object; error?: boolean; helperText?: string; strength?: boolean; autoComplete?: string; size?: 'small'; required?: boolean; icon?: ReactNode
 }) {
   const [show, setShow] = useState(false)
   const score = passwordScore(value)
@@ -58,13 +69,15 @@ export function PasswordField({ value, onChange, label = 'Password', error, help
   return (
     <Box>
       <TextField
-        fullWidth size={size} required={required} label={label} type={show ? 'text' : 'password'} value={value} onChange={(e) => onChange(e.target.value)} error={error}
+        fullWidth size={size} required={required} type={show ? 'text' : 'password'} value={value} onChange={(e) => onChange(e.target.value)} error={error}
+        label={placeholder ? undefined : label} placeholder={placeholder} inputProps={placeholder ? { 'aria-label': label } : undefined} sx={sx}
         helperText={strength ? undefined : helperText} autoComplete={autoComplete}
         InputProps={{
+          startAdornment: icon && <InputAdornment position="start">{icon}</InputAdornment>,
           endAdornment: (
             <InputAdornment position="end">
               <IconButton aria-label={show ? 'Hide password' : 'Show password'} onClick={() => setShow(!show)} edge="end" sx={{ width: 44, height: 44 }}>
-                {show ? <VisibilityOffOutlined /> : <VisibilityOutlined />}
+                {show ? <VisibilityOutlined /> : <VisibilityOffOutlined />}
               </IconButton>
             </InputAdornment>
           ),
@@ -98,7 +111,7 @@ export default function SignIn() {
   const [params] = useSearchParams()
   const nav = useNavigate()
   const { setReview, toast } = useApp()
-  const [step, setStep] = useState<Step>(params.get('mode') === 'create' ? 'create' : 'email')
+  const [step, setStep] = useState<Step>(params.get('mode') === 'create' ? 'create' : 'login')
   const [email, setEmail] = useState('')
   const [pw, setPw] = useState('')
   const [busy, setBusy] = useState(false)
@@ -112,21 +125,17 @@ export default function SignIn() {
   const wait = (fn: () => void) => { setBusy(true); window.setTimeout(() => { setBusy(false); fn() }, 700) }
   const emailOk = /^\S+@\S+\.\S+$/.test(email)
 
-  const submitEmail = (e: React.FormEvent) => {
+  const go = (next: Step) => { setStep(next); setTried(false); setErr(null) }
+
+  const submitLogin = (e: React.FormEvent) => {
     e.preventDefault()
     setTried(true)
-    if (!emailOk) return
-    setTried(false)
-    wait(() => setStep(knownEmail(email) ? 'password' : 'create'))
-  }
-
-  const submitPassword = (e: React.FormEvent) => {
-    e.preventDefault()
     setErr(null)
-    if (!pw) { setErr('Enter your password'); return }
+    if (!emailOk || !pw) return
     wait(() => {
+      // Prototype rule so the error state can be reviewed: under 6 characters or "wrong" fails.
       if (pw.length < 6 || pw.toLowerCase() === 'wrong') {
-        setErr('That password doesn’t match this account. Try again or reset it.')
+        setErr('That email and password don’t match. Try again or reset your password.')
         return
       }
       setReview({ signedIn: true })
@@ -154,55 +163,39 @@ export default function SignIn() {
 
   return (
     <AuthShell signup={step === 'create'} panelTitle={step === 'create' ? 'Everything your kitchen needs, in one place.' : 'Your kitchen’s single supplier.'}>
-      {step === 'email' && (
-        <Box component="form" onSubmit={submitEmail} noValidate>
-          <StepHeader eyebrow="Sign in or create an account" title="Let’s get your kitchen stocked" body="Enter your business email — we’ll check whether you already have an account." />
-          <TextField
-            fullWidth autoFocus type="email" label="Business email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email"
-            error={tried && !emailOk} helperText={tried && !emailOk ? 'Enter a valid email address' : 'Demo: anything @spiceroutekitchen.ca signs in; any other email creates an account.'}
-            InputProps={{ startAdornment: <InputAdornment position="start"><MailOutlineRounded sx={{ color: c.text3 }} /></InputAdornment> }}
-          />
+      {step === 'login' && (
+        <Box component="form" onSubmit={submitLogin} noValidate>
+          <Typography sx={{ color: c.red, fontSize: 12, lineHeight: 1.7, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', mb: 1 }}>Log in to your account</Typography>
+          <Typography variant="h1" sx={{ fontSize: { xs: 28, md: 32 }, lineHeight: 1.15, fontWeight: 600, letterSpacing: '-0.02em', color: c.ink }}>Welcome back!</Typography>
+          <Typography sx={{ fontSize: 15, lineHeight: '22px', color: c.text2, mt: 1, mb: 3.5 }}>Enter your details</Typography>
+          {err && <Alert severity="error" sx={{ mb: 2, borderRadius: '8px' }}>{err}</Alert>}
+          <Stack spacing={2}>
+            <TextField
+              fullWidth required type="email" placeholder="Email address *" inputProps={{ 'aria-label': 'Email address' }} sx={loginField}
+              value={email} onChange={(e) => { setEmail(e.target.value); setErr(null) }} autoComplete="email"
+              error={tried && !emailOk} helperText={tried && !emailOk ? (email ? 'Enter a valid email address' : 'This field is required') : undefined}
+              InputProps={{ startAdornment: <InputAdornment position="start"><MailOutlineRounded /></InputAdornment> }}
+            />
+            <PasswordField required placeholder="Password *" sx={loginField} value={pw} onChange={(v) => { setPw(v); setErr(null) }} icon={<LockOutlined />}
+              error={(tried && !pw) || !!err} helperText={tried && !pw ? 'This field is required' : undefined} />
+          </Stack>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+            <Link component={RouterLink} to={`/account/forgot-password?email=${encodeURIComponent(email)}`} underline="none" sx={{ fontSize: 14, lineHeight: '24px', color: c.navy, fontWeight: 600 }}>Forgot password?</Link>
+          </Box>
           <Button type="submit" fullWidth variant="contained" size="large" disabled={busy} endIcon={busy ? <CircularProgress size={18} sx={{ color: '#fff' }} /> : <ArrowForwardRounded />}
-            sx={{ mt: 3, '&.Mui-disabled': { bgcolor: c.red, color: '#fff', opacity: 0.85 } }}>
-            {busy ? 'Checking…' : 'Continue'}
+            sx={{ mt: 2.5, minHeight: 48, borderRadius: '8px', fontWeight: 600, '& .MuiButton-endIcon svg': { fontSize: 20 }, '&.Mui-disabled': { bgcolor: c.red, color: '#fff', opacity: 0.85 } }}>
+            {busy ? 'Logging in…' : 'Log in'}
           </Button>
-          <Divider sx={{ my: 3, fontSize: 13, color: c.text3 }}>or</Divider>
-          <Stack spacing={1.25}>
-            <Button fullWidth variant="outlined" color="secondary" size="large" onClick={() => setStep('create')} startIcon={<StorefrontOutlined />}>Open a business account</Button>
-            <Button fullWidth component={RouterLink} to="/guest/orderstatus" sx={{ color: c.navy }}>Check an order without signing in</Button>
-          </Stack>
-        </Box>
-      )}
-
-      {step === 'password' && (
-        <Box component="form" onSubmit={submitPassword} noValidate>
-          <Button startIcon={<ArrowBackRounded />} onClick={() => { setStep('email'); setErr(null); setPw('') }} sx={{ ml: -1, mb: 2, color: c.text2 }}>Back</Button>
-          <StepHeader eyebrow="Welcome back" title={`Hi, ${customer.businessName}`} />
-          <Stack direction="row" spacing={1.5} alignItems="center" sx={{ p: 1.5, mb: 2.5, borderRadius: `${tokens.radius.md}px`, bgcolor: c.bg, border: `1px solid ${c.line}` }}>
-            <Box sx={{ width: 40, height: 40, borderRadius: '50%', bgcolor: c.navy, color: '#fff', fontWeight: 700, display: 'grid', placeItems: 'center', fontSize: 14 }}>SR</Box>
-            <Box sx={{ flex: 1, minWidth: 0 }}>
-              <Typography sx={{ fontWeight: 600, fontSize: 14, overflow: 'hidden', textOverflow: 'ellipsis' }}>{email}</Typography>
-              <Typography variant="caption" color="text.secondary">MySupreme Member since 2023</Typography>
-            </Box>
-            <Link component="button" type="button" onClick={() => setStep('email')} sx={{ fontSize: 13, color: c.navy, fontWeight: 600 }}>Change</Link>
-          </Stack>
-          {err && <Alert severity="error" sx={{ mb: 2, borderRadius: `${tokens.radius.sm}px` }}>{err}</Alert>}
-          <PasswordField value={pw} onChange={(v) => { setPw(v); setErr(null) }} error={!!err} helperText="Demo: any 6+ characters signs in; “wrong” shows the error." />
-          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mt: 1 }}>
-            <FormControlLabel control={<Checkbox defaultChecked />} label="Keep me signed in" sx={{ '& .MuiFormControlLabel-label': { fontSize: 14 } }} />
-            <Link component={RouterLink} to={`/account/forgot-password?email=${encodeURIComponent(email)}`} sx={{ fontSize: 14, color: c.navy, fontWeight: 600 }}>Forgot password?</Link>
-          </Stack>
-          <Button type="submit" fullWidth variant="contained" size="large" disabled={busy} sx={{ mt: 2.5, '&.Mui-disabled': { bgcolor: c.red, color: '#fff', opacity: 0.85 } }}
-            startIcon={busy ? <CircularProgress size={18} sx={{ color: '#fff' }} /> : undefined}>
-            {busy ? 'Signing in…' : 'Sign in'}
-          </Button>
+          <Typography sx={{ mt: 3, textAlign: 'center', fontSize: 14, lineHeight: '20px', color: c.text2 }}>
+            Don’t have an account? <Link component="button" type="button" underline="none" onClick={() => go('create')} sx={{ color: c.navy, fontWeight: 600, fontSize: 'inherit', verticalAlign: 'baseline' }}>Sign up</Link>
+          </Typography>
         </Box>
       )}
 
       {step === 'create' && (
         <Box component="form" onSubmit={submitCreate} noValidate>
-          <Button startIcon={<ArrowBackRounded />} onClick={() => setStep('email')} sx={{ ml: -1, mb: 1, color: c.text2 }}>Back</Button>
-          <StepHeader compact eyebrow="New to MySupreme" title="Get Started with MySupreme" body={<>Already have one? <Link component="button" type="button" onClick={() => setStep('email')} sx={{ color: c.navy, fontWeight: 600, verticalAlign: 'baseline' }}>Sign in</Link></>} />
+          <Button startIcon={<ArrowBackRounded />} onClick={() => go('login')} sx={{ ml: -1, mb: 1, color: c.text2 }}>Back</Button>
+          <StepHeader compact eyebrow="New to MySupreme" title="Get Started with MySupreme" body={<>Already have one? <Link component="button" type="button" onClick={() => go('login')} sx={{ color: c.navy, fontWeight: 600, verticalAlign: 'baseline' }}>Sign in</Link></>} />
           {tried && missing && (
             <Alert severity="error" sx={{ mb: 2, borderRadius: `${tokens.radius.sm}px` }}>Please complete the highlighted fields.</Alert>
           )}

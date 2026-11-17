@@ -87,7 +87,7 @@ const reviewPages: [string, string][] = [
   ['Checkout — payment', '/checkout/payment'],
   ['Order success', '/checkout/success'],
   ['Sign in / create account', '/account/signin'],
-  ['Sign up (new flow)', '/account/signup-new'],
+  ['Sign up (new flow)', '/review/signup'],
   ['Account dashboard', '/account'],
   ['Orders', '/account/orders'],
   ['Credit dashboard', '/account/customerdashbord'],

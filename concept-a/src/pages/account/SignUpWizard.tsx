@@ -127,7 +127,7 @@ function ChoiceGroup({ id, label, hint, error, required, options, value, onChang
 
 const shell = (children: ReactNode) => <AuthShell signup panelTitle="Everything your kitchen needs, in one place.">{children}</AuthShell>
 
-/** New sign-up flow at /account/signup-new: four short steps instead of one long form. The original stays at /account/signin. */
+/** New sign-up flow at /review/signup: four short steps instead of one long form. The original stays at /account/signin. */
 export default function SignUpWizard() {
   const nav = useNavigate()
   const { setReview, toast } = useApp()
