@@ -26,6 +26,7 @@ import ReceiptLongOutlined from '@mui/icons-material/ReceiptLongOutlined'
 import PlaceOutlined from '@mui/icons-material/PlaceOutlined'
 import LogoutRounded from '@mui/icons-material/LogoutRounded'
 import BadgeOutlined from '@mui/icons-material/BadgeOutlined'
+import RestaurantMenuOutlined from '@mui/icons-material/RestaurantMenuOutlined'
 import LocalOfferOutlined from '@mui/icons-material/LocalOfferOutlined'
 import HomeOutlined from '@mui/icons-material/HomeOutlined'
 import { tokens } from '../theme'
@@ -106,6 +107,7 @@ function AccountMenu({ showLabel }: { showLabel: boolean }) {
   }
   const items = [
     { t: 'My Profile', i: <BadgeOutlined />, to: '/account' },
+    { t: 'Your business profile', i: <RestaurantMenuOutlined />, to: '/account/business-profile' },
     { t: 'Orders', i: <ReceiptLongOutlined />, to: '/account/orders' },
     { t: 'Saved Addresses', i: <PlaceOutlined />, to: '/account/addresses' },
     { t: 'My Lists', i: <FavoriteBorderRounded />, to: '/my-lists' },

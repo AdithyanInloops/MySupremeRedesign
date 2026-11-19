@@ -1,0 +1,176 @@
+{
+  "lists": {
+    "businessKind": {
+      "keywordsIn": "name",
+      "options": [
+        { "id": "kind.restaurant", "label": "Restaurant", "google": ["restaurant", "*_restaurant", "diner", "fast_food_restaurant"] },
+        { "id": "kind.cafe", "label": "Café", "google": ["cafe", "coffee_shop", "tea_house"] },
+        { "id": "kind.caterer", "label": "Caterer", "google": ["catering_service"] },
+        { "id": "kind.bakery", "label": "Bakery", "google": ["bakery", "bagel_shop", "donut_shop"] },
+        { "id": "kind.food-truck", "label": "Food truck", "keywords": ["food truck"] },
+        { "id": "kind.ghost-kitchen", "label": "Ghost kitchen" },
+        { "id": "kind.hotel-events", "label": "Hotel & events", "google": ["hotel", "lodging", "event_venue", "banquet_hall", "wedding_venue"] },
+        { "id": "kind.non-profit", "label": "Non-profit" },
+        { "id": "kind.other", "label": "Other" }
+      ]
+    },
+    "cuisines": {
+      "options": [
+        { "id": "cuisine.indian", "label": "Indian", "google": ["indian_restaurant"] },
+        { "id": "cuisine.pakistani", "label": "Pakistani", "google": ["pakistani_restaurant"] },
+        { "id": "cuisine.middle-eastern", "label": "Middle Eastern", "google": ["middle_eastern_restaurant", "lebanese_restaurant", "turkish_restaurant", "persian_restaurant", "afghani_restaurant"], "keywords": ["shawarma", "falafel"] },
+        { "id": "cuisine.chinese", "label": "Chinese", "google": ["chinese_restaurant"] },
+        { "id": "cuisine.italian", "label": "Italian", "google": ["italian_restaurant"] },
+        { "id": "cuisine.caribbean", "label": "Caribbean", "google": ["caribbean_restaurant"] },
+        { "id": "cuisine.mexican", "label": "Mexican", "google": ["mexican_restaurant"] },
+        { "id": "cuisine.thai", "label": "Thai", "google": ["thai_restaurant"] },
+        { "id": "cuisine.japanese", "label": "Japanese", "google": ["japanese_restaurant", "sushi_restaurant", "ramen_restaurant"] },
+        { "id": "cuisine.korean", "label": "Korean", "google": ["korean_restaurant"] },
+        { "id": "cuisine.filipino", "label": "Filipino", "google": ["filipino_restaurant"] },
+        { "id": "cuisine.greek", "label": "Greek", "google": ["greek_restaurant"] },
+        { "id": "cuisine.canadian", "label": "Canadian" },
+        { "id": "cuisine.fusion", "label": "Fusion / mixed" },
+        { "id": "cuisine.other", "label": "Other" }
+      ]
+    },
+    "sells": {
+      "options": [
+        { "id": "sells.pizza", "label": "Pizza", "google": ["pizza_restaurant"], "keywords": ["pizza"] },
+        { "id": "sells.burgers-sandwiches", "label": "Burgers & sandwiches", "google": ["hamburger_restaurant", "sandwich_shop"] },
+        { "id": "sells.shawarma-wraps", "label": "Shawarma & wraps", "keywords": ["shawarma", "donair", "wrap"] },
+        { "id": "sells.curries-rice", "label": "Curries & rice", "keywords": ["curry", "biryani"] },
+        { "id": "sells.fried-chicken", "label": "Fried chicken", "keywords": ["fried chicken", "wings"] },
+        { "id": "sells.grill-bbq", "label": "Grill & BBQ", "google": ["barbecue_restaurant", "steak_house"] },
+        { "id": "sells.seafood-sushi", "label": "Seafood & sushi", "google": ["seafood_restaurant", "sushi_restaurant"] },
+        { "id": "sells.noodles-stir-fry", "label": "Noodles & stir-fry", "google": ["ramen_restaurant"], "keywords": ["noodle"] },
+        { "id": "sells.salads-bowls", "label": "Salads & bowls", "keywords": ["salad", "poke"] },
+        { "id": "sells.baked-goods", "label": "Baked goods", "google": ["bakery"] },
+        { "id": "sells.desserts-sweets", "label": "Desserts & sweets", "google": ["dessert_shop", "ice_cream_shop", "servesDessert"] },
+        { "id": "sells.coffee-tea", "label": "Coffee & tea", "google": ["cafe", "coffee_shop", "servesCoffee"] },
+        { "id": "sells.juices-smoothies", "label": "Juices & smoothies", "google": ["juice_shop"] },
+        { "id": "sells.catering-trays", "label": "Catering trays", "google": ["catering_service"] },
+        { "id": "sells.other", "label": "Other" }
+      ]
+    },
+    "buysFrom": {
+      "options": [
+        { "id": "buys.packaging", "label": "Packaging" },
+        { "id": "buys.grocery", "label": "Grocery" },
+        { "id": "buys.beverage", "label": "Beverage" },
+        { "id": "buys.janitorial", "label": "Janitorial" },
+        { "id": "buys.produce", "label": "Produce" },
+        { "id": "buys.dairy-eggs", "label": "Dairy & Eggs" },
+        { "id": "buys.frozen", "label": "Frozen" },
+        { "id": "buys.meat-poultry", "label": "Meat & Poultry" },
+        { "id": "buys.ware-equipment", "label": "Ware & Equipment" },
+        { "id": "buys.other", "label": "Other" }
+      ]
+    },
+    "serviceModes": {
+      "options": [
+        { "id": "service.dine-in", "label": "Dine-in", "google": ["dineIn"] },
+        { "id": "service.takeout", "label": "Takeout", "google": ["takeout", "curbsidePickup"] },
+        { "id": "service.delivery-apps", "label": "Delivery apps", "google": ["delivery"] },
+        { "id": "service.catering", "label": "Catering", "google": ["catering_service"] }
+      ]
+    },
+    "foodRules": {
+      "options": [
+        { "id": "rules.halal", "label": "Halal", "google": ["halal_restaurant"], "keywords": ["halal"] },
+        { "id": "rules.pure-veg", "label": "Pure veg", "google": ["vegetarian_restaurant", "vegan_restaurant"], "keywords": ["pure veg", "pure vegetarian"] },
+        { "id": "rules.eggless", "label": "Eggless", "keywords": ["eggless"] },
+        { "id": "rules.jain", "label": "Jain", "keywords": ["jain"] },
+        { "id": "rules.none", "label": "None", "exclusive": true }
+      ]
+    },
+    "size": {
+      "single": true,
+      "options": [
+        { "id": "size.under-100", "label": "Under 100" },
+        { "id": "size.100-300", "label": "100–300" },
+        { "id": "size.300-plus", "label": "More than 300" }
+      ]
+    },
+    "meals": {
+      "options": [
+        { "id": "meals.breakfast", "label": "Breakfast", "google": ["servesBreakfast"] },
+        { "id": "meals.brunch", "label": "Brunch", "google": ["servesBrunch"] },
+        { "id": "meals.lunch", "label": "Lunch", "google": ["servesLunch"] },
+        { "id": "meals.dinner", "label": "Dinner", "google": ["servesDinner"] },
+        { "id": "meals.late-night", "label": "Late night" }
+      ]
+    },
+    "priceLevel": {
+      "single": true,
+      "options": [
+        { "id": "price.value", "label": "Value", "google": ["PRICE_LEVEL_INEXPENSIVE"] },
+        { "id": "price.mid-range", "label": "Mid-range", "google": ["PRICE_LEVEL_MODERATE"] },
+        { "id": "price.premium", "label": "Premium", "google": ["PRICE_LEVEL_EXPENSIVE", "PRICE_LEVEL_VERY_EXPENSIVE"] }
+      ]
+    },
+    "proteins": {
+      "options": [
+        { "id": "protein.chicken", "label": "Chicken" },
+        { "id": "protein.beef", "label": "Beef" },
+        { "id": "protein.lamb-goat", "label": "Lamb / Goat" },
+        { "id": "protein.seafood", "label": "Seafood" },
+        { "id": "protein.paneer", "label": "Paneer" },
+        { "id": "protein.eggs", "label": "Eggs" }
+      ]
+    },
+    "equipment": {
+      "options": [
+        { "id": "equipment.fryer", "label": "Fryer" },
+        { "id": "equipment.tandoor", "label": "Tandoor" },
+        { "id": "equipment.pizza-oven", "label": "Pizza oven" },
+        { "id": "equipment.grill", "label": "Grill" },
+        { "id": "equipment.combi-oven", "label": "Combi oven" },
+        { "id": "equipment.espresso-machine", "label": "Espresso machine" }
+      ]
+    },
+    "storage": {
+      "options": [
+        { "id": "storage.walk-in-freezer", "label": "Walk-in freezer" },
+        { "id": "storage.walk-in-cooler", "label": "Walk-in cooler" },
+        { "id": "storage.reach-in-only", "label": "Reach-in only", "exclusive": true }
+      ]
+    },
+    "locations": {
+      "single": true,
+      "options": [
+        { "id": "locations.1", "label": "1" },
+        { "id": "locations.2-5", "label": "2–5" },
+        { "id": "locations.6-plus", "label": "6+" }
+      ]
+    },
+    "orderRhythm.perWeek": {
+      "single": true,
+      "options": [
+        { "id": "rhythm.1", "label": "1" },
+        { "id": "rhythm.2-3", "label": "2–3" },
+        { "id": "rhythm.4-plus", "label": "4+" }
+      ]
+    },
+    "orderRhythm.day": {
+      "single": true,
+      "options": [
+        { "id": "day.mon", "label": "Monday" },
+        { "id": "day.tue", "label": "Tuesday" },
+        { "id": "day.wed", "label": "Wednesday" },
+        { "id": "day.thu", "label": "Thursday" },
+        { "id": "day.fri", "label": "Friday" },
+        { "id": "day.sat", "label": "Saturday" },
+        { "id": "day.sun", "label": "Sunday" }
+      ]
+    },
+    "orderRhythm.method": {
+      "single": true,
+      "options": [
+        { "id": "method.delivery", "label": "Delivery" },
+        { "id": "method.pickup", "label": "Cash & carry pickup" }
+      ]
+    }
+  },
+  "foodTypes": ["meal_takeaway", "meal_delivery", "food_court", "cafeteria", "deli", "snack_bar", "bar", "pub"],
+  "buysHint": { "google": ["takeout", "delivery"], "text": "Most takeout places also buy Packaging." }
+}

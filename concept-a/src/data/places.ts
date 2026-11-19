@@ -1,7 +1,24 @@
 /**
- * Mock Google Places layer for the sign-up organization finder (prototype: no network, fictional places).
- * Same contract the real API will have, so the UI can switch to it without changes.
+ * Google Places (New) layer for the sign-up organization finder.
+ * With VITE_GOOGLE_PLACES_API_KEY set (concept-a/.env) it calls the real API; without it, falls back to the fictional mock places below.
  */
+
+const KEY = import.meta.env.VITE_GOOGLE_PLACES_API_KEY as string | undefined
+/** True when the real Places API is in use. */
+export const live = !!KEY
+const API = 'https://places.googleapis.com/v1'
+
+async function google<T>(path: string, init: RequestInit & { fieldMask?: string }): Promise<T> {
+  const res = await fetch(`${API}${path}`, {
+    ...init,
+    headers: { 'Content-Type': 'application/json', 'X-Goog-Api-Key': KEY!, ...(init.fieldMask && { 'X-Goog-FieldMask': init.fieldMask }) },
+  })
+  if (!res.ok) throw new Error(`Places API ${res.status}: ${await res.text()}`)
+  return res.json()
+}
+
+/** "pizza_restaurant" -> "Pizza restaurant" */
+const label = (type?: string) => (type ? type[0].toUpperCase() + type.slice(1).replace(/_/g, ' ') : 'Place')
 
 export type PlaceHit = { id: string; name: string; address: string; category: string; distanceMeters: number | null }
 export type PlaceDetails = { id: string; name: string; address: string; phone?: string; lat: number; lng: number; types: string[] }
@@ -56,7 +73,30 @@ const latency = () => {
 }
 
 /** Test triggers: q containing "error" fails, "slow" takes 3 s, "zzz" matches nothing. */
-export async function searchPlaces({ q, lat, lng, signal }: { q: string; lat?: number; lng?: number; session: string; signal?: AbortSignal }) {
+export async function searchPlaces({ q, lat, lng, session, signal }: { q: string; lat?: number; lng?: number; session: string; signal?: AbortSignal }) {
+  if (live) {
+    if (demo.forceError) throw new Error('Forced error')
+    const here = lat != null && lng != null ? { latitude: lat, longitude: lng } : undefined
+    const { suggestions = [] } = await google<{ suggestions?: { placePrediction?: GooglePrediction }[] }>('/places:autocomplete', {
+      method: 'POST',
+      signal,
+      body: JSON.stringify({
+        input: q,
+        sessionToken: session,
+        includedRegionCodes: ['ca'], // Canadian businesses only
+        ...(here && { origin: here, locationBias: { circle: { center: here, radius: 50000 } } }),
+      }),
+    })
+    return {
+      results: suggestions.flatMap(({ placePrediction: p }): PlaceHit[] => p ? [{
+        id: p.placeId,
+        name: p.structuredFormat?.mainText.text ?? p.text.text,
+        address: p.structuredFormat?.secondaryText?.text ?? '',
+        category: label(p.types?.[0]),
+        distanceMeters: p.distanceMeters ?? null,
+      }] : []),
+    }
+  }
   const s = q.trim().toLowerCase()
   await sleep(s.includes('slow') ? 3000 : latency(), signal)
   if (demo.forceError || s.includes('error')) throw new Error('Mock search failed')
@@ -70,10 +110,12 @@ export async function searchPlaces({ q, lat, lng, signal }: { q: string; lat?: n
   return { results: hits.map(({ rank: _rank, ...hit }): PlaceHit => hit) }
 }
 
-export async function getPlaceDetails({ id, signal }: { id: string; session: string; signal?: AbortSignal }) {
-  await sleep(latency(), signal)
-  const place = places.find((p) => p.id === id)
-  if (demo.forceError || !place) throw new Error('Mock details failed')
-  const { category: _category, ...details } = place
-  return { details }
+// Place details are read server-side (POST /api/profile/draft, server/api.ts) so the key and field mask stay off the browser.
+
+type GooglePrediction = {
+  placeId: string
+  text: { text: string }
+  structuredFormat?: { mainText: { text: string }; secondaryText?: { text: string } }
+  types?: string[]
+  distanceMeters?: number
 }

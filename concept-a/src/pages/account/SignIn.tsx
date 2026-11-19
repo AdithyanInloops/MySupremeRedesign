@@ -1,11 +1,9 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { forwardRef, useEffect, useRef, useState, type ReactNode } from 'react'
 import {
   Alert, Box, Button, CircularProgress, IconButton, InputAdornment, LinearProgress, Link, MenuItem,
   Stack, TextField, Typography,
 } from '@mui/material'
 import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router-dom'
-import VisibilityOutlined from '@mui/icons-material/VisibilityOutlined'
-import VisibilityOffOutlined from '@mui/icons-material/VisibilityOffOutlined'
 import ArrowBackRounded from '@mui/icons-material/ArrowBackRounded'
 import MailOutlineRounded from '@mui/icons-material/MailOutlineRounded'
 import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded'
@@ -54,6 +52,64 @@ export const loginField = {
   '& .MuiFormHelperText-root': { mx: 0, mt: '6px', fontSize: 13 },
 }
 
+const reduce = '@media (prefers-reduced-motion: reduce)'
+const morph = 'opacity .22s ease, transform .28s cubic-bezier(.2,.7,.2,1), filter .22s ease'
+
+/** Show/hide icon: an eye that blinks shut (lid + lashes) instead of the usual slashed eye. Open = password visible. */
+function EyeToggle({ open }: { open: boolean }) {
+  const t = 'transform .25s cubic-bezier(.2,.7,.2,1), opacity .2s ease'
+  return (
+    <Box component="svg" viewBox="0 0 24 24" aria-hidden sx={{
+      width: 22, height: 22, fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round', overflow: 'visible',
+      '& .open': { transformOrigin: '12px 12px', transform: open ? 'none' : 'scaleY(0)', opacity: open ? 1 : 0, transition: t },
+      '& .pupil': { transformOrigin: '12px 12px', transform: open ? 'none' : 'translateX(-2px) scale(.4)', transition: t },
+      '& .shut': { transformOrigin: '12px 12px', transform: open ? 'translateY(-3px)' : 'none', opacity: open ? 0 : 1, transition: t },
+      [reduce]: { '& *': { transition: 'none !important' } },
+    }}>
+      <g className="open">
+        <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+        <g className="pupil"><circle cx="12" cy="12" r="3" /><circle cx="13.1" cy="10.9" r=".6" fill="currentColor" stroke="none" /></g>
+      </g>
+      <g className="shut">
+        <path d="M3 11.5c2.4 3 5.5 4.6 9 4.6s6.6-1.6 9-4.6" />
+        <path d="M6.8 14.6 5.6 16.6M12 16.1v2.4M17.2 14.6l1.2 2" />
+      </g>
+    </Box>
+  )
+}
+
+/**
+ * The real <input> (transparent text, visible caret) with a monospace mirror on top. Every character owns one 1ch cell
+ * holding a dot and its letter, so toggling morphs each dot into its letter in place, left to right, instead of swapping glyphs.
+ * Monospace keeps the input's own glyphs (dots or letters) the same width as the cells, so the caret and selection still line up.
+ */
+const MorphInput = forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement> & { revealed: boolean }>(function MorphInput({ revealed, className, ...props }, ref) {
+  const own = useRef<HTMLInputElement | null>(null)
+  const track = useRef<HTMLSpanElement>(null)
+  const follow = () => { if (track.current && own.current) track.current.style.transform = `translateX(${-own.current.scrollLeft}px)` } // long values scroll inside the input
+  const chars = Array.from(String(props.value ?? ''))
+  return (
+    <Box component="span" sx={{ position: 'relative', display: 'flex', flex: '1 1 auto', minWidth: 0 }}>
+      <input {...props} className={className}
+        ref={(el) => { own.current = el; if (typeof ref === 'function') ref(el); else if (ref) ref.current = el }}
+        onScroll={follow} onKeyUp={follow} onSelect={(e) => { follow(); props.onSelect?.(e) }} onInput={follow} />
+      <Box component="span" aria-hidden className={`${className ?? ''} pw-mirror`} sx={{ position: 'absolute', inset: 0, width: 'auto !important', boxSizing: 'border-box', overflow: 'hidden', pointerEvents: 'none', whiteSpace: 'pre' }}>
+        <Box component="span" ref={track} sx={{ display: 'inline-block' }}>
+          {chars.map((ch, n) => {
+            const delay = `${Math.min(n, 24) * 14}ms` // left-to-right wave
+            return (
+              <Box component="span" key={n} sx={{ position: 'relative', display: 'inline-block', width: '1ch', textAlign: 'center' }}>
+                <Box component="span" sx={{ display: 'inline-block', transition: morph, transitionDelay: delay, opacity: revealed ? 1 : 0, transform: revealed ? 'none' : 'scale(.35)', filter: revealed ? 'none' : 'blur(3px)' }}>{ch}</Box>
+                <Box component="span" sx={{ position: 'absolute', inset: 0, transition: morph, transitionDelay: delay, opacity: revealed ? 0 : 1, transform: revealed ? 'scale(1.8)' : 'none', filter: revealed ? 'blur(3px)' : 'none' }}>•</Box>
+              </Box>
+            )
+          })}
+        </Box>
+      </Box>
+    </Box>
+  )
+})
+
 export function PasswordField({ value, onChange, label = 'Password', placeholder, sx, error, helperText, strength, autoComplete = 'current-password', size, required, icon }: {
   value: string; onChange: (v: string) => void; label?: string; placeholder?: string; sx?: object; error?: boolean; helperText?: string; strength?: boolean; autoComplete?: string; size?: 'small'; required?: boolean; icon?: ReactNode
 }) {
@@ -70,14 +126,28 @@ export function PasswordField({ value, onChange, label = 'Password', placeholder
     <Box>
       <TextField
         fullWidth size={size} required={required} type={show ? 'text' : 'password'} value={value} onChange={(e) => onChange(e.target.value)} error={error}
-        label={placeholder ? undefined : label} placeholder={placeholder} inputProps={placeholder ? { 'aria-label': label } : undefined} sx={sx}
+        label={placeholder ? undefined : label} placeholder={placeholder} sx={[
+          {
+            // Input and mirror share the input's class (padding, size); both monospace so every character is one 1ch cell.
+            '& .MuiInputBase-input': { fontFamily: tokens.font.mono, letterSpacing: 0 },
+            '& input.MuiInputBase-input': { color: 'transparent', WebkitTextFillColor: 'transparent', caretColor: c.ink, '&::placeholder': { WebkitTextFillColor: c.text3, fontFamily: tokens.font.sans } },
+            '& .pw-mirror': { color: c.ink },
+            // Browser autofill can fill the input before React sees the value: show the input's own text and hide the empty mirror.
+            '& input:-webkit-autofill': { WebkitTextFillColor: c.ink },
+            '& input:-webkit-autofill + .pw-mirror': { display: 'none' },
+            [reduce]: { '& .pw-mirror *': { transition: 'none !important' } },
+          },
+          ...(Array.isArray(sx) ? sx : [sx]),
+        ]}
         helperText={strength ? undefined : helperText} autoComplete={autoComplete}
         InputProps={{
+          inputComponent: MorphInput as never,
+          inputProps: { revealed: show, ...(placeholder && { 'aria-label': label }) },
           startAdornment: icon && <InputAdornment position="start">{icon}</InputAdornment>,
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton aria-label={show ? 'Hide password' : 'Show password'} onClick={() => setShow(!show)} edge="end" sx={{ width: 44, height: 44 }}>
-                {show ? <VisibilityOutlined /> : <VisibilityOffOutlined />}
+              <IconButton aria-label={show ? 'Hide password' : 'Show password'} aria-pressed={show} onClick={() => setShow(!show)} edge="end" sx={{ width: 44, height: 44 }}>
+                <EyeToggle open={show} />
               </IconButton>
             </InputAdornment>
           ),
