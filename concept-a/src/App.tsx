@@ -24,6 +24,7 @@ import Success from './pages/checkout/Success'
 import SignIn from './pages/account/SignIn'
 import SignUpWizard from './pages/account/SignUpWizard'
 import Onboarding from './pages/account/Onboarding'
+import ConfirmAccount from './pages/account/ConfirmAccount'
 import ForgotPassword from './pages/account/ForgotPassword'
 import AccountLayout from './pages/account/AccountLayout'
 import Dashboard from './pages/account/Dashboard'
@@ -64,6 +65,7 @@ export default function App() {
           <Routes>
             <Route path="/review/preview" element={<Preview />} />
             <Route path="/review/onboarding" element={<Onboarding />} />
+            <Route path="/account/confirm" element={<ConfirmAccount />} />
             <Route element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="c/:dept" element={<Listing />} />

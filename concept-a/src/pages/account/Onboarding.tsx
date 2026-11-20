@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { Box, Button, ButtonBase, CircularProgress, LinearProgress, Link, MenuItem, Stack, TextField, Typography } from '@mui/material'
 import { keyframes } from '@mui/material/styles'
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { Link as RouterLink, useNavigate, useSearchParams } from 'react-router-dom'
 import GoogleIcon from '@mui/icons-material/Google'
 import ArrowBackRounded from '@mui/icons-material/ArrowBackRounded'
 import CheckRounded from '@mui/icons-material/CheckRounded'
 import EditOutlined from '@mui/icons-material/EditOutlined'
 import PlaceOutlined from '@mui/icons-material/PlaceOutlined'
 import StorefrontOutlined from '@mui/icons-material/StorefrontOutlined'
+import MarkEmailUnreadOutlined from '@mui/icons-material/MarkEmailUnreadOutlined'
+import CheckCircleOutlineRounded from '@mui/icons-material/CheckCircleOutlineRounded'
 import { tokens } from '../../theme'
 import { Logo } from '../../components/Brand'
 import { googleIds } from '../../data/profile'
@@ -17,6 +19,7 @@ import { useApp } from '../../state/AppState'
 import { PasswordField, passwordScore } from './SignIn'
 import { GoogleTag } from './SignUpWizard'
 import OrgFinder from './OrgFinder'
+import { CONFIRM_CHANNEL, confirmLink } from './ConfirmAccount'
 
 const c = tokens.color
 
@@ -68,21 +71,20 @@ const fromGoogle: Record<string, Partial<Answers>> = {
   'meals.breakfast': { meals: ['Breakfast'] }, 'meals.brunch': { meals: ['Breakfast'] }, 'meals.lunch': { meals: ['Lunch'] }, 'meals.dinner': { meals: ['Dinner'] }, 'meals.late-night': { meals: ['Late night'] },
 }
 
-type Step = 'signup' | 'verify' | (typeof business)[number] | 'intro' | QKey | 'setup' | 'done'
+type Step = 'signup' | 'verify' | (typeof business)[number] | QKey | 'setup' | 'done'
 const titles = ['Mr', 'Mrs', 'Ms', 'Mx', 'Dr']
 const noAnswers = Object.fromEntries(qKeys.map((k) => [k, []])) as unknown as Answers
 const noContact = { mobile: '', phone: '', mFirst: '', mLast: '' }
-// Format only: one @, no spaces, a dotted domain ending in a 2+ letter TLD. The verification code proves the inbox is real.
-const isEmail = (s: string) => /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-z]{2,}$/i.test(s.trim())
+// Format only: one @, no spaces, a dotted domain ending in a 2+ letter TLD. The verification email proves the inbox is real.
+export const isEmail = (s: string) => /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-z]{2,}$/i.test(s.trim())
 // Canadian (NANP) numbers: 10 digits, optional leading 1, area code and exchange never start with 0 or 1; only phone punctuation allowed.
 const phoneChars = /[^\d\s()+.-]/g
 const isPhone = (s: string) => /^[\d\s()+.-]*$/.test(s) && /^1?[2-9]\d{2}[2-9]\d{6}$/.test(s.replace(/\D/g, ''))
 // Letters (any language), spaces, hyphens, apostrophes and dots, starting with a letter: Jean-Luc, O'Brien, Zoë.
 const isName = (s: string) => /^\p{L}[\p{L}\p{M}' .-]*$/u.test(s.trim())
-// shortcut: format only (9-digit business number, optionally + RT and a 4-digit account); add the CRA check-digit test if the live form has one.
-const isTaxId = (s: string) => /^\d{9}(RT\d{4})?$/i.test(s.replace(/[\s-]/g, ''))
 const mandatory: string[] = ['business', 'contact', 'category', 'structure'] // all four business steps: no Skip
 // Origin-aware: a screen slides in from the side you're travelling towards (--dir 1 = Continue, -1 = Back).
+const pulse = keyframes`0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.7); }`
 const enter = keyframes`from { opacity: 0; transform: translateX(calc(var(--dir, 1) * 32px)); } to { opacity: 1; transform: none; }`
 const easeOut = 'cubic-bezier(.2,.7,.2,1)'
 // Pointer presses move a pill's fill origin to the press point; keyboard presses grow it from the centre.
@@ -95,6 +97,13 @@ const motion = '@media (prefers-reduced-motion: reduce)'
 const two = { display: 'grid', gap: 2, gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' } }
 // Resting elevation, tinted navy to sit on the halftone: a tight contact shadow for the edge plus a soft, low ambient one.
 const cardShadow = '0 1px 2px rgb(27 25 80 / .06), 0 2px 6px -2px rgb(27 25 80 / .06), 0 12px 32px -12px rgb(27 25 80 / .16)'
+export const formCard = { bgcolor: '#fff', border: '1px solid rgb(27 25 80 / .07)', borderRadius: `${tokens.radius.md}px`, p: { xs: 2.5, sm: 4 }, boxShadow: cardShadow }
+// Webmail shortcuts for the common inboxes; other domains get none.
+const inboxes: [RegExp, string, string][] = [
+  [/@(gmail|googlemail)\./i, 'Open Gmail', 'https://mail.google.com/'],
+  [/@(outlook|hotmail|live|msn)\./i, 'Open Outlook', 'https://outlook.live.com/mail/'],
+  [/@(yahoo|ymail|rogers)\./i, 'Open Yahoo Mail', 'https://mail.yahoo.com/'],
+]
 
 /**
  * One halftone field: dots that grow from nothing to full size towards `from`, in one brand colour.
@@ -118,7 +127,7 @@ const halftone = (color: string, from: string, reach: string, strength: number, 
  * Page backdrop: brand halftone. Red dots sweep in from the bottom-left, navy from the top-right (keeping the logo corner clean),
  * both shrinking to nothing before the content column so text never sits on texture. Static, so nothing to animate or reduce.
  */
-function Backdrop() {
+export function Backdrop() {
   return (
     <Box aria-hidden sx={{ position: 'fixed', inset: 0, zIndex: -1, overflow: 'hidden', pointerEvents: 'none', bgcolor: '#FBFAFD' }}>
       {halftone(c.red, '0% 100%', '60%', 0.24, 18)}
@@ -188,12 +197,12 @@ function Tile({ label, onEdit, empty, children }: { label: string; onEdit: () =>
 }
 
 /**
- * The sign-up path: the account, then the four business steps, ending at a finish ring that fills green only once they're done.
+ * The sign-up path: the account, the four business steps and email verification, ending at a finish ring that fills green only once they're done.
  * `at` is the current part (0 = account); past the last part means signed up.
  * Optimistic: the current part fills the moment its answers are valid (`ready`), before Continue, and drains back if they stop being valid.
  * On the last part the finish ring lights its outline too, then fills on Continue.
  */
-const trackParts = ['Account', 'Business', 'Contact', 'Category', 'Structure']
+const trackParts = ['Account', 'Business', 'Contact', 'Category', 'Structure', 'Verify email']
 function SignupTrack({ at, ready = false }: { at: number; ready?: boolean }) {
   const done = at >= trackParts.length
   const almost = ready && at === trackParts.length - 1
@@ -220,20 +229,29 @@ function SignupTrack({ at, ready = false }: { at: number; ready?: boolean }) {
   )
 }
 
+/** Sign-up answers kept while the owner confirms their email: the confirmation page (often another tab) reopens onboarding with them. */
+const SAVED = 'ms-onboarding'
+type Saved = { me: { title: string; first: string; last: string; email: string }; biz: string; tax: string; place: PlaceHit | null; contact: typeof noContact; ans: Answers }
+// shortcut: browser storage stands in for the account the server would load after confirmation; no passwords are stored.
+const loadSaved = (): Saved | null => { try { return JSON.parse(localStorage.getItem(SAVED) ?? 'null') } catch { return null } }
+
 export default function Onboarding() {
   const nav = useNavigate()
   const { setReview, toast } = useApp()
-  const [step, setStep] = useState<Step>('signup')
-  const [me, setMe] = useState({ title: '', first: '', last: '', email: '' })
+  // Opened from the confirmation page (?confirmed=1): pick up the saved answers and go straight to the summary.
+  const [params] = useSearchParams()
+  const [saved] = useState(() => (params.has('confirmed') ? loadSaved() : null))
+  const [step, setStep] = useState<Step>(saved ? 'setup' : 'signup')
+  const [me, setMe] = useState(saved?.me ?? { title: '', first: '', last: '', email: '' })
   const [left, setLeft] = useState<Record<string, boolean>>({}) // a field's error waits until it is left, not on every keystroke
   const [pw, setPw] = useState('')
   const [pw2, setPw2] = useState('')
-  const [code, setCode] = useState('')
-  const [biz, setBiz] = useState('')
-  const [tax, setTax] = useState('')
-  const [place, setPlace] = useState<PlaceHit | null>(null)
-  const [contact, setContact] = useState(noContact)
-  const [ans, setAns] = useState<Answers>(noAnswers)
+  const [verified, setVerified] = useState(!!saved)
+  const [biz, setBiz] = useState(saved?.biz ?? '')
+  const [tax, setTax] = useState(saved?.tax ?? '')
+  const [place, setPlace] = useState<PlaceHit | null>(saved?.place ?? null)
+  const [contact, setContact] = useState(saved?.contact ?? noContact)
+  const [ans, setAns] = useState<Answers>(saved?.ans ?? noAnswers)
   const [tags, setTags] = useState<Partial<Answers>>({}) // Google's picks the owner hasn't touched yet
   const [phoneFromGoogle, setPhoneFromGoogle] = useState(false)
   const [dir, setDir] = useState<1 | -1>(1) // which way the last move went, for the slide direction
@@ -243,11 +261,15 @@ export default function Onboarding() {
   const name = biz.trim()
 
   useEffect(() => { latest.current = { ans, contact } })
-  // After the four mandatory business steps, food businesses get an optional kitchen section, opened by an intro they can skip.
-  const flow: Step[] = [...business, ...(nonFood.includes(ans.category[0]) ? [] : ['intro' as const, ...kitchen])]
+  // After the four mandatory business steps, food businesses go straight into the optional kitchen questions (one per screen,
+  // "Skip kitchen setup" skips them all). Email verification closes sign-up, after all of it.
+  const flow: Step[] = [...business, ...(nonFood.includes(ans.category[0]) ? [] : kitchen), 'verify']
   const i = flow.indexOf(step)
   const scroller = useRef<HTMLDivElement>(null)
   const go = (s: Step, d: 1 | -1 = 1) => {
+    // shortcut: no mail server, so reaching "Verify your email" opens the page the email would link to in a new tab.
+    // Called from the Continue / Skip click, so the browser allows the tab. Drop this once real emails go out.
+    if (s === 'verify' && !verified) window.open(confirmLink(me.email), '_blank', 'noopener')
     setDir(d); setStep(s); window.scrollTo(0, 0); scroller.current?.scrollTo(0, 0)
     requestAnimationFrame(() => heading.current?.focus({ preventScroll: true }))
   }
@@ -256,7 +278,28 @@ export default function Onboarding() {
   const [editing, setEditing] = useState(false)
   const edit = (s: Step) => { setEditing(true); go(s, -1) }
   const backToSummary = () => { setEditing(false); go('done') }
-  const next = () => (editing ? backToSummary() : go(i < flow.length - 1 ? flow[i + 1] : 'setup'))
+  const next = () => {
+    if (editing) return backToSummary()
+    const ahead = flow.slice(i + 1).filter((s) => !(s === 'verify' && verified)) // a verified email isn't asked again
+    go(ahead[0] ?? 'setup')
+  }
+
+  useEffect(() => {
+    if (step !== 'verify') return
+    try { localStorage.setItem(SAVED, JSON.stringify({ me, biz, tax, place, contact, ans } satisfies Saved)) } catch { /* private mode: the summary just won't reopen */ }
+  }, [step])
+
+  useEffect(() => {
+    if (step !== 'verify' || verified) return
+    // shortcut: BroadcastChannel only reaches tabs of this browser; the real page polls the account's verified flag instead.
+    const ch = new BroadcastChannel(CONFIRM_CHANNEL)
+    ch.onmessage = (e) => {
+      if (String(e.data).toLowerCase() !== me.email.trim().toLowerCase()) return
+      setVerified(true)
+      window.setTimeout(() => go(flow[flow.indexOf('verify') + 1] ?? 'setup'), 1400) // a beat on the green state before moving on
+    }
+    return () => ch.close()
+  }, [step, verified])
 
   useEffect(() => {
     if (step !== 'setup') return
@@ -299,10 +342,6 @@ export default function Onboarding() {
     setTags((t) => ({ ...t, [k]: t[k]?.filter((x) => x !== v && picked.includes(x)) })) // touching a choice makes it the owner's
   }
   const skip = () => { const k = step as QKey; setAns((s) => ({ ...s, [k]: [] })); setTags((t) => ({ ...t, [k]: [] })); next() }
-  const restart = () => {
-    setMe({ title: '', first: '', last: '', email: '' }); setLeft({}); setPw(''); setPw2(''); setCode(''); setBiz(''); setTax(''); setPlace(null)
-    setContact(noContact); setAns(noAnswers); setTags({}); setPhoneFromGoogle(false); setEditing(false); go('signup')
-  }
   /** Field props for a format check: the error shows once the field has been left with something wrong in it. */
   const check = (f: string, v: string, valid: (s: string) => boolean, msg: string) => {
     const bad = !!left[f] && !!v.trim() && !valid(v)
@@ -325,8 +364,8 @@ export default function Onboarding() {
     const ok = !!me.title && isName(me.first) && isName(me.last) && isEmail(me.email) && pwOk && pw === pw2
     const put = (k: keyof typeof me) => ({ value: me[k], onChange: (e: React.ChangeEvent<HTMLInputElement>) => setMe({ ...me, [k]: e.target.value }) })
     return page(
-      <Box component="form" noValidate onSubmit={(e) => { e.preventDefault(); if (ok) go('verify') }}
-        sx={{ bgcolor: '#fff', border: '1px solid rgb(27 25 80 / .07)', borderRadius: `${tokens.radius.md}px`, p: { xs: 2.5, sm: 4 }, boxShadow: cardShadow }}>
+      <Box component="form" noValidate onSubmit={(e) => { e.preventDefault(); if (ok) go(flow[0]) }}
+        sx={formCard}>
         <Logo />
         <Box sx={{ mt: 3 }}><SignupTrack at={0} ready={ok} /></Box>
         <Box sx={{ mt: 3 }}>{h1('Create your account')}</Box>
@@ -357,21 +396,51 @@ export default function Onboarding() {
     )
   }
 
+  /* -------------------------------------------------- email verification: the business steps stay locked until the emailed link is clicked */
   if (step === 'verify') {
+    const inbox = inboxes.find(([re]) => re.test(me.email))
+    const linkSx = { color: c.navy, fontWeight: 600, verticalAlign: 'baseline' }
+    const email = <Box component="b" sx={{ color: c.ink, overflowWrap: 'anywhere' }}>{me.email}</Box>
     return page(
-      <Box>
-        <Box sx={{ mb: 3 }}><SignupTrack at={0} ready={code.length === 6} /></Box>
-        {h1('Check your email')}
-        <Typography sx={{ mt: 1, color: c.text2 }}>Enter the 6-digit code we sent to <b>{me.email}</b>.</Typography>
-        {/* Prototype: any 6 digits work; the flow moves on as soon as the code is complete. */}
-        <TextField autoFocus fullWidth label="Verification code" value={code} sx={{ mt: 3 }}
-          inputProps={{ inputMode: 'numeric', autoComplete: 'one-time-code', maxLength: 6, style: { letterSpacing: '0.5em', fontSize: 22, fontFamily: tokens.font.mono } }}
-          onChange={(e) => { const v = e.target.value.replace(/\D/g, '').slice(0, 6); setCode(v); if (v.length === 6) window.setTimeout(() => go(flow[0]), 300) }} />
-        <Typography sx={{ mt: 2, fontSize: 14, color: c.text2 }}>
-          Didn’t get it? <Link component="button" type="button" onClick={() => toast(`New code sent to ${me.email}`)} sx={{ color: c.navy, fontWeight: 600, verticalAlign: 'baseline' }}>Resend code</Link>
-          {' · '}<Link component="button" type="button" onClick={() => { setCode(''); go('signup', -1) }} sx={{ color: c.navy, fontWeight: 600, verticalAlign: 'baseline' }}>Change email</Link>
+      <Box sx={formCard}>
+        <Logo />
+        <Box sx={{ mt: 3 }}><SignupTrack at={verified ? trackParts.length : trackParts.length - 1} /></Box>
+        <Box aria-hidden sx={{
+          mt: 3.5, width: 56, height: 56, borderRadius: '50%', display: 'grid', placeItems: 'center',
+          bgcolor: verified ? c.successTint : c.navyTint, color: verified ? c.successText : c.navy, transition: 'background-color .3s, color .3s',
+        }}>
+          {verified ? <CheckRounded sx={{ fontSize: 30 }} /> : <MarkEmailUnreadOutlined sx={{ fontSize: 28 }} />}
+        </Box>
+        <Box sx={{ mt: 2 }}>{h1(verified ? 'Email verified' : 'Verify your email')}</Box>
+        {verified ? <Typography role="status" sx={{ mt: 1, color: c.text2 }}>Thanks, your account is ready.</Typography> : <>
+        {/* Same notice as the live site, with the address filled in. */}
+        <Stack direction="row" spacing={1.25} role="status" sx={{ mt: 2, p: 1.75, borderRadius: `${tokens.radius.sm}px`, bgcolor: c.successTint, color: c.successText }}>
+          <CheckCircleOutlineRounded sx={{ fontSize: 20, mt: '1px' }} />
+          <Typography sx={{ fontSize: 14, lineHeight: '21px', color: c.ink }}>
+            A verification email has been sent to {email}. Check your Inbox or Junk/Spam folder and click the link to verify your account.
+          </Typography>
+        </Stack>
+
+        {/* Shows the page is waiting on the link. */}
+        <Stack direction="row" spacing={1} sx={{ mt: 2, fontSize: 14, lineHeight: '21px', color: c.text2 }}>
+          <Box aria-hidden sx={{
+            width: 8, height: 8, mt: '6.5px', borderRadius: '50%', bgcolor: c.navy, flexShrink: 0,
+            animation: `${pulse} 1.6s ease-in-out infinite`, [motion]: { animation: 'none' },
+          }} />
+          <span>Waiting for you to click the link in the email. This page continues on its own once you confirm.</span>
+        </Stack>
+
+        {inbox && (
+          <Button fullWidth variant="outlined" color="secondary" href={inbox[2]} target="_blank" rel="noopener" sx={{ mt: 3 }}>{inbox[1]}</Button>
+        )}
+
+        <Typography sx={{ mt: 2.5, pt: 2.5, borderTop: `1px solid ${c.line}`, fontSize: 14, color: c.text2 }}>
+          Already have an account? <Link component={RouterLink} to="/account/signin" sx={linkSx}>Sign in</Link>
         </Typography>
+
+        </>}
       </Box>,
+      464,
     )
   }
 
@@ -386,7 +455,7 @@ export default function Onboarding() {
   }
 
   if (step === 'done') {
-    const hasKitchen = flow.length > business.length
+    const hasKitchen = flow.some((s) => kitchen.includes(s as QKey))
     const answered = kitchen.filter((k) => ans[k].length).length
     // The hairline border is translucent so the shadow, not the line, does most of the lifting.
     const card = { bgcolor: '#fff', border: '1px solid rgb(27 25 80 / .07)', borderRadius: `${tokens.radius.md}px`, p: { xs: 0.75, sm: 1.5 }, boxShadow: cardShadow }
@@ -465,17 +534,16 @@ export default function Onboarding() {
             ) : (
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ sm: 'center' }} sx={{ px: 1.5, pb: 1.5 }}>
                 <Typography sx={{ flex: 1, fontSize: 14, color: c.text2 }}>Skipped for now. 8 quick taps and we’ll build a starter kit of what you’ll actually order.</Typography>
-                <Button variant="outlined" color="secondary" onClick={() => go('intro')} sx={{ flexShrink: 0 }}>Set up my kitchen</Button>
+                <Button variant="outlined" color="secondary" onClick={() => go(kitchen[0])} sx={{ flexShrink: 0 }}>Set up my kitchen</Button>
               </Stack>
             )}
           </Box>
         )}
 
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ mt: 4 }}>
-          <Button fullWidth variant="contained" size="large" onClick={() => finish('/')}>Start shopping</Button>
           <Button fullWidth variant="outlined" color="secondary" size="large" onClick={() => finish('/account')}>Go to my account</Button>
+          <Button fullWidth variant="contained" size="large" onClick={() => finish('/')}>Start shopping</Button>
         </Stack>
-        <Link component="button" type="button" onClick={restart} sx={{ mt: 2, fontSize: 13, color: c.text2 }}>Restart the demo</Link>
       </Box>,
       { xs: 640, lg: 720 },
     )
@@ -485,13 +553,11 @@ export default function Onboarding() {
   const k = step in questions ? (step as QKey) : null
   const q: Q | null = k && questions[k]
   const inKitchen = k ? kitchen.includes(k) : false
-  const intro = step === 'intro'
   const part = inKitchen ? kitchen : business
   const pos = part.indexOf(step as never) + 1
-  const eyebrow = intro ? 'Business details complete' : `${inKitchen ? 'Your kitchen' : 'Your business'} · ${pos} of ${part.length}`
-  const last = i === flow.length - 1
+  const eyebrow = `${inKitchen ? 'Your kitchen' : 'Your business'} · ${pos} of ${part.length}`
   const contactOk = isPhone(contact.mobile) && isPhone(contact.phone) && isName(contact.mFirst) && isName(contact.mLast)
-  const canNext = step === 'business' ? !!name && isTaxId(tax) : step === 'contact' ? contactOk : k ? ans[k].length > 0 || (editing && inKitchen) : true
+  const canNext = step === 'business' ? !!name && !!tax.trim() : step === 'contact' ? contactOk : k ? ans[k].length > 0 || (editing && inKitchen) : true
   const phoneCheck = (f: 'mobile' | 'phone') => check(f, contact[f], isPhone, 'Enter a 10-digit Canadian number, e.g. 905-555-0123')
   const businessPhone = phoneCheck('phone')
   const fromGoogleHere = k ? !!tags[k]?.length : step === 'contact' && phoneFromGoogle
@@ -505,12 +571,11 @@ export default function Onboarding() {
   })
   const title = step === 'business' ? `Welcome, ${me.first}! Tell us about your business.`
     : step === 'contact' ? 'Who should we contact about orders?'
-    : intro ? `${name} is all set up. Want a starter kit?` : q!.title(name)
+    : q!.title(name)
   const hint = step === 'business' ? 'Find your place on Google Maps and we’ll fill in what we can. Not listed? Just type the name.'
     : step === 'contact' ? 'We use these for delivery updates and order questions.'
-    : intro ? 'Tell us what’s in your kitchen and we’ll put the products you’ll actually order up front. It’s optional: skip it now and add it any time from your business profile.'
     : q!.hint ?? (q!.single ? 'Choose one.' : 'Select all that apply.')
-  const skipKitchen = () => go('setup') // keeps whatever kitchen answers were already given
+  const skipKitchen = () => go(verified ? 'setup' : 'verify') // keeps whatever kitchen answers were already given
 
   return (
     // App-shell layout: header, a scrolling question area, and the actions — all on the one halftone backdrop.
@@ -522,12 +587,11 @@ export default function Onboarding() {
         sx={{ flexShrink: 0, height: 3, bgcolor: c.line, '& .MuiLinearProgress-bar': { bgcolor: c.red, transition: 'transform .4s cubic-bezier(.2,.7,.2,1)' } }} />}
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ flexShrink: 0, px: { xs: 2, sm: 3, md: 4 }, py: { xs: 1.5, md: 2 } }}>
         <Logo compact />
-        {inKitchen && !editing && <Button color="inherit" onClick={skipKitchen} sx={{ color: c.text2, fontWeight: 600, minHeight: 44 }}>Finish later</Button>}
       </Stack>
       {/* Outside the per-step animation, so the track stays put and only its segments fill. */}
-      {!editing && (business.includes(step as never) || intro) && (
+      {!editing && business.includes(step as never) && (
         <Box sx={{ flexShrink: 0, width: '100%', maxWidth: { xs: 640, md: 680 }, mx: 'auto', px: { xs: 2, sm: 4 }, pt: 1 }}>
-          <SignupTrack at={intro ? trackParts.length : pos} ready={canNext} />
+          <SignupTrack at={pos} ready={canNext} />
         </Box>
       )}
 
@@ -538,8 +602,8 @@ export default function Onboarding() {
       }}>
       {/* Top-aligned on every step so the question never jumps, and the business search has room to open below its field. */}
       <Box key={step} sx={{ maxWidth: { xs: 640, md: 680 }, mx: 'auto', px: { xs: 2, sm: 4 }, pt: { xs: 3, sm: 5, md: '7vh' }, pb: 6, '--dir': dir, animation: `${enter} .32s ${easeOut}`, [motion]: { animation: 'none' } }}>
-        <Typography sx={{ fontSize: 13, fontWeight: 600, color: intro ? c.successText : c.text3, fontVariantNumeric: 'tabular-nums' }}>
-          {intro && <CheckRounded aria-hidden sx={{ fontSize: 16, mr: 0.5, verticalAlign: '-3px' }} />}{eyebrow}
+        <Typography sx={{ fontSize: 13, fontWeight: 600, color: c.text3, fontVariantNumeric: 'tabular-nums' }}>
+          {eyebrow}
         </Typography>
         <Typography id="ob-title" ref={heading} tabIndex={-1} component="h1"
           sx={{ mt: 1, fontSize: { xs: 26, md: 32 }, fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.2, textWrap: 'balance', outline: 'none' }}>{title}</Typography>
@@ -558,13 +622,8 @@ export default function Onboarding() {
           {step === 'business' && (
             <Stack spacing={2.5}>
               <OrgFinder value={biz} onChange={setBiz} place={place} onPick={pickPlace} />
-              {(() => {
-                const t = check('tax', tax, isTaxId, 'Enter your 9-digit business number, e.g. 123456789 RT0001')
-                return (
-                  <TextField required label="Tax ID (HST / GST number)" value={tax} onChange={(e) => setTax(e.target.value.toUpperCase())}
-                    {...t} helperText={t.helperText ?? 'Printed on your invoices, e.g. 123456789 RT0001.'} inputProps={{ maxLength: 30, style: { fontFamily: tokens.font.mono } }} />
-                )
-              })()}
+              <TextField required label="Tax ID (HST / GST number)" value={tax} onChange={(e) => setTax(e.target.value)}
+                helperText="Printed on your invoices, e.g. 123456789 RT0001." inputProps={{ maxLength: 30, style: { fontFamily: tokens.font.mono } }} />
             </Stack>
           )}
           {step === 'contact' && (
@@ -581,11 +640,6 @@ export default function Onboarding() {
             </Stack>
           )}
           {k && <Choices key={k} q={q!} value={ans[k]} tagged={tags[k] ?? []} onToggle={toggle(k)} />}
-          {intro && (
-            <Typography component="p" sx={{ fontSize: 14, color: c.text2 }}>
-              <b>{kitchen.length} quick questions</b>, about a minute: {kitchen.map((x) => questions[x].label.toLowerCase()).join(', ')}.
-            </Typography>
-          )}
         </Box>
       </Box>
       </Box>
@@ -602,11 +656,17 @@ export default function Onboarding() {
             </Button>
           )}
           <Box sx={{ flex: 1 }} />
-          {editing ? null : intro ? <Button color="inherit" onClick={skipKitchen} sx={{ color: c.text2, minHeight: 44, fontWeight: 600, whiteSpace: 'nowrap' }}>Skip<Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>&nbsp;for now</Box></Button>
-            : !mandatory.includes(step) && <Button color="inherit" onClick={skip} sx={{ color: c.text2, minHeight: 44, fontWeight: 600 }}>Skip</Button>}
+          {/* Skip-all beside the per-question Skip; white fill keeps it clean over the halftone. Phones get the short label. */}
+          {inKitchen && !editing && (
+            <Button variant="outlined" color="secondary" onClick={skipKitchen}
+              sx={{ flexShrink: 0, minHeight: 44, px: { xs: 1.5, sm: 2 }, whiteSpace: 'nowrap', bgcolor: '#fff', fontWeight: 600, '&:hover': { bgcolor: c.navyTint } }}>
+              Skip<Box component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>&nbsp;kitchen setup</Box><Box component="span" sx={{ display: { xs: 'inline', sm: 'none' } }}>&nbsp;all</Box>
+            </Button>
+          )}
+          {!editing && !mandatory.includes(step) && <Button color="inherit" onClick={skip} sx={{ color: c.text2, minHeight: 44, fontWeight: 600 }}>Skip</Button>}
           <Button type="submit" variant="contained" size="large" disabled={!canNext}
             sx={{ minWidth: { xs: 0, sm: 140 }, px: { xs: 2.5, sm: 3 }, whiteSpace: 'nowrap', boxShadow: 'none', '&.Mui-disabled': { bgcolor: 'rgb(17 24 39 / .08)' } }}>
-            {editing ? 'Save' : intro ? 'Set up my kitchen' : !last ? 'Continue' : flow.length > business.length ? 'Build my starter kit' : 'Finish'}
+            {editing ? 'Save' : 'Continue'}
           </Button>
         </Stack>
       </Box>
