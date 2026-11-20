@@ -3,7 +3,7 @@ import {
   Autocomplete, Box, Button, CircularProgress, Collapse, Link, Paper, Skeleton, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography,
 } from '@mui/material'
 import { tokens } from '../../theme'
-import { demo, getPlaceDetails, matchAt, PRETEND_SPOT, searchPlaces, type PlaceDetails, type PlaceHit } from '../../data/places'
+import { demo, live as usingGoogle, matchAt, PRETEND_SPOT, searchPlaces, type PlaceHit } from '../../data/places'
 
 const c = tokens.color
 const srOnly = { position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap' } as const
@@ -21,7 +21,18 @@ function Marked({ text, q }: { text: string; q: string }) {
 function FinderPaper({ children, ...props }: React.HTMLAttributes<HTMLElement>) {
   return (
     <Paper {...props} onMouseDown={(e) => e.preventDefault() /* keep focus in the input when clicking Retry / footer */}
-      sx={{ mt: 0.5, border: `1px solid ${c.line2}`, borderRadius: `${tokens.radius.sm}px`, boxShadow: tokens.shadow.hover }}>
+      sx={{
+        mt: 0.5, border: `1px solid ${c.line2}`, borderRadius: `${tokens.radius.sm}px`, boxShadow: tokens.shadow.hover,
+        // Grow out of the input: from the top edge when the list opens below it, from the bottom when Popper flips it above.
+        transformOrigin: 'top center', '--dy': '-4px',
+        '[data-popper-placement^="top"] &': { transformOrigin: 'bottom center', '--dy': '4px' },
+        animation: 'finderIn .18s cubic-bezier(.2, 0, 0, 1)',
+        '@keyframes finderIn': { from: { opacity: 0, transform: 'translateY(var(--dy)) scaleY(.94)' }, to: { opacity: 1, transform: 'none' } },
+        // Fresh results slide in from the same side, staggered; rows that stay between searches keep their key and don't replay.
+        '& .MuiAutocomplete-option': { animation: 'finderRow .2s cubic-bezier(.2, 0, 0, 1) backwards' },
+        '@keyframes finderRow': { from: { opacity: 0, transform: 'translateY(var(--dy))' }, to: { opacity: 1, transform: 'none' } },
+        '@media (prefers-reduced-motion: reduce)': { animation: 'none', '& .MuiAutocomplete-option': { animation: 'none' } },
+      }}>
       {children}
       <Typography sx={{ px: 2, py: 0.75, fontSize: 11, color: 'text.secondary', textAlign: 'right', borderTop: `1px solid ${c.line}` }}>Google Maps</Typography>
     </Paper>
@@ -30,13 +41,12 @@ function FinderPaper({ children, ...props }: React.HTMLAttributes<HTMLElement>) 
 
 type Status = 'idle' | 'loading' | 'done' | 'error'
 
-/** "Business name" with organization search (mock Google Places). Typing a name that isn't listed is always fine. */
-export default function OrgFinder({ value, onChange, place, onPick, onDetails, errorText }: {
+/** "Business name" with organization search (Google Places, or the mock without an API key). Typing a name that isn't listed is always fine. */
+export default function OrgFinder({ value, onChange, place, onPick, errorText }: {
   value: string
   onChange: (name: string) => void
   place: PlaceHit | null
-  onPick: (p: PlaceHit | null) => void
-  onDetails: (d: PlaceDetails) => void
+  onPick: (p: PlaceHit | null, sessionToken?: string) => void
   errorText?: string
 }) {
   const [term, setTerm] = useState('') // what the user typed; a pick changes the field but not the search
@@ -45,11 +55,9 @@ export default function OrgFinder({ value, onChange, place, onPick, onDetails, e
   const [results, setResults] = useState<PlaceHit[]>([])
   const [status, setStatus] = useState<Status>('idle')
   const [retry, setRetry] = useState(0)
-  const [detailsFailed, setDetailsFailed] = useState(false)
   const cache = useRef(new Map<string, PlaceHit[]>())
   const session = useRef<string | null>(null)
   const askedLocation = useRef(false)
-  const detailsReq = useRef<AbortController>()
 
   const q = term.trim()
   const at = demo.denyLocation ? null : loc
@@ -76,26 +84,18 @@ export default function OrgFinder({ value, onChange, place, onPick, onDetails, e
     return () => { window.clearTimeout(t); ac.abort() }
   }, [q, at, retry])
 
-  useEffect(() => () => detailsReq.current?.abort(), [])
-
   const pick = (p: PlaceHit | null) => {
-    detailsReq.current?.abort()
-    setDetailsFailed(false)
-    onPick(p)
+    // The parent's details lookup (server-side) gets the session token: search + details close the billing session.
+    onPick(p, p ? (session.current ??= uuid()) : undefined)
     if (!p) return
     onChange(p.name)
-    const ac = (detailsReq.current = new AbortController())
-    getPlaceDetails({ id: p.id, session: (session.current ??= uuid()), signal: ac.signal }).then(
-      ({ details }) => onDetails(details),
-      () => { if (!ac.signal.aborted) setDetailsFailed(true) },
-    )
-    session.current = null // search + details close the billing session; the next keystroke starts a new one
+    session.current = null // the next keystroke starts a new session
   }
 
   const askLocation = () => {
     if (askedLocation.current || demo.denyLocation) return
     askedLocation.current = true
-    navigator.geolocation?.getCurrentPosition(() => setLoc(PRETEND_SPOT), () => setLoc(null))
+    navigator.geolocation?.getCurrentPosition((p) => setLoc(usingGoogle ? { lat: p.coords.latitude, lng: p.coords.longitude } : PRETEND_SPOT), () => setLoc(null))
   }
 
   const live = status === 'error' ? 'Search failed'
@@ -114,7 +114,7 @@ export default function OrgFinder({ value, onChange, place, onPick, onDetails, e
         freeSolo autoHighlight clearOnEscape blurOnSelect="touch" clearText="Clear business name"
         open={open && q.length >= 2} onOpen={() => setOpen(true)} onClose={() => setOpen(false)}
         options={results} filterOptions={(o) => o}
-        getOptionLabel={(o) => (typeof o === 'string' ? o : o.name)} isOptionEqualToValue={(a, b) => a.id === b.id}
+        getOptionLabel={(o) => (typeof o === 'string' ? o : o.name)} getOptionKey={(o) => (typeof o === 'string' ? o : o.id)} isOptionEqualToValue={(a, b) => a.id === b.id}
         value={place} inputValue={value}
         onInputChange={(_, v, reason) => {
           if (reason === 'reset') return // pick() sets the name itself
@@ -131,8 +131,8 @@ export default function OrgFinder({ value, onChange, place, onPick, onDetails, e
         PaperComponent={FinderPaper}
         ListboxProps={{ sx: { opacity: status === 'loading' ? 0.5 : 1, transition: 'opacity .15s' } }}
         sx={{ '& .MuiAutocomplete-clearIndicator': { visibility: 'visible' } }}
-        renderOption={({ key, ...props }, o) => (
-          <li key={key} {...props}>
+        renderOption={({ key, ...props }, o, { index }) => (
+          <li key={key} {...props} style={{ animationDelay: `${Math.min(index, 6) * 30}ms` }}>
             <Box sx={{ flex: 1, minWidth: 0 }}>
               <Typography noWrap sx={{ fontSize: 14 }}><Marked text={o.name} q={q} /></Typography>
               <Typography noWrap sx={{ fontSize: 12.5, color: 'text.secondary' }}>{o.category} · {o.address}</Typography>
@@ -146,9 +146,7 @@ export default function OrgFinder({ value, onChange, place, onPick, onDetails, e
             helperText={errorText ?? (place ? (
               <>
                 Is this your place? <strong>{place.name}</strong> · {place.address}{' '}
-                <Link component="button" type="button" onClick={() => pick(null)} sx={{ fontSize: 'inherit', verticalAlign: 'baseline', color: c.navy, fontWeight: 600 }}>Not this one</Link>
-                {detailsFailed && <Box component="span" sx={{ display: 'block', mt: 0.5, color: c.warning }}>Couldn’t read Google’s details. You can still continue.</Box>}
-              </>
+                <Link component="button" type="button" onClick={() => pick(null)} sx={{ fontSize: 'inherit', verticalAlign: 'baseline', color: c.navy, fontWeight: 600 }}>Not this one</Link>              </>
             ) : 'Pick your place from the list, or just type the name if it isn’t there.')}
           />
         )}

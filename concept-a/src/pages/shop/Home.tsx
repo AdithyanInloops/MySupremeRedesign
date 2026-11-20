@@ -9,6 +9,7 @@ import MorePromotions from './home/MorePromotions'
 import DeliveryCheckBanner from './home/DeliveryCheckBanner'
 import BusinessAccountSteps from './home/BusinessAccountSteps'
 import HomeFAQ from './home/HomeFAQ'
+import ProfileNudge from './home/ProfileNudge'
 import BrandStrip from './home/BrandStrip'
 import StarterKits from './home/StarterKits'
 import { BuyAgain, DepartmentGrid, WhyCards } from './home/Sections'
@@ -25,6 +26,7 @@ export default function Home() {
       <Container>
         <Stack spacing={gap}>
           <HeroBento />
+          <ProfileNudge />
           <BuyAgain />
           <Box>
             <SectionHeader eyebrow="Picked by our buyers" title="Recommended for your kitchen" action="See all" href="/search/recommended" />

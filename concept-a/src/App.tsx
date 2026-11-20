@@ -23,6 +23,8 @@ import Success from './pages/checkout/Success'
 
 import SignIn from './pages/account/SignIn'
 import SignUpWizard from './pages/account/SignUpWizard'
+import Onboarding from './pages/account/Onboarding'
+import ConfirmAccount from './pages/account/ConfirmAccount'
 import ForgotPassword from './pages/account/ForgotPassword'
 import AccountLayout from './pages/account/AccountLayout'
 import Dashboard from './pages/account/Dashboard'
@@ -31,6 +33,7 @@ import OrderDetail from './pages/account/OrderDetail'
 import Credit from './pages/account/Credit'
 import Addresses from './pages/account/Addresses'
 import Profile from './pages/account/Profile'
+import BusinessProfile from './pages/account/BusinessProfile'
 import GuestOrderStatus from './pages/account/GuestOrderStatus'
 
 import About from './pages/company/About'
@@ -61,6 +64,8 @@ export default function App() {
         <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
             <Route path="/review/preview" element={<Preview />} />
+            <Route path="/review/onboarding" element={<Onboarding />} />
+            <Route path="/account/confirm" element={<ConfirmAccount />} />
             <Route element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="c/:dept" element={<Listing />} />
@@ -94,6 +99,7 @@ export default function App() {
                 <Route path="addresses" element={<Addresses />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="company" element={<Profile />} />
+                <Route path="business-profile" element={<BusinessProfile />} />
               </Route>
               <Route path="guest/orderstatus" element={<GuestOrderStatus />} />
 

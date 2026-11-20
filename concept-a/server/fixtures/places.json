@@ -1,0 +1,61 @@
+{
+  "mock_01": {
+    "id": "mock_01", "displayName": { "text": "Domenico's Pizzeria" }, "formattedAddress": "1250 Dundas St E, Mississauga, ON", "nationalPhoneNumber": "(905) 555-0141",
+    "websiteUri": "https://domenicos.example.ca/", "types": ["pizza_restaurant", "italian_restaurant", "restaurant", "food", "point_of_interest", "establishment"], "primaryType": "pizza_restaurant",
+    "priceLevel": "PRICE_LEVEL_MODERATE", "editorialSummary": { "text": "Family-run pizzeria with wood-fired pies and garlic knots." },
+    "servesLunch": true, "servesDinner": true, "dineIn": true, "takeout": true, "delivery": true
+  },
+  "mock_02": {
+    "id": "mock_02", "displayName": { "text": "Dominion Bakery & Café" }, "formattedAddress": "88 Lakeshore Rd W, Mississauga, ON", "nationalPhoneNumber": "(905) 555-0177",
+    "types": ["bakery", "cafe", "food", "store", "point_of_interest", "establishment"], "primaryType": "bakery", "priceLevel": "PRICE_LEVEL_INEXPENSIVE",
+    "servesBreakfast": true, "servesBrunch": true, "servesCoffee": true, "servesDessert": true, "dineIn": true, "takeout": true
+  },
+  "mock_03": {
+    "id": "mock_03", "displayName": { "text": "Domino Hall Banquets" }, "formattedAddress": "4100 Eglinton Ave W, Mississauga, ON", "nationalPhoneNumber": "(905) 555-0190",
+    "types": ["banquet_hall", "event_venue", "point_of_interest", "establishment"], "primaryType": "banquet_hall",
+    "editorialSummary": { "text": "Banquet hall for weddings and corporate events, with in-house catering." }, "servesDinner": true
+  },
+  "mock_04": {
+    "id": "mock_04", "displayName": { "text": "Dome Hardware Supply" }, "formattedAddress": "2900 Argentia Rd, Mississauga, ON",
+    "types": ["hardware_store", "home_improvement_store", "store", "point_of_interest", "establishment"], "primaryType": "hardware_store",
+    "editorialSummary": { "text": "Tools, fasteners and pallet wrap for contractors." }, "delivery": true
+  },
+  "mock_05": {
+    "id": "mock_05", "displayName": { "text": "Maple Leaf Shawarma" }, "formattedAddress": "3045 Hurontario St, Mississauga, ON", "nationalPhoneNumber": "(905) 555-0123",
+    "types": ["middle_eastern_restaurant", "restaurant", "food", "point_of_interest", "establishment"], "primaryType": "middle_eastern_restaurant", "priceLevel": "PRICE_LEVEL_INEXPENSIVE",
+    "editorialSummary": { "text": "Late-night counter for chicken shawarma, falafel and garlic potatoes." },
+    "reviewSummary": { "text": { "text": "People like the big portions and the beef donair." } },
+    "servesLunch": true, "servesDinner": true, "takeout": true, "delivery": true, "dineIn": false
+  },
+  "mock_06": {
+    "id": "mock_06", "displayName": { "text": "Spice Route Indian Kitchen" }, "formattedAddress": "6985 Financial Dr, Mississauga, ON L5N 0G3", "nationalPhoneNumber": "(905) 555-0164",
+    "websiteUri": "https://spiceroute.example.ca/", "types": ["indian_restaurant", "restaurant", "food", "point_of_interest", "establishment"], "primaryType": "indian_restaurant",
+    "priceLevel": "PRICE_LEVEL_INEXPENSIVE",
+    "regularOpeningHours": { "weekdayDescriptions": ["Monday: Closed", "Tuesday: 11:00 AM – 10:00 PM", "Wednesday: 11:00 AM – 10:00 PM", "Thursday: 11:00 AM – 10:00 PM", "Friday: 11:00 AM – 11:00 PM", "Saturday: 11:00 AM – 11:00 PM", "Sunday: 12:00 – 9:00 PM"] },
+    "editorialSummary": { "text": "Counter-serve spot for butter chicken, biryani and other North Indian curries." },
+    "reviewSummary": { "text": { "text": "Customers praise the generous portions and quick takeout." } },
+    "servesLunch": true, "servesDinner": true, "servesVegetarianFood": true, "dineIn": true, "takeout": true, "delivery": true
+  },
+  "mock_07": {
+    "id": "mock_07", "displayName": { "text": "Laird Road Convenience" }, "formattedAddress": "3790 Laird Rd, Mississauga, ON", "nationalPhoneNumber": "(905) 555-0108",
+    "types": ["convenience_store", "food", "store", "point_of_interest", "establishment"], "primaryType": "convenience_store", "servesCoffee": true
+  },
+  "mock_08": {
+    "id": "mock_08", "displayName": { "text": "Northside Butcher Co." }, "formattedAddress": "1500 Dundas St W, Mississauga, ON", "nationalPhoneNumber": "(905) 555-0155",
+    "types": ["butcher_shop", "food_store", "store", "point_of_interest", "establishment"], "primaryType": "butcher_shop"
+  },
+  "mock_09": {
+    "id": "mock_09", "displayName": { "text": "Golden Crust Bakery" }, "formattedAddress": "210 Queen St S, Mississauga, ON", "nationalPhoneNumber": "(905) 555-0132",
+    "types": ["bakery", "food", "store", "point_of_interest", "establishment"], "primaryType": "bakery", "priceLevel": "PRICE_LEVEL_INEXPENSIVE",
+    "servesBreakfast": true, "servesCoffee": true, "takeout": true
+  },
+  "mock_10": {
+    "id": "mock_10", "displayName": { "text": "Lakeshore Grand Hotel" }, "formattedAddress": "1 Port St E, Mississauga, ON", "nationalPhoneNumber": "(905) 555-0100",
+    "websiteUri": "https://lakeshoregrand.example.ca/", "types": ["hotel", "lodging", "point_of_interest", "establishment"], "primaryType": "hotel",
+    "priceLevel": "PRICE_LEVEL_EXPENSIVE", "servesBreakfast": true, "servesBrunch": true, "servesDinner": true, "dineIn": true
+  },
+  "mock_11": {
+    "id": "mock_11", "displayName": { "text": "The Extremely Long Named Family Restaurant & Banquet Centre of Greater Mississauga" },
+    "formattedAddress": "5100 Erin Mills Pkwy, Mississauga, ON", "nationalPhoneNumber": "(905) 555-0186", "types": ["restaurant", "food", "point_of_interest", "establishment"], "primaryType": "restaurant"
+  }
+}

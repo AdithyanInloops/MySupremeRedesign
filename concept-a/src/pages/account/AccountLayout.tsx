@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react'
 import { Avatar, Box, Button, Drawer, IconButton, Skeleton, Stack, Typography } from '@mui/material'
 import { Link as RouterLink, Outlet, useLocation } from 'react-router-dom'
 import BadgeOutlined from '@mui/icons-material/BadgeOutlined'
+import RestaurantMenuOutlined from '@mui/icons-material/RestaurantMenuOutlined'
 import ApartmentOutlined from '@mui/icons-material/ApartmentOutlined'
 import PlaceOutlined from '@mui/icons-material/PlaceOutlined'
 import ShoppingBagOutlined from '@mui/icons-material/ShoppingBagOutlined'
@@ -38,6 +39,7 @@ export const accountMenu: Group[] = [
     items: [
       { label: 'Personal info', to: '/account/profile', icon: <BadgeOutlined /> },
       { label: 'Company information', to: '/account/company', icon: <ApartmentOutlined /> },
+      { label: 'Your business profile', to: '/account/business-profile', icon: <RestaurantMenuOutlined /> },
       { label: 'Address book', to: '/account/addresses', icon: <PlaceOutlined /> },
     ],
   },
@@ -177,6 +179,7 @@ function crumbFor(pathname: string, search: string) {
   if (pathname === '/account/addresses') return [{ label: 'Address book' }]
   if (pathname === '/account/profile') return [{ label: 'Personal info' }]
   if (pathname === '/account/company') return [{ label: 'Company information' }]
+  if (pathname === '/account/business-profile') return [{ label: 'Your business profile' }]
   return []
 }
 
