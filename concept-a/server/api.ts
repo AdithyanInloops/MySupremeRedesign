@@ -6,7 +6,6 @@
  * Served by Vite in dev (vite.config.ts) and by the Vercel functions in api/.
  */
 import { draftFromPlace, mergeProfile, validatePatch, type Draft, type GooglePlace, type Profile } from '../src/data/profile.ts'
-import mockPlaces from './fixtures/places.json' with { type: 'json' }
 
 // Only what the profile reads. editorialSummary, reviewSummary, serves*, dineIn, takeout, delivery and curbsidePickup
 // put this call in the Place Details Enterprise + Atmosphere SKU.
@@ -31,7 +30,7 @@ async function placeDetails(placeId: string, sessionToken?: string): Promise<Goo
   // Falls back to the browser's search key: when the finder lists real Google places, details must come from Google too.
   // shortcut: that key is public in the bundle; give the server its own restricted GOOGLE_PLACES_API_KEY before launch.
   const key = process.env.GOOGLE_PLACES_API_KEY || process.env.VITE_GOOGLE_PLACES_API_KEY
-  if (!key) return (mockPlaces as Record<string, GooglePlace>)[placeId] // keyless prototype: the finder's mock places
+  if (!key) { console.warn('GOOGLE_PLACES_API_KEY is not set: no Google pre-fill'); return undefined }
   // The finder's session token closes its autocomplete session, as the browser's own details call used to.
   const res = await fetch(`https://places.googleapis.com/v1/places/${placeId}${sessionToken ? `?sessionToken=${sessionToken}` : ''}`, {
     headers: { 'X-Goog-Api-Key': key, 'X-Goog-FieldMask': FIELD_MASK },
