@@ -3,7 +3,7 @@ import {
   Autocomplete, Box, Button, CircularProgress, Collapse, Link, Paper, Skeleton, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography,
 } from '@mui/material'
 import { tokens } from '../../theme'
-import { demo, live as usingGoogle, matchAt, PRETEND_SPOT, searchPlaces, type PlaceHit } from '../../data/places'
+import { demo, matchAt, searchPlaces, type PlaceHit } from '../../data/places'
 
 const c = tokens.color
 const srOnly = { position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0 0 0 0)', whiteSpace: 'nowrap' } as const
@@ -41,7 +41,7 @@ function FinderPaper({ children, ...props }: React.HTMLAttributes<HTMLElement>) 
 
 type Status = 'idle' | 'loading' | 'done' | 'error'
 
-/** "Business name" with organization search (Google Places, or the mock without an API key). Typing a name that isn't listed is always fine. */
+/** "Business name" with organization search (Google Places only). Typing a name that isn't listed is always fine. */
 export default function OrgFinder({ value, onChange, place, onPick, errorText }: {
   value: string
   onChange: (name: string) => void
@@ -51,7 +51,7 @@ export default function OrgFinder({ value, onChange, place, onPick, errorText }:
 }) {
   const [term, setTerm] = useState('') // what the user typed; a pick changes the field but not the search
   const [open, setOpen] = useState(false)
-  const [loc, setLoc] = useState<typeof PRETEND_SPOT | null>(null)
+  const [loc, setLoc] = useState<{ lat: number; lng: number } | null>(null)
   const [results, setResults] = useState<PlaceHit[]>([])
   const [status, setStatus] = useState<Status>('idle')
   const [retry, setRetry] = useState(0)
@@ -95,7 +95,7 @@ export default function OrgFinder({ value, onChange, place, onPick, errorText }:
   const askLocation = () => {
     if (askedLocation.current || demo.denyLocation) return
     askedLocation.current = true
-    navigator.geolocation?.getCurrentPosition((p) => setLoc(usingGoogle ? { lat: p.coords.latitude, lng: p.coords.longitude } : PRETEND_SPOT), () => setLoc(null))
+    navigator.geolocation?.getCurrentPosition((p) => setLoc({ lat: p.coords.latitude, lng: p.coords.longitude }), () => setLoc(null))
   }
 
   const live = status === 'error' ? 'Search failed'
@@ -181,7 +181,6 @@ export function PrototypePanel({ onReset }: { onReset: () => void }) {
       </Button>
       <Collapse in={expanded} unmountOnExit>
         <Stack spacing={1} sx={{ p: 1.5, pt: 0 }}>
-          {row('Latency', s.latency, [['fast', 'Fast'], ['normal', 'Normal'], ['slow', 'Slow']], (v) => put({ latency: v as typeof demo.latency }))}
           {row('Force error', s.forceError ? 'on' : 'off', [['off', 'Off'], ['on', 'On']], (v) => put({ forceError: v === 'on' }))}
           {row('Location', s.denyLocation ? 'denied' : 'browser', [['browser', 'Browser permission'], ['denied', 'Force denied']], (v) => put({ denyLocation: v === 'denied' }))}
           <Button variant="outlined" color="secondary" size="small" onClick={onReset}>Reset form</Button>
